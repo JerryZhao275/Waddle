@@ -61,6 +61,14 @@ public abstract class UserDto {
         return userDesc;
     }
 
+    public String getUserPassword(){
+        return userPassword;
+    }
+
+    public boolean getIsAdmin(){
+        return isAdmin;
+    }
+
     public void setUserFirstName(String userFirstName){
         if(userFirstName!=null&&!userFirstName.equals("")){
             this.userFirstName = userFirstName;
@@ -73,11 +81,15 @@ public abstract class UserDto {
         }
     }
 
-    public String setUserEmail(){
-        return userEmail;
+    public void setUserEmail(String userEmail){
+         this.userEmail = userEmail;
     }
 
-    public String setUserDesc(){
-        return userDesc;
+    public void setUserDesc(String userDesc){
+        this.userDesc = userDesc;
+    }
+
+    public void setUserPassword(String userPassword){
+        this.userPassword =userPassword;
     }
 }
