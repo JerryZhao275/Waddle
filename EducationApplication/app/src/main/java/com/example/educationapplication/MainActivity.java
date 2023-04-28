@@ -4,6 +4,8 @@ import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -28,12 +30,14 @@ import dataObjects.UserDto;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
+    private FirebaseDatabase database;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        database = FirebaseDatabase.getInstance();
+        db = FirebaseFirestore.getInstance();
         //This is added just to check out fire base functionality. Comment this out for production.
         List<UserDto> users = new ArrayList<>();
         users.add(new AdminUserDto(users.size()+1, "Admin", "Admin", "Admin", "admin@admin.au", "admin1234", ""));
@@ -55,18 +59,27 @@ public class MainActivity extends AppCompatActivity {
                 });
         setContentView(R.layout.login);
     }
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        EditText email = findViewById(R.id.editTextTextEmailAddress);
+        EditText password = findViewById(R.id.editTextTextPassword);
+        email.setText("");
+        password.setText("");
+    }
 
     public void login(View view) {
         EditText email = findViewById(R.id.editTextTextEmailAddress);
         EditText password = findViewById(R.id.editTextTextPassword);
-        // if login details are valid
-        if (1 == 1) {
-            //Add some other code to login to user specific page
-            setContentView(R.layout.activity_main);
+        if (email.getText().toString().length() == 0 || password.getText().toString().length() == 0) {
+            Toast.makeText(MainActivity.this, "Please enter an email/password!", Toast.LENGTH_SHORT).show();
         }
-        else {
-            Toast.makeText(getApplicationContext(), "No URL Entered", Toast.LENGTH_LONG).show();
-        }
+        //Some code for logging the user in/checking if the user exists in the firebase or not
     }
 
+    public void signup(View view) {
+        Intent intent = new Intent(this, Signup.class);
+        startActivity(intent);
+    }
 }
