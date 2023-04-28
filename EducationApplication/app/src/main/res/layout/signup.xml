@@ -88,21 +88,6 @@
         app:layout_constraintVertical_bias="0.591" />
 
     <EditText
-        android:id="@+id/signupUsername"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:ems="10"
-        android:hint="Username"
-        android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.377" />
-
-    <EditText
         android:id="@+id/signupUID"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
@@ -112,10 +97,10 @@
         android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.995"
+        app:layout_constraintHorizontal_bias="0.547"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.377" />
+        app:layout_constraintVertical_bias="0.271" />
 
     <EditText
         android:id="@+id/signupFirstName"
@@ -130,7 +115,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.265" />
+        app:layout_constraintVertical_bias="0.376" />
 
     <EditText
         android:id="@+id/signupLastName"
@@ -145,7 +130,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.265" />
+        app:layout_constraintVertical_bias="0.376" />
 
     <TextView
         android:id="@+id/titleTextSignup"
