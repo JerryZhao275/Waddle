@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+        //This is added just to check out fire base functionality. Comment this out for production.
         List<UserDto> users = new ArrayList<>();
         users.add(new AdminUserDto(users.size()+1, "Admin", "Admin", "Admin", "admin@admin.au", "admin1234", ""));
         Map<String, List<UserDto>> data = new HashMap<>();
