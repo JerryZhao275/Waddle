@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -26,8 +25,6 @@ import java.util.Map;
 
 import dataObjects.AdminUserDto;
 import dataObjects.UserDto;
-
-import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     private FirebaseDatabase database;
@@ -63,15 +60,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        EditText email = findViewById(R.id.editTextTextEmailAddress);
-        EditText password = findViewById(R.id.editTextTextPassword);
+        EditText email = findViewById(R.id.editTextUsername);
+        EditText password = findViewById(R.id.editTextPassword);
         email.setText("");
         password.setText("");
     }
 
     public void login(View view) {
-        EditText email = findViewById(R.id.editTextTextEmailAddress);
-        EditText password = findViewById(R.id.editTextTextPassword);
+        EditText email = findViewById(R.id.editTextUsername);
+        EditText password = findViewById(R.id.editTextPassword);
         if (email.getText().toString().length() == 0 || password.getText().toString().length() == 0) {
             Toast.makeText(MainActivity.this, "Please enter an email/password!", Toast.LENGTH_SHORT).show();
         }

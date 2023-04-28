@@ -20,11 +20,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/duck_login"
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/editTextTextPassword"
+        android:id="@+id/editTextPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -38,11 +38,11 @@
         app:layout_constraintVertical_bias="0.698" />
 
     <EditText
-        android:id="@+id/editTextTextEmailAddress"
+        android:id="@+id/editTextUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Enter Email"
+        android:hint="Enter Username"
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -65,7 +65,7 @@
         app:layout_constraintVertical_bias="0.822" />
 
     <Button
-        android:id="@+id/signup"
+        android:id="@+id/signUpButton"
         android:layout_width="115dp"
         android:layout_height="45dp"
         android:text="SIGN UP NOW"
@@ -78,7 +78,7 @@
         app:layout_constraintVertical_bias="0.976" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/signUpText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
@@ -88,7 +88,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/duck_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -98,6 +98,7 @@
         app:srcCompat="@drawable/waddle_duck" />
 
     <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/duckgif_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
