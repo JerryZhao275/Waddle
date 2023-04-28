@@ -1,3 +1,5 @@
+package dataObjects;
+
 import java.util.List;
 
 public class StudentUserDto extends UserDto{

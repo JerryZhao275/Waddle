@@ -1,3 +1,4 @@
+package dataObjects;
 
 public abstract class UserDto {
     private Integer userId;

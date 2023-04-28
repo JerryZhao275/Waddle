@@ -1,3 +1,5 @@
+package dataObjects;
+
 public class QuizDto {
     private Integer quizId;
     private String quizTitle;

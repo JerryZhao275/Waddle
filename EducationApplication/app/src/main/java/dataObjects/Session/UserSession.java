@@ -1,4 +1,4 @@
-package Session;
+package dataObjects.Session;
 
 public abstract class UserSession {
 

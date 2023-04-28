@@ -1,4 +1,4 @@
-package Session;
+package dataObjects.Session;
 
 public class UserProfileSession extends State {
 

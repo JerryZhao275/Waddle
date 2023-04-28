@@ -1,4 +1,4 @@
-package Session;
+package dataObjects.Session;
 
 public class UserHomeSession extends State {
     public UserHomeSession(UserSession session) { super(session);
