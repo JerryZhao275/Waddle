@@ -35,16 +35,17 @@ public class MainActivity extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         //This is added just to check out fire base functionality. Comment this out for production.
-        List<UserDto> users = new ArrayList<>();
+        /*List<UserDto> users = new ArrayList<>();
         users.add(new AdminUserDto(users.size()+1, "Admin", "Admin", "Admin", "admin@admin.au", "admin1234", ""));
         Map<String, List<UserDto>> data = new HashMap<>();
-        data.put("User", users);
-        db.collection("Users")
+        data.put("User", users);*/
+        /*db.collection("Users")
                 .add(data)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                        Log.d(TAG, "DocumentSnapshot sd
+                        added with ID: " + documentReference.getId());
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onFailure(@NonNull Exception e) {
                         Log.w(TAG, "Error adding document", e);
                     }
-                });
+                });*/
         setContentView(R.layout.login);
     }
 
