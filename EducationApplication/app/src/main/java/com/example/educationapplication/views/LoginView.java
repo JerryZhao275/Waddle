@@ -31,7 +31,6 @@ public class LoginView extends AppCompatActivity {
             changeToHomepage(loginBinding.getViewModel().isAuthorised());
         });
         loginBinding.executePendingBindings();
-
     }
 
     protected void changeToHomepage(boolean isAuthorised) {

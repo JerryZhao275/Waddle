@@ -26,17 +26,17 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
         mAuth = FirebaseAuth.getInstance();
     }
 
+
+    private User currentUser = null;
+
     @Override
     public User getCurrentUser() {
         return currentUser;
     }
 
-    private User currentUser = null;
-
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
     }
-
 
     @Override
     public boolean signIn(String email, String password) {
