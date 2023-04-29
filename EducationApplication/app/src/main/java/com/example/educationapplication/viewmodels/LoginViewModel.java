@@ -97,5 +97,6 @@ public class LoginViewModel extends BaseObservable {
             return;
         }
         setAuthorised(true);
+        firebase.signIn(login.getEmail(), login.getPassword());
     }
 }
