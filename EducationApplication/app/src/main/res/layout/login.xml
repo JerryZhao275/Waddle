@@ -11,7 +11,7 @@
             type="com.example.educationapplication.viewmodels.LoginEvent" />
         <variable
             name="onSignup"
-            type="com.example.educationapplication.viewmodels.LoginEvent" />
+            type="com.example.educationapplication.viewmodels.SignUpEvent" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/signupText"

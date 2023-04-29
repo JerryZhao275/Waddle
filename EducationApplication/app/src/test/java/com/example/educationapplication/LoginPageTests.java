@@ -4,6 +4,7 @@ import com.example.educationapplication.integration.database.MockWaddleDatabaseS
 import com.example.educationapplication.integration.database.WaddleDatabaseServiceClient;
 import com.example.educationapplication.util.StringUtils;
 import com.example.educationapplication.viewmodels.LoginViewModel;
+import com.example.educationapplication.views.LoginView;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -11,8 +12,10 @@ import org.junit.Test;
 
 import java.util.List;
 
-import dataObjects.Student;
-import dataObjects.User;
+import dataObjects.LoginUserDto;
+import dataObjects.StudentLoginDto;
+import dataObjects.StudentUserDto;
+import dataObjects.UserDto;
 
 public class LoginPageTests {
 
@@ -20,12 +23,13 @@ public class LoginPageTests {
 
     @Before
     public void setUp() {
-        List<User> mockedUsers = List.of(
-                new Student(12345).withEmail("u7499989@anu.edu.au").withName("Matthew", "Richards"),
-                new Student(54321).withEmail("other@testuser.com").withName("Test", "User")
+        List<LoginUserDto> mockedUsers = List.of(
+                new StudentLoginDto("12345", "MathewRichards","u7499989@anu.edu.au", "password1"),
+                new StudentLoginDto("54321", "TestUser","other@testuser.com", "password2"),
+                new StudentLoginDto("43242", "AdminAdmin", "admin@admin.au", "password3")
         );
-        WaddleDatabaseServiceClient databaseClient = new MockWaddleDatabaseServiceClient(mockedUsers);
-        this.model = new LoginViewModel(databaseClient);
+        WaddleDatabaseServiceClient databaseClient = new MockWaddleDatabaseServiceClient(mockedUsers, null);
+        this.model = new LoginViewModel(true, null);
     }
 
     @Test

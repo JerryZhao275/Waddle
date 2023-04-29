@@ -2,6 +2,7 @@ package com.example.educationapplication.viewmodels;
 
 import static androidx.databinding.DataBindingUtil.setContentView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.widget.EditText;
@@ -14,6 +15,9 @@ import com.example.educationapplication.BR;
 import com.example.educationapplication.R;
 import com.example.educationapplication.integration.database.FirebaseWaddleDatabaseServiceClient;
 import com.example.educationapplication.integration.database.WaddleDatabaseServiceClient;
+import com.example.educationapplication.integration.database.WaddleDatabaseServiceClientFactory;
+import com.example.educationapplication.integration.database.config.ConfigurationManager;
+import com.example.educationapplication.integration.database.config.WaddleDatabaseConfiguration;
 import com.example.educationapplication.model.LoginModel;
 import com.example.educationapplication.util.CommonRegexUtil;
 import com.example.educationapplication.util.StringUtils;
@@ -21,13 +25,13 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.regex.Pattern;
 
-import dataObjects.User;
+import dataObjects.UserDto;
 
 public class LoginViewModel extends BaseObservable {
-
+    private final boolean useMock;
+    private final WaddleDatabaseConfiguration config;
+    private final WaddleDatabaseServiceClient databaseServiceClient;
     private final LoginModel login = new LoginModel("", "");
-    private final WaddleDatabaseServiceClient databaseClient;
-    private FirebaseWaddleDatabaseServiceClient firebase;
 
     private boolean authorised = false;
 
@@ -35,21 +39,25 @@ public class LoginViewModel extends BaseObservable {
     private final static String INVALID_USER = "Could not find the user specified. Check your spelling and try again.";
     private final static String EMPTY_FIELD = "Please fill out all fields.";
 
-    public LoginViewModel(WaddleDatabaseServiceClient databaseClient) {
-        this.databaseClient = databaseClient;
+    public LoginViewModel(boolean useMock, Context context) {
+        this.useMock = useMock;
+        config = ConfigurationManager.configInstance(this.useMock);
+        databaseServiceClient = WaddleDatabaseServiceClientFactory.createClient(config, context);
     }
 
     public WaddleDatabaseServiceClient getDatabaseServiceClient() {
-        return databaseClient;
+        return databaseServiceClient;
     }
 
     @Bindable
     public String getEmail() {
+        System.out.println(login.getEmail());
         return login.getEmail();
     }
 
     @Bindable
     public void setEmail(String email) {
+        System.out.println(email);
         login.setEmail(email);
         notifyPropertyChanged(BR.email);
     }
@@ -105,8 +113,5 @@ public class LoginViewModel extends BaseObservable {
             return;
         }
         setAuthorised(true);
-        System.out.println(login.getEmail()+" "+login.getPassword());
-        firebase = new FirebaseWaddleDatabaseServiceClient();
-        firebase.signIn(login.getEmail(), login.getPassword());
     }
 }

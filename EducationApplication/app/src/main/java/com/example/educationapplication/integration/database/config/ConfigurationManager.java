@@ -5,10 +5,10 @@ public class ConfigurationManager {
 
     private static WaddleDatabaseConfiguration configuration = null;
 
-    public static WaddleDatabaseConfiguration configInstance() {
+    public static WaddleDatabaseConfiguration configInstance(boolean isMocked) {
         if (configuration == null) {
             // TODO READ FROM ENVIRONMENT.PROPERTIES
-            configuration = new WaddleDatabaseConfiguration(null, null, false);
+            configuration = new WaddleDatabaseConfiguration(null, null, isMocked);
         }
         return configuration;
     }
