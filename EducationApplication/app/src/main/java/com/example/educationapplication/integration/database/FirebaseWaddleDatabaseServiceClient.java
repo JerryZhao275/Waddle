@@ -20,7 +20,7 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
     final private FirebaseFirestore firestore;
     final private FirebaseAuth mAuth;
 
-    private FirebaseWaddleDatabaseServiceClient() {
+    public FirebaseWaddleDatabaseServiceClient() {
         database = FirebaseDatabase.getInstance();
         firestore = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
@@ -43,8 +43,11 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                    System.out.println(uid);
                     DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+                    System.out.println(rootRef);
                     DatabaseReference uidRef = rootRef.child("User").child(uid);
+                    System.out.println(uidRef);
                     ValueEventListener valueEventListener = new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {

@@ -105,6 +105,8 @@ public class LoginViewModel extends BaseObservable {
             return;
         }
         setAuthorised(true);
+        System.out.println(login.getEmail()+" "+login.getPassword());
+        firebase = new FirebaseWaddleDatabaseServiceClient();
         firebase.signIn(login.getEmail(), login.getPassword());
     }
 }
