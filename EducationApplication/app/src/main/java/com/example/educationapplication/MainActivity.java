@@ -12,12 +12,17 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,31 +35,41 @@ import dataObjects.UserDto;
 public class MainActivity extends AppCompatActivity {
     private FirebaseDatabase database;
     private FirebaseFirestore db;
-
+    List<UserDto> users = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         database = FirebaseDatabase.getInstance();
         db = FirebaseFirestore.getInstance();
         //This is added just to check out fire base functionality. Comment this out for production.
-        List<UserDto> users = new ArrayList<>();
-        users.add(new AdminUserDto(users.size()+1, "Admin", "Admin", "Admin", "admin@admin.au", "admin1234", ""));
+
+        /*users.add(new AdminUserDto(users.size()+1, "Admin", "Admin", "Admin", "admin@admin.au", "admin1234", ""));
+        users.add(new AdminUserDto(users.size()+1, "Admin2", "Admin2", "Admin2", "admin2@admin.au", "admin1234", ""));
         Map<String, List<UserDto>> data = new HashMap<>();
         data.put("User", users);
-        db.collection("Users")
-                .add(data)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+        db.collection("UserCollection").document("Users")
+                .set(data);*/
+
+        DocumentReference docRef = db.collection("UserCollection").document("Users");
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        List<UserDto> x = (ArrayList<UserDto>) document.getData().get("User");
+                        Log.d(TAG, "DocumentSnapshot data: " + x);
+
+                    } else {
+                        Log.d(TAG, "No such document");
                     }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error adding document", e);
-                    }
-                });
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
+
+
         setContentView(R.layout.login);
     }
     @Override
