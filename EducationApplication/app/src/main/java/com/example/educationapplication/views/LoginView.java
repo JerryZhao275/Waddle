@@ -28,6 +28,9 @@ public class LoginView extends AppCompatActivity {
             loginBinding.getViewModel().login();
             changeToHomepage(loginBinding.getViewModel().isAuthorised());
         });
+        loginBinding.setOnSignup(()-> {
+            setContentView(R.layout.signup);
+        });
         loginBinding.executePendingBindings();
     }
 
@@ -36,7 +39,6 @@ public class LoginView extends AppCompatActivity {
         EditText password = findViewById(R.id.editTextPassword);
 
         if (isAuthorised) {
-            
             setContentView(R.layout.activity_main);
         }
     }
