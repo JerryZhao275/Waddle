@@ -1,11 +1,9 @@
 package com.example.educationapplication.views;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Toast;
+import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.BindingAdapter;
 import androidx.databinding.DataBindingUtil;
 
 import com.example.educationapplication.R;
@@ -34,7 +32,11 @@ public class LoginView extends AppCompatActivity {
     }
 
     protected void changeToHomepage(boolean isAuthorised) {
+        EditText email = findViewById(R.id.editTextEmail);
+        EditText password = findViewById(R.id.editTextPassword);
+
         if (isAuthorised) {
+            
             setContentView(R.layout.activity_main);
         }
     }

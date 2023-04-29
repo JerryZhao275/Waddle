@@ -4,6 +4,7 @@ import static androidx.databinding.DataBindingUtil.setContentView;
 
 import android.content.Intent;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.databinding.BaseObservable;
@@ -32,6 +33,7 @@ public class LoginViewModel extends BaseObservable {
 
     private final static String LOGIN_FAILED = "Invalid email. Check your spelling and try again.";
     private final static String INVALID_USER = "Could not find the user specified. Check your spelling and try again.";
+    private final static String EMPTY_FIELD = "Please fill out all fields.";
 
     public LoginViewModel(WaddleDatabaseServiceClient databaseClient) {
         this.databaseClient = databaseClient;
@@ -85,7 +87,13 @@ public class LoginViewModel extends BaseObservable {
     public void login() {
         boolean questionsAnswered = StringUtils.isNotEmpty(login.getEmail()) && StringUtils.isNotEmpty(login.getPassword());
         boolean isEmailValid = Pattern.matches(CommonRegexUtil.EMAIL, login.getEmail());
-        if (!isEmailValid || !questionsAnswered) {
+
+        if (!questionsAnswered) {
+            setErrorMessage(EMPTY_FIELD);
+            setAuthorised(false);
+            return;
+        }
+        if (!isEmailValid) {
             setErrorMessage(LOGIN_FAILED);
             setAuthorised(false);
             return;
