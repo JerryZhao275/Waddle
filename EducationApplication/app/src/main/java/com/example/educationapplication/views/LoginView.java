@@ -39,7 +39,7 @@ public class LoginView extends AppCompatActivity {
         EditText password = findViewById(R.id.editTextPassword);
 
         if (isAuthorised) {
-            setContentView(R.layout.activity_main);
+            setContentView(R.layout.homepage);
         }
     }
 }
