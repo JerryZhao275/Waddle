@@ -1,10 +1,12 @@
-package com.example.educationapplication;
+package com.example.educationapplication.views;
 
 import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -12,6 +14,14 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.educationapplication.R;
+import com.example.educationapplication.databinding.LoginBinding;
+import com.example.educationapplication.integration.database.WaddleDatabaseServiceClient;
+import com.example.educationapplication.integration.database.WaddleDatabaseServiceClientFactory;
+import com.example.educationapplication.integration.database.config.ConfigurationManager;
+import com.example.educationapplication.integration.database.config.WaddleDatabaseConfiguration;
+import com.example.educationapplication.viewmodels.LoginViewModel;
+import com.example.educationapplication.views.LoginView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -22,11 +32,12 @@ public class Signup extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.signup);
+        LoginBinding loginBinding = DataBindingUtil.setContentView(this, R.layout.signup);
+        loginBinding.executePendingBindings();
     }
 
     public void loginButton(View view) {
-        finish();
+        setContentView(R.layout.signup);
     }
 
     public void createAccount(View view) {
