@@ -1,50 +1,57 @@
 package com.example.educationapplication.views;
 
-import java.io.*;
+import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
-import com.example.educationapplication.Fragment.*;
+import com.example.educationapplication.Fragment.DashboardFragment;
+import com.example.educationapplication.Fragment.MessagesFragment;
+import com.example.educationapplication.Fragment.ProfileFragment;
+import com.example.educationapplication.Fragment.QuizzesFragment;
 import com.example.educationapplication.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import android.os.Bundle;
-import android.view.MenuItem;
+import com.google.android.material.navigation.NavigationBarView;
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
-    BottomNavigationView bottomNavigationView;
+public class MainActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.homepage);
-        bottomNavigationView = findViewById(R.id.bottomnav);
-        bottomNavigationView.setOnNavigationItemSelectedListener(this);
-        loadFragment(new DashboardFragment());
+        setContentView(R.layout.activity_main);
+
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav.setOnItemSelectedListener(navListener);
+
+
+        final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        DashboardFragment newFragment = new DashboardFragment();
+        transaction.replace(R.id.fragment_container, newFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+        System.out.println("ONCREATERAN");
     }
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        Fragment fragment = null;
-        switch (item.getItemId()) {
-            case R.id.dashboard:
-                fragment = new DashboardFragment();
-                break;
-            case R.id.quizzes:
-                fragment = new QuizzesFragment();
-                break;
-            case R.id.messages:
-                fragment = new MessagesFragment();
-                break;
-            case R.id.profile:
-                fragment = new ProfileFragment();
-                break;
+
+    private final NavigationBarView.OnItemSelectedListener navListener = item -> {
+        // By using switch we can easily get
+        // the selected fragment
+        // by using there id.
+        Fragment selectedFragment = null;
+        int itemId = item.getItemId();
+        if (itemId == R.id.dashboard) {
+            selectedFragment = new DashboardFragment();
+        } else if (itemId == R.id.quizzes) {
+            selectedFragment = new QuizzesFragment();
+        } else if (itemId == R.id.messages) {
+            selectedFragment = new MessagesFragment();
+        } else if (itemId == R.id.profile) {
+            selectedFragment = new ProfileFragment();
         }
-        if (fragment != null) {
-            loadFragment(fragment);
+        // It will help to replace the
+        // one fragment to other.
+        if (selectedFragment != null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
         }
         return true;
-    }
-    void loadFragment(Fragment fragment) {
-        //to attach fragment
-        getSupportFragmentManager().beginTransaction().replace(R.id.relativelayout, fragment).commit();
-    }
+    };
 }
