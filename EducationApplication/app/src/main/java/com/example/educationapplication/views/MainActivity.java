@@ -5,10 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.educationapplication.Fragment.DashboardFragment;
-import com.example.educationapplication.Fragment.MessagesFragment;
-import com.example.educationapplication.Fragment.ProfileFragment;
-import com.example.educationapplication.Fragment.QuizzesFragment;
+import com.example.educationapplication.views.Fragment.DashboardFragment;
+import com.example.educationapplication.views.Fragment.MessagesFragment;
+import com.example.educationapplication.views.Fragment.ProfileFragment;
+import com.example.educationapplication.views.Fragment.QuizzesFragment;
 import com.example.educationapplication.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
