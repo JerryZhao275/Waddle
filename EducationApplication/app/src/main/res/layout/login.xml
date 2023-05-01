@@ -12,6 +12,9 @@
         <variable
             name="onSignup"
             type="com.example.educationapplication.viewmodels.SignUpEvent" />
+        <variable
+            name="onSignupTest"
+            type="com.example.educationapplication.viewmodels.LoginEvent" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/signupText"
@@ -129,6 +132,16 @@
             android:src="@drawable/waddle_duck"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/toHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:onClick="@{()->onSignupTest.run()}"
+            android:text="To Home"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

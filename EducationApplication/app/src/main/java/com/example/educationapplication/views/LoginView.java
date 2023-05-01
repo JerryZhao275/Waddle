@@ -1,34 +1,15 @@
 package com.example.educationapplication.views;
 
-import static android.content.ContentValues.TAG;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.EditText;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.example.educationapplication.R;
 import com.example.educationapplication.databinding.LoginBinding;
-import com.example.educationapplication.integration.database.config.ConfigurationManager;
-import com.example.educationapplication.integration.database.config.WaddleDatabaseConfiguration;
-import com.example.educationapplication.integration.database.WaddleDatabaseServiceClient;
-import com.example.educationapplication.integration.database.WaddleDatabaseServiceClientFactory;
 import com.example.educationapplication.viewmodels.LoginViewModel;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import dataObjects.StudentUserDto;
-import dataObjects.UserDto;
 
 public class LoginView extends AppCompatActivity {
 
@@ -44,6 +25,11 @@ public class LoginView extends AppCompatActivity {
         loginBinding.setOnSignup(()-> {
             Intent intent = new Intent(getApplicationContext(), SignupView.class);
             startActivity(intent);
+            setContentView(R.layout.activity_main);
+        });
+        loginBinding.setOnSignupTest(()-> {
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
         });
         loginBinding.executePendingBindings();
     }
@@ -53,7 +39,7 @@ public class LoginView extends AppCompatActivity {
         EditText password = findViewById(R.id.editTextPassword);
 
         if (isAuthorised) {
-            setContentView(R.layout.homepage);
+            setContentView(R.layout.activity_main);
         }
     }
 }
