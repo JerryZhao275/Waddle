@@ -39,10 +39,10 @@ public class LoginViewModel extends BaseObservable {
     private final static String INVALID_USER = "Could not find the user specified. Check your spelling and try again.";
     private final static String EMPTY_FIELD = "Please fill out all fields.";
 
-    public LoginViewModel(boolean useMock, Context context) {
+    public LoginViewModel(boolean useMock) {
         this.useMock = useMock;
         config = ConfigurationManager.configInstance(this.useMock);
-        databaseServiceClient = WaddleDatabaseServiceClientFactory.createClient(config, context);
+        databaseServiceClient = WaddleDatabaseServiceClientFactory.createClient(config);
     }
 
     public WaddleDatabaseServiceClient getDatabaseServiceClient() {

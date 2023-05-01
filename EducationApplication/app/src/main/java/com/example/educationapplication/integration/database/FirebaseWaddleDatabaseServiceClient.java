@@ -25,21 +25,16 @@ import dataObjects.LoginUserDto;
 import dataObjects.UserDto;
 
 public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServiceClient {
-    private final Context context;
     final private FirebaseDatabase database;
     final private FirebaseFirestore firestore;
     final private FirebaseAuth mAuth;
 
-    public FirebaseWaddleDatabaseServiceClient(Context context) {
-        this.context = context;
+    public FirebaseWaddleDatabaseServiceClient() {
         database = FirebaseDatabase.getInstance();
         firestore = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
     }
 
-    public Context getViewContext(){
-        return context;
-    }
     private LoginUserDto currentUser = null;
 
     @Override
@@ -104,8 +99,6 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                    Toast.makeText(getViewContext(), "Authentication failed.",
-                            Toast.LENGTH_SHORT).show();
                 }
             }
         });

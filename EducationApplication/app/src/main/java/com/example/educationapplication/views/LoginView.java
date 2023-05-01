@@ -36,7 +36,7 @@ public class LoginView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LoginBinding loginBinding = DataBindingUtil.setContentView(this, R.layout.login);
-        loginBinding.setViewModel(new LoginViewModel(false, this));
+        loginBinding.setViewModel(new LoginViewModel(false));
         loginBinding.setOnLogin(()-> {
             loginBinding.getViewModel().login();
             changeToHomepage(loginBinding.getViewModel().isAuthorised());

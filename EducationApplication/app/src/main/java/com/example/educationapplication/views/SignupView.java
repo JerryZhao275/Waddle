@@ -37,7 +37,7 @@ public class SignupView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SignupBinding signupBinding = DataBindingUtil.setContentView(this, R.layout.signup);
-        signupBinding.setViewModel(new SignUpViewModel(false, this));
+        signupBinding.setViewModel(new SignUpViewModel(false));
         signupBinding.setOnSignup(()->{
             signupBinding.getViewModel().createUser();
             setContentView(R.layout.homepage);

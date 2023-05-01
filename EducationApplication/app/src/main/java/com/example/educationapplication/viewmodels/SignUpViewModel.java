@@ -23,7 +23,6 @@ import dataObjects.LoginUserDto;
 import dataObjects.UserDto;
 
 public class SignUpViewModel extends BaseObservable {
-    private final Context context;
     private final boolean useMock;
     private final WaddleDatabaseConfiguration config;
     private final WaddleDatabaseServiceClient databaseServiceClient;
@@ -35,11 +34,10 @@ public class SignUpViewModel extends BaseObservable {
     private final static String LOGIN_FAILED = "Invalid email. Check your spelling and try again.";
     private final static String EMPTY_FIELD = "Either fields have not been filled or the passwords don't match.";
 
-    public SignUpViewModel(boolean useMock, Context context) {
-        this.context = context;
+    public SignUpViewModel(boolean useMock) {
         this.useMock = useMock;
         config = ConfigurationManager.configInstance(useMock);
-        databaseServiceClient = WaddleDatabaseServiceClientFactory.createClient(config, this.context);
+        databaseServiceClient = WaddleDatabaseServiceClientFactory.createClient(config);
     }
 
     public WaddleDatabaseServiceClient getDatabaseServiceClient() {
@@ -117,7 +115,7 @@ public class SignUpViewModel extends BaseObservable {
     }
 
     public void setErrorMessage(String error){
-        Toast.makeText(context, error, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context, error, Toast.LENGTH_SHORT).show();
     }
 
     public void createUser() {

@@ -11,13 +11,11 @@ import dataObjects.StudentUserDto;
 import dataObjects.UserDto;
 
 public class MockWaddleDatabaseServiceClient implements WaddleDatabaseServiceClient {
-    final private Context context;
     final private List<LoginUserDto> mockedUsers;
 
     private LoginUserDto currentUser = null;
 
-    public MockWaddleDatabaseServiceClient(List<LoginUserDto> mockedUsers, Context context) {
-        this.context =  context;
+    public MockWaddleDatabaseServiceClient(List<LoginUserDto> mockedUsers) {
         this.mockedUsers = mockedUsers;
     }
 
