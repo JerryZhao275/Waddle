@@ -4,7 +4,6 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-
 import com.example.educationapplication.views.Fragment.DashboardFragment;
 import com.example.educationapplication.views.Fragment.MessagesFragment;
 import com.example.educationapplication.views.Fragment.ProfileFragment;
@@ -23,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnItemSelectedListener(navListener);
 
-
         final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         DashboardFragment newFragment = new DashboardFragment();
         transaction.replace(R.id.fragment_container, newFragment);
@@ -33,9 +31,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private final NavigationBarView.OnItemSelectedListener navListener = item -> {
-        // By using switch we can easily get
-        // the selected fragment
-        // by using there id.
         Fragment selectedFragment = null;
         int itemId = item.getItemId();
         if (itemId == R.id.dashboard) {
@@ -47,8 +42,6 @@ public class MainActivity extends AppCompatActivity {
         } else if (itemId == R.id.profile) {
             selectedFragment = new ProfileFragment();
         }
-        // It will help to replace the
-        // one fragment to other.
         if (selectedFragment != null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
         }
