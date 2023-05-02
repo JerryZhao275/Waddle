@@ -1,8 +1,5 @@
 package com.example.educationapplication.viewmodels;
 
-import android.content.Context;
-import android.widget.Toast;
-
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
@@ -11,16 +8,11 @@ import com.example.educationapplication.integration.database.WaddleDatabaseServi
 import com.example.educationapplication.integration.database.WaddleDatabaseServiceClientFactory;
 import com.example.educationapplication.integration.database.config.ConfigurationManager;
 import com.example.educationapplication.integration.database.config.WaddleDatabaseConfiguration;
-import com.example.educationapplication.model.LoginModel;
 import com.example.educationapplication.util.CommonRegexUtil;
 import com.example.educationapplication.util.StringUtils;
-import com.google.firebase.firestore.auth.User;
 
 import java.util.regex.Pattern;
 
-import dataObjects.AdminLoginDto;
-import dataObjects.AdminUserDto;
-import dataObjects.LoginUserDto;
 import dataObjects.StudentUserDto;
 import dataObjects.TeacherUserDto;
 import dataObjects.UserDto;
@@ -68,7 +60,6 @@ public class SignUpViewModel extends BaseObservable {
 
     @Bindable
     public void setUserFirstName(String userName) {
-        System.out.println(userDetails.getUserName());
         userDetails.setUserFirstName(userName);
         notifyPropertyChanged(BR.userFirstName);
     }

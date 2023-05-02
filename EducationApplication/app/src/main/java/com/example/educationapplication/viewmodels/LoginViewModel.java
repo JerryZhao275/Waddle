@@ -36,13 +36,14 @@ public class LoginViewModel extends BaseObservable {
     private boolean authorised = false;
 
     private final static String LOGIN_FAILED = "Invalid email. Check your spelling and try again.";
-    private final static String INVALID_USER = "Could not find the user specified. Check your spelling and try again.";
+    public final static String INVALID_USER = "Could not find the user specified. Check your spelling and try again.";
     private final static String EMPTY_FIELD = "Please fill out all fields.";
 
     public LoginViewModel(boolean useMock) {
         this.useMock = useMock;
         config = ConfigurationManager.configInstance(this.useMock);
         databaseServiceClient = WaddleDatabaseServiceClientFactory.createClient(config);
+        System.out.println(databaseServiceClient.getCurrentUser());
     }
 
     public WaddleDatabaseServiceClient getDatabaseServiceClient() {
@@ -107,6 +108,7 @@ public class LoginViewModel extends BaseObservable {
             return;
         }
         getDatabaseServiceClient().signIn(login.getEmail(), login.getPassword());
+
         if (getDatabaseServiceClient().getCurrentUser() == null) {
             setErrorMessage(INVALID_USER);
             setAuthorised(false);
@@ -114,4 +116,5 @@ public class LoginViewModel extends BaseObservable {
         }
         setAuthorised(true);
     }
+
 }

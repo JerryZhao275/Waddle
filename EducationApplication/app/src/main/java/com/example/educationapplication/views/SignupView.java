@@ -25,6 +25,7 @@ public class SignupView extends AppCompatActivity {
         signupBinding.setOnLogin(()->{
             Intent intent = new Intent(getApplicationContext(), LoginView.class);
             startActivity(intent);
+            finish();
         });
         signupBinding.executePendingBindings();
     }

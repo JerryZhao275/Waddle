@@ -1,13 +1,9 @@
 package com.example.educationapplication.integration.database;
 
-import android.content.Context;
-
 import java.util.List;
 import java.util.UUID;
 
 import dataObjects.LoginUserDto;
-import dataObjects.StudentLoginDto;
-import dataObjects.StudentUserDto;
 import dataObjects.UserDto;
 
 public class MockWaddleDatabaseServiceClient implements WaddleDatabaseServiceClient {
@@ -25,13 +21,11 @@ public class MockWaddleDatabaseServiceClient implements WaddleDatabaseServiceCli
     }
 
     @Override
-    public boolean signIn(String username, String password) {
+    public void signIn(String username, String password) {
         LoginUserDto userToLogInAs = getUser(username, password);
         if (userToLogInAs != null) {
             this.currentUser = userToLogInAs;
-            return true;
         }
-        return false;
     }
 
     @Override
@@ -48,7 +42,7 @@ public class MockWaddleDatabaseServiceClient implements WaddleDatabaseServiceCli
 
     @Override
     public void createNewUser(UserDto user) {
-        this.mockedUsers.add(new StudentLoginDto(UUID.randomUUID().toString(), user.getUserEmail()+user.getUserPassword(), user.getUserEmail(), user.getUserPassword()));
+        this.mockedUsers.add(new LoginUserDto(UUID.randomUUID().toString(), user.getUserEmail()+user.getUserPassword(), user.getUserEmail(), user.getUserPassword()));
     }
 
 }

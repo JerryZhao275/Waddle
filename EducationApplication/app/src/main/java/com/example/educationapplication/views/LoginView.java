@@ -28,7 +28,7 @@ public class LoginView extends AppCompatActivity {
         loginBinding.setOnSignup(()-> {
             Intent intent = new Intent(getApplicationContext(), SignupView.class);
             startActivity(intent);
-            setContentView(R.layout.activity_main);
+            finish();
         });
         loginBinding.setOnSignupTest(()-> {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -42,7 +42,9 @@ public class LoginView extends AppCompatActivity {
         EditText password = findViewById(R.id.editTextPassword);
 
         if (isAuthorised) {
-            setContentView(R.layout.activity_main);
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+            finish();
         }
     }
 }

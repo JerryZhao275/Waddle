@@ -1,6 +1,6 @@
 package dataObjects;
 
-public abstract class LoginUserDto {
+public class LoginUserDto {
     private String loginUserId;
     private String loginUserName;
     private String loginUserEmail;
@@ -12,6 +12,11 @@ public abstract class LoginUserDto {
         this.loginUserName = loginUserName;
         this.loginUserEmail = loginUserEmail;
         this.password = password;
+    }
+
+    public LoginUserDto(String loginUserId, String loginUserEmail){
+        this.loginUserId = loginUserId;
+        this.loginUserEmail = loginUserEmail;
     }
 
     public String getLoginUserId(){
