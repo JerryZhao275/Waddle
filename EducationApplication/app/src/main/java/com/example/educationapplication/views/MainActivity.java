@@ -27,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(R.id.fragment_container, newFragment);
         transaction.addToBackStack(null);
         transaction.commit();
-        System.out.println("ONCREATERAN");
     }
 
     private final NavigationBarView.OnItemSelectedListener navListener = item -> {
