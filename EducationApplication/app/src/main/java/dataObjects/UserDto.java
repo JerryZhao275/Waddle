@@ -9,7 +9,7 @@ public abstract class UserDto {
     private String userEmail;
     private String userPassword;
     private String userDesc;
-    private boolean isAdmin;
+    private UserType userType;
 
 
 
@@ -23,7 +23,13 @@ public abstract class UserDto {
         this.userPassword = userPassword;
         this.userDesc = userDesc;
         if(userType == null){
-            isAdmin = true;
+            this.userType = UserType.ADMIN;
+        }
+        else if(userType.equals("S")){
+            this.userType = UserType.STUDENT;
+        }
+        else{
+            this.userType = UserType.TEACHER;
         }
     }
 
@@ -36,7 +42,13 @@ public abstract class UserDto {
         this.userEmail = userEmail;
         this.userPassword = userPassword;
         if(userType == null){
-            isAdmin = true;
+            this.userType = UserType.ADMIN;
+        }
+        else if(userType.equals("S")){
+            this.userType = UserType.STUDENT;
+        }
+        else{
+            this.userType = UserType.TEACHER;
         }
     }
 
@@ -88,15 +100,15 @@ public abstract class UserDto {
         this.userEmail=userEmail;
     }
 
-    public void setUserName(String userName){this.userName = userName;}
+    public void setUserName(String userName){ this.userName = userName; }
 
     public void setUserDesc(String userDesc){
          this.userDesc = userDesc;
     }
     public void setUserPassword(String password){ this.userPassword = password;}
 
-    public boolean isUserAdmin(){
-        return isAdmin;
+    public UserType getUserType(){
+        return this.userType;
     }
 
 
