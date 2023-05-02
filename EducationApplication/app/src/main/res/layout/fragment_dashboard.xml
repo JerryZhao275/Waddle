@@ -121,5 +121,25 @@
             android:visibility="visible" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/joinbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:clickable="true"
+        android:src="@drawable/add"
+        app:layout_constraintBottom_toTopOf="@+id/addClassButton"
+        app:layout_constraintEnd_toEndOf="@+id/addClassButton" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/createbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:clickable="true"
+        android:src="@drawable/add"
+        app:layout_constraintBottom_toTopOf="@+id/joinbtn"
+        app:layout_constraintEnd_toEndOf="@+id/joinbtn" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 
