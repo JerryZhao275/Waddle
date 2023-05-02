@@ -5,9 +5,9 @@
         android:id="@+id/dashboard"
         android:icon="@drawable/classroom"/>
     <item
-        android:title="Quizzes"
-        android:id="@+id/quizzes"
-        android:icon="@drawable/quizzes"/>
+        android:id="@+id/search"
+        android:icon="@drawable/search"
+        android:title="Search" />
     <item
         android:title="Messages"
         android:id="@+id/messages"

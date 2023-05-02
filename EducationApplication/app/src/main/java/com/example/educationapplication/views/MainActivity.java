@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.educationapplication.views.Fragment.DashboardFragment;
 import com.example.educationapplication.views.Fragment.MessagesFragment;
 import com.example.educationapplication.views.Fragment.ProfileFragment;
-import com.example.educationapplication.views.Fragment.QuizzesFragment;
+import com.example.educationapplication.views.Fragment.SearchFragment;
 import com.example.educationapplication.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -34,8 +34,8 @@ public class MainActivity extends AppCompatActivity {
         int itemId = item.getItemId();
         if (itemId == R.id.dashboard) {
             selectedFragment = new DashboardFragment();
-        } else if (itemId == R.id.quizzes) {
-            selectedFragment = new QuizzesFragment();
+        } else if (itemId == R.id.search) {
+            selectedFragment = new SearchFragment();
         } else if (itemId == R.id.messages) {
             selectedFragment = new MessagesFragment();
         } else if (itemId == R.id.profile) {
