@@ -14,12 +14,15 @@ import com.example.educationapplication.integration.database.config.WaddleDataba
 import com.example.educationapplication.model.LoginModel;
 import com.example.educationapplication.util.CommonRegexUtil;
 import com.example.educationapplication.util.StringUtils;
+import com.google.firebase.firestore.auth.User;
 
 import java.util.regex.Pattern;
 
 import dataObjects.AdminLoginDto;
 import dataObjects.AdminUserDto;
 import dataObjects.LoginUserDto;
+import dataObjects.StudentUserDto;
+import dataObjects.TeacherUserDto;
 import dataObjects.UserDto;
 
 public class SignUpViewModel extends BaseObservable {
@@ -27,12 +30,15 @@ public class SignUpViewModel extends BaseObservable {
     private final WaddleDatabaseConfiguration config;
     private final WaddleDatabaseServiceClient databaseServiceClient;
     private String confPassword = "";
-    private final UserDto userDetails = new AdminUserDto("","","","","","","");;
+    private UserDto userDetails = new StudentUserDto("","","","","","",0);
 
     private boolean authorised = false;
 
+    private Boolean isTeacherOrStudent = null;
+    private String errorMessage = "";
+
     private final static String LOGIN_FAILED = "Invalid email. Check your spelling and try again.";
-    private final static String EMPTY_FIELD = "Either fields have not been filled or the passwords don't match.";
+    private final static String EMPTY_FIELD = "Either all fields have not been filled or the passwords don't match.";
 
     public SignUpViewModel(boolean useMock) {
         this.useMock = useMock;
@@ -113,11 +119,31 @@ public class SignUpViewModel extends BaseObservable {
         confPassword = password;
         notifyPropertyChanged(BR.confirmPassword);
     }
-
-    public void setErrorMessage(String error){
-        //Toast.makeText(context, error, Toast.LENGTH_SHORT).show();
+    @Bindable
+    public String getErrorMessage(){
+        return this.errorMessage;
     }
+    @Bindable
+    public void setErrorMessage(String error){
+        this.errorMessage = error;
+        notifyPropertyChanged(BR.errorMessage);
+    }
+    @Bindable
+    public Boolean getIsTeacherOrStudent(){
+        return isTeacherOrStudent;
+    }
+    @Bindable
+    public void setIsTeacherOrStudent(Boolean isTeacher){
+        this.isTeacherOrStudent = isTeacher;
+        if(isTeacher){
+            userDetails = new TeacherUserDto(userDetails);
+        }
+        else{
+            userDetails = new StudentUserDto(userDetails);
+        }
+        notifyPropertyChanged(BR.isTeacherOrStudent);
 
+    }
     public void createUser() {
         boolean questionsAnswered = StringUtils.isNotEmpty(userDetails.getUserEmail()) && StringUtils.isNotEmpty(userDetails.getUserPassword()) && StringUtils.isNotEmpty(userDetails.getUserFirstName())
                 && StringUtils.isNotEmpty(userDetails.getUserLastName()) && StringUtils.isNotEmpty(userDetails.getUserName()) && StringUtils.isNotEmpty(confPassword) && confPassword.equals(userDetails.getUserPassword());
@@ -131,6 +157,7 @@ public class SignUpViewModel extends BaseObservable {
             setErrorMessage(LOGIN_FAILED);
             return;
         }
+        setErrorMessage("");
         getDatabaseServiceClient().createNewUser(userDetails);
     }
 }

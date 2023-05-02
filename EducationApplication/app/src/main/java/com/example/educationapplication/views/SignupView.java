@@ -18,7 +18,9 @@ public class SignupView extends AppCompatActivity {
         signupBinding.setViewModel(new SignUpViewModel(false));
         signupBinding.setOnSignup(()->{
             signupBinding.getViewModel().createUser();
-            setContentView(R.layout.activity_main);
+            if(signupBinding.getViewModel().getErrorMessage().equals("")) {
+                setContentView(R.layout.activity_main);
+            }
         });
         signupBinding.setOnLogin(()->{
             Intent intent = new Intent(getApplicationContext(), LoginView.class);
