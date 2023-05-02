@@ -1,6 +1,12 @@
 package com.example.educationapplication.views;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.widget.SearchView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -46,4 +52,5 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     };
+
 }
