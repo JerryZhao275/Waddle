@@ -23,6 +23,11 @@ public class LoginView extends AppCompatActivity {
         loginBinding.setViewModel(new LoginViewModel(false));
         loginBinding.setOnLogin(()-> {
             loginBinding.getViewModel().login();
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             changeToHomepage(loginBinding.getViewModel().isAuthorised());
         });
         loginBinding.setOnSignup(()-> {
