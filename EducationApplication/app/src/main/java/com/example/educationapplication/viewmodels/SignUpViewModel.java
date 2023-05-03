@@ -13,6 +13,7 @@ import com.example.educationapplication.util.StringUtils;
 
 import java.util.regex.Pattern;
 
+import dataObjects.AdminUserDto;
 import dataObjects.StudentUserDto;
 import dataObjects.TeacherUserDto;
 import dataObjects.UserDto;
@@ -22,7 +23,7 @@ public class SignUpViewModel extends BaseObservable {
     private final WaddleDatabaseConfiguration config;
     private final WaddleDatabaseServiceClient databaseServiceClient;
     private String confPassword = "";
-    private UserDto userDetails = new StudentUserDto("","","","","","",0);
+    private UserDto userDetails = new StudentUserDto("","","","","","", 0);
 
     private boolean authorised = false;
 
@@ -31,6 +32,7 @@ public class SignUpViewModel extends BaseObservable {
 
     private final static String LOGIN_FAILED = "Invalid email. Check your spelling and try again.";
     private final static String EMPTY_FIELD = "Either all fields have not been filled or the passwords don't match.";
+    private String password = "";
 
     public SignUpViewModel(boolean useMock) {
         this.useMock = useMock;
@@ -82,7 +84,6 @@ public class SignUpViewModel extends BaseObservable {
 
     @Bindable
     public void setEmail(String email) {
-        System.out.println(userDetails.getUserEmail());
         userDetails.setUserEmail(email);
         notifyPropertyChanged(BR.email);
     }
@@ -91,12 +92,12 @@ public class SignUpViewModel extends BaseObservable {
 
     @Bindable
     public String getPassword() {
-        return userDetails.getUserPassword();
+        return password;
     }
 
     @Bindable
     public void setPassword(String password) {
-        userDetails.setUserPassword(password);
+        this.password = password;
         notifyPropertyChanged(BR.password);
     }
 
@@ -136,8 +137,8 @@ public class SignUpViewModel extends BaseObservable {
 
     }
     public void createUser() {
-        boolean questionsAnswered = StringUtils.isNotEmpty(userDetails.getUserEmail()) && StringUtils.isNotEmpty(userDetails.getUserPassword()) && StringUtils.isNotEmpty(userDetails.getUserFirstName())
-                && StringUtils.isNotEmpty(userDetails.getUserLastName()) && StringUtils.isNotEmpty(userDetails.getUserName()) && StringUtils.isNotEmpty(confPassword) && confPassword.equals(userDetails.getUserPassword());
+        boolean questionsAnswered = StringUtils.isNotEmpty(userDetails.getUserEmail()) && StringUtils.isNotEmpty(password) && StringUtils.isNotEmpty(userDetails.getUserFirstName())
+                && StringUtils.isNotEmpty(userDetails.getUserLastName()) && StringUtils.isNotEmpty(userDetails.getUserName()) && StringUtils.isNotEmpty(confPassword) && confPassword.equals(password);
         boolean isEmailValid = Pattern.matches(CommonRegexUtil.EMAIL, userDetails.getUserEmail());
 
         if (!questionsAnswered) {
@@ -149,6 +150,6 @@ public class SignUpViewModel extends BaseObservable {
             return;
         }
         setErrorMessage("");
-        getDatabaseServiceClient().createNewUser(userDetails);
+        getDatabaseServiceClient().createNewUser(userDetails, password);
     }
 }

@@ -6,7 +6,7 @@ import dataObjects.UserDto;
 
 public interface WaddleDatabaseServiceClient {
     LoginUserDto getUser(String email, String password);
-    void createNewUser(UserDto user);
+    void createNewUser(UserDto user, String password);
     LoginUserDto getCurrentUser(); // TODO dto LoggedInUser { user: User, firebaseUser: FirebaseUser, sessionId, etc.?  }
     void signIn(String username, String password);
     void signOut();
