@@ -61,6 +61,7 @@
         android:layout_marginTop="9dp"
         android:layout_marginEnd="272dp"
         app:srcCompat="@drawable/profile" />
+        <!-- Maybe add feature so user can change their pfp -->
 
     <TextView
         android:id="@+id/dmchat_name"
@@ -70,7 +71,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="21dp"
         android:layout_marginEnd="202dp"
-        android:text="Name"
+        android:text="TODO"
         android:textSize="20dp"
         android:textStyle="bold" />
 
