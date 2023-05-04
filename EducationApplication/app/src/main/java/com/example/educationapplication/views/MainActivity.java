@@ -1,11 +1,11 @@
 package com.example.educationapplication.views;
 
-import android.app.SearchManager;
-import android.content.Context;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.widget.SearchView;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -16,6 +16,7 @@ import com.example.educationapplication.views.Fragment.ProfileFragment;
 import com.example.educationapplication.views.Fragment.SearchFragment;
 import com.example.educationapplication.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class MainActivity extends AppCompatActivity {
@@ -33,7 +34,9 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(R.id.fragment_container, newFragment);
         transaction.addToBackStack(null);
         transaction.commit();
+
     }
+
 
     private final NavigationBarView.OnItemSelectedListener navListener = item -> {
         Fragment selectedFragment = null;
