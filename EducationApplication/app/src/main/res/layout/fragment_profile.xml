@@ -58,7 +58,7 @@
         android:layout_marginTop="25dp"
         android:layout_marginEnd="222dp"
         android:layout_marginBottom="59dp"
-        android:text="Description of the user"
+        android:text="TODO Description of the user"
         app:layout_constraintBottom_toTopOf="@+id/upcomingQuizzes"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -69,7 +69,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="168dp"
-        android:text="Student/Teacher "
+        android:text="TODO Student/Teacher"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent" />
