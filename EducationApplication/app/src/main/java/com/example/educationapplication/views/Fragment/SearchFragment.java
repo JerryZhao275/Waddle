@@ -16,8 +16,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class SearchFragment extends Fragment implements SearchView.OnQueryTextListener, View.OnClickListener {
-
-    // Declare Variables
     ListView list;
     ListViewAdapter adapter;
     SearchView editsearch;
@@ -26,7 +24,8 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
     Button classes;
     Button quizzes;
 
-    //TODO: Edit namesList, classesList and quizzesList to work with the db
+    //TODO: Edit namesList, classesList and quizzesList to work with the db.
+    // Move these into ListViewAdapter once db works
     String[] namesList = {"Jerry Zhao", "Karthik Vemireddy", "Matthew Richards",
             "Ryan Yoon", "Michael Ostapenko", "Bernado Nunes", "Bernardo Nunes Jr",
             "Bernado Nunes Sr", "Kanye", "Drake"};
@@ -52,14 +51,14 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
         quizzes = mView.findViewById(R.id.quizzesTab);
         quizzes.setOnClickListener(this);
 
+        //Code to be changed
         list = mView.findViewById(R.id.listview);
-
         arraylist.addAll(Arrays.asList(displayList));
+        adapter = new ListViewAdapter(getContext(), arraylist);
+        ////////////////////
 
-        adapter = new ListViewAdapter(requireContext(), arraylist);
 
         list.setAdapter(adapter);
-
         editsearch = mView.findViewById(R.id.search);
         editsearch.setOnQueryTextListener(this);
 

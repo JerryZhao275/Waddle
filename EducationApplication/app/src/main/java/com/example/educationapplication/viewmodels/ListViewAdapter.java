@@ -17,7 +17,6 @@ public class ListViewAdapter extends BaseAdapter {
     LayoutInflater inflater;
     private List<String> namesList;
     private ArrayList<String> arraylist;
-    private List<String> displayList;
 
     public ListViewAdapter(Context context, List<String> namesList) {
         mContext = context;
@@ -81,8 +80,11 @@ public class ListViewAdapter extends BaseAdapter {
 
     public void updateData(String[] newData) {
         arraylist = new ArrayList<>(Arrays.asList(newData));
-        displayList = new ArrayList<>(Arrays.asList(newData));
         notifyDataSetChanged();
+    }
+
+    public void displaySearch() {
+        //TODO function will be implemented once merge performed and database accessible.
     }
 
 }
