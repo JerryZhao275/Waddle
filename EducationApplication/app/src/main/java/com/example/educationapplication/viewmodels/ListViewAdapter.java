@@ -1,5 +1,6 @@
 package com.example.educationapplication.viewmodels;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +28,7 @@ public class ListViewAdapter extends BaseAdapter {
         this.arraylist.addAll(namesList);
     }
 
-    public class ViewHolder {
+    public static class ViewHolder {
         TextView name;
     }
 
@@ -46,6 +47,7 @@ public class ListViewAdapter extends BaseAdapter {
         return position;
     }
 
+    @SuppressLint("InflateParams")
     public View getView(final int position, View view, ViewGroup parent) {
         final ViewHolder holder;
         if (view == null) {

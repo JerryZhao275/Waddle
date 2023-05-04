@@ -10,10 +10,8 @@ import android.widget.SearchView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.example.educationapplication.R;
 import com.example.educationapplication.viewmodels.ListViewAdapter;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -28,6 +26,7 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
     Button classes;
     Button quizzes;
 
+    //TODO: Edit namesList, classesList and quizzesList to work with the db
     String[] namesList = {"Jerry Zhao", "Karthik Vemireddy", "Matthew Richards",
             "Ryan Yoon", "Michael Ostapenko", "Bernado Nunes", "Bernardo Nunes Jr",
             "Bernado Nunes Sr", "Kanye", "Drake"};
@@ -74,8 +73,7 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        String text = newText;
-        adapter.filter(text);
+        adapter.filter(newText);
         return false;
     }
 
@@ -90,6 +88,8 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
         else if (view.getId() == R.id.quizzesTab) {
             displayList = quizzesList;
         }
+        editsearch.setQuery("", false);
+        editsearch.clearFocus();
         adapter.updateData(displayList);
         arraylist.clear();
         arraylist.addAll(Arrays.asList(displayList));
