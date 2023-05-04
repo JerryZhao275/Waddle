@@ -1,5 +1,4 @@
 package com.example.educationapplication.viewmodels;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -53,6 +52,8 @@ public class ListViewAdapter extends BaseAdapter {
         if (view == null) {
             holder = new ViewHolder();
             view = inflater.inflate(R.layout.list_view_items, null);
+            //Change list_view_items to some other .xml resource for classes and quizzes
+
             holder.name = view.findViewById(R.id.name);
             view.setTag(holder);
         } else {
