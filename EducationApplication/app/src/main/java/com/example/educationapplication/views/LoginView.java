@@ -28,7 +28,6 @@ public class LoginView extends AppCompatActivity {
         loginBinding.setOnSignup(()-> {
             Intent intent = new Intent(getApplicationContext(), SignupView.class);
             startActivity(intent);
-            setContentView(R.layout.activity_main);
         });
         loginBinding.setOnSignupTest(()-> {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
