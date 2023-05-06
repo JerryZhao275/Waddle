@@ -9,12 +9,31 @@
         <variable
             name="onLogin"
             type="com.example.educationapplication.viewmodels.LoginEvent" />
+        <variable
+            name="onSignup"
+            type="com.example.educationapplication.viewmodels.SignUpEvent" />
+        <variable
+            name="onSignupTest"
+            type="com.example.educationapplication.viewmodels.LoginEvent" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/signupText"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         bind:context=".views.LoginView">
+
+        <View
+            android:id="@+id/login_white_background"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="#FEFEFE"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/titleText"
@@ -32,6 +51,35 @@
             app:layout_constraintTop_toBottomOf="@+id/duck_login"
             app:layout_constraintVertical_bias="0.0" />
 
+        <Button
+            android:id="@+id/loginButton"
+            android:layout_width="116dp"
+            android:layout_height="52dp"
+            android:backgroundTint="#ED8C33"
+            android:onClick="@{()->onLogin.run()}"
+            android:text="Login"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.764"
+            bind:changeToHomepage="Entered to Homepage!" />
+
+        <Button
+            android:id="@+id/signUpButton"
+            android:layout_width="115dp"
+            android:layout_height="48dp"
+            android:backgroundTint="#FFFFFF"
+            android:onClick="@{()->onSignup.run()}"
+            android:text="SIGN UP NOW"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.869" />
+
         <TextView
             android:id="@+id/errorText"
             android:layout_width="250dp"
@@ -43,77 +91,40 @@
             android:textStyle="normal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.509"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/duck_login"
-            app:layout_constraintVertical_bias="0.858" />
+            app:layout_constraintVertical_bias="0.932" />
 
-    <EditText
-        android:id="@+id/editTextPassword"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Enter Password"
-        android:layout_marginHorizontal="40dp"
-        android:inputType="textPassword"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.698" />
-
-    <EditText
-        android:id="@+id/editTextUsername"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Enter Username"
-        android:layout_marginHorizontal="40dp"
-        android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.609" />
-
-        <Button
-            android:id="@+id/loginButton"
+        <EditText
+            android:id="@+id/editTextEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="#ED8C33"
-            android:onClick="@{()->onLogin.run()}"
-            android:text="Login"
+            android:ems="10"
+            android:hint="Enter Email"
+            android:inputType="textEmailAddress"
+            android:text="@={viewModel.email}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.822"
-            bind:changeToHomepage="Entered to Homepage!" />
+            app:layout_constraintVertical_bias="0.568" />
 
-        <Button
-            android:id="@+id/signUpButton"
-            android:layout_width="115dp"
-            android:layout_height="45dp"
-            android:text="SIGN UP NOW"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.053"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.976" />
-
-        <TextView
-            android:id="@+id/signUpText"
+        <EditText
+            android:id="@+id/editTextPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginBottom="30dp"
-            android:text="SIGN UP NOW"
+            android:ems="10"
+            android:hint="Enter Password"
+            android:inputType="textPassword"
+            android:text="@={viewModel.password}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.657" />
 
         <ImageView
             android:id="@+id/duck_login"
@@ -134,6 +145,16 @@
             android:src="@drawable/waddle_duck"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/toHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:onClick="@{()->onSignupTest.run()}"
+            android:text="To Home"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

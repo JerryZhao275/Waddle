@@ -9,7 +9,7 @@ public class CourseDto {
     private List<QuizDto> quizzes;
 
     private TeacherUserDto teacher;
-    private List<Student> students;
+    private List<StudentUserDto> students;
 
     public CourseDto(Integer courseId, String courseName, TeacherUserDto teacher){
         this.courseId = courseId;
@@ -17,15 +17,15 @@ public class CourseDto {
         this.teacher = teacher;
     }
 
-    public Integer getTeacherId(){
-        return teacher.getUUID();
+    public String getTeacherId(){
+        return teacher.getUserId();
     }
 
-    public void enroll(Student student){
+    public void enroll(StudentUserDto student){
         students.add(student);
     }
 
-    public void addMultipleStudent(List<Student> students){
+    public void addMultipleStudent(List<StudentUserDto> students){
         students.addAll(students);
     }
 
@@ -45,7 +45,7 @@ public class CourseDto {
         return quizzes;
     }
 
-    public List<Student> getAllStudents(){
+    public List<StudentUserDto> getAllStudents(){
         return students;
     }
 

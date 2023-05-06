@@ -12,10 +12,10 @@
         android:theme="@style/Theme.EducationApplication"
         tools:targetApi="31">
         <activity
-            android:name=".CourseDashboard"
+            android:name=".views.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".Signup"
+            android:name=".views.SignupView"
             android:exported="false" />
         <activity
             android:name=".views.LoginView"

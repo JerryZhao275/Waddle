@@ -4,18 +4,18 @@ import com.example.educationapplication.integration.database.config.WaddleDataba
 
 import java.util.List;
 
-import dataObjects.Student;
-import dataObjects.User;
+import dataObjects.LoginUserDto;
 
 public class WaddleDatabaseServiceClientFactory {
     public static WaddleDatabaseServiceClient createClient(WaddleDatabaseConfiguration config) {
-        if (true || config.isMocked()) {
-            List<User> mockedUsers = List.of(
-                    new Student(12345).withEmail("u7499989@anu.edu.au").withName("Matthew", "Richards"),
-                    new Student(54321).withEmail("other@testuser.com").withName("Test", "User")
+        if (config.isMocked()) {
+            List<LoginUserDto> mockedUsers = List.of(
+                    new LoginUserDto("12345","MatthewRichards", "u7499989@anu.edu.au", "password1"),
+                    new LoginUserDto("54321", "TestUser", "other@testuser.com", "password2"),
+                    new LoginUserDto("43242", "AdminAdmin", "admin@admin.au", "password3")
             );
             return new MockWaddleDatabaseServiceClient(mockedUsers);
         }
-        return null;
+        return new FirebaseWaddleDatabaseServiceClient();
     }
 }
