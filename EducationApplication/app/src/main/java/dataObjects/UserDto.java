@@ -7,49 +7,26 @@ public abstract class UserDto {
     private String userName;
     private String userLastName;
     private String userEmail;
-    private String userPassword;
     private String userDesc;
-    private UserType userType;
 
 
 
     public UserDto(String userId, String userFirstName, String userLastName, String userName, String userEmail,
-                   String userPassword, String userDesc, String userType){
+                   String userDesc){
         this.userId = userId;
         this.userFirstName = userFirstName;
         this.userLastName = userLastName;
         this.userName = userName;
         this.userEmail = userEmail;
-        this.userPassword = userPassword;
         this.userDesc = userDesc;
-        if(userType == null){
-            this.userType = UserType.ADMIN;
-        }
-        else if(userType.equals("S")){
-            this.userType = UserType.STUDENT;
-        }
-        else{
-            this.userType = UserType.TEACHER;
-        }
     }
 
-    public UserDto(String userId, String userFirstName, String userLastName, String userName, String userEmail,
-                   String userPassword, String userType){
+    public UserDto(String userId, String userFirstName, String userLastName, String userName, String userEmail){
         this.userId = userId;
         this.userFirstName = userFirstName;
         this.userLastName = userLastName;
         this.userName = userName;
         this.userEmail = userEmail;
-        this.userPassword = userPassword;
-        if(userType == null){
-            this.userType = UserType.ADMIN;
-        }
-        else if(userType.equals("S")){
-            this.userType = UserType.STUDENT;
-        }
-        else{
-            this.userType = UserType.TEACHER;
-        }
     }
 
 
@@ -75,9 +52,6 @@ public abstract class UserDto {
 
     public String getUserDesc(){
         return userDesc;
-    }
-    public String getUserPassword(){
-        return userPassword;
     }
 
     public void setUserId(String userId){
@@ -105,11 +79,7 @@ public abstract class UserDto {
     public void setUserDesc(String userDesc){
          this.userDesc = userDesc;
     }
-    public void setUserPassword(String password){ this.userPassword = password;}
 
-    public UserType getUserType(){
-        return this.userType;
-    }
 
 
 }

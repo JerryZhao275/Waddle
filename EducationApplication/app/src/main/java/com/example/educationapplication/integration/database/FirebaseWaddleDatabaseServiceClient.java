@@ -26,8 +26,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
 
+import dataObjects.AdminUserDto;
 import dataObjects.LoginUserDto;
+import dataObjects.TeacherUserDto;
 import dataObjects.UserDto;
+import dataObjects.UserType;
 import kotlin.jvm.Synchronized;
 
 public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServiceClient {
@@ -91,8 +94,8 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
     }
 
     @Override
-    public void createNewUser(UserDto user) {
-        mAuth.createUserWithEmailAndPassword(user.getUserEmail(), user.getUserPassword()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+    public void createNewUser(UserDto user, String password) {
+        mAuth.createUserWithEmailAndPassword(user.getUserEmail(), password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
@@ -100,6 +103,15 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
                     Log.d(TAG, "createUserWithEmail:success");
                     FirebaseUser currentUser = mAuth.getCurrentUser();
                     user.setUserId(currentUser.getUid());
+                    if(user instanceof AdminUserDto) {
+                        database.getReference("Users").child(currentUser.getUid()).setValue(UserType.ADMIN);
+                    }
+                    else if(user instanceof TeacherUserDto){
+                        database.getReference("Users").child(currentUser.getUid()).setValue(UserType.TEACHER);
+                    }
+                    else{
+                        database.getReference("Users").child(currentUser.getUid()).setValue(UserType.STUDENT);
+                    }
                     firestore.collection("Users").document(currentUser.getUid()).set(user);
 
                 } else {

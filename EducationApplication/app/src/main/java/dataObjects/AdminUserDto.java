@@ -2,31 +2,31 @@ package dataObjects;
 
 import java.util.List;
 
-public class StudentUserDto extends UserDto {
-
+public class AdminUserDto extends UserDto{
     private Integer age;
     private String school;
-
-    private List<String> courses;
-    public StudentUserDto(String userId, String userFirstName, String userLastName, String userName, String userEmail, String userDesc, Integer age, String school) {
+    private List<String> courses = null;
+    public AdminUserDto(String userId, String userFirstName, String userLastName, String userName, String userEmail, String userDesc, Integer age, String school) {
         super(userId, userFirstName, userLastName, userName, userEmail, userDesc);
         this.age = age;
         this.school = school;
     }
 
-    public StudentUserDto(String userId, String userFirstName, String userLastName, String userName, String userEmail, String userDesc, Integer age) {
+    public AdminUserDto(String userId, String userFirstName, String userLastName, String userName, String userEmail, String userDesc, Integer age) {
         super(userId, userFirstName, userLastName, userName, userEmail, userDesc);
         this.age = age;
     }
 
-    public StudentUserDto(String userId, String userFirstName, String userLastName, String userName, String userEmail, Integer age) {
+    public AdminUserDto(String userId, String userFirstName, String userLastName, String userName, String userEmail, Integer age) {
         super(userId, userFirstName, userLastName, userName, userEmail);
         this.age = age;
     }
 
-    public StudentUserDto(UserDto user){
+    public AdminUserDto(UserDto user){
         super(user.getUserId(), user.getUserFirstName(), user.getUserLastName(), user.getUserName(), user.getUserEmail());
+
     }
+
     public void setSchool(String school){
         this.school = school;
     }
@@ -42,8 +42,9 @@ public class StudentUserDto extends UserDto {
     public Integer getAge(){
         return this.age;
     }
+
     public void addCourse(String course){
-        courses.add(course);
+        this.courses.add(course);
     }
 
     public void addCourses(List<String> courses){
@@ -53,6 +54,4 @@ public class StudentUserDto extends UserDto {
     public List<String> getCourses(){
         return courses;
     }
-
-
 }

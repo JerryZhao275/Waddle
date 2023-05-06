@@ -6,24 +6,24 @@ public class TeacherUserDto extends UserDto {
     private Integer age;
     private String school;
     private List<String> courses = null;
-    public TeacherUserDto(String userId, String userFirstName, String userLastName, String userName, String userEmail, String userPassword, String userDesc, Integer age, String school) {
-        super(userId, userFirstName, userLastName, userName, userEmail, userPassword, userDesc, "T");
+    public TeacherUserDto(String userId, String userFirstName, String userLastName, String userName, String userEmail, String userDesc, Integer age, String school) {
+        super(userId, userFirstName, userLastName, userName, userEmail, userDesc);
         this.age = age;
         this.school = school;
     }
 
-    public TeacherUserDto(String userId, String userFirstName, String userLastName, String userName, String userEmail, String userPassword, String userDesc, Integer age) {
-        super(userId, userFirstName, userLastName, userName, userEmail, userPassword, userDesc, "T");
+    public TeacherUserDto(String userId, String userFirstName, String userLastName, String userName, String userEmail, String userDesc, Integer age) {
+        super(userId, userFirstName, userLastName, userName, userEmail, userDesc);
         this.age = age;
     }
 
-    public TeacherUserDto(String userId, String userFirstName, String userLastName, String userName, String userEmail, String userPassword, Integer age) {
-        super(userId, userFirstName, userLastName, userName, userEmail, userPassword, "T");
+    public TeacherUserDto(String userId, String userFirstName, String userLastName, String userName, String userEmail, Integer age) {
+        super(userId, userFirstName, userLastName, userName, userEmail);
         this.age = age;
     }
 
     public TeacherUserDto(UserDto user){
-        super(user.getUserId(), user.getUserFirstName(), user.getUserLastName(), user.getUserName(), user.getUserEmail(), user.getUserPassword(), "T");
+        super(user.getUserId(), user.getUserFirstName(), user.getUserLastName(), user.getUserName(), user.getUserEmail());
 
     }
 
