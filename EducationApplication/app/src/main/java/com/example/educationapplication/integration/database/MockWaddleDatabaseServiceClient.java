@@ -21,11 +21,13 @@ public class MockWaddleDatabaseServiceClient implements WaddleDatabaseServiceCli
     }
 
     @Override
-    public void signIn(String username, String password) {
+    public boolean signIn(String username, String password) {
         LoginUserDto userToLogInAs = getUser(username, password);
         if (userToLogInAs != null) {
             this.currentUser = userToLogInAs;
+            return true;
         }
+        return false;
     }
 
     @Override
