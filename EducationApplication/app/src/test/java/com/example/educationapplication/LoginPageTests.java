@@ -24,8 +24,7 @@ public class LoginPageTests {
                 new LoginUserDto("54321", "TestUser","other@testuser.com", "password2"),
                 new LoginUserDto("43242", "AdminAdmin", "admin@admin.au", "password3")
         );
-        WaddleDatabaseServiceClient databaseClient = new MockWaddleDatabaseServiceClient(mockedUsers);
-        this.model = new LoginViewModel(true);
+        this.model = new LoginViewModel();
     }
 
     @Test
