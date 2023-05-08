@@ -20,7 +20,7 @@ public class LoginView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LoginBinding loginBinding = DataBindingUtil.setContentView(this, R.layout.login);
-        loginBinding.setViewModel(new LoginViewModel(false));
+        loginBinding.setViewModel(new LoginViewModel());
         loginBinding.setOnLogin(()-> {
             loginBinding.getViewModel().login();
             try {
@@ -44,9 +44,6 @@ public class LoginView extends AppCompatActivity {
     }
 
     protected void changeToHomepage(boolean isAuthorised) {
-        EditText email = findViewById(R.id.editTextEmail);
-        EditText password = findViewById(R.id.editTextPassword);
-
         if (isAuthorised) {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);

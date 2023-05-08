@@ -28,7 +28,6 @@ import java.util.regex.Pattern;
 import dataObjects.UserDto;
 
 public class LoginViewModel extends BaseObservable {
-    private final boolean useMock;
     private final WaddleDatabaseConfiguration config;
     private final WaddleDatabaseServiceClient databaseServiceClient;
     private final LoginModel login = new LoginModel("", "");
@@ -39,9 +38,8 @@ public class LoginViewModel extends BaseObservable {
     public final static String INVALID_USER = "Could not find the user specified. Check your spelling and try again.";
     private final static String EMPTY_FIELD = "Please fill out all fields.";
 
-    public LoginViewModel(boolean useMock) {
-        this.useMock = useMock;
-        config = ConfigurationManager.configInstance(this.useMock);
+    public LoginViewModel() {
+        config = ConfigurationManager.configInstance();
         databaseServiceClient = WaddleDatabaseServiceClientFactory.createClient(config);
         System.out.println(databaseServiceClient.getCurrentUser());
     }
