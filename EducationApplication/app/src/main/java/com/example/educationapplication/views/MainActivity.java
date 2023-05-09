@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
             public void onComplete() {
                 user = databaseServiceClient.getUserDetails();
                 System.out.println(user.getUserEmail());
+                System.out.println(user.getUserFirstName());
                 final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 DashboardFragment newFragment = new DashboardFragment();
                 transaction.replace(R.id.fragment_container, newFragment);

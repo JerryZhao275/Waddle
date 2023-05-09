@@ -1,5 +1,7 @@
 package com.example.educationapplication.views.Fragment;
 import android.os.Bundle;
+
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,13 +15,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.educationapplication.R;
+import com.example.educationapplication.databinding.FragmentDashboardBinding;
+import com.example.educationapplication.databinding.LoginBinding;
+import com.example.educationapplication.integration.database.WaddleDatabaseServiceClient;
+import com.example.educationapplication.integration.database.WaddleDatabaseServiceClientFactory;
+import com.example.educationapplication.integration.database.config.ConfigurationManager;
+import com.example.educationapplication.integration.database.config.WaddleDatabaseConfiguration;
 import com.example.educationapplication.viewmodels.ListViewAdapter;
+import com.example.educationapplication.viewmodels.LoginViewModel;
+import com.example.educationapplication.viewmodels.UserViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.auth.User;
 
 import java.util.ArrayList;
 
 import dataObjects.CourseDto;
+import dataObjects.CustomOnCompleteListener;
 import dataObjects.TeacherUserDto;
+import dataObjects.UserDto;
 
 public class DashboardFragment extends Fragment implements View.OnClickListener{
     private Animation rotateOpen, rotateClose, toBottom, fromBottom;
@@ -27,6 +40,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
     private RecyclerView myRecyclerView;
 
     Boolean isOpen = false;
+
+    UserDto user;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
