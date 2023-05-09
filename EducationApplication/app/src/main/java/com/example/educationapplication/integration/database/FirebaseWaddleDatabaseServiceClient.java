@@ -2,36 +2,23 @@ package com.example.educationapplication.integration.database;
 
 import static android.content.ContentValues.TAG;
 
-import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.example.educationapplication.integration.database.config.ConfigurationManager;
-import com.example.educationapplication.util.StringUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.Executor;
 
 import dataObjects.AdminUserDto;
 import dataObjects.LoginUserDto;
 import dataObjects.TeacherUserDto;
 import dataObjects.UserDto;
 import dataObjects.UserType;
-import kotlin.jvm.Synchronized;
 
 public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServiceClient {
     final private FirebaseDatabase database;

@@ -19,7 +19,6 @@ import dataObjects.TeacherUserDto;
 import dataObjects.UserDto;
 
 public class SignUpViewModel extends BaseObservable {
-    private final boolean useMock;
     private final WaddleDatabaseConfiguration config;
     private final WaddleDatabaseServiceClient databaseServiceClient;
     private String confPassword = "";
@@ -34,9 +33,8 @@ public class SignUpViewModel extends BaseObservable {
     private final static String EMPTY_FIELD = "Either all fields have not been filled or the passwords don't match.";
     private String password = "";
 
-    public SignUpViewModel(boolean useMock) {
-        this.useMock = useMock;
-        config = ConfigurationManager.configInstance(useMock);
+    public SignUpViewModel() {
+        config = ConfigurationManager.configInstance();
         databaseServiceClient = WaddleDatabaseServiceClientFactory.createClient(config);
     }
 
