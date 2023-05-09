@@ -8,38 +8,6 @@
     android:orientation="vertical"
     tools:context=".views.Fragment.DashboardFragment">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/greetingText">
-
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/courselist"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="16dp"
-                android:paddingBottom="20dp">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/courseList"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:dividerHeight="100dp"
-                    android:headerDividersEnabled="false"
-                    android:visibility="visible"
-                    tools:visibility="visible" />
-            </LinearLayout>
-
-        </androidx.core.widget.NestedScrollView>
-    </LinearLayout>
-
-
     <TextView
         android:id="@+id/dashboardText"
         android:layout_width="wrap_content"
@@ -56,30 +24,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.146" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/addClassButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="339dp"
-        android:layout_marginTop="586dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:clickable="true"
-        android:src="@drawable/add"
-        app:backgroundTint="#FF9800"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/greetingText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="152dp"
-        android:text="Hello, user"
+        android:text="Hello, TODO"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -118,25 +69,61 @@
             android:visibility="visible" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/joinbtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:clickable="true"
-        android:src="@drawable/add"
-        app:layout_constraintBottom_toTopOf="@+id/addClassButton"
-        app:layout_constraintEnd_toEndOf="@+id/addClassButton" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/createbtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:clickable="true"
-        android:src="@drawable/add"
-        app:layout_constraintBottom_toTopOf="@+id/joinbtn"
-        app:layout_constraintEnd_toEndOf="@+id/joinbtn" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/courseList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/greetingText"
+                    android:background="#FFCF87"
+                    android:backgroundTint="#FFCA7D"
+                    android:backgroundTintMode="src_in"
+                    android:headerDividersEnabled="false"
+                    android:scrollbars="vertical"
+                    android:visibility="visible"
+                    tools:itemCount="25"
+                    tools:visibility="visible" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/addClassButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="339dp"
+            android:layout_marginTop="586dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:contentDescription="main button"
+            android:focusable="true"
+            android:clickable="true"
+            android:src="@drawable/add"
+            app:backgroundTint="#FF9800"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"  />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/joinBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="invisible"
+            android:src="@drawable/add"
+            app:layout_constraintBottom_toTopOf="@+id/addClassButton"
+            app:layout_constraintEnd_toEndOf="@+id/addClassButton" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/createBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="invisible"
+            android:src="@drawable/add"
+            app:layout_constraintBottom_toTopOf="@+id/joinBtn"
+            app:layout_constraintEnd_toEndOf="@+id/joinBtn" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
