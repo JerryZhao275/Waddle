@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.educationapplication.viewmodels.LoginViewModel" />
+            type="com.example.educationapplication.viewmodels.UserViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:tools="http://schemas.android.com/tools"
@@ -37,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="152dp"
-            android:text="Hello, TODO"
+            android:text="@={viewModel.firstName}"
             android:textSize="25sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
