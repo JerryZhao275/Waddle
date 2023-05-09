@@ -20,14 +20,21 @@ public class LoginView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LoginBinding loginBinding = DataBindingUtil.setContentView(this, R.layout.login);
-        loginBinding.setViewModel(new LoginViewModel(false));
+        loginBinding.setViewModel(new LoginViewModel());
         loginBinding.setOnLogin(()-> {
             loginBinding.getViewModel().login();
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
             changeToHomepage(loginBinding.getViewModel().isAuthorised());
         });
         loginBinding.setOnSignup(()-> {
             Intent intent = new Intent(getApplicationContext(), SignupView.class);
             startActivity(intent);
+            finish();
         });
         loginBinding.setOnSignupTest(()-> {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -37,11 +44,10 @@ public class LoginView extends AppCompatActivity {
     }
 
     protected void changeToHomepage(boolean isAuthorised) {
-        EditText email = findViewById(R.id.editTextEmail);
-        EditText password = findViewById(R.id.editTextPassword);
-
         if (isAuthorised) {
-            setContentView(R.layout.activity_main);
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+            finish();
         }
     }
 }

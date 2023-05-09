@@ -15,16 +15,24 @@ public class SignupView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SignupBinding signupBinding = DataBindingUtil.setContentView(this, R.layout.signup);
-        signupBinding.setViewModel(new SignUpViewModel(false));
+        signupBinding.setViewModel(new SignUpViewModel());
         signupBinding.setOnSignup(()->{
             signupBinding.getViewModel().createUser();
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             if(signupBinding.getViewModel().getErrorMessage().equals("")) {
-                setContentView(R.layout.activity_main);
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
         signupBinding.setOnLogin(()->{
             Intent intent = new Intent(getApplicationContext(), LoginView.class);
             startActivity(intent);
+            finish();
         });
         signupBinding.executePendingBindings();
     }
