@@ -10,7 +10,14 @@ public abstract class UserDto {
     private String userDesc;
 
 
-
+    public UserDto(){
+        userId = "";
+        userFirstName = "";
+        this.userLastName = "";
+        this.userName = "";
+        this.userEmail = "";
+        this.userDesc = "";
+    }
     public UserDto(String userId, String userFirstName, String userLastName, String userName, String userEmail,
                    String userDesc){
         this.userId = userId;

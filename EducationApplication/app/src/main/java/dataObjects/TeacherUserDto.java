@@ -6,6 +6,12 @@ public class TeacherUserDto extends UserDto {
     private Integer age;
     private String school;
     private List<String> courses = null;
+    public TeacherUserDto(){
+        super();
+        age = 0;
+        school = "";
+        courses = null;
+    }
     public TeacherUserDto(String userId, String userFirstName, String userLastName, String userName, String userEmail, String userDesc, Integer age, String school) {
         super(userId, userFirstName, userLastName, userName, userEmail, userDesc);
         this.age = age;

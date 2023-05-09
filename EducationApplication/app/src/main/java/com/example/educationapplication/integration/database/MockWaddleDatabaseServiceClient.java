@@ -3,6 +3,7 @@ package com.example.educationapplication.integration.database;
 import java.util.List;
 import java.util.UUID;
 
+import dataObjects.CustomOnCompleteListener;
 import dataObjects.LoginUserDto;
 import dataObjects.UserDto;
 
@@ -18,6 +19,16 @@ public class MockWaddleDatabaseServiceClient implements WaddleDatabaseServiceCli
     @Override
     public LoginUserDto getCurrentUser() {
         return this.currentUser;
+    }
+
+    @Override
+    public void setUserDetails(CustomOnCompleteListener listener) {
+        return;
+    }
+
+    @Override
+    public UserDto getUserDetails() {
+        return null;
     }
 
     @Override

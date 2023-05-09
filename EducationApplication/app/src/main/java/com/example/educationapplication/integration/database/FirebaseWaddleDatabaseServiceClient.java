@@ -11,10 +11,17 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import dataObjects.AdminUserDto;
+import dataObjects.CustomOnCompleteListener;
 import dataObjects.LoginUserDto;
 import dataObjects.TeacherUserDto;
 import dataObjects.UserDto;
@@ -24,7 +31,7 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
     final private FirebaseDatabase database;
     final private FirebaseFirestore firestore;
     final private FirebaseAuth mAuth;
-
+    private String userType;
     public FirebaseWaddleDatabaseServiceClient() {
         database = FirebaseDatabase.getInstance();
         firestore = FirebaseFirestore.getInstance();
@@ -32,10 +39,43 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
     }
 
     private LoginUserDto currentUser = new LoginUserDto("","");
+    private UserDto userDetails;
 
     @Override
     public LoginUserDto getCurrentUser() {
         return currentUser;
+    }
+
+    @Override
+    public void setUserDetails(CustomOnCompleteListener listener) {
+        DocumentReference docRef = firestore.collection("Users").document(mAuth.getCurrentUser().getUid());
+        database.getReference("Users").child(mAuth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                DataSnapshot document1 = task.getResult();
+                System.out.println(document1.getValue());
+                userType = document1.getValue().toString();
+                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                        if (task.isSuccessful()) {
+
+                            DocumentSnapshot document = task.getResult();
+                            userDetails = UserTypeFactory.createUser(userType, document);
+                            listener.onComplete();
+                            if (document.exists()) {
+                                Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                            } else {
+                                Log.d(TAG, "No such document");
+                            }
+                        } else {
+                            Log.d(TAG, "get failed with ", task.getException());
+                        }
+                    }
+                });
+            }
+        });
     }
 
     public void setCurrentUser(LoginUserDto currentUser) {
@@ -68,7 +108,9 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
                 });
         return false;
     }
-
+    public UserDto getUserDetails(){
+        return userDetails;
+    }
     @Override
     public void signOut() {
 
