@@ -53,7 +53,8 @@ public class CourseAVL {
                 return insertRight;
             }
             return insertRight;
-        } else {
+        }
+        else {
             if (this.leftNode == null) {
                 this.leftNode = new CourseAVL();
             }
@@ -85,20 +86,16 @@ public class CourseAVL {
         CourseAVL curr = this;
         curr.leftNode = newLeftOfCurrent;
         newParent.rightNode = curr;
-
         return newParent;
     }
 
     public CourseAVL leftRotate() {
-        if (this.rightNode == null || this.rightNode.course == null){
-            return this;
-        }
+        if (this.rightNode == null || this.rightNode.course == null) return this;
         CourseAVL newParent = this.rightNode;
         CourseAVL newRightOfCurrent = newParent.leftNode;
         CourseAVL curr = this;
         curr.rightNode = newRightOfCurrent;
         newParent.leftNode = curr;
-
         return newParent;
     }
 
@@ -106,13 +103,16 @@ public class CourseAVL {
         int leftNodeHeight;
         if (this.leftNode == null) {
             leftNodeHeight = 0;
-        } else {
+        }
+        else {
             leftNodeHeight = 1 + this.leftNode.getHeight();
         }
+
         int rightNodeHeight;
         if (this.rightNode == null) {
             rightNodeHeight = 0;
-        } else {
+        }
+        else {
             rightNodeHeight = 1 + this.rightNode.getHeight();
         }
 
@@ -124,12 +124,14 @@ public class CourseAVL {
         int rightHeight;
         if (leftNode == null) {
             leftHeight = 0;
-        } else {
+        }
+        else {
             leftHeight = leftNode.getHeight();
         }
         if (rightNode == null) {
             rightHeight = 0;
-        } else {
+        }
+        else {
             rightHeight = rightNode.getHeight();
         }
 

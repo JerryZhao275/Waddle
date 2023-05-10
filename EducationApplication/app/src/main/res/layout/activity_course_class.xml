@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/dmchat_backbutton2"
+        android:id="@+id/createclass_backbutton"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentStart="true"
