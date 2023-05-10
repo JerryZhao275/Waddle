@@ -15,6 +15,12 @@ public class CourseAVLTest {
     }
 
     @Test
+    public void testInsertWithNull() {
+        CourseAVL result = courseAVL.insert(null);
+        assertNull(result.course);
+    }
+
+    @Test
     public void testInsertAndInOrderTraversal() {
         CourseDto course1 = new CourseDto(2100, "COMP2100", null);
         CourseDto course2 = new CourseDto(2620, "COMP2620", null);
@@ -32,12 +38,6 @@ public class CourseAVLTest {
         assertEquals(course3, inOrder.get(1));
         assertEquals(course4, inOrder.get(2));
         assertEquals(course2, inOrder.get(3));
-    }
-
-    @Test
-    public void testInsertWithNull() {
-        CourseAVL result = courseAVL.insert(null);
-        assertNull(result.course);
     }
 
     @Test

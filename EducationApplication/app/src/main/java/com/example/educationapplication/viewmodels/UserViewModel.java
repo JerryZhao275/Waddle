@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import dataObjects.AdminUserDto;
 import dataObjects.CustomOnCompleteListener;
 import dataObjects.StudentUserDto;
+import dataObjects.TeacherUserDto;
 import dataObjects.UserDto;
 
 public class UserViewModel extends BaseObservable {
@@ -25,6 +26,10 @@ public class UserViewModel extends BaseObservable {
     UserDto user;
     String userFirstName = "";
     String email = "";
+    String userType;
+    boolean isTeacher;
+    boolean isStudent;
+
     public UserViewModel() {
         config = ConfigurationManager.configInstance();
         databaseServiceClient = WaddleDatabaseServiceClientFactory.createClient(config);
@@ -35,10 +40,10 @@ public class UserViewModel extends BaseObservable {
                 System.out.println(user.getUserName()+" "+user.getUserEmail());
                 setFirstName(user.getUserFirstName());
                 setEmail(user.getUserEmail());
-                System.out.println(user instanceof StudentUserDto);
+                isStudent = user instanceof StudentUserDto;
+                isTeacher = user instanceof TeacherUserDto;
             }
         });
-
     }
     @Bindable
     public String getEmail() {
@@ -55,10 +60,23 @@ public class UserViewModel extends BaseObservable {
         notifyPropertyChanged(BR.firstName);
     }
 
-
     @Bindable
     public void setEmail(String email) {
         this.email = email;
         notifyPropertyChanged(BR.email);
     }
+
+    @Bindable
+    public String getUserType() {
+        if (isStudent) {
+            userType = "Teacher";
+            return userType;
+        }
+        else if (isTeacher) {
+            userType = "Student";
+            return userType;
+        }
+        return userType;
+    }
+
 }

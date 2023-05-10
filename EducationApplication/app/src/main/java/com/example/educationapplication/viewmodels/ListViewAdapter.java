@@ -17,9 +17,9 @@ public class ListViewAdapter extends BaseAdapter {
     LayoutInflater inflater;
     private ArrayList<String> arraylist;
 
+    //REPLACE WITH DB LISTS
     String[] namesList = {"Jerry Zhao", "Karthik Vemireddy", "Matthew Richards",
-            "Ryan Yoon", "Michael Ostapenko", "Bernado Nunes", "Bernardo Nunes Jr",
-            "Bernado Nunes Sr", "Kanye", "Drake"};
+            "Ryan Yoon", "Michael Ostapenko", "Bernado Nunes"};
     String[] classesList = {"COMP2100", "COMP2420", "COMP2620", "COMP2300", "COMP1140"};
     String[] quizzesList = {"COMP2100 quiz 1", "COMP2420 quiz 3", "COMP2620 quiz 2", "COMP2300 quiz 1", "COMP1140 quiz 2"};
 

@@ -19,13 +19,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.121" />
+        app:layout_constraintVertical_bias="0.16" />
 
     <TextView
         android:id="@+id/classpage_classdescription"
         android:layout_width="377dp"
         android:layout_height="63dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
         android:text="CLASS DESCRIPTION TO BE BINDED. This is the landing page for aftering clicking a class"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,10 +51,12 @@
         android:layout_height="50dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:background="@drawable/backbutton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/classPageOrangeBar"
+        app:layout_constraintHorizontal_bias="0.049"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
