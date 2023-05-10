@@ -13,5 +13,4 @@ public class CoursePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_page);
     }
-
 }
