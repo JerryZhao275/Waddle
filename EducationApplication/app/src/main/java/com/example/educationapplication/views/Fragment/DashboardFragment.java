@@ -46,7 +46,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         courses = new ArrayList<>();
         courses.add(new CourseDto(1100, "COMP1100", new TeacherUserDto("u1", "A", "B", "teach", "example@anu.edu.au", "n/a", 30, "ANU")));
         courses.add(new CourseDto(1110, "COMP1110", new TeacherUserDto("u1", "A", "B", "teach", "example@anu.edu.au", "n/a", 30, "ANU")));
@@ -70,7 +69,11 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_dashboard, container, false);
+
+        //view = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        FragmentDashboardBinding fragBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_dashboard, container,false);
+        fragBinding.setViewModel(new UserViewModel());
+        view = fragBinding.getRoot();
         myRecyclerView = (RecyclerView) view.findViewById(R.id.courseList);
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(getContext(),courses);
         myRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
