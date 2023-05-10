@@ -41,6 +41,10 @@ public class CourseDto {
         return courseName;
     }
 
+    public Integer getCourseID(){
+        return courseId;
+    }
+
     public List<QuizDto> getQuizzes(){
         return quizzes;
     }
