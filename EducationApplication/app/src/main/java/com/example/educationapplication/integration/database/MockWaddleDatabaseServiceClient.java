@@ -3,27 +3,37 @@ package com.example.educationapplication.integration.database;
 import java.util.List;
 import java.util.UUID;
 
-import dataObjects.Student;
-import dataObjects.User;
+import dataObjects.CustomOnCompleteListener;
+import dataObjects.LoginUserDto;
+import dataObjects.UserDto;
 
 public class MockWaddleDatabaseServiceClient implements WaddleDatabaseServiceClient {
+    final private List<LoginUserDto> mockedUsers;
 
-    final private List<User> mockedUsers;
+    private LoginUserDto currentUser = null;
 
-    private User currentUser = null;
-
-    public MockWaddleDatabaseServiceClient(List<User> mockedUsers) {
+    public MockWaddleDatabaseServiceClient(List<LoginUserDto> mockedUsers) {
         this.mockedUsers = mockedUsers;
     }
 
     @Override
-    public User getCurrentUser() {
+    public LoginUserDto getCurrentUser() {
         return this.currentUser;
     }
 
     @Override
+    public void fetchUserDetails(CustomOnCompleteListener listener) {
+        return;
+    }
+
+    @Override
+    public UserDto getUserDetails() {
+        return null;
+    }
+
+    @Override
     public boolean signIn(String username, String password) {
-        User userToLogInAs = getUser(username, password);
+        LoginUserDto userToLogInAs = getUser(username, password);
         if (userToLogInAs != null) {
             this.currentUser = userToLogInAs;
             return true;
@@ -37,15 +47,15 @@ public class MockWaddleDatabaseServiceClient implements WaddleDatabaseServiceCli
     }
 
     @Override
-    public User getUser(String email, String password) {
-        return mockedUsers.stream().filter(user -> email.equalsIgnoreCase(user.getEmail()))
+    public LoginUserDto getUser(String email, String password) {
+        return mockedUsers.stream().filter(user -> email.equalsIgnoreCase(user.getLoginUserEmail())&&password.equals(user.getPassword()))
                 .findFirst()
                 .orElse(null);
     }
 
     @Override
-    public void createNewUser(String email, String password) {
-        this.mockedUsers.add(new Student(UUID.randomUUID().hashCode()).withEmail(email));
+    public void createNewUser(UserDto user, String password) {
+        this.mockedUsers.add(new LoginUserDto(UUID.randomUUID().toString(), user.getUserEmail(), user.getUserEmail(), password));
     }
 
 }

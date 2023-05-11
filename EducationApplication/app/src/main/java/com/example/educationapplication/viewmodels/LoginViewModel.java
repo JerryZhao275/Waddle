@@ -2,8 +2,10 @@ package com.example.educationapplication.viewmodels;
 
 import static androidx.databinding.DataBindingUtil.setContentView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.databinding.BaseObservable;
@@ -13,6 +15,9 @@ import com.example.educationapplication.BR;
 import com.example.educationapplication.R;
 import com.example.educationapplication.integration.database.FirebaseWaddleDatabaseServiceClient;
 import com.example.educationapplication.integration.database.WaddleDatabaseServiceClient;
+import com.example.educationapplication.integration.database.WaddleDatabaseServiceClientFactory;
+import com.example.educationapplication.integration.database.config.ConfigurationManager;
+import com.example.educationapplication.integration.database.config.WaddleDatabaseConfiguration;
 import com.example.educationapplication.model.LoginModel;
 import com.example.educationapplication.util.CommonRegexUtil;
 import com.example.educationapplication.util.StringUtils;
@@ -20,34 +25,38 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.regex.Pattern;
 
-import dataObjects.User;
+import dataObjects.UserDto;
 
 public class LoginViewModel extends BaseObservable {
-
+    private final WaddleDatabaseConfiguration config;
+    private final WaddleDatabaseServiceClient databaseServiceClient;
     private final LoginModel login = new LoginModel("", "");
-    private final WaddleDatabaseServiceClient databaseClient;
-    private FirebaseWaddleDatabaseServiceClient firebase;
 
     private boolean authorised = false;
 
     private final static String LOGIN_FAILED = "Invalid email. Check your spelling and try again.";
-    private final static String INVALID_USER = "Could not find the user specified. Check your spelling and try again.";
+    public final static String INVALID_USER = "Could not find the user specified. Check your spelling and try again.";
+    private final static String EMPTY_FIELD = "Please fill out all fields.";
 
-    public LoginViewModel(WaddleDatabaseServiceClient databaseClient) {
-        this.databaseClient = databaseClient;
+    public LoginViewModel() {
+        config = ConfigurationManager.configInstance();
+        databaseServiceClient = WaddleDatabaseServiceClientFactory.createClient(config);
+        System.out.println(databaseServiceClient.getCurrentUser());
     }
 
     public WaddleDatabaseServiceClient getDatabaseServiceClient() {
-        return databaseClient;
+        return databaseServiceClient;
     }
 
     @Bindable
     public String getEmail() {
+        System.out.println(login.getEmail());
         return login.getEmail();
     }
 
     @Bindable
     public void setEmail(String email) {
+        System.out.println(email);
         login.setEmail(email);
         notifyPropertyChanged(BR.email);
     }
@@ -85,18 +94,25 @@ public class LoginViewModel extends BaseObservable {
     public void login() {
         boolean questionsAnswered = StringUtils.isNotEmpty(login.getEmail()) && StringUtils.isNotEmpty(login.getPassword());
         boolean isEmailValid = Pattern.matches(CommonRegexUtil.EMAIL, login.getEmail());
-        if (!isEmailValid || !questionsAnswered) {
+
+        if (!questionsAnswered) {
+            setErrorMessage(EMPTY_FIELD);
+            setAuthorised(false);
+            return;
+        }
+        if (!isEmailValid) {
             setErrorMessage(LOGIN_FAILED);
             setAuthorised(false);
             return;
         }
         getDatabaseServiceClient().signIn(login.getEmail(), login.getPassword());
+
         if (getDatabaseServiceClient().getCurrentUser() == null) {
             setErrorMessage(INVALID_USER);
             setAuthorised(false);
             return;
         }
         setAuthorised(true);
-        firebase.signIn(login.getEmail(), login.getPassword());
     }
+
 }

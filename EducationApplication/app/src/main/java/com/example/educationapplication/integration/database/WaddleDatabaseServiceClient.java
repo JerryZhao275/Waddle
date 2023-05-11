@@ -1,11 +1,16 @@
 package com.example.educationapplication.integration.database;
 
-import dataObjects.User;
+import dataObjects.CustomOnCompleteListener;
+import dataObjects.LoginUserDto;
+import dataObjects.UserDto;
+import dataObjects.UserDto;
 
 public interface WaddleDatabaseServiceClient {
-    User getUser(String email, String password);
-    void createNewUser(String email, String password);
-    User getCurrentUser(); // TODO dto LoggedInUser { user: User, firebaseUser: FirebaseUser, sessionId, etc.?  }
+    LoginUserDto getUser(String email, String password);
+    void createNewUser(UserDto user, String password);
+    LoginUserDto getCurrentUser(); // TODO dto LoggedInUser { user: User, firebaseUser: FirebaseUser, sessionId, etc.?  }
+    void fetchUserDetails(CustomOnCompleteListener listener);
+    UserDto getUserDetails();
     boolean signIn(String username, String password);
     void signOut();
 }
