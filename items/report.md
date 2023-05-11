@@ -127,25 +127,25 @@ The following is a report template to help your team successfully provide all th
 
 1. *List*
 
-   * *Objective: Lists are used to primarily store a user’s courses. It is also used in custom adapter classes for displaying courses or course participants as a scrollable list in the app.*
+   * Objective: Lists are used to primarily store a user’s courses. It is also used in custom adapter classes for displaying courses or course participants as a scrollable list in the app.
 
-   * *Locations: MockWaddleDatabaseServiceClient.java, WaddleDatabaseServiceClientFactory.java , ListViewAdapter.java, RecyclerViewAdapter.java, UserViewModel.java, AdminUserDto.java, CourseDto.java, StudentUserDto.java, TeacherUserDto.java*
+   * Locations: MockWaddleDatabaseServiceClient.java, WaddleDatabaseServiceClientFactory.java , ListViewAdapter.java, RecyclerViewAdapter.java, UserViewModel.java, AdminUserDto.java, CourseDto.java, StudentUserDto.java, TeacherUserDto.java
 
-   * *Reasons:*
+   * Reasons:
 
-      * *Lists were used for these classes to handle insertion/deletion operations and memory allocations. If a course is to be added/deleted within the*
+      * Lists were used for these classes to handle insertion/deletion operations and memory allocations. If a course is to be added/deleted within the
 
 2. *AVL Tree*
 
-   * *Objective: AVL Trees are used for storing and managing all courses which exist in the Waddle firebase*
+   * Objective: AVL Trees are used for storing and managing all courses which exist in the Waddle firebase
 
-   * *Locations: CourseAVL.java*
+   * Locations: CourseAVL.java
 
-   * *Reasons:*
+   * Reasons:
 
-      * *The addition of an arbitrary amount of classes will add complexity to the program, making it slower for the user to navigate the application.*
+      * The addition of an arbitrary amount of classes will add complexity to the program, making it slower for the user to navigate the application.
    
-      * *Using a tree lowers insertion time to O(log n) giving a worst case of O(n log n) which is significantly less time complexity compared to that of an array.*
+      * Using a tree lowers insertion time to O(log n) giving a worst case of O(n log n) which is significantly less time complexity compared to that of an array.
 
 
 
@@ -180,7 +180,7 @@ Production Rules:
 
 **Other**
 
-*Android MVVM Design Pattern*
+**Android MVVM Design Pattern**
 
 Implementing all the functionality and firebase logic in a single class or activity would lead to problems in testing and refactoring the code. This is due to difficulty and unreliability in testing two components of an application simultaneously. Hence, the separation of code and clean architecture can allow us to develop a Mock database to test easily against our program and its individual components.
 
@@ -224,41 +224,41 @@ Implementing all the functionality and firebase logic in a single class or activ
 
 ### Basic App
 1. [Login]. Users must be able to log in (easy)
-    * *Classes utilised:*
-      * *model/LoginModel.java, whole file*
-      * *viewmodel/LoginEvent.java, whole file*
-      * *viewmodel/LoginViewModel.java, whole file*
-      * *viewmodel/SignUpEvent.java, whole file*
-      * *viewmodel/SignUpEventModel.java, whole file*
-      * *views/LoginView.java, whole file*
-      * *views/SignupView.java, whole file*
-      * *database/FirebaseWaddleDatabaseServiceClient.java, createNewUser, signIn, lines of code: 88-152*
-    * *Users can login to the app using an existing Firebase account. When a user enters their email and password on the login page, the app checks if the credentials match an existing user in the Firebase database. If there is a match, the user is directed to the dashboard fragment.*
+    * Classes utilised:
+      * model/LoginModel.java, whole file
+      * viewmodel/LoginEvent.java, whole file
+      * viewmodel/LoginViewModel.java, whole file
+      * viewmodel/SignUpEvent.java, whole file
+      * viewmodel/SignUpEventModel.java, whole file
+      * views/LoginView.java, whole file
+      * views/SignupView.java, whole file
+      * database/FirebaseWaddleDatabaseServiceClient.java, createNewUser, signIn, lines of code: 88-152*
+    * Users can login to the app using an existing Firebase account. When a user enters their email and password on the login page, the app checks if the credentials match an existing user in the Firebase database. If there is a match, the user is directed to the dashboard fragment.
       <br>
 2. [2500 Data Instances]. There must be data file(s) with at least 2,500 valid data instances (easy)
-   * *Classes utilised:*
-      * *some class that will utilises*
-      * *Users can login to the app using an existing Firebase account. When a user enters their email and password on the login page, the app checks if the credentials match an existing user in the Firebase database. If there is a match, the user is directed to the dashboard fragment.*
-        <br>
+   * Classes utilised:
+      * some class that will utilises
+      * Users can login to the app using an existing Firebase account. When a user enters their email and password on the login page, the app checks if the credentials match an existing user in the Firebase database. If there is a match, the user is directed to the dashboard fragment.
+           <br>
 
 3. [Load data/information]. Users must be able to load data/information from Firebase and visualise it (medium)
-    * *The app retrieves data from Firebase to display information across most of its activities and fragments. This data includes a user's course list, course participants, and their roles as either a student or teacher. The information is utilized across the application and is mainly displayed within the four primary fragments.*
+    - The app retrieves data from Firebase to display information across most of its activities and fragments. This data includes a user's course list, course participants, and their roles as either a student or teacher. The information is utilized across the application and is mainly displayed within the four primary fragments.
 
 4. [Search by Parsers/Tokenisers]. Users must be able to search for information on your app. (medium)
-    * *To be added*
+    - To be added
 
 <br><br>
 
 ### General Features
 Feature Category: Firebase Integration <br>
 1. [FB-Auth]. Use Firebase to implement User Authentication/Authorisation. (easy)
-   * *Class utilised: database/FirebaseWaddleDatabaseServiceClient.java, whole file*
-   * *The app allows users to login and sign up using Firebase authentication. Upon launching the app, users are directed to the login page where they can either log in with an existing account or create a new account using Firebase. Any new user created is stored in the database and can immediately login with their new accounts via Firebase authentication.*
+    - Class utilised: database/FirebaseWaddleDatabaseServiceClient.java, whole file
+    - The app allows users to login and sign up using Firebase authentication. Upon launching the app, users are directed to the login page where they can either log in with an existing account or create a new account using Firebase. Any new user created is stored in the database and can immediately login with their new accounts via Firebase authentication.
 
-2. [FB-Persist]. Use Firebase to persist all data used in your app. (medium)
+3. [FB-Persist]. Use Firebase to persist all data used in your app. (medium)
     - Classes utilised:
 
-3. [FB-Syn]. Using Firebase or another remote database to store user information and having the app updated as the remote database is updated (hard)
+4. [FB-Syn]. Using Firebase or another remote database to store user information and having the app updated as the remote database is updated (hard)
     - Classes utilised:
 
 
