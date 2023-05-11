@@ -47,7 +47,7 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
     }
 
     @Override
-    public void setUserDetails(CustomOnCompleteListener listener) {
+    public void fetchUserDetails(CustomOnCompleteListener listener) {
         DocumentReference docRef = firestore.collection("Users").document(mAuth.getCurrentUser().getUid());
         database.getReference("Users").child(mAuth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override

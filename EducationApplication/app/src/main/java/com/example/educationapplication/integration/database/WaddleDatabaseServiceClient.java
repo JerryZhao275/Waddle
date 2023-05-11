@@ -9,7 +9,7 @@ public interface WaddleDatabaseServiceClient {
     LoginUserDto getUser(String email, String password);
     void createNewUser(UserDto user, String password);
     LoginUserDto getCurrentUser(); // TODO dto LoggedInUser { user: User, firebaseUser: FirebaseUser, sessionId, etc.?  }
-    void setUserDetails(CustomOnCompleteListener listener);
+    void fetchUserDetails(CustomOnCompleteListener listener);
     UserDto getUserDetails();
     boolean signIn(String username, String password);
     void signOut();
