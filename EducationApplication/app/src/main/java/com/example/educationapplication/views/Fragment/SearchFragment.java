@@ -11,6 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.example.educationapplication.R;
+import com.example.educationapplication.search.Exp;
+import com.example.educationapplication.search.SearchBarParser;
+import com.example.educationapplication.search.SearchBarTokenizer;
 import com.example.educationapplication.viewmodels.ListViewAdapter;
 
 public class SearchFragment extends Fragment implements SearchView.OnQueryTextListener, View.OnClickListener {
@@ -21,6 +24,7 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
     Button classes;
     Button quizzes;
     View mView;
+    View subView;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +35,7 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_search, container, false);
         people = mView.findViewById(R.id.peopleTab);
+        subView = people;
         people.setOnClickListener(this);
         classes = mView.findViewById(R.id.classesTab);
         classes.setOnClickListener(this);
@@ -45,6 +50,22 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
 
     @Override
     public boolean onQueryTextSubmit(String query) {
+        SearchBarTokenizer tokenizer;
+        Exp expression;
+        if(subView.getId() == R.id.peopleTab) {
+            tokenizer = new SearchBarTokenizer(query, 'u');
+            SearchBarParser parser = new SearchBarParser(tokenizer);
+            expression = parser.parseName();
+        }
+        else{
+            tokenizer = new SearchBarTokenizer(query, 'c');
+            SearchBarParser parser = new SearchBarParser(tokenizer);
+            expression = parser.parseCourse();
+        }
+        while(expression.getCurrentValue()!=null){
+            System.out.println(expression.getCurrentValue()+" "+expression.showExpType());
+            expression = expression.getNext();
+        }
         return false;
     }
 
@@ -56,6 +77,7 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
 
     @Override
     public void onClick(View view) {
+        subView = view;
         if (view.getId() == R.id.peopleTab) {
             adapter.displayPeople();
         }
