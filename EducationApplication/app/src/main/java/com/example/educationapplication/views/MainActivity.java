@@ -30,7 +30,6 @@ import dataObjects.CustomOnCompleteListener;
 import dataObjects.UserDto;
 
 public class MainActivity extends AppCompatActivity {
-    UserDto user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,20 +37,22 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnItemSelectedListener(navListener);
-        WaddleDatabaseConfiguration config = ConfigurationManager.configInstance();
-        WaddleDatabaseServiceClient databaseServiceClient = WaddleDatabaseServiceClientFactory.createClient(config);
-        databaseServiceClient.setUserDetails(new CustomOnCompleteListener(){
+        final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        DashboardFragment newFragment = new DashboardFragment();
+        transaction.replace(R.id.fragment_container, newFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+        //WaddleDatabaseConfiguration config = ConfigurationManager.configInstance();
+        //WaddleDatabaseServiceClient databaseServiceClient = WaddleDatabaseServiceClientFactory.createClient(config);
+        /*databaseServiceClient.setUserDetails(new CustomOnCompleteListener(){
             @Override
             public void onComplete() {
                 user = databaseServiceClient.getUserDetails();
                 System.out.println(user.getUserEmail());
-                final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                DashboardFragment newFragment = new DashboardFragment();
-                transaction.replace(R.id.fragment_container, newFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
+                System.out.println(user.getUserFirstName());
+
             }
-        });
+        });*/
 
 
     }

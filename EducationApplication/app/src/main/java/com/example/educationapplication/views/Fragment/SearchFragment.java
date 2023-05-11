@@ -12,28 +12,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.example.educationapplication.R;
 import com.example.educationapplication.viewmodels.ListViewAdapter;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class SearchFragment extends Fragment implements SearchView.OnQueryTextListener, View.OnClickListener {
     ListView list;
     ListViewAdapter adapter;
     SearchView editsearch;
-    ArrayList<String> arraylist = new ArrayList<>();
     Button people;
     Button classes;
     Button quizzes;
-
-    //TODO: Edit namesList, classesList and quizzesList to work with the db.
-    // Move these into ListViewAdapter once db works
-    String[] namesList = {"Jerry Zhao", "Karthik Vemireddy", "Matthew Richards",
-            "Ryan Yoon", "Michael Ostapenko", "Bernado Nunes", "Bernardo Nunes Jr",
-            "Bernado Nunes Sr", "Kanye", "Drake"};
-    String[] classesList = {"COMP2100", "COMP2420", "COMP2620", "COMP2300", "COMP1140"};
-    String[] quizzesList = {"COMP2100 quiz 1", "COMP2420 quiz 3", "COMP2620 quiz 2", "COMP2300 quiz 1", "COMP1140 quiz 2"};
-
-    String[] displayList = namesList;
-
     View mView;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,18 +36,12 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
         classes.setOnClickListener(this);
         quizzes = mView.findViewById(R.id.quizzesTab);
         quizzes.setOnClickListener(this);
-
-        //Code to be changed
         list = mView.findViewById(R.id.listview);
-        arraylist.addAll(Arrays.asList(displayList));
-        adapter = new ListViewAdapter(getContext(), arraylist);
-        ////////////////////
-
+        adapter = new ListViewAdapter(getContext());
 
         list.setAdapter(adapter);
         editsearch = mView.findViewById(R.id.search);
         editsearch.setOnQueryTextListener(this);
-
         return mView;
     }
 
@@ -79,19 +59,17 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.peopleTab) {
-            displayList = namesList;
+            adapter.displayPeople();
         }
         else if (view.getId() == R.id.classesTab) {
-            displayList = classesList;
+            adapter.displayClasses();
         }
         else if (view.getId() == R.id.quizzesTab) {
-            displayList = quizzesList;
+            adapter.displayQuizzes();
         }
         editsearch.setQuery("", false);
         editsearch.clearFocus();
-        adapter.updateData(displayList);
-        arraylist.clear();
-        arraylist.addAll(Arrays.asList(displayList));
+        adapter.updateData(adapter.getDisplayList());
         adapter.notifyDataSetChanged();
     }
 }

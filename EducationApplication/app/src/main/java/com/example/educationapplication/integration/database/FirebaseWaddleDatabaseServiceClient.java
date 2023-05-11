@@ -150,7 +150,4 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
             }
         });
     }
-
-
-
 }

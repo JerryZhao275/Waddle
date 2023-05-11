@@ -15,15 +15,25 @@ import java.util.Locale;
 public class ListViewAdapter extends BaseAdapter {
     Context mContext;
     LayoutInflater inflater;
-    private List<String> namesList;
     private ArrayList<String> arraylist;
 
-    public ListViewAdapter(Context context, List<String> namesList) {
+    //REPLACE WITH DB LISTS
+    String[] namesList = {"Jerry Zhao", "Karthik Vemireddy", "Matthew Richards",
+            "Ryan Yoon", "Michael Ostapenko", "Bernado Nunes"};
+    String[] classesList = {"COMP2100", "COMP2420", "COMP2620", "COMP2300", "COMP1140"};
+    String[] quizzesList = {"COMP2100 quiz 1", "COMP2420 quiz 3", "COMP2620 quiz 2", "COMP2300 quiz 1", "COMP1140 quiz 2"};
+
+    private List<String> displayList = List.of(namesList);
+
+    public ListViewAdapter(Context context) {
         mContext = context;
-        this.namesList = namesList;
         inflater = LayoutInflater.from(mContext);
         this.arraylist = new ArrayList<>();
-        this.arraylist.addAll(namesList);
+        this.arraylist.addAll(displayList);
+    }
+
+    public String[] getDisplayList() {
+        return displayList.toArray(new String[0]);
     }
 
     public static class ViewHolder {
@@ -32,12 +42,12 @@ public class ListViewAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return namesList.size();
+        return displayList.size();
     }
 
     @Override
     public String getItem(int position) {
-        return namesList.get(position);
+        return displayList.get(position);
     }
 
     @Override
@@ -58,23 +68,24 @@ public class ListViewAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) view.getTag();
         }
-        holder.name.setText(namesList.get(position));
+        holder.name.setText(displayList.get(position));
         return view;
     }
 
     public void filter(String charText) {
         charText = charText.toLowerCase(Locale.getDefault());
-        namesList.clear();
+        List<String> filteredList = new ArrayList<>();
         if (charText.length() == 0) {
-            namesList.addAll(arraylist);
+            filteredList.addAll(arraylist);
         }
         else {
             for (String listNames : arraylist) {
                 if (listNames.toLowerCase(Locale.getDefault()).contains(charText)) {
-                    namesList.add(listNames);
+                    filteredList.add(listNames);
                 }
             }
         }
+        displayList = filteredList;
         notifyDataSetChanged();
     }
 
@@ -83,8 +94,14 @@ public class ListViewAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    public void displaySearch() {
-        //TODO function will be implemented once merge performed and database accessible.
-    }
+    public void displayPeople() {
+        displayList = List.of(namesList);
 
+    }
+    public void displayClasses() {
+        displayList = List.of(classesList);
+    }
+    public void displayQuizzes() {
+        displayList = List.of(quizzesList);
+    }
 }
