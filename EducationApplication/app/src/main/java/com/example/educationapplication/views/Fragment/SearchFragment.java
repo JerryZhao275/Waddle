@@ -19,7 +19,6 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
     SearchView editsearch;
     Button people;
     Button classes;
-    Button quizzes;
     View mView;
     @Override
     public void onCreate(Bundle savedInstanceState) {
