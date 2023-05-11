@@ -10,6 +10,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.example.educationapplication.integration.database.WaddleDatabaseServiceClient;
+import com.example.educationapplication.integration.database.WaddleDatabaseServiceClientFactory;
+import com.example.educationapplication.integration.database.config.ConfigurationManager;
+import com.example.educationapplication.integration.database.config.WaddleDatabaseConfiguration;
 import com.example.educationapplication.views.Fragment.DashboardFragment;
 import com.example.educationapplication.views.Fragment.MessagesFragment;
 import com.example.educationapplication.views.Fragment.ProfileFragment;
@@ -19,8 +24,13 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+
+import dataObjects.CustomOnCompleteListener;
+import dataObjects.UserDto;
 
 public class MainActivity extends AppCompatActivity {
+    UserDto user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,15 +38,23 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnItemSelectedListener(navListener);
+        WaddleDatabaseConfiguration config = ConfigurationManager.configInstance();
+        WaddleDatabaseServiceClient databaseServiceClient = WaddleDatabaseServiceClientFactory.createClient(config);
+        databaseServiceClient.setUserDetails(new CustomOnCompleteListener(){
+            @Override
+            public void onComplete() {
+                user = databaseServiceClient.getUserDetails();
+                System.out.println(user.getUserEmail());
+                final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                DashboardFragment newFragment = new DashboardFragment();
+                transaction.replace(R.id.fragment_container, newFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
 
-        final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        DashboardFragment newFragment = new DashboardFragment();
-        transaction.replace(R.id.fragment_container, newFragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
 
     }
-
 
     private final NavigationBarView.OnItemSelectedListener navListener = item -> {
         Fragment selectedFragment = null;
