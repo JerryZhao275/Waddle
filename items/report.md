@@ -125,7 +125,7 @@ The following is a report template to help your team successfully provide all th
 
 **Data Structures**
 
-1. *List*
+1. List
 
    * Objective: Lists are used to primarily store a user’s courses. It is also used in custom adapter classes for displaying courses or course participants as a scrollable list in the app.
 
@@ -135,7 +135,7 @@ The following is a report template to help your team successfully provide all th
 
       * Lists were used for these classes to handle insertion/deletion operations and memory allocations. If a course is to be added/deleted within the
 
-2. *AVL Tree*
+2. AVL Tree
 
    * Objective: AVL Trees are used for storing and managing all courses which exist in the Waddle firebase
 
@@ -153,8 +153,8 @@ The following is a report template to help your team successfully provide all th
 
 **Design Patterns**
 
-1. *Singleton Design Pattern*
-2. *Factory Method Design Pattern*
+1. Singleton Design Pattern
+2. Factory Method Design Pattern
 
 
 *[What design patterns did your team utilise? Where and why?]*
@@ -223,7 +223,7 @@ Implementing all the functionality and firebase logic in a single class or activ
 *[What features have you implemented?]*
 
 ### Basic App
-1. [Login]. Users must be able to log in (easy)
+1. [Login]. Users must be able to log in **(easy)**
     * Classes utilised:
       * model/LoginModel.java, whole file
       * viewmodel/LoginEvent.java, whole file
@@ -235,44 +235,43 @@ Implementing all the functionality and firebase logic in a single class or activ
       * database/FirebaseWaddleDatabaseServiceClient.java, createNewUser, signIn, lines of code: 88-152*
     * Users can login to the app using an existing Firebase account. When a user enters their email and password on the login page, the app checks if the credentials match an existing user in the Firebase database. If there is a match, the user is directed to the dashboard fragment.
       <br>
-2. [2500 Data Instances]. There must be data file(s) with at least 2,500 valid data instances (easy)
+2. [2500 Data Instances]. There must be data file(s) with at least 2,500 valid data instances **easy**
    * Classes utilised:
       * some class that will utilises
       * Users can login to the app using an existing Firebase account. When a user enters their email and password on the login page, the app checks if the credentials match an existing user in the Firebase database. If there is a match, the user is directed to the dashboard fragment.
            <br>
 
-3. [Load data/information]. Users must be able to load data/information from Firebase and visualise it (medium)
+3. [Load data/information]. Users must be able to load data/information from Firebase and visualise it **(medium)**
     - The app retrieves data from Firebase to display information across most of its activities and fragments. This data includes a user's course list, course participants, and their roles as either a student or teacher. The information is utilized across the application and is mainly displayed within the four primary fragments.
 
-4. [Search by Parsers/Tokenisers]. Users must be able to search for information on your app. (medium)
+4. [Search by Parsers/Tokenisers]. Users must be able to search for information on your app. **(medium)**
     - To be added
 
 <br><br>
 
 ### General Features
 Feature Category: Firebase Integration <br>
-1. [FB-Auth]. Use Firebase to implement User Authentication/Authorisation. (easy)
+1. [FB-Auth]. Use Firebase to implement User Authentication/Authorisation. **(easy)**
     - Class utilised: database/FirebaseWaddleDatabaseServiceClient.java, whole file
     - The app allows users to login and sign up using Firebase authentication. Upon launching the app, users are directed to the login page where they can either log in with an existing account or create a new account using Firebase. Any new user created is stored in the database and can immediately login with their new accounts via Firebase authentication.
 
-3. [FB-Persist]. Use Firebase to persist all data used in your app. (medium)
+3. [FB-Persist]. Use Firebase to persist all data used in your app. **(medium)**
     - Classes utilised:
 
-4. [FB-Syn]. Using Firebase or another remote database to store user information and having the app updated as the remote database is updated (hard)
+4. [FB-Syn]. Using Firebase or another remote database to store user information and having the app updated as the remote database is updated **(hard)**
     - Classes utilised:
 
 
 Feature Category: Privacy <br>
-4. [Privacy-Anon]. Provide students with the ability to make anonymous posts in a forum. (medium)
+4. [Privacy-Anon]. Provide students with the ability to make anonymous posts in a forum. **(medium)**
     - Classes utilised:
 
 
 Feature Category: User Interactivity <br>
-5. [Interact-Follow]. The ability to ‘follow’ a course or any specific items. (medium)
+5. [Interact-Follow]. The ability to ‘follow’ a course or any specific items. **(medium)**
     - Classes utilised:
 
-6. [Interact-Noti]. The ability to send notifications based on different types of interactions
-   (medium)
+6. [Interact-Noti]. The ability to send notifications based on different types of interactions **(medium)**
     - Classes utilised:
 
 *List all features you have completed in their separate categories with their difficulty classification. If they are features that are suggested and approved, please state this somewhere as well.*
