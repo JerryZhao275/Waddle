@@ -12,8 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.example.educationapplication.R;
 import com.example.educationapplication.databinding.FragmentDashboardBinding;
@@ -44,7 +47,10 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
 
     Boolean isOpen = false;
 
-    UserDto user;
+    Toolbar bg;
+    Button join;
+    EditText codeEntered;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,7 +73,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
     }
 
     View view;
-    TextView visibleText;
     FloatingActionButton addClass, createClass, joinClass;
 
     @Override
@@ -88,7 +93,10 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
         createClass.setOnClickListener(this);
         joinClass.setOnClickListener(this);
 
-        visibleText = view.findViewById(R.id.visibilityTest);
+        bg = view.findViewById(R.id.dimbackground);
+        join = view.findViewById(R.id.joinClassByCode);
+        codeEntered = view.findViewById(R.id.classCodeTextBox);
+
         return view;
     }
 
@@ -99,33 +107,47 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
         fromBottom = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.from_bottom_anim);
         toBottom = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.to_bottom_anim);
 
-        if (view.getId() == R.id.addClassButton && visibleText.getVisibility() == View.INVISIBLE) {
-            visibleText.setVisibility(View.VISIBLE);
-            createClass.startAnimation(toBottom);
-            joinClass.startAnimation(toBottom);
-            addClass.startAnimation(rotateClose);
-            createClass.setClickable(true);
-            joinClass.setClickable(true);
+        if (view.getId() == R.id.addClassButton && bg.getVisibility() == View.VISIBLE) {
+            bg.setVisibility(View.INVISIBLE);
+            join.setVisibility(View.INVISIBLE);
+            codeEntered.setVisibility(View.INVISIBLE);
+            addClass.startAnimation(rotateOpen);
             isOpen = false;
         }
-        else if (view.getId() == R.id.addClassButton && visibleText.getVisibility() == View.VISIBLE) {
-            visibleText.setVisibility(View.INVISIBLE);
+        else if (view.getId() == R.id.addClassButton && isOpen) {
             createClass.startAnimation(fromBottom);
             joinClass.startAnimation(fromBottom);
             addClass.startAnimation(rotateOpen);
             createClass.setClickable(false);
             joinClass.setClickable(false);
+            isOpen = false;
+        }
+        else if (view.getId() == R.id.addClassButton && !isOpen) {
+            createClass.startAnimation(toBottom);
+            joinClass.startAnimation(toBottom);
+            addClass.startAnimation(rotateClose);
+            createClass.setClickable(true);
+            joinClass.setClickable(true);
             isOpen = true;
-
         }
-        else if (view.getId() == R.id.joinBtn && visibleText.getVisibility() == View.VISIBLE) {
-            Toast.makeText(getActivity().getApplicationContext(), "Test Join", Toast.LENGTH_SHORT).show();
+        else if (view.getId() == R.id.joinBtn) {
+            createClass.startAnimation(fromBottom);
+            joinClass.startAnimation(fromBottom);
+            createClass.setClickable(false);
+            joinClass.setClickable(false);
+            bg.setVisibility(View.VISIBLE);
+            join.setVisibility(View.VISIBLE);
+            codeEntered.setVisibility(View.VISIBLE);
         }
-        else if (view.getId() == R.id.createBtn && visibleText.getVisibility() == View.VISIBLE) {
+        else if (view.getId() == R.id.createBtn) {
             Intent intent = new Intent(getActivity(), CreateClass.class);
             startActivity(intent);
-            Toast.makeText(getActivity().getApplicationContext(), "Test Create", Toast.LENGTH_SHORT).show();
-
+            createClass.startAnimation(fromBottom);
+            joinClass.startAnimation(fromBottom);
+            createClass.setClickable(false);
+            joinClass.setClickable(false);
+            addClass.startAnimation(rotateOpen);
+            isOpen = false;
         }
     }
 }

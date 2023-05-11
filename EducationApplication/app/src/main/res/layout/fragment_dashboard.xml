@@ -42,37 +42,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/visibilityTest"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="452dp"
-            android:text="I am now visible"
-            android:textSize="25sp"
-            android:visibility="invisible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/codeinputlayout"
-            android:layout_width="296dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="600dp"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            bind:visibility="gone">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/codeinput"
-                android:layout_width="298dp"
-                android:layout_height="wrap_content"
-                android:hint="class code"
-                android:visibility="visible" />
-        </com.google.android.material.textfield.TextInputLayout>
-
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/courseList"
@@ -89,21 +58,77 @@
             bind:itemCount="25"
             bind:visibility="visible" />
 
+        <Toolbar
+            android:id="@+id/dimbackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#AA000000"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/classCodeTextBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="248dp"
+            android:backgroundTint="#FFFFFF"
+            android:ems="10"
+            android:hint="Course Code"
+            android:inputType="textPersonName"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/dimbackground" />
+
+        <Button
+            android:id="@+id/joinClassByCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FF9800"
+            android:text="Join"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintStart_toStartOf="@+id/dimbackground"
+            app:layout_constraintTop_toBottomOf="@+id/classCodeTextBox"
+            app:layout_constraintVertical_bias="0.123" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/createBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/createbutton"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/joinBtn"
+            app:layout_constraintEnd_toEndOf="@+id/joinBtn" />
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/addClassButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="339dp"
-            android:layout_marginTop="586dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
+            android:clickable="true"
             android:contentDescription="main button"
             android:focusable="true"
-            android:clickable="true"
             android:src="@drawable/add"
             app:backgroundTint="#FF9800"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"  />
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/joinBtn"
@@ -112,22 +137,10 @@
             android:layout_marginBottom="15dp"
             android:clickable="true"
             android:focusable="true"
-            android:visibility="invisible"
             android:src="@drawable/joinbutton"
+            android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/addClassButton"
             app:layout_constraintEnd_toEndOf="@+id/addClassButton" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/createBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:src="@drawable/createbutton"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/joinBtn"
-        app:layout_constraintEnd_toEndOf="@+id/joinBtn" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
