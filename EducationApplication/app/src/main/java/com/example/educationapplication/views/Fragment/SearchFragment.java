@@ -55,16 +55,19 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
             tokenizer = new SearchBarTokenizer(query, 'u');
             SearchBarParser parser = new SearchBarParser(tokenizer);
             expression = parser.parseName();
+            adapter.filterUserList(expression);
         }
         else{
             tokenizer = new SearchBarTokenizer(query, 'c');
             SearchBarParser parser = new SearchBarParser(tokenizer);
             expression = parser.parseCourse();
+
         }
         while(expression.getCurrentValue()!=null){
             System.out.println(expression.getCurrentValue()+" "+expression.showExpType());
             expression = expression.getNext();
         }
+
         return false;
     }
 

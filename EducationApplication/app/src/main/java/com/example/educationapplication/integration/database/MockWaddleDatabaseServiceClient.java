@@ -1,5 +1,7 @@
 package com.example.educationapplication.integration.database;
 
+import com.example.educationapplication.search.Exp;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -24,6 +26,16 @@ public class MockWaddleDatabaseServiceClient implements WaddleDatabaseServiceCli
     @Override
     public void fetchUserDetails(CustomOnCompleteListener listener) {
         return;
+    }
+
+    @Override
+    public void fetchAllUsersForSearch(Exp expression, CustomOnCompleteListener listener) {
+        return;
+    }
+
+    @Override
+    public List<UserDto> getQueryUsers() {
+        return null;
     }
 
     @Override
