@@ -15,7 +15,6 @@ import java.util.Locale;
 public class ListViewAdapter extends BaseAdapter {
     Context mContext;
     LayoutInflater inflater;
-    private ArrayList<String> arraylist;
 
     //REPLACE WITH DB LISTS
     String[] namesList = {"Jerry Zhao", "Karthik Vemireddy", "Matthew Richards",
@@ -26,8 +25,6 @@ public class ListViewAdapter extends BaseAdapter {
     public ListViewAdapter(Context context) {
         mContext = context;
         inflater = LayoutInflater.from(mContext);
-        this.arraylist = new ArrayList<>();
-        this.arraylist.addAll(displayList);
     }
 
     public String[] getDisplayList() {
@@ -74,10 +71,10 @@ public class ListViewAdapter extends BaseAdapter {
         charText = charText.toLowerCase(Locale.getDefault());
         List<String> filteredList = new ArrayList<>();
         if (charText.length() == 0) {
-            filteredList.addAll(arraylist);
+            filteredList.addAll(displayList);
         }
         else {
-            for (String listNames : arraylist) {
+            for (String listNames : displayList) {
                 if (listNames.toLowerCase(Locale.getDefault()).contains(charText)) {
                     filteredList.add(listNames);
                 }
@@ -88,7 +85,7 @@ public class ListViewAdapter extends BaseAdapter {
     }
 
     public void updateData(String[] newData) {
-        arraylist = new ArrayList<>(Arrays.asList(newData));
+        displayList = Arrays.asList(newData);
         notifyDataSetChanged();
     }
 

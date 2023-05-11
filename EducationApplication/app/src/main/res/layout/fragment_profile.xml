@@ -13,6 +13,19 @@
         android:orientation="vertical"
         bind:context=".views.Fragment.ProfileFragment">
 
+        <ImageButton
+            android:id="@+id/logoutbutton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="100dp"
+            android:background="@drawable/logout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.873"
+            app:layout_constraintStart_toEndOf="@+id/profileText"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/profileText"
             android:layout_width="wrap_content"
@@ -56,44 +69,18 @@
             app:layout_constraintVertical_bias="0.22" />
 
         <TextView
-            android:id="@+id/profileDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="48dp"
-            android:layout_marginBottom="59dp"
-            android:text="TODO Description of the user"
-            app:layout_constraintBottom_toTopOf="@+id/upcomingQuizzes"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.751"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.616" />
-
-        <TextView
             android:id="@+id/studentTeacherText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@{viewModel.userType}"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/upcomingQuizzes"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toTopOf="@+id/logoutconfirmationText"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.187"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView"
-            app:layout_constraintVertical_bias="0.24" />
-
-        <Button
-            android:id="@+id/editProfileButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="72dp"
-            android:backgroundTint="#FF9800"
-            android:text="Edit Profile"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.73"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profileDescription" />
+            app:layout_constraintHorizontal_bias="0.237"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.728" />
 
         <TextView
             android:id="@+id/profile_courseList"
@@ -107,6 +94,70 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/upcomingQuizzes"
             app:layout_constraintVertical_bias="0.231" />
+
+        <Toolbar
+            android:id="@+id/logoutDim"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#AA000000"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/yesLogout"
+            android:layout_width="120sp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="64dp"
+            android:layout_marginBottom="200dp"
+            android:backgroundTint="#FF9800"
+            android:text="Yes"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintStart_toStartOf="@+id/dimbackground"
+            app:layout_constraintTop_toBottomOf="@+id/classCodeTextBox"
+            app:layout_constraintVertical_bias="0.123" />
+
+        <Button
+            android:id="@+id/noLogout"
+            android:layout_width="120sp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="48dp"
+            android:layout_marginBottom="200dp"
+            android:backgroundTint="#BABABA"
+            android:text="No"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/yesLogout"
+            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintStart_toStartOf="@+id/dimbackground"
+            app:layout_constraintTop_toBottomOf="@+id/classCodeTextBox"
+            app:layout_constraintVertical_bias="0.123" />
+
+        <TextView
+            android:id="@+id/logoutconfirmationText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Do you wish to log out?"
+            android:textColor="#FFFFFF"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/logoutDim"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.428" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
