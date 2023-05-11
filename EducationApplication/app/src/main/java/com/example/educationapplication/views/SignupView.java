@@ -5,6 +5,7 @@ import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.example.educationapplication.R;
 import com.example.educationapplication.databinding.SignupBinding;
@@ -24,15 +25,17 @@ public class SignupView extends AppCompatActivity {
                 throw new RuntimeException(e);
             }
             if(signupBinding.getViewModel().getErrorMessage().equals("")) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
                 finish();
+                Toast toast = Toast.makeText(getApplicationContext(), "Account successfully created!", Toast.LENGTH_SHORT);
+                toast.show();
+                Intent intent = new Intent(getApplicationContext(), LoginView.class);
+                startActivity(intent);
             }
         });
         signupBinding.setOnLogin(()->{
+            finish();
             Intent intent = new Intent(getApplicationContext(), LoginView.class);
             startActivity(intent);
-            finish();
         });
         signupBinding.executePendingBindings();
     }

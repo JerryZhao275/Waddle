@@ -42,15 +42,15 @@
         app:srcCompat="@drawable/classroom" />
 
     <Button
-        android:id="@+id/createClassButton"
+        android:id="@+id/createClassBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginBottom="108dp"
         android:text="Create Class"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/classDescText" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/classDescText"
@@ -63,12 +63,12 @@
         android:maxLines="10"
         android:minLines="6"
         android:scrollbars="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/createClassBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/classNameText"
-        app:layout_constraintVertical_bias="0.179" />
+        app:layout_constraintVertical_bias="0.339" />
 
     <EditText
         android:id="@+id/classNameText"
@@ -76,8 +76,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="268dp"
         android:ems="10"
+        android:hint="Class Name"
         android:inputType="textPersonName"
-        android:text="Class Name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"

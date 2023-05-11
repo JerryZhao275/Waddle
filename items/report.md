@@ -1,4 +1,4 @@
-# [Team Name] Report
+# G39 Report
 
 The following is a report template to help your team successfully provide all the details necessary for your report in a structured and organised manner. Please give a straightforward and concise report that best demonstrates your project. Note that a good report will give a better impression of your project to the reviewers.
 
@@ -29,12 +29,13 @@ The following is a report template to help your team successfully provide all th
 
 ## Team Members and Roles
 
-| UID | Name | Role |
-| :--- | :----: | ---: |
-| [uid] | [name] | [role] |
-| [uid] | [name] | [role] |
-| [uid] | [name] | [role] |
-| [uid] | [name] | [role] |
+| UID      |       Name        | Role |
+|:---------|:-----------------:| ---: |
+| u7490271 |    Jerry Zhao     | [role] |
+| u7348473 | Karthik Vemireddy | [role] |
+| u7499989 | Matthew Richards  | [role] |
+| u7124454 |     Ryan Yoon     | [role] |
+| u7474428 | Michael Ostapenko | [role] |
 
 ## Summary of Individual Contributions
 
@@ -68,6 +69,13 @@ The following is a report template to help your team successfully provide all th
 
 
 ## Application Description
+
+[Finish when the rest of the report is written]
+
+- Waddle is an educational application which allows university students to easily view their courses and upcoming quizzes
+- Target Users: Students for accessible view of courses, quizzes and friends, and teachers for efficient class management
+
+
 
 *[What is your application, what does it do? Include photos or diagrams if necessary]*
 
@@ -110,31 +118,44 @@ The following is a report template to help your team successfully provide all th
 
 ## Application Design and Decisions
 
+
 *Please give clear and concise descriptions for each subsections of this part. It would be better to list all the concrete items for each subsection and give no more than `5` concise, crucial reasons of your design. Here is an example for the subsection `Data Structures`:*
 
 *I used the following data structures in my project:*
 
-1. *LinkedList*
-
-   * *Objective: It is used for storing xxxx for xxx feature.*
-
-   * *Locations: line xxx in XXX.java, ..., etc.*
-
-   * *Reasons:*
-
-     * *It is more efficient than Arraylist for insertion with a time complexity O(1)*
-
-     * *We don't need to access the item by index for this feature*
-
-2. ...
-
-3. ...
-
 **Data Structures**
 
-*[What data structures did your team utilise? Where and why?]*
+1. List
+
+   * Objective: Lists are used to primarily store a user’s courses. It is also used in custom adapter classes for displaying courses or course participants as a scrollable list in the app.
+
+   * Locations: MockWaddleDatabaseServiceClient.java, WaddleDatabaseServiceClientFactory.java , ListViewAdapter.java, RecyclerViewAdapter.java, UserViewModel.java, AdminUserDto.java, CourseDto.java, StudentUserDto.java, TeacherUserDto.java
+
+   * Reasons:
+
+      * Lists were used for these classes to handle insertion/deletion operations and memory allocations. If a course is to be added/deleted within the
+
+2. AVL Tree
+
+   * Objective: AVL Trees are used for storing and managing all courses which exist in the Waddle firebase
+
+   * Locations: CourseAVL.java
+
+   * Reasons:
+
+      * The addition of an arbitrary amount of classes will add complexity to the program, making it slower for the user to navigate the application.
+   
+      * Using a tree lowers insertion time to O(log n) giving a worst case of O(n log n) which is significantly less time complexity compared to that of an array.
+
+
+
+
 
 **Design Patterns**
+
+1. Singleton Design Pattern
+2. Factory Method Design Pattern
+
 
 *[What design patterns did your team utilise? Where and why?]*
 
@@ -159,6 +180,12 @@ Production Rules:
 
 **Other**
 
+**Android MVVM Design Pattern**
+
+Implementing all the functionality and firebase logic in a single class or activity would lead to problems in testing and refactoring the code. This is due to difficulty and unreliability in testing two components of an application simultaneously. Hence, the separation of code and clean architecture can allow us to develop a Mock database to test easily against our program and its individual components.
+
+![mvvmdiagram](./images/mvvmdiagram.png) <br>
+
 *[What other design decisions have you made which you feel are relevant? Feel free to separate these into their own subheadings.]*
 
 ## Summary of Known Errors and Bugs
@@ -181,6 +208,16 @@ Production Rules:
 
 *[What features have you tested? What is your testing coverage?]*
 
+**CourseAVLTest**
+- Number of test cases: 17
+- Code coverage: All methods within CourseAVLTest
+- Types of tests created:
+  * null
+  * insert
+  * inOrderTraversal
+  * rightRotate
+  * leftRotate
+
 *Here is an example:*
 
 - *Number of test cases: ...*
@@ -196,28 +233,55 @@ Production Rules:
 *[What features have you implemented?]*
 
 ### Basic App
-1. [Login]. Description of the feature and your implementation (easy)
-    * Class X, methods Z, Y, Lines of code: 10-100
-    * Additional description: ...
+1. [Login]. Users must be able to log in **(easy)**
+    * Classes utilised:
+      * model/LoginModel.java, whole file
+      * viewmodel/LoginEvent.java, whole file
+      * viewmodel/LoginViewModel.java, whole file
+      * viewmodel/SignUpEvent.java, whole file
+      * viewmodel/SignUpEventModel.java, whole file
+      * views/LoginView.java, whole file
+      * views/SignupView.java, whole file
+      * database/FirebaseWaddleDatabaseServiceClient.java, createNewUser, signIn, lines of code: 88-152*
+    * Users can login to the app using an existing Firebase account. When a user enters their email and password on the login page, the app checks if the credentials match an existing user in the Firebase database. If there is a match, the user is directed to the dashboard fragment.
       <br>
-2. [Data Visualization]. Description  ... ...
+2. [2500 Data Instances]. There must be data file(s) with at least 2,500 valid data instances **easy**
+   * Classes utilised:
+      * some class that will utilises
+      * Users can login to the app using an existing Firebase account. When a user enters their email and password on the login page, the app checks if the credentials match an existing user in the Firebase database. If there is a match, the user is directed to the dashboard fragment.
+           <br>
+
+3. [Load data/information]. Users must be able to load data/information from Firebase and visualise it **(medium)**
+    - The app retrieves data from Firebase to display information across most of its activities and fragments. This data includes a user's course list, course participants, and their roles as either a student or teacher. The information is utilized across the application and is mainly displayed within the four primary fragments.
+
+4. [Search by Parsers/Tokenisers]. Users must be able to search for information on your app. **(medium)**
+    - To be added
+
 <br><br>
 
 ### General Features
-Feature Category: Privacy <br>
-1. [Privacy-Request]. Description of the feature and your implementation (easy)
-   * Class X, methods Z, Y, Lines of code: 10-100
-   * Class Y, methods K, L, M, Lines of code: 35-150
-   * Additional description: ...
-<br>
-2. [Privacy-Block]. Description ... ... (medium)
-    * ... ...
-<br>
-
 Feature Category: Firebase Integration <br>
-3. [FB-Auth] Description of the feature and your implementation (easy)
-   * Class A: methods A, B, C, lines of code: whole file
-   * …
+1. [FB-Auth]. Use Firebase to implement User Authentication/Authorisation. **(easy)**
+    - Class utilised: database/FirebaseWaddleDatabaseServiceClient.java, whole file
+    - In the app, Firebase Authentication is utilised through the use of the FirebaseAuth object. When the app is launched, users are taken to the login page where they can either sign in with an existing account or register for a new account using Firebase. To create a new account, the user must fill in various textboxes with information, and then their email and password are passed into the "createUserWithEmailAndPassword" method. This creates a new user object in the firestore database. Once a user has an account, the "signInWithEmailAndPassword" method from Firebase Authentication is used to authenticate the user against the firestore database. If the user is verified, they are directed to MainActivity.java.
+3. [FB-Persist]. Use Firebase to persist all data used in your app. **(medium)**
+    - Classes utilised:
+
+4. [FB-Syn]. Using Firebase or another remote database to store user information and having the app updated as the remote database is updated **(hard)**
+    - Classes utilised:
+
+
+Feature Category: Privacy <br>
+4. [Privacy-Anon]. Provide students with the ability to make anonymous posts in a forum. **(medium)**
+    - Classes utilised:
+
+
+Feature Category: User Interactivity <br>
+5. [Interact-Follow]. The ability to ‘follow’ a course or any specific items. **(medium)**
+    - Classes utilised:
+
+6. [Interact-Noti]. The ability to send notifications based on different types of interactions **(medium)**
+    - Classes utilised:
 
 *List all features you have completed in their separate categories with their difficulty classification. If they are features that are suggested and approved, please state this somewhere as well.*
 
@@ -226,7 +290,9 @@ Feature Category: Firebase Integration <br>
 *Here is an example (you could start numbering your meetings from 1):*
 
 - *[Team Meeting 1](./meeting1.md)*
-- ...
+- *[Team Meeting 2](./meeting2.md)*
+- *[Team Meeting 3](./meeting3.md)*
+- *[Team Meeting 4](./meeting4.md)*
 
 * Link to the minutes of your meetings as above. There must be at least 4 team meetings. 
 Note that you must commit your minute meetings shortly after your meeting has taken place (e.g., within 24h), otherwise your meeting minute will not be accepted.

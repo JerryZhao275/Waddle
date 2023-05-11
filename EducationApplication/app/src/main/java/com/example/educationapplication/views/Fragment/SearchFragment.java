@@ -22,7 +22,6 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
     SearchView editsearch;
     Button people;
     Button classes;
-    Button quizzes;
     View mView;
     View subView;
     @Override
