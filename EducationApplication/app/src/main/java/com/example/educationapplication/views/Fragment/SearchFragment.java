@@ -34,8 +34,6 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
         people.setOnClickListener(this);
         classes = mView.findViewById(R.id.classesTab);
         classes.setOnClickListener(this);
-        quizzes = mView.findViewById(R.id.quizzesTab);
-        quizzes.setOnClickListener(this);
         list = mView.findViewById(R.id.listview);
         adapter = new ListViewAdapter(getContext());
 
@@ -63,9 +61,6 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
         }
         else if (view.getId() == R.id.classesTab) {
             adapter.displayClasses();
-        }
-        else if (view.getId() == R.id.quizzesTab) {
-            adapter.displayQuizzes();
         }
         editsearch.setQuery("", false);
         editsearch.clearFocus();
