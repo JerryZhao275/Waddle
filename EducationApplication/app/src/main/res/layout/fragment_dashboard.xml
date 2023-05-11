@@ -89,6 +89,22 @@
                         bind:visibility="visible" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/addClassButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="339dp"
+            android:layout_marginTop="586dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:contentDescription="main button"
+            android:focusable="true"
+            android:clickable="true"
+            android:src="@drawable/add"
+            app:backgroundTint="#FF9800"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"  />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/joinBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -111,18 +127,6 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/joinBtn"
         app:layout_constraintEnd_toEndOf="@+id/joinBtn" />
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/createBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:visibility="invisible"
-                android:src="@drawable/add"
-                app:layout_constraintBottom_toTopOf="@+id/joinBtn"
-                app:layout_constraintEnd_toEndOf="@+id/joinBtn" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
