@@ -1,4 +1,5 @@
 package com.example.educationapplication.views.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
@@ -24,6 +25,8 @@ import com.example.educationapplication.integration.database.config.WaddleDataba
 import com.example.educationapplication.viewmodels.ListViewAdapter;
 import com.example.educationapplication.viewmodels.LoginViewModel;
 import com.example.educationapplication.viewmodels.UserViewModel;
+import com.example.educationapplication.views.CreateClass;
+import com.example.educationapplication.views.LoginView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.auth.User;
 
@@ -119,6 +122,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
             Toast.makeText(getActivity().getApplicationContext(), "Test Join", Toast.LENGTH_SHORT).show();
         }
         else if (view.getId() == R.id.createBtn && visibleText.getVisibility() == View.VISIBLE) {
+            Intent intent = new Intent(getActivity(), CreateClass.class);
+            startActivity(intent);
             Toast.makeText(getActivity().getApplicationContext(), "Test Create", Toast.LENGTH_SHORT).show();
 
         }

@@ -32,11 +32,12 @@ public class LoginView extends AppCompatActivity {
             changeToHomepage(loginBinding.getViewModel().isAuthorised());
         });
         loginBinding.setOnSignup(()-> {
+            finish();
             Intent intent = new Intent(getApplicationContext(), SignupView.class);
             startActivity(intent);
-            finish();
         });
         loginBinding.setOnSignupTest(()-> {
+            finish();
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
         });
@@ -45,9 +46,9 @@ public class LoginView extends AppCompatActivity {
 
     protected void changeToHomepage(boolean isAuthorised) {
         if (isAuthorised) {
+            finish();
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
-            finish();
         }
     }
 }

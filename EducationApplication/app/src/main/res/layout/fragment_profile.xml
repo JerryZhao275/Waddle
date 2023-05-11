@@ -32,7 +32,7 @@
             android:id="@+id/upcomingQuizzes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Upcoming Quizzes"
+            android:text="Enrolled Courses"
             android:textColor="#FF6822"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -60,37 +60,40 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="48dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginEnd="222dp"
             android:layout_marginBottom="59dp"
             android:text="TODO Description of the user"
             app:layout_constraintBottom_toTopOf="@+id/upcomingQuizzes"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.751"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.616" />
 
         <TextView
             android:id="@+id/studentTeacherText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="168dp"
+            android:gravity="center"
             android:text="@{viewModel.userType}"
             android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/upcomingQuizzes"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintHorizontal_bias="0.187"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            app:layout_constraintVertical_bias="0.24" />
 
         <Button
             android:id="@+id/editProfileButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="72dp"
             android:backgroundTint="#FF9800"
             android:text="Edit Profile"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.509"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toBottomOf="@+id/studentTeacherText" />
+            app:layout_constraintHorizontal_bias="0.73"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profileDescription" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

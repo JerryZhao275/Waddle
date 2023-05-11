@@ -42,6 +42,8 @@ public class UserViewModel extends BaseObservable {
                 setEmail(user.getUserEmail());
                 isStudent = user instanceof StudentUserDto;
                 isTeacher = user instanceof TeacherUserDto;
+                if (isStudent) setUserType("Student");
+                else if (isTeacher) setUserType("Teacher");
             }
         });
     }
@@ -68,15 +70,13 @@ public class UserViewModel extends BaseObservable {
 
     @Bindable
     public String getUserType() {
-        if (isStudent) {
-            userType = "Teacher";
-            return userType;
-        }
-        else if (isTeacher) {
-            userType = "Student";
-            return userType;
-        }
         return userType;
+    }
+
+    @Bindable
+    public void setUserType(String type) {
+        this.userType = type;
+        notifyPropertyChanged(BR.userType);
     }
 
 }

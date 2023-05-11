@@ -24,15 +24,15 @@ public class SignupView extends AppCompatActivity {
                 throw new RuntimeException(e);
             }
             if(signupBinding.getViewModel().getErrorMessage().equals("")) {
+                finish();
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
         signupBinding.setOnLogin(()->{
+            finish();
             Intent intent = new Intent(getApplicationContext(), LoginView.class);
             startActivity(intent);
-            finish();
         });
         signupBinding.executePendingBindings();
     }

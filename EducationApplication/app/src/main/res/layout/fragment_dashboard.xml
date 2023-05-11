@@ -74,19 +74,20 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/courseList"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@id/greetingText"
-                        android:background="#FFCF87"
-                        android:backgroundTint="#FFCA7D"
-                        android:backgroundTintMode="src_in"
-                        android:headerDividersEnabled="false"
-                        android:scrollbars="vertical"
-                        android:visibility="visible"
-                        bind:itemCount="25"
-                        bind:visibility="visible" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/courseList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="#FFCF87"
+            android:backgroundTint="#FFCA7D"
+            android:backgroundTintMode="src_in"
+            android:headerDividersEnabled="false"
+            android:scrollbars="vertical"
+            android:visibility="visible"
+            app:layout_constraintTop_toBottomOf="@id/greetingText"
+            bind:itemCount="25"
+            bind:visibility="visible" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/addClassButton"
