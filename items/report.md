@@ -208,6 +208,16 @@ Implementing all the functionality and firebase logic in a single class or activ
 
 *[What features have you tested? What is your testing coverage?]*
 
+**CourseAVLTest**
+- Number of test cases: 17
+- Code coverage: All methods within CourseAVLTest
+- Types of tests created:
+  * null
+  * insert
+  * inOrderTraversal
+  * rightRotate
+  * leftRotate
+
 *Here is an example:*
 
 - *Number of test cases: ...*
@@ -253,8 +263,7 @@ Implementing all the functionality and firebase logic in a single class or activ
 Feature Category: Firebase Integration <br>
 1. [FB-Auth]. Use Firebase to implement User Authentication/Authorisation. **(easy)**
     - Class utilised: database/FirebaseWaddleDatabaseServiceClient.java, whole file
-    - The app allows users to login and sign up using Firebase authentication. Upon launching the app, users are directed to the login page where they can either log in with an existing account or create a new account using Firebase. Any new user created is stored in the database and can immediately login with their new accounts via Firebase authentication.
-
+    - In the app, Firebase Authentication is utilised through the use of the FirebaseAuth object. When the app is launched, users are taken to the login page where they can either sign in with an existing account or register for a new account using Firebase. To create a new account, the user must fill in various textboxes with information, and then their email and password are passed into the "createUserWithEmailAndPassword" method. This creates a new user object in the firestore database. Once a user has an account, the "signInWithEmailAndPassword" method from Firebase Authentication is used to authenticate the user against the firestore database. If the user is verified, they are directed to MainActivity.java.
 3. [FB-Persist]. Use Firebase to persist all data used in your app. **(medium)**
     - Classes utilised:
 
