@@ -38,7 +38,7 @@
 
     <Button
         android:id="@+id/peopleTab"
-        android:layout_width="137dp"
+        android:layout_width="206dp"
         android:layout_height="wrap_content"
         android:background="#FFFFFF"
         android:backgroundTint="#FFFFFF"
@@ -49,22 +49,12 @@
 
     <Button
         android:id="@+id/classesTab"
-        android:layout_width="137dp"
+        android:layout_width="206dp"
         android:layout_height="wrap_content"
         android:background="#FFFFFF"
         android:backgroundTint="#FFFFFF"
         android:text="Classes"
         app:layout_constraintStart_toEndOf="@+id/peopleTab"
-        app:layout_constraintTop_toBottomOf="@+id/search" />
-
-    <Button
-        android:id="@+id/quizzesTab"
-        android:layout_width="137dp"
-        android:layout_height="wrap_content"
-        android:background="#FFFFFF"
-        android:backgroundTint="#FFFFFF"
-        android:text="Quizzes"
-        app:layout_constraintStart_toEndOf="@+id/classesTab"
         app:layout_constraintTop_toBottomOf="@+id/search" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
