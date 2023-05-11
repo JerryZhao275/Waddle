@@ -101,8 +101,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
             createClass.startAnimation(toBottom);
             joinClass.startAnimation(toBottom);
             addClass.startAnimation(rotateClose);
-            createClass.setClickable(false);
-            joinClass.setClickable(false);
+            createClass.setClickable(true);
+            joinClass.setClickable(true);
             isOpen = false;
         }
         else if (view.getId() == R.id.addClassButton && visibleText.getVisibility() == View.VISIBLE) {
@@ -110,13 +110,17 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
             createClass.startAnimation(fromBottom);
             joinClass.startAnimation(fromBottom);
             addClass.startAnimation(rotateOpen);
-            createClass.setClickable(true);
-            joinClass.setClickable(true);
+            createClass.setClickable(false);
+            joinClass.setClickable(false);
             isOpen = true;
 
         }
-        else if (view.getId() == R.id.joinBtn && visibleText.getVisibility() == View.VISIBLE && view.getId() == R.id.createBtn && visibleText.getVisibility() == View.VISIBLE) {
-            Toast.makeText(getActivity().getApplicationContext(), "Test", Toast.LENGTH_SHORT).show();
+        else if (view.getId() == R.id.joinBtn && visibleText.getVisibility() == View.VISIBLE) {
+            Toast.makeText(getActivity().getApplicationContext(), "Test Join", Toast.LENGTH_SHORT).show();
+        }
+        else if (view.getId() == R.id.createBtn && visibleText.getVisibility() == View.VISIBLE) {
+            Toast.makeText(getActivity().getApplicationContext(), "Test Create", Toast.LENGTH_SHORT).show();
+
         }
     }
 }
