@@ -21,8 +21,6 @@ public class ListViewAdapter extends BaseAdapter {
     String[] namesList = {"Jerry Zhao", "Karthik Vemireddy", "Matthew Richards",
             "Ryan Yoon", "Michael Ostapenko", "Bernado Nunes"};
     String[] classesList = {"COMP2100", "COMP2420", "COMP2620", "COMP2300", "COMP1140"};
-    String[] quizzesList = {"COMP2100 quiz 1", "COMP2420 quiz 3", "COMP2620 quiz 2", "COMP2300 quiz 1", "COMP1140 quiz 2"};
-
     private List<String> displayList = List.of(namesList);
 
     public ListViewAdapter(Context context) {
@@ -100,8 +98,5 @@ public class ListViewAdapter extends BaseAdapter {
     }
     public void displayClasses() {
         displayList = List.of(classesList);
-    }
-    public void displayQuizzes() {
-        displayList = List.of(quizzesList);
     }
 }
