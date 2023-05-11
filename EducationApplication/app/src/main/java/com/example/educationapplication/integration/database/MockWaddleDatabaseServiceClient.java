@@ -22,7 +22,7 @@ public class MockWaddleDatabaseServiceClient implements WaddleDatabaseServiceCli
     }
 
     @Override
-    public void setUserDetails(CustomOnCompleteListener listener) {
+    public void fetchUserDetails(CustomOnCompleteListener listener) {
         return;
     }
 
