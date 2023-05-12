@@ -21,7 +21,12 @@ import com.example.educationapplication.viewmodels.UserViewModel;
 import com.example.educationapplication.views.CreateClass;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class DashboardFragment extends Fragment implements View.OnClickListener{
+import java.util.ArrayList;
+import java.util.List;
+
+import dataObjects.CourseDto;
+
+public class DashboardFragment extends Fragment implements View.OnClickListener {
     private Animation rotateOpen, rotateClose, toBottom, fromBottom;
     private RecyclerView myRecyclerView;
     Boolean isOpen = false;
@@ -29,6 +34,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
     Button join;
     EditText codeEntered;
 
+    List<CourseDto> mData = new ArrayList<>();
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,13 +46,17 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        //view = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        view = inflater.inflate(R.layout.fragment_dashboard, container, false);
         FragmentDashboardBinding fragBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_dashboard, container,false);
         fragBinding.setViewModel(new UserViewModel());
         view = fragBinding.getRoot();
-        myRecyclerView = (RecyclerView) view.findViewById(R.id.courseList);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(getContext());
-        myRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        myRecyclerView = view.findViewById(R.id.courseList);
+
+        // Initialize list of course data, replace with working fetch course method
+        // mData = getCourseData();
+
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(getContext(), mData);
+        myRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         myRecyclerView.setAdapter(adapter);
         addClass = view.findViewById(R.id.addClassButton);
         createClass = view.findViewById(R.id.createBtn);

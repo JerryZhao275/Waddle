@@ -1,6 +1,8 @@
 package com.example.educationapplication.viewmodels;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.educationapplication.BR;
 import com.example.educationapplication.R;
+import com.example.educationapplication.views.CoursePage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,14 +24,13 @@ import java.util.List;
 import dataObjects.CourseDto;
 import dataObjects.TeacherUserDto;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
-    private LayoutInflater layoutInflater;
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
+    private static Context mContext;
+    private static List<CourseDto> mData = new ArrayList<CourseDto>();
 
-    Context mContext;
-    List<CourseDto> mData = new ArrayList<>();
-
-    public RecyclerViewAdapter(Context mContext) {
+    public RecyclerViewAdapter(Context mContext, List<CourseDto> mData) {
         this.mContext = mContext;
+        this.mData = mData;
 
         //TESTING PURPOSES
         mData.add(new CourseDto(1100, "COMP1100", new TeacherUserDto("u1", "A", "B", "teach", "example@anu.edu.au", "n/a", 30, "ANU")));
@@ -47,55 +49,61 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         mData.add(new CourseDto(3310, "COMP3310", new TeacherUserDto("u1", "A", "B", "teach", "example@anu.edu.au", "n/a", 30, "ANU")));
     }
 
+    // inflating layout (giving layout the look)
+
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // inflating layout (giving layout the look)
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v;
-        v = LayoutInflater.from(mContext).inflate(R.layout.item_course,parent,false);
-        MyViewHolder vHolder = new MyViewHolder(v);
+        v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_course,parent,false);
+        ViewHolder vHolder = new ViewHolder(v);
 
         return vHolder;
     }
 
+    // assigning values to each rows as they come onto screen
+    // based on position of recycler view
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
-        // assigning values to each rows as they come onto screen
-        // based on position of recycler view
+    public void onBindViewHolder(ViewHolder holder, int position) {
 
-        CourseDto contact = mData.get(position);
+        CourseDto course = mData.get(position);
+        holder.bind(course);
 
         // Set item views based on your views and data model
-        TextView textView = holder.tv_name;
-        textView.setText(contact.getCourseName());
+        TextView textView = holder.courseName;
+        textView.setText(course.getCourseName());
     }
 
+    //number of items displayed
     @Override
     public int getItemCount() {
-        //number of items displayed
         return mData.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        // grabbing views from recycler view layout
-        // basically onCreate method
 
-        private TextView tv_name;
-        private Button messageButton;
-        public MyViewHolder(View item) {
+    // grabbing views from recycler view layout
+    // Recycler view equivalent to onCreate method
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private TextView courseName;
+
+        public ViewHolder(View item) {
             super(item);
+            courseName = item.findViewById(R.id.courseName);
+            item.setOnClickListener(this);
+        }
 
-            tv_name = itemView.findViewById(R.id.contact_name);
-            messageButton = itemView.findViewById(R.id.message_button);
-            messageButton.setOnClickListener(this);
+        public void bind(CourseDto course) {
+            courseName.setText(course.getCourseName());
         }
 
         @Override
         public void onClick(View view) {
-            Toast.makeText(messageButton.getContext(), "Clicked button at position: " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
-
+            int position = getAdapterPosition();
+            CourseDto selectedCourse = mData.get(position);
+            Intent intent = new Intent(mContext, CoursePage.class);
+            intent.putExtra("course", selectedCourse);
+            mContext.startActivity(intent);
         }
     }
-
     public static String listToString(List<CourseDto> list) {
         StringBuilder builder = new StringBuilder();
         for (CourseDto item : list) {

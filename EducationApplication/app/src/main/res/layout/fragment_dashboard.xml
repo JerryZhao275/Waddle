@@ -46,7 +46,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/courseList"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginTop="10dp"
             android:background="#FFCF87"
             android:backgroundTint="#FFCA7D"
@@ -54,6 +54,7 @@
             android:headerDividersEnabled="false"
             android:scrollbars="vertical"
             android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@id/addClassButton"
             app:layout_constraintTop_toBottomOf="@id/greetingText"
             bind:itemCount="25"
             bind:visibility="visible" />
