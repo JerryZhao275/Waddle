@@ -1,4 +1,6 @@
 package com.example.educationapplication.views.Fragment;
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -11,11 +13,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toolbar;
 import com.example.educationapplication.R;
 import com.example.educationapplication.databinding.FragmentDashboardBinding;
+import com.example.educationapplication.databinding.LoginBinding;
+import com.example.educationapplication.viewmodels.LoginViewModel;
 import com.example.educationapplication.viewmodels.RecyclerViewAdapter;
 import com.example.educationapplication.viewmodels.UserViewModel;
 import com.example.educationapplication.views.CreateClass;
@@ -30,9 +35,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
     EditText codeEntered;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+    public void onCreate(Bundle savedInstanceState) {super.onCreate(savedInstanceState);}
 
     View view;
     FloatingActionButton addClass, createClass, joinClass;
@@ -40,9 +43,26 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        //view = inflater.inflate(R.layout.fragment_dashboard, container, false);
         FragmentDashboardBinding fragBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_dashboard, container,false);
         fragBinding.setViewModel(new UserViewModel());
+
+        fragBinding.setJoinClass((code)-> {
+            System.out.println("||||||||||||||");
+            System.out.println(fragBinding.getViewModel().getFirstName());
+            System.out.println(fragBinding.getViewModel().getCourses());
+            fragBinding.getViewModel().setCourses(code);
+            System.out.println(fragBinding.getViewModel().getCourses());
+            System.out.println("||||||||||||||");
+            codeEntered.setText("");
+            bg.setVisibility(View.INVISIBLE);
+            join.setVisibility(View.INVISIBLE);
+            codeEntered.setVisibility(View.INVISIBLE);
+            addClass.startAnimation(rotateOpen);
+            isOpen = false;
+
+            hideKeyboard(this);
+        });
+
         view = fragBinding.getRoot();
         myRecyclerView = (RecyclerView) view.findViewById(R.id.courseList);
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(getContext());
@@ -58,8 +78,10 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
         bg = view.findViewById(R.id.dimbackground);
         join = view.findViewById(R.id.joinClassByCode);
         codeEntered = view.findViewById(R.id.classCodeTextBox);
+        join.setOnClickListener(this);
 
         return view;
+
     }
 
     @Override
@@ -111,5 +133,15 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
             addClass.startAnimation(rotateOpen);
             isOpen = false;
         }
+    }
+    public static void hideKeyboard(Fragment fragment) {
+        InputMethodManager imm = (InputMethodManager) fragment.requireActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = fragment.getView();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(fragment.requireContext());
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }
