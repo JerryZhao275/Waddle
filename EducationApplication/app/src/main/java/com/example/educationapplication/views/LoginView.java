@@ -14,6 +14,8 @@ import com.example.educationapplication.R;
 import com.example.educationapplication.databinding.LoginBinding;
 import com.example.educationapplication.viewmodels.LoginViewModel;
 
+import dataObjects.CustomOnCompleteListener;
+
 public class LoginView extends AppCompatActivity {
 
     @Override
@@ -22,14 +24,14 @@ public class LoginView extends AppCompatActivity {
         LoginBinding loginBinding = DataBindingUtil.setContentView(this, R.layout.login);
         loginBinding.setViewModel(new LoginViewModel());
         loginBinding.setOnLogin(()-> {
-            loginBinding.getViewModel().login();
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+            loginBinding.getViewModel().login(new CustomOnCompleteListener() {
+                @Override
+                public void onComplete() {
+                    changeToHomepage(loginBinding.getViewModel().isAuthorised());
+                }
+            });
 
-            changeToHomepage(loginBinding.getViewModel().isAuthorised());
+
         });
         loginBinding.setOnSignup(()-> {
             finish();

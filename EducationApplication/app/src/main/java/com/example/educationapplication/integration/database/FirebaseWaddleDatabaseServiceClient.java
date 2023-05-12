@@ -92,7 +92,7 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
         void onComplete(boolean success);
     }
     @Override
-    public boolean signIn(String email, String password) {
+    public boolean signIn(String email, String password, CustomOnCompleteListener listener) {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -110,6 +110,7 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
                             System.out.println(getCurrentUser());
                             setCurrentUser(null);
                         }
+                        listener.onComplete();
                     }
 
                 });
@@ -120,7 +121,7 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
     }
     @Override
     public void signOut() {
-
+        mAuth.signOut();
     }
 
     @Override

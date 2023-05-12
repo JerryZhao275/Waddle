@@ -17,6 +17,6 @@ public interface WaddleDatabaseServiceClient {
     public void fetchAllUsersForSearch(Exp expression, CustomOnCompleteListener listener);
     public List<UserDto> getQueryUsers();
     UserDto getUserDetails();
-    boolean signIn(String username, String password);
+    boolean signIn(String username, String password, CustomOnCompleteListener listener);
     void signOut();
 }
