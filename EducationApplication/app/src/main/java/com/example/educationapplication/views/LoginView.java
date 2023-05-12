@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.example.educationapplication.R;
+import com.example.educationapplication.databinding.FragmentDashboardBinding;
 import com.example.educationapplication.databinding.LoginBinding;
 import com.example.educationapplication.viewmodels.LoginViewModel;
 
@@ -30,8 +31,6 @@ public class LoginView extends AppCompatActivity {
                     changeToHomepage(loginBinding.getViewModel().isAuthorised());
                 }
             });
-
-
         });
         loginBinding.setOnSignup(()-> {
             finish();

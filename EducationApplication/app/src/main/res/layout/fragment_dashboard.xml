@@ -9,6 +9,9 @@
         <variable
             name="joinClass"
             type="com.example.educationapplication.viewmodels.UserEvent" />
+        <variable
+            name="expandButton"
+            type="com.example.educationapplication.viewmodels.UserEvent" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -127,6 +130,7 @@
             android:layout_marginTop="640dp"
             android:clickable="true"
             android:contentDescription="main button"
+            android:onClick="@{()->expandButton.run(classCodeTextBox.getText().toString())}"
             android:focusable="true"
             android:src="@drawable/add"
             app:backgroundTint="#FF9800"

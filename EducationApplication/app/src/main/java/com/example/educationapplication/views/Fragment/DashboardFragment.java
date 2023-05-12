@@ -26,6 +26,8 @@ import com.example.educationapplication.viewmodels.UserViewModel;
 import com.example.educationapplication.views.CreateClass;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import dataObjects.CustomOnCompleteListener;
+
 public class DashboardFragment extends Fragment implements View.OnClickListener{
     private Animation rotateOpen, rotateClose, toBottom, fromBottom;
     private RecyclerView myRecyclerView;
@@ -40,11 +42,117 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
     View view;
     FloatingActionButton addClass, createClass, joinClass;
 
+    UserViewModel viewModel = new UserViewModel();
+
+    boolean removeCreate = true;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         FragmentDashboardBinding fragBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_dashboard, container,false);
-        fragBinding.setViewModel(new UserViewModel());
+        fragBinding.setViewModel(viewModel);
+
+        view = fragBinding.getRoot();
+        myRecyclerView = (RecyclerView) view.findViewById(R.id.courseList);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(getContext());
+        myRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        myRecyclerView.setAdapter(adapter);
+        addClass = view.findViewById(R.id.addClassButton);
+        createClass = view.findViewById(R.id.createBtn);
+        joinClass = view.findViewById(R.id.joinBtn);
+        addClass.setOnClickListener(this);
+        createClass.setOnClickListener(this);
+        joinClass.setOnClickListener(this);
+        bg = view.findViewById(R.id.dimbackground);
+        join = view.findViewById(R.id.joinClassByCode);
+        codeEntered = view.findViewById(R.id.classCodeTextBox);
+        join.setOnClickListener(this);
+
+        fragBinding.setExpandButton((c)-> {
+            View.OnClickListener onClick = new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    rotateOpen = AnimationUtils.loadAnimation(getActivity(), R.anim.rotate_open_anim);
+                    rotateClose = AnimationUtils.loadAnimation(getActivity(), R.anim.rotate_close_anim);
+                    fromBottom = AnimationUtils.loadAnimation(getActivity(), R.anim.from_bottom_anim);
+                    toBottom = AnimationUtils.loadAnimation(getActivity(), R.anim.to_bottom_anim);
+
+                    if(fragBinding.getViewModel().isStudent()) {removeCreate = true;}
+                    else {removeCreate = false;}
+
+                    if (removeCreate) {
+                        if (view.getId() == R.id.addClassButton && bg.getVisibility() == View.VISIBLE) {
+                            bg.setVisibility(View.INVISIBLE);
+                            join.setVisibility(View.INVISIBLE);
+                            codeEntered.setVisibility(View.INVISIBLE);
+                            addClass.startAnimation(rotateOpen);
+                            isOpen = false;
+                        } else if (view.getId() == R.id.addClassButton && isOpen) {
+                            joinClass.startAnimation(fromBottom);
+                            addClass.startAnimation(rotateOpen);
+                            joinClass.setClickable(false);
+                            isOpen = false;
+                        } else if (view.getId() == R.id.addClassButton && !isOpen) {
+                            joinClass.startAnimation(toBottom);
+                            addClass.startAnimation(rotateClose);
+                            joinClass.setClickable(true);
+                            isOpen = true;
+                        } else if (view.getId() == R.id.joinBtn) {
+                            joinClass.startAnimation(fromBottom);
+                            joinClass.setClickable(false);
+                            bg.setVisibility(View.VISIBLE);
+                            join.setVisibility(View.VISIBLE);
+                            codeEntered.setVisibility(View.VISIBLE);
+                        }
+                    }
+                    else {
+                        if (view.getId() == R.id.addClassButton && bg.getVisibility() == View.VISIBLE) {
+                            bg.setVisibility(View.INVISIBLE);
+                            join.setVisibility(View.INVISIBLE);
+                            codeEntered.setVisibility(View.INVISIBLE);
+                            addClass.startAnimation(rotateOpen);
+                            isOpen = false;
+                        }
+                        else if (view.getId() == R.id.addClassButton && isOpen) {
+                            createClass.startAnimation(fromBottom);
+                            joinClass.startAnimation(fromBottom);
+                            addClass.startAnimation(rotateOpen);
+                            createClass.setClickable(false);
+                            joinClass.setClickable(false);
+                            isOpen = false;
+                        }
+                        else if (view.getId() == R.id.addClassButton && !isOpen) {
+                            createClass.startAnimation(toBottom);
+                            joinClass.startAnimation(toBottom);
+                            addClass.startAnimation(rotateClose);
+                            createClass.setClickable(true);
+                            joinClass.setClickable(true);
+                            isOpen = true;
+                        }
+                        else if (view.getId() == R.id.joinBtn) {
+                            createClass.startAnimation(fromBottom);
+                            createClass.setClickable(false);
+                            joinClass.startAnimation(fromBottom);
+                            joinClass.setClickable(false);
+                            bg.setVisibility(View.VISIBLE);
+                            join.setVisibility(View.VISIBLE);
+                            codeEntered.setVisibility(View.VISIBLE);
+                        }
+                        else if (view.getId() == R.id.createBtn) {
+                            Intent intent = new Intent(getActivity(), CreateClass.class);
+                            startActivity(intent);
+                            createClass.startAnimation(fromBottom);
+                            joinClass.startAnimation(fromBottom);
+                            createClass.setClickable(false);
+                            joinClass.setClickable(false);
+                            addClass.startAnimation(rotateOpen);
+                            isOpen = false;
+                        }
+                    }
+                }
+            };
+            addClass.setOnClickListener(onClick);
+            onClick.onClick(addClass);
+        });
 
         fragBinding.setJoinClass((code)-> {
             System.out.println("||||||||||||||");
@@ -59,29 +167,10 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
             codeEntered.setVisibility(View.INVISIBLE);
             addClass.startAnimation(rotateOpen);
             isOpen = false;
-
             hideKeyboard(this);
         });
-
-        view = fragBinding.getRoot();
-        myRecyclerView = (RecyclerView) view.findViewById(R.id.courseList);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(getContext());
-        myRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        myRecyclerView.setAdapter(adapter);
-        addClass = view.findViewById(R.id.addClassButton);
-        createClass = view.findViewById(R.id.createBtn);
-        joinClass = view.findViewById(R.id.joinBtn);
-        addClass.setOnClickListener(this);
-        createClass.setOnClickListener(this);
-        joinClass.setOnClickListener(this);
-
-        bg = view.findViewById(R.id.dimbackground);
-        join = view.findViewById(R.id.joinClassByCode);
-        codeEntered = view.findViewById(R.id.classCodeTextBox);
-        join.setOnClickListener(this);
-
+        fragBinding.executePendingBindings();
         return view;
-
     }
 
     @Override
@@ -91,49 +180,80 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
         fromBottom = AnimationUtils.loadAnimation(getActivity(), R.anim.from_bottom_anim);
         toBottom = AnimationUtils.loadAnimation(getActivity(), R.anim.to_bottom_anim);
 
-        if (view.getId() == R.id.addClassButton && bg.getVisibility() == View.VISIBLE) {
-            bg.setVisibility(View.INVISIBLE);
-            join.setVisibility(View.INVISIBLE);
-            codeEntered.setVisibility(View.INVISIBLE);
-            addClass.startAnimation(rotateOpen);
-            isOpen = false;
+        if (!removeCreate) {
+            if (view.getId() == R.id.addClassButton && bg.getVisibility() == View.VISIBLE) {
+                bg.setVisibility(View.INVISIBLE);
+                join.setVisibility(View.INVISIBLE);
+                codeEntered.setVisibility(View.INVISIBLE);
+                addClass.startAnimation(rotateOpen);
+                isOpen = false;
+            }
+            else if (view.getId() == R.id.addClassButton && isOpen) {
+                createClass.startAnimation(fromBottom);
+                joinClass.startAnimation(fromBottom);
+                addClass.startAnimation(rotateOpen);
+                createClass.setClickable(false);
+                joinClass.setClickable(false);
+                isOpen = false;
+            }
+            else if (view.getId() == R.id.addClassButton && !isOpen) {
+                createClass.startAnimation(toBottom);
+                joinClass.startAnimation(toBottom);
+                addClass.startAnimation(rotateClose);
+                createClass.setClickable(true);
+                joinClass.setClickable(true);
+                isOpen = true;
+            }
+            else if (view.getId() == R.id.joinBtn) {
+                createClass.startAnimation(fromBottom);
+                createClass.setClickable(false);
+                joinClass.startAnimation(fromBottom);
+                joinClass.setClickable(false);
+                bg.setVisibility(View.VISIBLE);
+                join.setVisibility(View.VISIBLE);
+                codeEntered.setVisibility(View.VISIBLE);
+            }
+            else if (view.getId() == R.id.createBtn) {
+                Intent intent = new Intent(getActivity(), CreateClass.class);
+                startActivity(intent);
+                createClass.startAnimation(fromBottom);
+                joinClass.startAnimation(fromBottom);
+                createClass.setClickable(false);
+                joinClass.setClickable(false);
+                addClass.startAnimation(rotateOpen);
+                isOpen = false;
+            }
         }
-        else if (view.getId() == R.id.addClassButton && isOpen) {
-            createClass.startAnimation(fromBottom);
-            joinClass.startAnimation(fromBottom);
-            addClass.startAnimation(rotateOpen);
-            createClass.setClickable(false);
-            joinClass.setClickable(false);
-            isOpen = false;
-        }
-        else if (view.getId() == R.id.addClassButton && !isOpen) {
-            createClass.startAnimation(toBottom);
-            joinClass.startAnimation(toBottom);
-            addClass.startAnimation(rotateClose);
-            createClass.setClickable(true);
-            joinClass.setClickable(true);
-            isOpen = true;
-        }
-        else if (view.getId() == R.id.joinBtn) {
-            createClass.startAnimation(fromBottom);
-            joinClass.startAnimation(fromBottom);
-            createClass.setClickable(false);
-            joinClass.setClickable(false);
-            bg.setVisibility(View.VISIBLE);
-            join.setVisibility(View.VISIBLE);
-            codeEntered.setVisibility(View.VISIBLE);
-        }
-        else if (view.getId() == R.id.createBtn) {
-            Intent intent = new Intent(getActivity(), CreateClass.class);
-            startActivity(intent);
-            createClass.startAnimation(fromBottom);
-            joinClass.startAnimation(fromBottom);
-            createClass.setClickable(false);
-            joinClass.setClickable(false);
-            addClass.startAnimation(rotateOpen);
-            isOpen = false;
+        else {
+            if (view.getId() == R.id.addClassButton && bg.getVisibility() == View.VISIBLE) {
+                bg.setVisibility(View.INVISIBLE);
+                join.setVisibility(View.INVISIBLE);
+                codeEntered.setVisibility(View.INVISIBLE);
+                addClass.startAnimation(rotateOpen);
+                isOpen = false;
+            }
+            else if (view.getId() == R.id.addClassButton && isOpen) {
+                joinClass.startAnimation(fromBottom);
+                addClass.startAnimation(rotateOpen);
+                joinClass.setClickable(false);
+                isOpen = false;
+            }
+            else if (view.getId() == R.id.addClassButton && !isOpen) {
+                joinClass.startAnimation(toBottom);
+                addClass.startAnimation(rotateClose);
+                joinClass.setClickable(true);
+                isOpen = true;
+            }
+            else if (view.getId() == R.id.joinBtn) {
+                joinClass.startAnimation(fromBottom);
+                joinClass.setClickable(false);
+                bg.setVisibility(View.VISIBLE);
+                join.setVisibility(View.VISIBLE);
+                codeEntered.setVisibility(View.VISIBLE);
+            }
         }
     }
+
     public static void hideKeyboard(Fragment fragment) {
         InputMethodManager imm = (InputMethodManager) fragment.requireActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
         //Find the currently focused view, so we can grab the correct window token from it.

@@ -33,6 +33,7 @@ public class UserViewModel extends BaseObservable {
     String userType;
     boolean isTeacher;
     boolean isStudent;
+    boolean isStudentReturned = false;
 
     StudentUserDto student;
     TeacherUserDto teacher;
@@ -57,12 +58,11 @@ public class UserViewModel extends BaseObservable {
                 isStudent = user instanceof StudentUserDto;
                 isTeacher = user instanceof TeacherUserDto;
                 if (isStudent) {
+                    isStudentReturned = true;
                     // Set the user type to "Student"
                     setUserType("Student");
                     student = (StudentUserDto) user;
                     coursesList = student.getCourses();
-                    System.out.println(student.getUserName());
-                    System.out.println(student.getUserFirstName());
                 }
                 else if (isTeacher) {
                     // Set the user type to "Teacher"
@@ -153,6 +153,11 @@ public class UserViewModel extends BaseObservable {
         coursesList.add(course);
         //student.addCourses(coursesList);
         notifyPropertyChanged(BR.courses);
+    }
+
+    @Bindable
+    public boolean isStudent() {
+        return isStudentReturned;
     }
 
 
