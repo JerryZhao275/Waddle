@@ -30,8 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dataObjects.CourseDto;
-
-public class DashboardFragment extends Fragment implements View.OnClickListener {
+import dataObjects.CustomOnCompleteListener;
 import dataObjects.CustomOnCompleteListener;
 
 public class DashboardFragment extends Fragment implements View.OnClickListener{
