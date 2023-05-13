@@ -25,6 +25,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.regex.Pattern;
 
+import dataObjects.CustomOnCompleteListener;
 import dataObjects.UserDto;
 
 public class LoginViewModel extends BaseObservable {
@@ -41,6 +42,7 @@ public class LoginViewModel extends BaseObservable {
     public LoginViewModel() {
         config = ConfigurationManager.configInstance();
         databaseServiceClient = WaddleDatabaseServiceClientFactory.createClient(config);
+        databaseServiceClient.signOut();
         System.out.println(databaseServiceClient.getCurrentUser());
     }
 
@@ -91,7 +93,7 @@ public class LoginViewModel extends BaseObservable {
         this.authorised = authorised;
     }
 
-    public void login() {
+    public void login(CustomOnCompleteListener listener) {
         boolean questionsAnswered = StringUtils.isNotEmpty(login.getEmail()) && StringUtils.isNotEmpty(login.getPassword());
         boolean isEmailValid = Pattern.matches(CommonRegexUtil.EMAIL, login.getEmail());
 
@@ -105,14 +107,18 @@ public class LoginViewModel extends BaseObservable {
             setAuthorised(false);
             return;
         }
-        getDatabaseServiceClient().signIn(login.getEmail(), login.getPassword());
-
-        if (getDatabaseServiceClient().getCurrentUser() == null) {
-            setErrorMessage(INVALID_USER);
-            setAuthorised(false);
-            return;
-        }
-        setAuthorised(true);
+        getDatabaseServiceClient().signIn(login.getEmail(), login.getPassword(), new CustomOnCompleteListener() {
+            @Override
+            public void onComplete() {
+                if (getDatabaseServiceClient().getCurrentUser() == null) {
+                    setErrorMessage(INVALID_USER);
+                    setAuthorised(false);
+                    return;
+                }
+                setAuthorised(true);
+                listener.onComplete();
+            }
+        });
     }
 
 }

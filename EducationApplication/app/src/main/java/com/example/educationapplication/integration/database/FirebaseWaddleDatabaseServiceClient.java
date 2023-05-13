@@ -6,8 +6,11 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.educationapplication.search.Exp;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -16,8 +19,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import dataObjects.AdminUserDto;
@@ -85,7 +92,7 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
         void onComplete(boolean success);
     }
     @Override
-    public boolean signIn(String email, String password) {
+    public boolean signIn(String email, String password, CustomOnCompleteListener listener) {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -103,6 +110,7 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
                             System.out.println(getCurrentUser());
                             setCurrentUser(null);
                         }
+                        listener.onComplete();
                     }
 
                 });
@@ -113,7 +121,7 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
     }
     @Override
     public void signOut() {
-
+        mAuth.signOut();
     }
 
     @Override
@@ -149,5 +157,112 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
                 }
             }
         });
+    }
+    private List<UserDto> queryUsers = new ArrayList<>();
+    public void addQueryUser(UserDto user){
+        if(queryUsers.stream().noneMatch(u -> u.getUserId().equals(user.getUserId()))){
+            queryUsers.add(user);
+        }
+    }
+    public List<UserDto> getQueryUsers(){
+        return queryUsers;
+    }
+    public void fetchAllUsersForSearch(Exp expression, CustomOnCompleteListener listener){
+            List<String> users = new ArrayList<>();
+            List<String> emails = new ArrayList<>();
+            queryUsers = new ArrayList<>();
+            System.out.println(expression.showExpType());
+            while(expression.getCurrentValue()!=null){
+                if(expression.showExpType().equals("EMAIL")){
+                    emails.add(expression.getCurrentValue());
+                }
+                else{
+                    users.add(expression.getCurrentValue());
+                }
+                expression = expression.getNext();
+            }
+            Task task1;
+            Task task2;
+            Task task3;
+            Task task4;
+            Task<List<QuerySnapshot>> allTasks ;
+            if(users.size()>0 && emails.size()>0) {
+                task1 = firestore.collection("Users").whereIn("userFirstName", users).get();
+                task2 = firestore.collection("Users").whereIn("userLastName", users).get();
+                task3 = firestore.collection("Users").whereIn("userName", users).get();
+                task4 = firestore.collection("Users").whereIn("userEmail", emails).get();
+                allTasks = Tasks.whenAllSuccess(task1,task2,task3, task4);
+            }
+            else if(users.size()==0 && emails.size()>0){
+                task4 = firestore.collection("Users").whereIn("userEmail", emails).get();
+                allTasks = Tasks.whenAllSuccess(task4);
+            }
+            else if(users.size()>0){
+                task1 = firestore.collection("Users").whereIn("userFirstName", users).get();
+                task2 = firestore.collection("Users").whereIn("userLastName", users).get();
+                task3 = firestore.collection("Users").whereIn("userName", users).get();
+                allTasks = Tasks.whenAllSuccess(task1, task2, task3);
+            }
+            else{
+                task1 = firestore.collection("Users").get();
+                allTasks = Tasks.whenAllSuccess(task1);
+            }
+
+            allTasks.addOnSuccessListener(new OnSuccessListener<List<QuerySnapshot>>() {
+                @Override
+                public void onSuccess(List<QuerySnapshot> querySnapshots) {
+
+                    if(querySnapshots.stream().anyMatch(q->q.getDocuments().size()>0)) {
+                        for (QuerySnapshot queryDocumentSnapshots : querySnapshots) {
+                            for (QueryDocumentSnapshot queryDocumentSnapshot : queryDocumentSnapshots) {
+                                String id = queryDocumentSnapshot.get("userId").toString();
+                                database.getReference("Users").child(id).get().addOnCompleteListener(
+                                        new OnCompleteListener<DataSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                                DataSnapshot document1 = task.getResult();
+                                                userType = document1.getValue().toString();
+                                                System.out.println(userType);
+                                                UserDto user = UserTypeFactory.createUser(userType, queryDocumentSnapshot);
+                                                System.out.println(user.getUserName());
+                                                addQueryUser(user);
+                                                System.out.println(queryUsers.size());
+                                                listener.onComplete();
+                                            }
+                                        }
+                                );
+                            }
+                        }
+                    }
+                    else{
+                        firestore.collection("Users").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                            @Override
+                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                for (QueryDocumentSnapshot queryDocumentSnapshot : queryDocumentSnapshots) {
+                                    String id = queryDocumentSnapshot.get("userId").toString();
+                                    System.out.println(id);
+                                    database.getReference("Users").child(id).get().addOnCompleteListener(
+                                            new OnCompleteListener<DataSnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                                    DataSnapshot document1 = task.getResult();
+                                                    userType = document1.getValue().toString();
+                                                    System.out.println(userType);
+                                                    UserDto user = UserTypeFactory.createUser(userType, queryDocumentSnapshot);
+                                                    System.out.println(user.getUserName());
+                                                    addQueryUser(user);
+                                                    System.out.println(queryUsers.size());
+                                                    listener.onComplete();
+                                                }
+                                            }
+                                    );
+                                }
+                            }
+                        });
+                    }
+
+
+                }
+            });
     }
 }
