@@ -244,17 +244,20 @@ Implementing all the functionality and firebase logic in a single class or activ
       * views/SignupView.java, whole file
       * database/FirebaseWaddleDatabaseServiceClient.java, createNewUser, signIn, lines of code: 88-152*
     * Users can login to the app using an existing Firebase account. When a user enters their email and password on the login page, the app checks if the credentials match an existing user in the Firebase database. If there is a match, the user is directed to the dashboard fragment.
-      <br>
+
+
 2. [2500 Data Instances]. There must be data file(s) with at least 2,500 valid data instances **easy**
    * Classes utilised:
       * some class that will utilises
       * Users can login to the app using an existing Firebase account. When a user enters their email and password on the login page, the app checks if the credentials match an existing user in the Firebase database. If there is a match, the user is directed to the dashboard fragment.
-           <br>
+
 
 3. [Load data/information]. Users must be able to load data/information from Firebase and visualise it **(medium)**
-    - The app retrieves data from Firebase to display information across most of its activities and fragments. This data includes a user's course list, course participants, and their roles as either a student or teacher. The information is utilized across the application and is mainly displayed within the four primary fragments.
+    - Classes utilised: ALl ViewModel, View and Firebase related classes.
+    - The app retrieves data from Firebase to display information across most of its activities and fragments. This data includes a user's course list, course participants, and their roles as either a student or teacher. The information is utilised across the application and is mainly displayed within the four primary fragments. This is performed through a ClassBinding variable within a View class, which can be set to utilise a ViewModel class. Hence, we can use our defined methods, getters/setters in our ViewModel class to return a user's information and display it on our application UI.
 
-4. [Search by Parsers/Tokenisers]. Users must be able to search for information on your app. **(medium)**
+
+5. [Search by Parsers/Tokenisers]. Users must be able to search for information on your app. **(medium)**
     - To be added
 
 <br><br>
@@ -264,10 +267,13 @@ Feature Category: Firebase Integration <br>
 1. [FB-Auth]. Use Firebase to implement User Authentication/Authorisation. **(easy)**
     - Class utilised: database/FirebaseWaddleDatabaseServiceClient.java, whole file
     - In the app, Firebase Authentication is utilised through the use of the FirebaseAuth object. When the app is launched, users are taken to the login page where they can either sign in with an existing account or register for a new account using Firebase. To create a new account, the user must fill in various textboxes with information, and then their email and password are passed into the "createUserWithEmailAndPassword" method. This creates a new user object in the firestore database. Once a user has an account, the "signInWithEmailAndPassword" method from Firebase Authentication is used to authenticate the user against the firestore database. If the user is verified, they are directed to MainActivity.java.
-3. [FB-Persist]. Use Firebase to persist all data used in your app. **(medium)**
+
+
+2. [FB-Persist]. Use Firebase to persist all data used in your app. **(medium)**
     - Classes utilised:
 
-4. [FB-Syn]. Using Firebase or another remote database to store user information and having the app updated as the remote database is updated **(hard)**
+
+3. [FB-Syn]. Using Firebase or another remote database to store user information and having the app updated as the remote database is updated **(hard)**
     - Classes utilised:
 
 
@@ -276,11 +282,20 @@ Feature Category: Privacy <br>
     - Classes utilised:
 
 
+Feature Category: Privacy <br>
+5. [Process-Permission]. Only users with permission can have certain permissions in the app **(easy)**
+    - Classes utilised: 
+      - UserViewModel.java
+      - DashboardFragment.java
+    - Within the UserViewModel.java class, a boolean variable isStudent is used to indicate whether the user is a student or not by using the instanceof keyword with StudentDto and TeacherDto. The permission of certain users is implemented by an OnClickListener within a lambda function setExpandButton which is executed on the click of the expandable button. For a teacher, both create class and join class options will be displayed, but when the student attempts to expand the button, only the join class button will display.
+
+
 Feature Category: User Interactivity <br>
-5. [Interact-Follow]. The ability to ‘follow’ a course or any specific items. **(medium)**
+6. [Interact-Follow]. The ability to ‘follow’ a course or any specific items. **(medium)**
     - Classes utilised:
 
-6. [Interact-Noti]. The ability to send notifications based on different types of interactions **(medium)**
+
+7. [Interact-Noti]. The ability to send notifications based on different types of interactions **(medium)**
     - Classes utilised:
 
 *List all features you have completed in their separate categories with their difficulty classification. If they are features that are suggested and approved, please state this somewhere as well.*
@@ -293,6 +308,7 @@ Feature Category: User Interactivity <br>
 - *[Team Meeting 2](./meeting2.md)*
 - *[Team Meeting 3](./meeting3.md)*
 - *[Team Meeting 4](./meeting4.md)*
+- *[Team Meeting 5](./meeting4.md)*
 
 * Link to the minutes of your meetings as above. There must be at least 4 team meetings. 
 Note that you must commit your minute meetings shortly after your meeting has taken place (e.g., within 24h), otherwise your meeting minute will not be accepted.
