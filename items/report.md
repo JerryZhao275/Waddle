@@ -230,8 +230,6 @@ Implementing all the functionality and firebase logic in a single class or activ
 
 ## Implemented Features
 
-*[What features have you implemented?]*
-
 ### Basic App
 1. [Login]. Users must be able to log in **(easy)**
     * Classes utilised:
@@ -243,7 +241,7 @@ Implementing all the functionality and firebase logic in a single class or activ
       * views/LoginView.java, whole file
       * views/SignupView.java, whole file
       * database/FirebaseWaddleDatabaseServiceClient.java, createNewUser, signIn, lines of code: 88-152*
-    * Users can login to the app using an existing Firebase account. When a user enters their email and password on the login page, the app checks if the credentials match an existing user in the Firebase database. If there is a match, the user is directed to the dashboard fragment.
+    * Users can login to the app using an existing Firebase account. When a user enters their email and password on the login page, the app checks if the credentials match an existing user in the Firebase database. If there is a match, the user is directed to the dashboard fragment. The login page also implements null safe exceptions such as the user not entering an email or password, or entering a string not in the form of an email. All of these exceptions result in a concise error message being returned at the bottom of the screen for the user
 
 
 2. [2500 Data Instances]. There must be data file(s) with at least 2,500 valid data instances **easy**
