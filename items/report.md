@@ -125,7 +125,7 @@ The following is a report template to help your team successfully provide all th
 
 **Data Structures**
 
-1. List
+1. **List**
 
    * Objective: Lists are used to primarily store a user’s courses. It is also used in custom adapter classes for displaying courses or course participants as a scrollable list in the app.
 
@@ -135,7 +135,7 @@ The following is a report template to help your team successfully provide all th
 
       * Lists were used for these classes to handle insertion/deletion operations and memory allocations. If a course is to be added/deleted within the
 
-2. AVL Tree
+2. **AVL Tree**
 
    * Objective: AVL Trees are used for storing and managing all courses which exist in the Waddle firebase
 
@@ -215,9 +215,9 @@ Implementing all the functionality and firebase logic in a single class or activ
 
 *[What features have you tested? What is your testing coverage?]*
 
-**CourseAVLTest**
+**CourseAVLTest.java**
 - Number of test cases: 17
-- Code coverage: All methods within CourseAVLTest
+- Code coverage: All methods within CourseAVL
 - Types of tests created:
   * null
   * insert
@@ -314,7 +314,7 @@ Feature Category: User Interactivity <br>
 - *[Team Meeting 2](./meeting2.md)*
 - *[Team Meeting 3](./meeting3.md)*
 - *[Team Meeting 4](./meeting4.md)*
-- *[Team Meeting 5](./meeting4.md)*
+- *[Team Meeting 5](./meeting5.md)*
 
 * Link to the minutes of your meetings as above. There must be at least 4 team meetings. 
 Note that you must commit your minute meetings shortly after your meeting has taken place (e.g., within 24h), otherwise your meeting minute will not be accepted.
