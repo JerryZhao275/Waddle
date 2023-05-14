@@ -125,7 +125,7 @@ The following is a report template to help your team successfully provide all th
 
 **Data Structures**
 
-1. List
+1. **List**
 
    * Objective: Lists are used to primarily store a user’s courses. It is also used in custom adapter classes for displaying courses or course participants as a scrollable list in the app.
 
@@ -135,7 +135,7 @@ The following is a report template to help your team successfully provide all th
 
       * Lists were used for these classes to handle insertion/deletion operations and memory allocations. If a course is to be added/deleted within the
 
-2. AVL Tree
+2. **AVL Tree**
 
    * Objective: AVL Trees are used for storing and managing all courses which exist in the Waddle firebase
 
@@ -147,14 +147,21 @@ The following is a report template to help your team successfully provide all th
    
       * Using a tree lowers insertion time to O(log n) giving a worst case of O(n log n) which is significantly less time complexity compared to that of an array.
 
-
-
-
+    
 
 **Design Patterns**
 
-1. Singleton Design Pattern
-2. Factory Method Design Pattern
+1. **Singleton Design Pattern**
+    * Classes utilised: FirebaseWaddleDatabaseServicesClient.java
+    * Since the singleton design pattern ensures only one instance of a class is created throughout the lifetime of an application, utilising this design pattern can ensure that only one instance of the FirebaseWaddleDatabaseServicesClient.java class is created, preventing any potential concurrency issues and improving the overall performance of the application. Additionally, it simplifies the codebase by providing a global point of access to the FirebaseWaddleDatabaseServicesClient.java instance, making it easier to maintain and debug, overall, leading to more efficient and streamlined code and an improved user experience.
+
+
+3. **Factory Method Design Pattern**
+    * Classes utilised:
+      * UserDto.java, whole file
+      * StudentUserDto.java, whole file
+      * TeacherUserDto.java, whole file
+    * The factory method design pattern allows for the creation of objects without having to specify the exact class of the object that will be created. In the context of a UserDto class extended by TeacherUserDto and StudentUserDto, utilising the factory method design pattern can offer several benefits. It allows for the creation of objects of the UserDto class and its subclasses without needing to know the exact class of the object at runtime. This can simplify the codebase, reduce code duplication, and make the system more modular. It also provides a clear separation of concerns between the creation of objects and their implementation, making it easier to maintain and test the code.
 
 
 *[What design patterns did your team utilise? Where and why?]*
@@ -208,9 +215,9 @@ Implementing all the functionality and firebase logic in a single class or activ
 
 *[What features have you tested? What is your testing coverage?]*
 
-**CourseAVLTest**
+**CourseAVLTest.java**
 - Number of test cases: 17
-- Code coverage: All methods within CourseAVLTest
+- Code coverage: All methods within CourseAVL
 - Types of tests created:
   * null
   * insert
@@ -230,8 +237,6 @@ Implementing all the functionality and firebase logic in a single class or activ
 
 ## Implemented Features
 
-*[What features have you implemented?]*
-
 ### Basic App
 1. [Login]. Users must be able to log in **(easy)**
     * Classes utilised:
@@ -243,44 +248,60 @@ Implementing all the functionality and firebase logic in a single class or activ
       * views/LoginView.java, whole file
       * views/SignupView.java, whole file
       * database/FirebaseWaddleDatabaseServiceClient.java, createNewUser, signIn, lines of code: 88-152*
-    * Users can login to the app using an existing Firebase account. When a user enters their email and password on the login page, the app checks if the credentials match an existing user in the Firebase database. If there is a match, the user is directed to the dashboard fragment.
-      <br>
+    * Users can login to the app using an existing Firebase account. When a user enters their email and password on the login page, the app checks if the credentials match an existing user in the Firebase database. If there is a match, the user is directed to the dashboard fragment. The login page also implements null safe exceptions such as the user not entering an email or password, or entering a string not in the form of an email. All of these exceptions result in a concise error message being returned at the bottom of the screen for the user
+
+
 2. [2500 Data Instances]. There must be data file(s) with at least 2,500 valid data instances **easy**
    * Classes utilised:
       * some class that will utilises
       * Users can login to the app using an existing Firebase account. When a user enters their email and password on the login page, the app checks if the credentials match an existing user in the Firebase database. If there is a match, the user is directed to the dashboard fragment.
-           <br>
+
 
 3. [Load data/information]. Users must be able to load data/information from Firebase and visualise it **(medium)**
-    - The app retrieves data from Firebase to display information across most of its activities and fragments. This data includes a user's course list, course participants, and their roles as either a student or teacher. The information is utilized across the application and is mainly displayed within the four primary fragments.
+    - Classes utilised: All ViewModel, View and Firebase related classes.
+    - The app retrieves data from Firebase to display information across most of its activities and fragments. This data includes a user's course list, course participants, and their roles as either a student or teacher. The information is utilised across the application and is mainly displayed within the four primary fragments. This is performed through a ClassBinding variable within a View class, which can be set to utilise a ViewModel class. Hence, we can use our defined methods, getters/setters in our ViewModel class to return a user's information and display it on our application UI.
 
-4. [Search by Parsers/Tokenisers]. Users must be able to search for information on your app. **(medium)**
+
+5. [Search by Parsers/Tokenisers]. Users must be able to search for information on your app. **(medium)**
     - To be added
 
-<br><br>
+    
 
 ### General Features
 Feature Category: Firebase Integration <br>
 1. [FB-Auth]. Use Firebase to implement User Authentication/Authorisation. **(easy)**
-    - Class utilised: database/FirebaseWaddleDatabaseServiceClient.java, whole file
-    - In the app, Firebase Authentication is utilised through the use of the FirebaseAuth object. When the app is launched, users are taken to the login page where they can either sign in with an existing account or register for a new account using Firebase. To create a new account, the user must fill in various textboxes with information, and then their email and password are passed into the "createUserWithEmailAndPassword" method. This creates a new user object in the firestore database. Once a user has an account, the "signInWithEmailAndPassword" method from Firebase Authentication is used to authenticate the user against the firestore database. If the user is verified, they are directed to MainActivity.java.
-3. [FB-Persist]. Use Firebase to persist all data used in your app. **(medium)**
-    - Classes utilised:
+    * Class utilised: database/FirebaseWaddleDatabaseServiceClient.java, whole file
+    * In the app, Firebase Authentication is utilised through the use of the FirebaseAuth object. When the app is launched, users are taken to the login page where they can either sign in with an existing account or register for a new account using Firebase. To create a new account, the user must fill in various textboxes with information, and then their email and password are passed into the "createUserWithEmailAndPassword" method. This creates a new user object in the firestore database. Once a user has an account, the "signInWithEmailAndPassword" method from Firebase Authentication is used to authenticate the user against the firestore database. If the user is verified, they are directed to MainActivity.java.
 
-4. [FB-Syn]. Using Firebase or another remote database to store user information and having the app updated as the remote database is updated **(hard)**
-    - Classes utilised:
+
+2. [FB-Persist]. Use Firebase to persist all data used in your app. **(medium)**
+    * Classes utilised:
+
+
+3. [FB-Syn]. Using Firebase or another remote database to store user information and having the app updated as the remote database is updated **(hard)**
+    * Classes utilised:
 
 
 Feature Category: Privacy <br>
 4. [Privacy-Anon]. Provide students with the ability to make anonymous posts in a forum. **(medium)**
-    - Classes utilised:
+    * Classes utilised:
+
+
+Feature Category: Creating Processes <br>
+
+5. [Process-Permission]. Only users with permission can have certain permissions in the app. **(easy)**
+    * Classes utilised: 
+      * UserViewModel.java
+      * DashboardFragment.java
+    * Within the UserViewModel.java class, a boolean variable isStudent is used to indicate whether the user is a student or not by using the instanceof keyword with StudentDto and TeacherDto. The permission of certain users is implemented by an OnClickListener within a lambda function setExpandButton which is executed on the click of the expandable button. For a teacher, both create class and join class options will be displayed, but when the student attempts to expand the button, only the join class button will display.
 
 
 Feature Category: User Interactivity <br>
-5. [Interact-Follow]. The ability to ‘follow’ a course or any specific items. **(medium)**
+6. [Interact-Follow]. The ability to ‘follow’ a course or any specific items. **(medium)**
     - Classes utilised:
 
-6. [Interact-Noti]. The ability to send notifications based on different types of interactions **(medium)**
+
+7. [Interact-Noti]. The ability to send notifications based on different types of interactions **(medium)**
     - Classes utilised:
 
 *List all features you have completed in their separate categories with their difficulty classification. If they are features that are suggested and approved, please state this somewhere as well.*
@@ -293,6 +314,7 @@ Feature Category: User Interactivity <br>
 - *[Team Meeting 2](./meeting2.md)*
 - *[Team Meeting 3](./meeting3.md)*
 - *[Team Meeting 4](./meeting4.md)*
+- *[Team Meeting 5](./meeting5.md)*
 
 * Link to the minutes of your meetings as above. There must be at least 4 team meetings. 
 Note that you must commit your minute meetings shortly after your meeting has taken place (e.g., within 24h), otherwise your meeting minute will not be accepted.

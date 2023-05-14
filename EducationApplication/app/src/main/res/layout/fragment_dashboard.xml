@@ -24,35 +24,36 @@
             android:id="@+id/dashboardText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="88dp"
             android:layout_weight="1"
             android:text="Dashboard"
             android:textColor="#FF6822"
             android:textSize="30sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/greetingText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.06"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.919" />
+            app:layout_constraintTop_toTopOf="parent" />
+
 
         <TextView
             android:id="@+id/greetingText"
             android:layout_width="0dp"
             android:layout_height="32dp"
-            android:layout_marginTop="152dp"
+            android:layout_marginTop="128dp"
             android:gravity="center"
             android:text="@{`Hello, ` + viewModel.firstName}"
             android:textSize="25sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/courseList"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_width="408dp"
+            android:layout_height="552dp"
             android:layout_marginTop="10dp"
             android:background="#FFCF87"
             android:backgroundTint="#FFCA7D"
@@ -60,7 +61,8 @@
             android:headerDividersEnabled="false"
             android:scrollbars="vertical"
             android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="@id/addClassButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/greetingText"
             bind:itemCount="25"
             bind:visibility="visible" />
