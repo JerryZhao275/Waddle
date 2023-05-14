@@ -61,10 +61,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
 
         view = fragBinding.getRoot();
         myRecyclerView = view.findViewById(R.id.courseList);
-
-        // Initialize list of course data, replace with working fetch course method
-        // mData = getCourseData();
-
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(getContext(), mData);
         myRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         myRecyclerView.setAdapter(adapter);
