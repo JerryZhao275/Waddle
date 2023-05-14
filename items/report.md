@@ -147,14 +147,21 @@ The following is a report template to help your team successfully provide all th
    
       * Using a tree lowers insertion time to O(log n) giving a worst case of O(n log n) which is significantly less time complexity compared to that of an array.
 
-
-
-
+    
 
 **Design Patterns**
 
-1. Singleton Design Pattern
-2. Factory Method Design Pattern
+1. **Singleton Design Pattern**
+    * Classes utilised: FirebaseWaddleDatabaseServicesClient.java
+    * Since the singleton design pattern ensures only one instance of a class is created throughout the lifetime of an application, utilising this design pattern can ensure that only one instance of the FirebaseWaddleDatabaseServicesClient.java class is created, preventing any potential concurrency issues and improving the overall performance of the application. Additionally, it simplifies the codebase by providing a global point of access to the FirebaseWaddleDatabaseServicesClient.java instance, making it easier to maintain and debug, overall, leading to more efficient and streamlined code and an improved user experience.
+
+
+3. **Factory Method Design Pattern**
+    * Classes utilised:
+      * UserDto.java, whole file
+      * StudentUserDto.java, whole file
+      * TeacherUserDto.java, whole file
+    * The factory method design pattern allows for the creation of objects without having to specify the exact class of the object that will be created. In the context of a UserDto class extended by TeacherUserDto and StudentUserDto, utilising the factory method design pattern can offer several benefits. It allows for the creation of objects of the UserDto class and its subclasses without needing to know the exact class of the object at runtime. This can simplify the codebase, reduce code duplication, and make the system more modular. It also provides a clear separation of concerns between the creation of objects and their implementation, making it easier to maintain and test the code.
 
 
 *[What design patterns did your team utilise? Where and why?]*
