@@ -1,22 +1,39 @@
 package com.example.educationapplication.views;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
 import com.example.educationapplication.R;
+import com.example.educationapplication.viewmodels.CourseItemRVAdapater;
+import com.example.educationapplication.viewmodels.DiscussionAdapter;
 import com.example.educationapplication.views.Fragment.DashboardFragment;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import dataObjects.CourseDto;
+import dataObjects.DiscussionDto;
+import dataObjects.QuizDto;
 
 public class CoursePage extends AppCompatActivity {
     private CourseDto selectedCourse;
+    private List<QuizDto> mData = new ArrayList<>();
 
+
+    private List<DiscussionDto> discussions = new ArrayList<>();
+    private DiscussionAdapter discussionAdapter;
+    private CourseItemRVAdapater itemAdapter;
 
 
     @Override
@@ -34,12 +51,56 @@ public class CoursePage extends AppCompatActivity {
         courseN.setText(selectedCourse.getCourseName());
         courseDesc.setText((selectedCourse.getCourseDescription()));
 
+        discussions.add(new DiscussionDto("Title 1", "Content 1", "Author 1", new Date()));
+        discussions.add(new DiscussionDto("Title 2", "Content 2", "Author 2", new Date()));
+
+        RecyclerView discussionRecyclerView = findViewById(R.id.discussionRecyclerView);
+        discussionAdapter = new DiscussionAdapter(discussions);
+        discussionRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        discussionRecyclerView.setAdapter(discussionAdapter);
+
+        /* Enable to get quiz items instead
+        RecyclerView itemRecyclerView = findViewById(R.id.discussionRecyclerView);
+        itemAdapter = new CourseItemRVAdapater(getApplicationContext(), mData);
+        itemRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        itemRecyclerView.setAdapter(itemAdapter);
+         */
+
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
             }
         });
+
+        Button postButton = findViewById(R.id.postButton);
+        postButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText titleEditText = findViewById(R.id.titleEditText);
+                EditText contentEditText = findViewById(R.id.contentEditText);
+
+                // Get user input
+                String title = titleEditText.getText().toString();
+                String content = contentEditText.getText().toString();
+                String author = "Current User"; // Replace with your user authentication logic
+                Date timestamp = new Date();
+
+                // Create a new discussion object
+                DiscussionDto discussion = new DiscussionDto(title, content, author, timestamp);
+
+                // Add the discussion to the list
+                discussions.add(discussion);
+
+                // Notify the adapter about the new discussion
+                discussionAdapter.notifyItemInserted(discussions.size() - 1);
+
+                // Clear the input fields
+                titleEditText.setText("");
+                contentEditText.setText("");
+            }
+        });
+
 
 
     }

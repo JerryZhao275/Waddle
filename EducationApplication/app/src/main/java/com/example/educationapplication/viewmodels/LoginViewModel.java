@@ -52,13 +52,11 @@ public class LoginViewModel extends BaseObservable {
 
     @Bindable
     public String getEmail() {
-        System.out.println(login.getEmail());
         return login.getEmail();
     }
 
     @Bindable
     public void setEmail(String email) {
-        System.out.println(email);
         login.setEmail(email);
         notifyPropertyChanged(BR.email);
     }
