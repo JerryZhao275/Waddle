@@ -32,6 +32,7 @@ import java.util.List;
 import dataObjects.CourseDto;
 import dataObjects.CustomOnCompleteListener;
 import dataObjects.CustomOnCompleteListener;
+import dataObjects.TeacherUserDto;
 
 public class DashboardFragment extends Fragment implements View.OnClickListener{
     private Animation rotateOpen, rotateClose, toBottom, fromBottom;
@@ -51,12 +52,12 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
     UserViewModel viewModel = new UserViewModel();
 
     boolean removeCreate = true;
-
+    FragmentDashboardBinding fragBinding;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        FragmentDashboardBinding fragBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_dashboard, container,false);
+        fragBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_dashboard, container,false);
         fragBinding.setViewModel(viewModel);
 
         view = fragBinding.getRoot();
@@ -87,7 +88,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
                     rotateClose = AnimationUtils.loadAnimation(getActivity(), R.anim.rotate_close_anim);
                     fromBottom = AnimationUtils.loadAnimation(getActivity(), R.anim.from_bottom_anim);
                     toBottom = AnimationUtils.loadAnimation(getActivity(), R.anim.to_bottom_anim);
-
                     if(fragBinding.getViewModel().isStudent()) {removeCreate = true;}
                     else {removeCreate = false;}
 
@@ -151,6 +151,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
                         }
                         else if (view.getId() == R.id.createBtn) {
                             Intent intent = new Intent(getActivity(), CreateClass.class);
+                            TeacherUserDto user = fragBinding.getViewModel().returnUserIfTeacher();
+                            intent.putExtra("teacher", user);
                             startActivity(intent);
                             createClass.startAnimation(fromBottom);
                             joinClass.startAnimation(fromBottom);
@@ -227,6 +229,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
             }
             else if (view.getId() == R.id.createBtn) {
                 Intent intent = new Intent(getActivity(), CreateClass.class);
+                intent.putExtra("teacher", fragBinding.getViewModel().returnUserIfTeacher());
                 startActivity(intent);
                 createClass.startAnimation(fromBottom);
                 joinClass.startAnimation(fromBottom);

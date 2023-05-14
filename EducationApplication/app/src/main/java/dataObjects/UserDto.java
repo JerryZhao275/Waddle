@@ -1,6 +1,8 @@
 package dataObjects;
 
-public abstract class UserDto {
+import java.io.Serializable;
+
+public abstract class UserDto implements Serializable {
 
     private String userId;
     private String userFirstName;
