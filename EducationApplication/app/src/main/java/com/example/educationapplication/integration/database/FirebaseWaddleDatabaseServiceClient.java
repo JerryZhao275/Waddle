@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 import dataObjects.AdminUserDto;
+import dataObjects.CourseDto;
 import dataObjects.CustomOnCompleteListener;
 import dataObjects.LoginUserDto;
 import dataObjects.TeacherUserDto;
@@ -116,6 +117,20 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
                 });
         return false;
     }
+
+    @Override
+    public void addCourse(CourseDto course, CustomOnCompleteListener listener) {
+        firestore.collection("Courses").add(course).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentReference> task) {
+                if(task.isSuccessful()){
+                    System.out.println("Course added");
+                    listener.onComplete();
+                }
+            }
+        });
+    }
+
     public UserDto getUserDetails(){
         return userDetails;
     }
@@ -167,6 +182,7 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
     public List<UserDto> getQueryUsers(){
         return queryUsers;
     }
+
     public void fetchAllUsersForSearch(Exp expression, CustomOnCompleteListener listener){
             List<String> users = new ArrayList<>();
             List<String> emails = new ArrayList<>();

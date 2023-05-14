@@ -5,6 +5,7 @@ import com.example.educationapplication.search.Exp;
 import java.util.List;
 import java.util.UUID;
 
+import dataObjects.CourseDto;
 import dataObjects.CustomOnCompleteListener;
 import dataObjects.LoginUserDto;
 import dataObjects.UserDto;
@@ -51,6 +52,11 @@ public class MockWaddleDatabaseServiceClient implements WaddleDatabaseServiceCli
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void addCourse(CourseDto course, CustomOnCompleteListener listener) {
+
     }
 
     @Override

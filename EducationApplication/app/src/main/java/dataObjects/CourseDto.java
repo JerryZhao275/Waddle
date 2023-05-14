@@ -43,9 +43,6 @@ public class CourseDto implements Parcelable, Serializable {
     public void setCourseDescription(String courseDescription){
         this.courseDescription = courseDescription;
     }
-    public String getTeacherId(){
-        return teacher.getUserId();
-    }
 
     public void enroll(String student){
         students.add(student);
@@ -67,7 +64,7 @@ public class CourseDto implements Parcelable, Serializable {
         return courseName;
     }
 
-    public Integer getCourseID(){
+    public Integer getCourseId(){
         return courseId;
     }
 
@@ -84,6 +81,23 @@ public class CourseDto implements Parcelable, Serializable {
 
     public void setCourseId(Integer courseId){
         this.courseId = courseId;
+    }
+    public void setTeacher(TeacherUserDto teacher){
+        this.teacher = teacher;
+    }
+
+    public void setQuizzes(List<QuizDto> quizzes){
+        this.quizzes = quizzes;
+    }
+
+    public void addQuiz(QuizDto quiz){
+        this.quizzes.add(quiz);
+    }
+    public void setStudents(List<String> students){
+        this.students = students;
+    }
+    public TeacherUserDto getTeacher(){
+        return teacher;
     }
 
     protected CourseDto(Parcel in) {
