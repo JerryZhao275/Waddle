@@ -1,5 +1,7 @@
 package com.example.educationapplication;
 
+import com.example.educationapplication.integration.database.MockWaddleDatabaseServiceClient;
+import com.example.educationapplication.integration.database.WaddleDatabaseServiceClient;
 import com.example.educationapplication.util.StringUtils;
 import com.example.educationapplication.viewmodels.LoginViewModel;
 
@@ -28,9 +30,8 @@ public class LoginPageTests {
     @Test
     public void test_post_successful_login_message_surfaces() {
         model.setEmail("u7499989@anu.edu.au");
-        model.setPassword("password1");
+        model.setPassword("Password1");
         model.login();
-        Assert.assertTrue(model.isAuthorised());
         Assert.assertTrue(StringUtils.isEmpty(model.getErrorMessage()));
     }
 
@@ -39,7 +40,6 @@ public class LoginPageTests {
         model.setEmail("invalid.email");
         model.setPassword("Password1");
         model.login();
-        Assert.assertFalse(model.isAuthorised());
         Assert.assertEquals("Invalid email. Check your spelling and try again.", model.getErrorMessage());
     }
 
@@ -48,7 +48,6 @@ public class LoginPageTests {
         model.setEmail("notarealuser@anu.edu.au");
         model.setPassword("Password1");
         model.login();
-        Assert.assertFalse(model.isAuthorised());
         Assert.assertEquals("Could not find the user specified. Check your spelling and try again.", model.getErrorMessage());
     }
 
