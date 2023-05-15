@@ -124,8 +124,21 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
             @Override
             public void onComplete(@NonNull Task<DocumentReference> task) {
                 if(task.isSuccessful()){
-                    System.out.println("Course added");
-                    listener.onComplete();
+                    List<String> newCourseName = new ArrayList<>();
+                    if(course.getTeacher().getCourses()!=null){
+                        newCourseName = course.getTeacher().getCourses();
+                    }
+                    newCourseName.add(course.getCourseName());
+                    Map<String, List<String>> map = new HashMap<>();
+                    map.put("courses", newCourseName);
+                    firestore.collection("Users").document(course.getTeacher().getUserId()).update("courses", newCourseName).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            System.out.println("Course added");
+                            listener.onComplete();
+                        }
+                    });
+
                 }
             }
         });
