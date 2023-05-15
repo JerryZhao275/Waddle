@@ -55,6 +55,16 @@ public class MockWaddleDatabaseServiceClient implements WaddleDatabaseServiceCli
     }
 
     @Override
+    public void fetchUserCourses(CustomOnCompleteListener listener) {
+
+    }
+
+    @Override
+    public List<CourseDto> getUserCourses() {
+        return null;
+    }
+
+    @Override
     public void addCourse(CourseDto course, CustomOnCompleteListener listener) {
 
     }

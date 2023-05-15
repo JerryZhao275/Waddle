@@ -18,6 +18,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+
+import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -40,6 +42,7 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
     final private FirebaseFirestore firestore;
     final private FirebaseAuth mAuth;
     private String userType;
+    private List<CourseDto> courseList;
     public FirebaseWaddleDatabaseServiceClient() {
         database = FirebaseDatabase.getInstance();
         firestore = FirebaseFirestore.getInstance();
@@ -116,6 +119,31 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
 
                 });
         return false;
+    }
+
+    @Override
+    public void fetchUserCourses(CustomOnCompleteListener listener) {
+        FieldPath fieldPath = FieldPath.of("teacher", "userId");
+        courseList = new ArrayList<>();
+        firestore.collection("Courses").whereEqualTo(fieldPath, mAuth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isComplete()){
+                    for(DocumentSnapshot documentSnapshot:task.getResult()){
+                        CourseDto queryCourse = documentSnapshot.toObject(CourseDto.class);
+                        courseList.add(queryCourse);
+                    }
+                    listener.onComplete();
+                }
+            }
+        });
+    }
+
+
+
+    @Override
+    public List<CourseDto> getUserCourses() {
+        return courseList;
     }
 
     @Override

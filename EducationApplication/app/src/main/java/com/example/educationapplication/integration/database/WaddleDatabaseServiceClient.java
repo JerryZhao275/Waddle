@@ -19,6 +19,8 @@ public interface WaddleDatabaseServiceClient {
     public List<UserDto> getQueryUsers();
     UserDto getUserDetails();
     boolean signIn(String username, String password, CustomOnCompleteListener listener);
+    public void fetchUserCourses(CustomOnCompleteListener listener);
+    public List<CourseDto> getUserCourses();
     public void addCourse(CourseDto course, CustomOnCompleteListener listener);
     void signOut();
 }

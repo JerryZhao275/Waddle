@@ -62,9 +62,16 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
 
         view = fragBinding.getRoot();
         myRecyclerView = view.findViewById(R.id.courseList);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(getContext(), mData);
-        myRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        myRecyclerView.setAdapter(adapter);
+        fragBinding.getViewModel().fetchUserCourseDetails(new CustomOnCompleteListener() {
+            @Override
+            public void onComplete() {
+                mData = fragBinding.getViewModel().getUserCourseDetails();
+                System.out.println(mData.get(0).getCourseName());
+                RecyclerViewAdapter adapter = new RecyclerViewAdapter(getContext(), mData);
+                myRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                myRecyclerView.setAdapter(adapter);
+            }
+        });
         addClass = view.findViewById(R.id.addClassButton);
         createClass = view.findViewById(R.id.createBtn);
         joinClass = view.findViewById(R.id.joinBtn);

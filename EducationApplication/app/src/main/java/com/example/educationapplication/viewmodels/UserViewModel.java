@@ -39,6 +39,7 @@ public class UserViewModel extends BaseObservable {
     TeacherUserDto teacher;
 
     List<String> coursesList;
+    List<CourseDto> userCourses;
 
     public UserViewModel() {
         config = ConfigurationManager.configInstance();
@@ -73,6 +74,25 @@ public class UserViewModel extends BaseObservable {
 
             }
         });
+
+    }
+    public void fetchUserCourseDetails(CustomOnCompleteListener listener){
+        databaseServiceClient.fetchUserCourses(new CustomOnCompleteListener() {
+            @Override
+            public void onComplete() {
+                List<CourseDto> courses = databaseServiceClient.getUserCourses();
+                userCourses = courses;
+                List<String> course_name = new ArrayList<>();
+                for(CourseDto course: courses){
+                    setCourses(course.getCourseName());
+                }
+                listener.onComplete();
+            }
+        });
+    }
+
+    public List<CourseDto> getUserCourseDetails(){
+        return userCourses;
     }
     public TeacherUserDto returnUserIfTeacher(){
         return teacher;
