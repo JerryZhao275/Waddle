@@ -57,6 +57,7 @@ public class UserViewModel extends BaseObservable {
                 // Check if the user is a student or a teacher
                 isStudent = user instanceof StudentUserDto;
                 isTeacher = user instanceof TeacherUserDto;
+                System.out.println(user.getUserName());
                 if (isStudent) {
                     isStudentReturned = true;
                     // Set the user type to "Student"
@@ -67,12 +68,15 @@ public class UserViewModel extends BaseObservable {
                 else if (isTeacher) {
                     // Set the user type to "Teacher"
                     setUserType("Teacher");
-                    TeacherUserDto teacher = (TeacherUserDto) user;
+                    teacher = (TeacherUserDto) user;
                 }
+
             }
         });
     }
-
+    public TeacherUserDto returnUserIfTeacher(){
+        return teacher;
+    }
     /**
      * Get the email value of the user.
      * @return The current email value of the user.

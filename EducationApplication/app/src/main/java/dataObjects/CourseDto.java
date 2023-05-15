@@ -3,9 +3,11 @@ package dataObjects;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-public class CourseDto implements Parcelable {
+public class CourseDto implements Parcelable, Serializable {
     //we can make this Integer or string as well. Up for more discussion.
     private Integer courseId;
     private String courseName;
@@ -14,6 +16,14 @@ public class CourseDto implements Parcelable {
 
     private TeacherUserDto teacher;
     private List<String> students;
+    public CourseDto(){
+        courseId = 0;
+        courseName = "";
+        courseDescription = "";
+        quizzes = new ArrayList<>();
+        teacher = new TeacherUserDto();
+        students = new ArrayList<>();
+    }
 
     public CourseDto(Integer courseId, String courseName, TeacherUserDto teacher){
         this.courseId = courseId;
@@ -32,9 +42,6 @@ public class CourseDto implements Parcelable {
 
     public void setCourseDescription(String courseDescription){
         this.courseDescription = courseDescription;
-    }
-    public String getTeacherId(){
-        return teacher.getUserId();
     }
 
     public void enroll(String student){
@@ -57,7 +64,7 @@ public class CourseDto implements Parcelable {
         return courseName;
     }
 
-    public Integer getCourseID(){
+    public Integer getCourseId(){
         return courseId;
     }
 
@@ -67,6 +74,30 @@ public class CourseDto implements Parcelable {
 
     public List<String> getAllStudents(){
         return students;
+    }
+    public void setCourseName(String courseName){
+        this.courseName = courseName;
+    }
+
+    public void setCourseId(Integer courseId){
+        this.courseId = courseId;
+    }
+    public void setTeacher(TeacherUserDto teacher){
+        this.teacher = teacher;
+    }
+
+    public void setQuizzes(List<QuizDto> quizzes){
+        this.quizzes = quizzes;
+    }
+
+    public void addQuiz(QuizDto quiz){
+        this.quizzes.add(quiz);
+    }
+    public void setStudents(List<String> students){
+        this.students = students;
+    }
+    public TeacherUserDto getTeacher(){
+        return teacher;
     }
 
     protected CourseDto(Parcel in) {

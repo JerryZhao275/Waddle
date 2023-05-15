@@ -42,7 +42,7 @@ public class CourseAVL {
         }
 
         // If the course to insert has a greater ID than the current node's course ID, insert it to the right
-        if (currCourse.getCourseID() > this.course.getCourseID()) {
+        if (currCourse.getCourseId() > this.course.getCourseId()) {
             CourseAVL insertRight;
             // If the right node is null, create a new node and set it to the right of the current node
             if (this.rightNode == null) {

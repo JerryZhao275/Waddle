@@ -4,6 +4,7 @@ import com.example.educationapplication.search.Exp;
 
 import java.util.List;
 
+import dataObjects.CourseDto;
 import dataObjects.CustomOnCompleteListener;
 import dataObjects.LoginUserDto;
 import dataObjects.UserDto;
@@ -18,5 +19,6 @@ public interface WaddleDatabaseServiceClient {
     public List<UserDto> getQueryUsers();
     UserDto getUserDetails();
     boolean signIn(String username, String password, CustomOnCompleteListener listener);
+    public void addCourse(CourseDto course, CustomOnCompleteListener listener);
     void signOut();
 }

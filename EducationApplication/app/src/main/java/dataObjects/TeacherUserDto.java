@@ -1,8 +1,9 @@
 package dataObjects;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class TeacherUserDto extends UserDto {
+public class TeacherUserDto extends UserDto implements Serializable {
     private Integer age;
     private String school;
     private List<String> courses = null;
