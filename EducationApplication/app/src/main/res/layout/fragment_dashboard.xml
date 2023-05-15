@@ -53,7 +53,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/courseList"
             android:layout_width="408dp"
-            android:layout_height="552dp"
+            android:layout_height="0dp"
             android:layout_marginTop="10dp"
             android:background="#FFCF87"
             android:backgroundTint="#FFCA7D"
@@ -64,6 +64,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/greetingText"
+            android:paddingBottom="170dp"
             bind:itemCount="25"
             bind:visibility="visible" />
 
@@ -130,8 +131,8 @@
             android:id="@+id/addClassButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="640dp"
             android:clickable="true"
+            android:layout_marginBottom="20dp"
             android:contentDescription="main button"
             android:onClick="@{()->expandButton.run(classCodeTextBox.getText().toString())}"
             android:focusable="true"
@@ -140,7 +141,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.926"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/joinBtn"

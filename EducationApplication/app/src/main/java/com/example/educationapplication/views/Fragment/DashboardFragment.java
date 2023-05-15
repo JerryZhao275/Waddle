@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
@@ -59,6 +60,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
         view = inflater.inflate(R.layout.fragment_dashboard, container, false);
         fragBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_dashboard, container,false);
         fragBinding.setViewModel(viewModel);
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         view = fragBinding.getRoot();
         myRecyclerView = view.findViewById(R.id.courseList);
