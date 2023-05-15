@@ -240,6 +240,7 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
         });
     }
     private List<UserDto> queryUsers = new ArrayList<>();
+    private List<CourseDto> queryCourses = new ArrayList<>();
     public void addQueryUser(UserDto user){
         if(queryUsers.stream().noneMatch(u -> u.getUserId().equals(user.getUserId()))){
             queryUsers.add(user);
@@ -248,6 +249,16 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
     public List<UserDto> getQueryUsers(){
         return queryUsers;
     }
+
+    public void addQueryCourse(CourseDto course){
+        if(queryCourses.stream().noneMatch(u -> u.getCourseName().equals(course.getCourseName()))){
+            queryCourses.add(course);
+        }
+    }
+    public List<CourseDto> getQueryCourses(){
+        return queryCourses;
+    }
+
 
     public void fetchAllUsersForSearch(Exp expression, CustomOnCompleteListener listener){
             List<String> users = new ArrayList<>();
@@ -268,22 +279,44 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
             Task task3;
             Task task4;
             Task<List<QuerySnapshot>> allTasks ;
+            List<Task> tasks = new ArrayList<>();
             if(users.size()>0 && emails.size()>0) {
-                task1 = firestore.collection("Users").whereIn("userFirstName", users).get();
-                task2 = firestore.collection("Users").whereIn("userLastName", users).get();
-                task3 = firestore.collection("Users").whereIn("userName", users).get();
-                task4 = firestore.collection("Users").whereIn("userEmail", emails).get();
-                allTasks = Tasks.whenAllSuccess(task1,task2,task3, task4);
+                for(String user:users) {
+                    //task1 = firestore.collection("Users").whereIn("userFirstName", users).get();
+                    //task2 = firestore.collection("Users").whereIn("userLastName", users).get();
+                    //task3 = firestore.collection("Users").whereIn("userName", users).get();
+                    tasks.add(firestore.collection("Users").whereGreaterThanOrEqualTo("userFirstName", user).whereLessThan("userFirstName", user+'z').get());
+                    tasks.add(firestore.collection("Users").whereGreaterThanOrEqualTo("userLastName", user).whereLessThan("userLastName", user+'z').get());
+                    tasks.add(firestore.collection("Users").whereGreaterThanOrEqualTo("userName", user).whereLessThan("userName", user+'z').get());
+
+                }
+                for(String email:emails) {
+                    tasks.add(firestore.collection("Users").whereGreaterThanOrEqualTo("userEmail", email.toLowerCase()).whereLessThan("userEmail", email.toLowerCase()+'z').get());
+                }
+                //allTasks = Tasks.whenAllSuccess(task1,task2,task3, task4);
+                //tasks.add(task1);
+                //tasks.add(task2);
+                //tasks.add(task3);
+                //tasks.add(task4);
+                allTasks = Tasks.whenAllSuccess(tasks);
             }
             else if(users.size()==0 && emails.size()>0){
-                task4 = firestore.collection("Users").whereIn("userEmail", emails).get();
-                allTasks = Tasks.whenAllSuccess(task4);
+                for(String email:emails) {
+                    tasks.add(firestore.collection("Users").whereGreaterThanOrEqualTo("userEmail", email.toLowerCase()).whereLessThan("userEmail", email.toLowerCase()+'z').get());
+                }
+                allTasks = Tasks.whenAllSuccess(tasks);
             }
             else if(users.size()>0){
-                task1 = firestore.collection("Users").whereIn("userFirstName", users).get();
-                task2 = firestore.collection("Users").whereIn("userLastName", users).get();
-                task3 = firestore.collection("Users").whereIn("userName", users).get();
-                allTasks = Tasks.whenAllSuccess(task1, task2, task3);
+                for(String user:users) {
+                    //task1 = firestore.collection("Users").whereIn("userFirstName", users).get();
+                    //task2 = firestore.collection("Users").whereIn("userLastName", users).get();
+                    //task3 = firestore.collection("Users").whereIn("userName", users).get();
+                    tasks.add(firestore.collection("Users").whereGreaterThanOrEqualTo("userFirstName", user).whereLessThan("userFirstName", user+'z').get());
+                    tasks.add(firestore.collection("Users").whereGreaterThanOrEqualTo("userLastName", user).whereLessThan("userLastName", user+'z').get());
+                    tasks.add(firestore.collection("Users").whereGreaterThanOrEqualTo("userName", user).whereLessThan("userName", user+'z').get());
+
+                }
+                allTasks = Tasks.whenAllSuccess(tasks);
             }
             else{
                 task1 = firestore.collection("Users").get();
@@ -346,5 +379,93 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
 
                 }
             });
+    }
+
+    @Override
+    public void fetchAllCoursesForSearch(Exp expression, CustomOnCompleteListener listener) {
+        List<String> courseNames = new ArrayList<>();
+        List<String> courseDescriptions = new ArrayList<>();
+        queryCourses = new ArrayList<>();
+        System.out.println(expression.showExpType());
+        while(expression.getCurrentValue()!=null){
+            if(expression.showExpType().equals("COURSE ID")){
+                courseNames.add(expression.getCurrentValue());
+            }
+            else{
+                courseDescriptions.add(expression.getCurrentValue());
+            }
+            expression = expression.getNext();
+        }
+        Task task1;
+        Task<List<QuerySnapshot>> allTasks ;
+        List<Task> tasks = new ArrayList<>();
+        if(courseNames.size()>0 && courseDescriptions.size()>0) {
+            for(String courseName:courseNames) {
+                //task1 = firestore.collection("Users").whereIn("userFirstName", users).get();
+                //task2 = firestore.collection("Users").whereIn("userLastName", users).get();
+                //task3 = firestore.collection("Users").whereIn("userName", users).get();
+                tasks.add(firestore.collection("Courses").whereGreaterThanOrEqualTo("courseName", courseName).whereLessThan("courseName", courseName+'z').get());
+
+            }
+            for(String courseDescription:courseDescriptions) {
+                tasks.add(firestore.collection("Courses").whereGreaterThanOrEqualTo("courseDescription", courseDescription).whereLessThan("courseDescription", courseDescription+'z').get());
+            }
+            //allTasks = Tasks.whenAllSuccess(task1,task2,task3, task4);
+            //tasks.add(task1);
+            //tasks.add(task2);
+            //tasks.add(task3);
+            //tasks.add(task4);
+            allTasks = Tasks.whenAllSuccess(tasks);
+        }
+        else if(courseNames.size()==0 && courseDescriptions.size()>0){
+            for(String courseDescription:courseDescriptions) {
+                tasks.add(firestore.collection("Courses").whereGreaterThanOrEqualTo("courseDescription", courseDescription).whereLessThan("courseDescription", courseDescription+'z').get());
+            }
+            allTasks = Tasks.whenAllSuccess(tasks);
+        }
+        else if(courseNames.size()>0){
+            for(String courseName:courseNames) {
+                //task1 = firestore.collection("Users").whereIn("userFirstName", users).get();
+                //task2 = firestore.collection("Users").whereIn("userLastName", users).get();
+                //task3 = firestore.collection("Users").whereIn("userName", users).get();
+                tasks.add(firestore.collection("Courses").whereGreaterThanOrEqualTo("courseName", courseName).whereLessThan("courseName", courseName+'z').get());
+
+            }
+            allTasks = Tasks.whenAllSuccess(tasks);
+        }
+        else{
+            task1 = firestore.collection("Courses").get();
+            allTasks = Tasks.whenAllSuccess(task1);
+        }
+
+        allTasks.addOnSuccessListener(new OnSuccessListener<List<QuerySnapshot>>() {
+            @Override
+            public void onSuccess(List<QuerySnapshot> querySnapshots) {
+
+                if(querySnapshots.stream().anyMatch(q->q.getDocuments().size()>0)) {
+                    for (QuerySnapshot queryDocumentSnapshots : querySnapshots) {
+                        for (QueryDocumentSnapshot queryDocumentSnapshot : queryDocumentSnapshots) {
+                            CourseDto course = queryDocumentSnapshot.toObject(CourseDto.class);
+                            addQueryCourse(course);
+                            listener.onComplete();
+                        }
+                    }
+                }
+                else{
+                    firestore.collection("Courses").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            for (QueryDocumentSnapshot queryDocumentSnapshot : queryDocumentSnapshots) {
+                                CourseDto course = queryDocumentSnapshot.toObject(CourseDto.class);
+                                addQueryCourse(course);
+                                listener.onComplete();
+                            }
+                        }
+                    });
+                }
+
+
+            }
+        });
     }
 }

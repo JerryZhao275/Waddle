@@ -22,7 +22,7 @@ public class SearchBarTokenizer {
                         currentToken = new Token(allTokens[index], Token.Type.NAME);
                     }
                 } else {
-                    if (allTokens[index].matches(".*\\d.*")) {
+                    if (allTokens[index].matches(".*\\d.*") || allTokens[index].length()<=4) {
                         currentToken = new Token(allTokens[index], Token.Type.COURSENAME);
                     } else {
                         currentToken = new Token(allTokens[index], Token.Type.COURSEDESC);
