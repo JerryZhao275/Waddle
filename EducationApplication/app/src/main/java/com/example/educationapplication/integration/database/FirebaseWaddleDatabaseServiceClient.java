@@ -5,6 +5,7 @@ import static android.content.ContentValues.TAG;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.example.educationapplication.search.Exp;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -19,8 +20,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -167,6 +170,28 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
                         }
                     });
 
+                }
+            }
+        });
+    }
+
+    @Override
+    public void synchCourses(CustomOnCompleteListener listener) {
+        FieldPath fieldPath = FieldPath.of("teacher", "userId");
+        firestore.collection("Courses").whereEqualTo(fieldPath, mAuth.getCurrentUser().getUid()).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                courseList = new ArrayList<>();
+                if(error!=null){
+                    System.out.println("Course Error");
+                }
+                else{
+                    assert value != null;
+                    for(DocumentSnapshot documentSnapshot : value.getDocuments()){
+                        CourseDto queryCourse = documentSnapshot.toObject(CourseDto.class);
+                        courseList.add(queryCourse);
+                    }
+                    listener.onComplete();
                 }
             }
         });

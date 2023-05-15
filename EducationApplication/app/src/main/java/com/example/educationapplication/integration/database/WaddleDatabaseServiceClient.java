@@ -22,5 +22,6 @@ public interface WaddleDatabaseServiceClient {
     public void fetchUserCourses(CustomOnCompleteListener listener);
     public List<CourseDto> getUserCourses();
     public void addCourse(CourseDto course, CustomOnCompleteListener listener);
+    public void synchCourses(CustomOnCompleteListener listener);
     void signOut();
 }

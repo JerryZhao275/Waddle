@@ -70,6 +70,11 @@ public class MockWaddleDatabaseServiceClient implements WaddleDatabaseServiceCli
     }
 
     @Override
+    public void synchCourses(CustomOnCompleteListener listener) {
+
+    }
+
+    @Override
     public void signOut() {
         this.currentUser = null;
     }

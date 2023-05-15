@@ -75,20 +75,36 @@ public class UserViewModel extends BaseObservable {
             }
         });
 
+
+
     }
     public void fetchUserCourseDetails(CustomOnCompleteListener listener){
-        databaseServiceClient.fetchUserCourses(new CustomOnCompleteListener() {
+        databaseServiceClient.synchCourses(new CustomOnCompleteListener() {
             @Override
             public void onComplete() {
+                setCourses(null);
                 List<CourseDto> courses = databaseServiceClient.getUserCourses();
                 userCourses = courses;
-                List<String> course_name = new ArrayList<>();
                 for(CourseDto course: courses){
+                    System.out.println("Yo2 "+course.getCourseName());
                     setCourses(course.getCourseName());
                 }
                 listener.onComplete();
             }
         });
+        /*databaseServiceClient.fetchUserCourses(new CustomOnCompleteListener() {
+            @Override
+            public void onComplete() {
+                List<CourseDto> courses = databaseServiceClient.getUserCourses();
+                userCourses = courses;
+
+                for(CourseDto course: courses){
+                    System.out.println("Yo1 "+course.getCourseName());
+                    setCourses(course.getCourseName());
+                }
+                listener.onComplete();
+            }
+        });*/
     }
 
     public List<CourseDto> getUserCourseDetails(){
@@ -171,7 +187,7 @@ public class UserViewModel extends BaseObservable {
      */
     @Bindable
     public void setCourses(String course) {
-        if (coursesList == null) {
+        if (coursesList == null||course==null) {
             coursesList = new ArrayList<String>();
         }
         coursesList.add(course);
