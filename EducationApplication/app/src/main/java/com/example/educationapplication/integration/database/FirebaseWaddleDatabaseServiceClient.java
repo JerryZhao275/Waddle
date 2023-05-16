@@ -7,6 +7,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.educationapplication.model.CourseAVL;
 import com.example.educationapplication.search.Exp;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -43,7 +44,7 @@ import dataObjects.UserDto;
 import dataObjects.UserType;
 
 public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServiceClient {
-
+    private final CourseAVL courseAVL = new CourseAVL();
     final private List<String> hardCodedCourses = new ArrayList<>(Arrays.asList("COMP2100", "COMP6320", "COMP1110"));
     final private FirebaseDatabase database;
     final private FirebaseFirestore firestore;
@@ -54,6 +55,10 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
         database = FirebaseDatabase.getInstance();
         firestore = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
+        courseAVL.insert(new CourseDto(1110, "COMP1110", null, "Structured Programming"));
+        courseAVL.insert(new CourseDto(2100, "COMP2100", null, "Software Construction"));
+        courseAVL.insert(new CourseDto(6320, "COMP6320", null, "Artificial Intelligence"));
+
     }
 
     private LoginUserDto currentUser = new LoginUserDto("","");
@@ -173,6 +178,7 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
                     newCourseName.add(course.getCourseName());
                     Map<String, List<String>> map = new HashMap<>();
                     map.put("courses", newCourseName);
+                    courseAVL.insert(course);
                     firestore.collection("Users").document(course.getTeacher().getUserId()).update("courses", newCourseName).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -180,7 +186,6 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
                             listener.onComplete();
                         }
                     });
-
                 }
             }
         });
