@@ -18,6 +18,7 @@ import com.example.educationapplication.BR;
 import com.example.educationapplication.R;
 import com.example.educationapplication.views.CoursePage;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,7 +101,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             int position = getAdapterPosition();
             CourseDto selectedCourse = mData.get(position);
             Intent intent = new Intent(mContext, CoursePage.class);
-            //intent.putExtra("course", selectedCourse);
+            intent.putExtra("course", (Serializable) selectedCourse);
             mContext.startActivity(intent);
         }
     }

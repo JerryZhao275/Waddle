@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CourseDto implements Parcelable, Serializable {
+public class CourseDto implements Serializable {
     //we can make this Integer or string as well. Up for more discussion.
     private Integer courseId;
     private String courseName;
@@ -100,7 +100,7 @@ public class CourseDto implements Parcelable, Serializable {
         return teacher;
     }
 
-    protected CourseDto(Parcel in) {
+    /*protected CourseDto(Parcel in) {
         courseId = in.readInt();
         courseName = in.readString();
         courseDescription = in.readString();
@@ -130,5 +130,5 @@ public class CourseDto implements Parcelable, Serializable {
         public CourseDto[] newArray(int size) {
             return new CourseDto[size];
         }
-    };
+    };*/
 }
