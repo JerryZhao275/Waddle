@@ -29,6 +29,7 @@ public class UserViewModel extends BaseObservable {
     WaddleDatabaseServiceClient databaseServiceClient;
     UserDto user;
     String userFirstName = "";
+    String userLastName = "";
     String email = "";
     String userType;
     boolean isTeacher;
@@ -38,7 +39,7 @@ public class UserViewModel extends BaseObservable {
     StudentUserDto student;
     TeacherUserDto teacher;
 
-    List<String> coursesList;
+    static List<String> coursesList;
     List<CourseDto> userCourses;
 
     public UserViewModel() {
@@ -52,8 +53,9 @@ public class UserViewModel extends BaseObservable {
 
                 System.out.println(user.getUserName()+" "+user.getUserEmail());
 
-                // Set the first name and email fields in the view model
+                // Set the first name, last nameand email fields in the view model
                 setFirstName(user.getUserFirstName());
+                setLastName(user.getUserLastName());
                 setEmail(user.getUserEmail());
                 // Check if the user is a student or a teacher
                 isStudent = user instanceof StudentUserDto;
@@ -71,7 +73,6 @@ public class UserViewModel extends BaseObservable {
                     setUserType("Teacher");
                     teacher = (TeacherUserDto) user;
                 }
-
             }
         });
 
@@ -152,6 +153,25 @@ public class UserViewModel extends BaseObservable {
     }
 
     /**
+     * Get the last name value of the user.
+     * This method is annotated with @Bindable to notify the view when the first name value changes.
+     */
+    @Bindable
+    public String getLastName() {
+        return userLastName;
+    }
+
+    /**
+     * Set the last name value of the user.
+     * @param lastName The new first name value for the user.
+     */
+    @Bindable
+    public void setLastName(String lastName) {
+        userLastName = lastName;
+        notifyPropertyChanged(BR.lastName);
+    }
+
+    /**
      * Get the user type of the user.
      * @return The current user type value of the user.
      */
@@ -200,6 +220,13 @@ public class UserViewModel extends BaseObservable {
         return isStudentReturned;
     }
 
-
-
+    public static String convertListToString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        int i = 0;
+        for (String item : coursesList) {
+            if (i != 0) stringBuilder.append(item).append("\n");
+            i++;
+        }
+        return stringBuilder.toString();
+    }
 }

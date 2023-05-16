@@ -36,7 +36,7 @@ public class LoginView extends AppCompatActivity {
         loginBinding.executePendingBindings();
 
         DataReader newr = new DataReader();
-        newr.getUserInfo(LoginView.this);
+        //newr.getUserInfo(LoginView.this);
     }
 
     protected void changeToHomepage(boolean isAuthorised) {
