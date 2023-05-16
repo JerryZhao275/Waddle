@@ -55,13 +55,10 @@ public class CoursePage extends AppCompatActivity {
         ImageButton backBtn = findViewById(R.id.classpage_backbutton);
 
         courseN.setText(selectedCourse.getCourseName());
-        courseDesc.setText((selectedCourse.getCourseDescription()));
-
-        discussions.add(new DiscussionDto("Title 1", "Content 1", "Author 1", new Date()));
-        discussions.add(new DiscussionDto("Title 2", "Content 2", "Author 2", new Date()));
+        courseDesc.setText(selectedCourse.getCourseDescription());
 
         RecyclerView discussionRecyclerView = findViewById(R.id.discussionRecyclerView);
-        discussionAdapter = new DiscussionAdapter(discussions);
+        discussionAdapter = new DiscussionAdapter(this, discussions);
         discussionRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         discussionRecyclerView.setAdapter(discussionAdapter);
 
