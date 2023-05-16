@@ -36,7 +36,6 @@ public class MockWaddleDatabaseServiceClient implements WaddleDatabaseServiceCli
 
     @Override
     public void fetchAllCoursesForSearch(Exp expression, CustomOnCompleteListener listener) {
-
     }
 
     @Override
@@ -55,6 +54,11 @@ public class MockWaddleDatabaseServiceClient implements WaddleDatabaseServiceCli
     }
 
     @Override
+    public void createNewUserDataInstance(UserDto user, String password, CustomOnCompleteListener listener) {
+
+    }
+
+    @Override
     public boolean signIn(String username, String password, CustomOnCompleteListener listener) {
         LoginUserDto userToLogInAs = getUser(username, password);
         if (userToLogInAs != null) {
@@ -62,6 +66,11 @@ public class MockWaddleDatabaseServiceClient implements WaddleDatabaseServiceCli
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void setNullUser() {
+
     }
 
     @Override
@@ -92,6 +101,11 @@ public class MockWaddleDatabaseServiceClient implements WaddleDatabaseServiceCli
     @Override
     public void signOut() {
         this.currentUser = null;
+    }
+
+    @Override
+    public void signInDataInstances(String email, String password) {
+
     }
 
     @Override

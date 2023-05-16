@@ -20,11 +20,19 @@ public interface WaddleDatabaseServiceClient {
     public List<UserDto> getQueryUsers();
     public List<CourseDto> getQueryCourses();
     UserDto getUserDetails();
+
+    void createNewUserDataInstance(UserDto user, String password, CustomOnCompleteListener listener);
+
     boolean signIn(String username, String password, CustomOnCompleteListener listener);
+
+    void setNullUser();
+
     public void fetchUserCourses(CustomOnCompleteListener listener);
     public List<CourseDto> getUserCourses();
     public void addCourse(CourseDto course, CustomOnCompleteListener listener);
     public void synchCourses(CustomOnCompleteListener listener);
     public void synchUsers(CustomOnCompleteListener listener);
     void signOut();
+
+    void signInDataInstances(String email, String password);
 }

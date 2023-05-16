@@ -28,9 +28,11 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import dataObjects.AdminUserDto;
 import dataObjects.CourseDto;
@@ -41,6 +43,8 @@ import dataObjects.UserDto;
 import dataObjects.UserType;
 
 public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServiceClient {
+
+    final private List<String> hardCodedCourses = new ArrayList<>(Arrays.asList("COMP2100", "COMP6320", "COMP1110"));
     final private FirebaseDatabase database;
     final private FirebaseFirestore firestore;
     final private FirebaseAuth mAuth;
@@ -104,6 +108,8 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        System.out.println(email);
+                        System.out.println(password);
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
@@ -122,6 +128,11 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
 
                 });
         return false;
+    }
+
+    @Override
+    public void setNullUser() {
+        setCurrentUser(null);
     }
 
     @Override
@@ -494,6 +505,58 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
                 }
 
 
+            }
+        });
+    }
+
+    @Override
+    public void signInDataInstances(String email, String password) {
+        mAuth.signInWithEmailAndPassword(email, password);
+    }
+
+    @Override
+    public void createNewUserDataInstance(UserDto user, String password, CustomOnCompleteListener listener) {
+        mAuth.createUserWithEmailAndPassword(user.getUserEmail(), password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(TAG, "createUserWithEmail:success");
+                    FirebaseUser currentUser = mAuth.getCurrentUser();
+                    user.setUserId(currentUser.getUid());
+                    if(user instanceof AdminUserDto) {
+                        database.getReference("Users").child(currentUser.getUid()).setValue(UserType.ADMIN);
+                    }
+                    else if(user instanceof TeacherUserDto){
+                        database.getReference("Users").child(currentUser.getUid()).setValue(UserType.TEACHER);
+                    }
+                    else{
+                        database.getReference("Users").child(currentUser.getUid()).setValue(UserType.STUDENT);
+                    }
+                    Random random = new Random();
+                    int number = random.nextInt(hardCodedCourses.size());
+                    List<String> newList = new ArrayList<>();
+                    newList.add(hardCodedCourses.get(number));
+                    user.setCourses(newList);
+                    firestore.collection("Users").document(currentUser.getUid()).set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            firestore.collection("Users").document(user.getUserId()).update("courses", newList).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    System.out.println("Course added");
+                                    listener.onComplete();
+                                }
+                            });
+
+                            listener.onComplete();
+                        }
+                    });
+
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                }
             }
         });
     }

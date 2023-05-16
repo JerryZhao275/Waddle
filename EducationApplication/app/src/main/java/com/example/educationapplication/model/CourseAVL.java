@@ -1,12 +1,9 @@
-package com.example.educationapplication;
+package com.example.educationapplication.model;
 
 import java.util.ArrayList;
 
 import dataObjects.CourseDto;
 
-/*
-    Class is here temporarily since I don't know where this should be
- */
 public class CourseAVL {
     public CourseDto course;
     public CourseAVL leftNode;
