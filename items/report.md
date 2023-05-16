@@ -320,6 +320,7 @@ Feature Category: User Interactivity <br>
 - *[Team Meeting 3](./meeting3.md)*
 - *[Team Meeting 4](./meeting4.md)*
 - *[Team Meeting 5](./meeting5.md)*
+- *[Team Meeting 6](./meeting6.md)*
 
 * Link to the minutes of your meetings as above. There must be at least 4 team meetings.
   Note that you must commit your minute meetings shortly after your meeting has taken place (e.g., within 24h), otherwise your meeting minute will not be accepted.
