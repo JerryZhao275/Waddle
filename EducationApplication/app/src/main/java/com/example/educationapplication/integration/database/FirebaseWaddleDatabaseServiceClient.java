@@ -58,7 +58,6 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
         courseAVL.insert(new CourseDto(1110, "COMP1110", null, "Structured Programming"));
         courseAVL.insert(new CourseDto(2100, "COMP2100", null, "Software Construction"));
         courseAVL.insert(new CourseDto(6320, "COMP6320", null, "Artificial Intelligence"));
-
     }
 
     private LoginUserDto currentUser = new LoginUserDto("","");
