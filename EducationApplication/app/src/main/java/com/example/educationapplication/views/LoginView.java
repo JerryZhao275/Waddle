@@ -35,10 +35,6 @@ public class LoginView extends AppCompatActivity {
         });
         loginBinding.executePendingBindings();
 
-        System.out.println("||||||||||||||");
-        DataReader newr = new DataReader();
-        newr.getUserInfo(LoginView.this);
-        System.out.println("||||||||||||||");
     }
 
     protected void changeToHomepage(boolean isAuthorised) {
