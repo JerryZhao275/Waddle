@@ -64,8 +64,11 @@ The following is a report template to help your team successfully provide all th
 
 ## Conflict Resolution Protocol
 
-*[Write a well defined protocol your team can use to handle conflicts. That is, if your group has problems, what is the procedure for reaching consensus or solving a problem?
-(If you choose to make this an external document, link to it here)]*
+1. Define the source of the conflict: The mediator will initiate communication with all team members and identify where the conflict lies.
+2. Look beyond the incident: Party members will act professionally to not let personal emotions play a part in your actions.
+3. Request solutions: The mediator will ask all party members for solutions. If a solution cannot be thought of, then the party's perspective on the situation should be said.
+4. Identify solutions both disputants can support: Find the most acceptable solution, a compromise between both/all party members.
+5. Agreement: The mediator will ask party members to accept one of the alternatives identified and reach a negotiated agreement
 
 
 ## Application Description
@@ -121,7 +124,7 @@ The following is a report template to help your team successfully provide all th
 
 *Please give clear and concise descriptions for each subsections of this part. It would be better to list all the concrete items for each subsection and give no more than `5` concise, crucial reasons of your design. Here is an example for the subsection `Data Structures`:*
 
-*I used the following data structures in my project:*
+*We used the following data structures in our project:*
 
 **Data Structures**
 
@@ -156,13 +159,20 @@ The following is a report template to help your team successfully provide all th
     * Since the singleton design pattern ensures only one instance of a class is created throughout the lifetime of an application, utilising this design pattern can ensure that only one instance of the FirebaseWaddleDatabaseServicesClient.java class is created, preventing any potential concurrency issues and improving the overall performance of the application. Additionally, it simplifies the codebase by providing a global point of access to the FirebaseWaddleDatabaseServicesClient.java instance, making it easier to maintain and debug, overall, leading to more efficient and streamlined code and an improved user experience.
 
 
-3. **Factory Method Design Pattern**
+2. **Factory Method Design Pattern**
     * Classes utilised:
         * UserDto.java, whole file
         * StudentUserDto.java, whole file
         * TeacherUserDto.java, whole file
     * The factory method design pattern allows for the creation of objects without having to specify the exact class of the object that will be created. In the context of a UserDto class extended by TeacherUserDto and StudentUserDto, utilising the factory method design pattern can offer several benefits. It allows for the creation of objects of the UserDto class and its subclasses without needing to know the exact class of the object at runtime. This can simplify the codebase, reduce code duplication, and make the system more modular. It also provides a clear separation of concerns between the creation of objects and their implementation, making it easier to maintain and test the code.
 
+3. **Android MVVM Design Pattern**
+    * The MVVM Design pattern was utilised for all files in the model, view, and viewmodel files.
+    * Implementing all the functionality and firebase logic in a single class or activity would lead to problems in testing and refactoring the code. This is due to difficulty and unreliability in testing two components of an application simultaneously. Hence, the separation of code and clean architecture can allow us to develop a Mock database to test easily against our program and its individual components.
+
+![mvvmdiagram](./images/mvvmdiagram.png) <br>
+
+*[What other design decisions have you made which you feel are relevant? Feel free to separate these into their own subheadings.]*
 
 *[What design patterns did your team utilise? Where and why?]*
 
@@ -186,14 +196,6 @@ Production Rules:
 *[If you implement the surprise item, explain how your solution addresses the surprise task. What decisions do your team make in addressing the problem?]*
 
 **Other**
-
-**Android MVVM Design Pattern**
-
-Implementing all the functionality and firebase logic in a single class or activity would lead to problems in testing and refactoring the code. This is due to difficulty and unreliability in testing two components of an application simultaneously. Hence, the separation of code and clean architecture can allow us to develop a Mock database to test easily against our program and its individual components.
-
-![mvvmdiagram](./images/mvvmdiagram.png) <br>
-
-*[What other design decisions have you made which you feel are relevant? Feel free to separate these into their own subheadings.]*
 
 ## Summary of Known Errors and Bugs
 
