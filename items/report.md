@@ -285,6 +285,12 @@ Feature Category: Firebase Integration <br>
 
 3. [FB-Syn]. Using Firebase or another remote database to store user information and having the app updated as the remote database is updated **(hard)**
     * Classes utilised:
+        * database/FirebaseWaddleDatabaseServiceClient.java
+        * database/WaddleDatabaseServiceClient.java
+        * view/Dashboard/DashboardFragment.java
+        * view/CoursePage.java
+        * viewmodel/UserViewModel.java
+    * 
 
 
 Feature Category: UI Design and Testing <br>
@@ -309,6 +315,9 @@ Feature Category: Search-related features <br>
 Feature Category: User Interactivity <br>
 8. [Interact-Follow]. The ability to ‘follow’ a course or any specific items. **(medium)**
     * Classes utilised:
+        * view/Dashboard/DashboardFragment.java
+        * viewmodel/UserViewModel.java
+        * database/FirebaseWaddleDatabaseServiceClient
 
 
 *List all features you have completed in their separate categories with their difficulty classification. If they are features that are suggested and approved, please state this somewhere as well.*
