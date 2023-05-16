@@ -205,6 +205,9 @@ public class UserViewModel extends BaseObservable {
 
     public static String convertListToString() {
         StringBuilder stringBuilder = new StringBuilder();
+        if(coursesList==null){
+            coursesList = new ArrayList<>();
+        }
         int i = 0;
         for (String item : coursesList) {
             if (i != 0) stringBuilder.append(item).append("\n");
