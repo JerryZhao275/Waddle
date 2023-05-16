@@ -65,7 +65,6 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
 
         }
         while(expression.getCurrentValue()!=null){
-            System.out.println(expression.getCurrentValue()+" "+expression.showExpType());
             expression = expression.getNext();
         }
 

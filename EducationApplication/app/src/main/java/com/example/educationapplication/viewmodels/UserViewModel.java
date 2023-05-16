@@ -51,8 +51,6 @@ public class UserViewModel extends BaseObservable {
                 // Get the user details
                 user = databaseServiceClient.getUserDetails();
 
-                System.out.println(user.getUserName()+" "+user.getUserEmail());
-
                 // Set the first name, last nameand email fields in the view model
                 setFirstName(user.getUserFirstName());
                 setLastName(user.getUserLastName());
@@ -60,7 +58,6 @@ public class UserViewModel extends BaseObservable {
                 // Check if the user is a student or a teacher
                 isStudent = user instanceof StudentUserDto;
                 isTeacher = user instanceof TeacherUserDto;
-                System.out.println(user.getUserName());
                 if (isStudent) {
                     isStudentReturned = true;
                     // Set the user type to "Student"
@@ -87,25 +84,11 @@ public class UserViewModel extends BaseObservable {
                 List<CourseDto> courses = databaseServiceClient.getUserCourses();
                 userCourses = courses;
                 for(CourseDto course: courses){
-                    System.out.println("Yo2 "+course.getCourseName());
                     setCourses(course.getCourseName());
                 }
                 listener.onComplete();
             }
         });
-        /*databaseServiceClient.fetchUserCourses(new CustomOnCompleteListener() {
-            @Override
-            public void onComplete() {
-                List<CourseDto> courses = databaseServiceClient.getUserCourses();
-                userCourses = courses;
-
-                for(CourseDto course: courses){
-                    System.out.println("Yo1 "+course.getCourseName());
-                    setCourses(course.getCourseName());
-                }
-                listener.onComplete();
-            }
-        });*/
     }
 
     public List<CourseDto> getUserCourseDetails(){
