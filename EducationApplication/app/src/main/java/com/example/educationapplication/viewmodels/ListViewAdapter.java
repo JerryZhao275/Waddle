@@ -19,6 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
+import dataObjects.CourseDto;
 import dataObjects.CustomOnCompleteListener;
 import dataObjects.UserDto;
 
@@ -30,6 +31,7 @@ public class ListViewAdapter extends BaseAdapter {
     private final WaddleDatabaseConfiguration config;
     private final WaddleDatabaseServiceClient databaseServiceClient;
     List<UserDto> users = new ArrayList<>();
+    List<CourseDto> courses = new ArrayList<>();
     String[] namesList = {"Jerry Zhao", "Karthik Vemireddy", "Matthew Richards",
             "Ryan Yoon", "Michael Ostapenko", "Bernado Nunes"};
     String[] classesList = {"COMP2100", "COMP2420", "COMP2620", "COMP2300", "COMP1140"};
@@ -58,6 +60,22 @@ public class ListViewAdapter extends BaseAdapter {
                 }
                 System.out.println(userNames);
                 displayList = userNames;
+                notifyDataSetChanged();
+            }
+        });
+    }
+
+    public void filterCourseList(Exp expression) {
+        databaseServiceClient.fetchAllCoursesForSearch(expression, new CustomOnCompleteListener() {
+            @Override
+            public void onComplete() {
+                courses = databaseServiceClient.getQueryCourses();
+                List<String> courseNames = new ArrayList<>();
+                for(CourseDto course: courses){
+                    courseNames.add(course.getCourseDescription());
+                }
+                System.out.println(courseNames);
+                displayList = courseNames;
                 notifyDataSetChanged();
             }
         });

@@ -48,7 +48,7 @@ public class CoursePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_page);
 
-        selectedCourse = getIntent().getParcelableExtra("course");
+        selectedCourse = (CourseDto) getIntent().getSerializableExtra("course");
 
         TextView courseN = findViewById(R.id.classpage_classname);
         TextView courseDesc = findViewById(R.id.classpage_classdescription);

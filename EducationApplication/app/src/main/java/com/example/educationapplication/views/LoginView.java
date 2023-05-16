@@ -1,20 +1,16 @@
 package com.example.educationapplication.views;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.example.educationapplication.R;
-import com.example.educationapplication.databinding.FragmentDashboardBinding;
 import com.example.educationapplication.databinding.LoginBinding;
 import com.example.educationapplication.viewmodels.LoginViewModel;
 
+import com.example.educationapplication.dataInstances.DataReader;
 import dataObjects.CustomOnCompleteListener;
 
 public class LoginView extends AppCompatActivity {
@@ -38,6 +34,11 @@ public class LoginView extends AppCompatActivity {
             startActivity(intent);
         });
         loginBinding.executePendingBindings();
+
+        System.out.println("||||||||||||||");
+        DataReader newr = new DataReader();
+        newr.getUserInfo(LoginView.this);
+        System.out.println("||||||||||||||");
     }
 
     protected void changeToHomepage(boolean isAuthorised) {

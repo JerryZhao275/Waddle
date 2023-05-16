@@ -119,4 +119,31 @@ public class LoginViewModel extends BaseObservable {
         });
     }
 
+    public void login() {
+        boolean questionsAnswered = StringUtils.isNotEmpty(login.getEmail()) && StringUtils.isNotEmpty(login.getPassword());
+        boolean isEmailValid = Pattern.matches(CommonRegexUtil.EMAIL, login.getEmail());
+
+        if (!questionsAnswered) {
+            setErrorMessage(EMPTY_FIELD);
+            setAuthorised(false);
+            return;
+        }
+        if (!isEmailValid) {
+            setErrorMessage(LOGIN_FAILED);
+            setAuthorised(false);
+            return;
+        }
+        getDatabaseServiceClient().signIn(login.getEmail(), login.getPassword(), new CustomOnCompleteListener() {
+            @Override
+            public void onComplete() {
+                if (getDatabaseServiceClient().getCurrentUser() == null) {
+                    setErrorMessage(INVALID_USER);
+                    setAuthorised(false);
+                    return;
+                }
+                setAuthorised(true);
+            }
+        });
+    }
+
 }

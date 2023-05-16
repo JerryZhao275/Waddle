@@ -5,7 +5,9 @@ import static android.content.ContentValues.TAG;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
+import com.example.educationapplication.model.CourseAVL;
 import com.example.educationapplication.search.Exp;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -18,14 +20,20 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import dataObjects.AdminUserDto;
 import dataObjects.CourseDto;
@@ -36,14 +44,20 @@ import dataObjects.UserDto;
 import dataObjects.UserType;
 
 public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServiceClient {
+    private final CourseAVL courseAVL = new CourseAVL();
+    final private List<String> hardCodedCourses = new ArrayList<>(Arrays.asList("COMP2100", "COMP6320", "COMP1110"));
     final private FirebaseDatabase database;
     final private FirebaseFirestore firestore;
     final private FirebaseAuth mAuth;
     private String userType;
+    private List<CourseDto> courseList;
     public FirebaseWaddleDatabaseServiceClient() {
         database = FirebaseDatabase.getInstance();
         firestore = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
+        courseAVL.insert(new CourseDto(1110, "COMP1110", null, "Structured Programming"));
+        courseAVL.insert(new CourseDto(2100, "COMP2100", null, "Software Construction"));
+        courseAVL.insert(new CourseDto(6320, "COMP6320", null, "Artificial Intelligence"));
     }
 
     private LoginUserDto currentUser = new LoginUserDto("","");
@@ -98,6 +112,8 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        System.out.println(email);
+                        System.out.println(password);
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
@@ -119,10 +135,40 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
     }
 
     @Override
-    public void addCourse(CourseDto course, CustomOnCompleteListener listener) {
-        firestore.collection("Courses").add(course).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+    public void setNullUser() {
+        setCurrentUser(null);
+    }
+
+    @Override
+    public void fetchUserCourses(CustomOnCompleteListener listener) {
+        FieldPath fieldPath = FieldPath.of("teacher", "userId");
+        courseList = new ArrayList<>();
+        firestore.collection("Courses").whereEqualTo(fieldPath, mAuth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<DocumentReference> task) {
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isComplete()){
+                    for(DocumentSnapshot documentSnapshot:task.getResult()){
+                        CourseDto queryCourse = documentSnapshot.toObject(CourseDto.class);
+                        courseList.add(queryCourse);
+                    }
+                    listener.onComplete();
+                }
+            }
+        });
+    }
+
+
+
+    @Override
+    public List<CourseDto> getUserCourses() {
+        return courseList;
+    }
+
+    @Override
+    public void addCourse(CourseDto course, CustomOnCompleteListener listener) {
+        firestore.collection("Courses").document(course.getCourseId().toString()).set(course).addOnCompleteListener(new OnCompleteListener() {
+            @Override
+            public void onComplete(@NonNull Task task) {
                 if(task.isSuccessful()){
                     List<String> newCourseName = new ArrayList<>();
                     if(course.getTeacher().getCourses()!=null){
@@ -131,14 +177,64 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
                     newCourseName.add(course.getCourseName());
                     Map<String, List<String>> map = new HashMap<>();
                     map.put("courses", newCourseName);
+                    courseAVL.insert(course);
                     firestore.collection("Users").document(course.getTeacher().getUserId()).update("courses", newCourseName).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            System.out.println("Course added");
                             listener.onComplete();
                         }
                     });
+                }
+            }
+        });
+    }
+    @Override
+    public void synchUsers(CustomOnCompleteListener listener){
+        database.getReference("Users").child(mAuth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                DataSnapshot document1 = task.getResult();
+                System.out.println(document1.getValue());
+                userType = document1.getValue().toString();
+                firestore.collection("Users").whereEqualTo("userId", mAuth.getCurrentUser().getUid()).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        courseList = new ArrayList<>();
+                        if(error!=null){
+                            System.out.println("Course Error");
+                        }
+                        else{
+                            assert value != null;
+                            for(DocumentSnapshot documentSnapshot : value.getDocuments()){
+                                System.out.println();
+                                userDetails = UserTypeFactory.createUser(userType, documentSnapshot);
+                            }
+                            listener.onComplete();
+                        }
+                    }
+                });
+            }
+        });
 
+    }
+
+    @Override
+    public void synchCourses(CustomOnCompleteListener listener) {
+        FieldPath fieldPath = FieldPath.of("teacher", "userId");
+        firestore.collection("Courses").whereEqualTo(fieldPath, mAuth.getCurrentUser().getUid()).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                courseList = new ArrayList<>();
+                if(error!=null){
+                    System.out.println("Course Error");
+                }
+                else{
+                    assert value != null;
+                    for(DocumentSnapshot documentSnapshot : value.getDocuments()){
+                        CourseDto queryCourse = documentSnapshot.toObject(CourseDto.class);
+                        courseList.add(queryCourse);
+                    }
+                    listener.onComplete();
                 }
             }
         });
@@ -187,6 +283,7 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
         });
     }
     private List<UserDto> queryUsers = new ArrayList<>();
+    private List<CourseDto> queryCourses = new ArrayList<>();
     public void addQueryUser(UserDto user){
         if(queryUsers.stream().noneMatch(u -> u.getUserId().equals(user.getUserId()))){
             queryUsers.add(user);
@@ -195,6 +292,16 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
     public List<UserDto> getQueryUsers(){
         return queryUsers;
     }
+
+    public void addQueryCourse(CourseDto course){
+        if(queryCourses.stream().noneMatch(u -> u.getCourseName().equals(course.getCourseName()))){
+            queryCourses.add(course);
+        }
+    }
+    public List<CourseDto> getQueryCourses(){
+        return queryCourses;
+    }
+
 
     public void fetchAllUsersForSearch(Exp expression, CustomOnCompleteListener listener){
             List<String> users = new ArrayList<>();
@@ -215,22 +322,44 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
             Task task3;
             Task task4;
             Task<List<QuerySnapshot>> allTasks ;
+            List<Task> tasks = new ArrayList<>();
             if(users.size()>0 && emails.size()>0) {
-                task1 = firestore.collection("Users").whereIn("userFirstName", users).get();
-                task2 = firestore.collection("Users").whereIn("userLastName", users).get();
-                task3 = firestore.collection("Users").whereIn("userName", users).get();
-                task4 = firestore.collection("Users").whereIn("userEmail", emails).get();
-                allTasks = Tasks.whenAllSuccess(task1,task2,task3, task4);
+                for(String user:users) {
+                    //task1 = firestore.collection("Users").whereIn("userFirstName", users).get();
+                    //task2 = firestore.collection("Users").whereIn("userLastName", users).get();
+                    //task3 = firestore.collection("Users").whereIn("userName", users).get();
+                    tasks.add(firestore.collection("Users").whereGreaterThanOrEqualTo("userFirstName", user).whereLessThan("userFirstName", user+'z').get());
+                    tasks.add(firestore.collection("Users").whereGreaterThanOrEqualTo("userLastName", user).whereLessThan("userLastName", user+'z').get());
+                    tasks.add(firestore.collection("Users").whereGreaterThanOrEqualTo("userName", user).whereLessThan("userName", user+'z').get());
+
+                }
+                for(String email:emails) {
+                    tasks.add(firestore.collection("Users").whereGreaterThanOrEqualTo("userEmail", email.toLowerCase()).whereLessThan("userEmail", email.toLowerCase()+'z').get());
+                }
+                //allTasks = Tasks.whenAllSuccess(task1,task2,task3, task4);
+                //tasks.add(task1);
+                //tasks.add(task2);
+                //tasks.add(task3);
+                //tasks.add(task4);
+                allTasks = Tasks.whenAllSuccess(tasks);
             }
             else if(users.size()==0 && emails.size()>0){
-                task4 = firestore.collection("Users").whereIn("userEmail", emails).get();
-                allTasks = Tasks.whenAllSuccess(task4);
+                for(String email:emails) {
+                    tasks.add(firestore.collection("Users").whereGreaterThanOrEqualTo("userEmail", email.toLowerCase()).whereLessThan("userEmail", email.toLowerCase()+'z').get());
+                }
+                allTasks = Tasks.whenAllSuccess(tasks);
             }
             else if(users.size()>0){
-                task1 = firestore.collection("Users").whereIn("userFirstName", users).get();
-                task2 = firestore.collection("Users").whereIn("userLastName", users).get();
-                task3 = firestore.collection("Users").whereIn("userName", users).get();
-                allTasks = Tasks.whenAllSuccess(task1, task2, task3);
+                for(String user:users) {
+                    //task1 = firestore.collection("Users").whereIn("userFirstName", users).get();
+                    //task2 = firestore.collection("Users").whereIn("userLastName", users).get();
+                    //task3 = firestore.collection("Users").whereIn("userName", users).get();
+                    tasks.add(firestore.collection("Users").whereGreaterThanOrEqualTo("userFirstName", user).whereLessThan("userFirstName", user+'z').get());
+                    tasks.add(firestore.collection("Users").whereGreaterThanOrEqualTo("userLastName", user).whereLessThan("userLastName", user+'z').get());
+                    tasks.add(firestore.collection("Users").whereGreaterThanOrEqualTo("userName", user).whereLessThan("userName", user+'z').get());
+
+                }
+                allTasks = Tasks.whenAllSuccess(tasks);
             }
             else{
                 task1 = firestore.collection("Users").get();
@@ -293,5 +422,145 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
 
                 }
             });
+    }
+
+    @Override
+    public void fetchAllCoursesForSearch(Exp expression, CustomOnCompleteListener listener) {
+        List<String> courseNames = new ArrayList<>();
+        List<String> courseDescriptions = new ArrayList<>();
+        queryCourses = new ArrayList<>();
+        System.out.println(expression.showExpType());
+        while(expression.getCurrentValue()!=null){
+            if(expression.showExpType().equals("COURSE ID")){
+                courseNames.add(expression.getCurrentValue());
+            }
+            else{
+                courseDescriptions.add(expression.getCurrentValue());
+            }
+            expression = expression.getNext();
+        }
+        Task task1;
+        Task<List<QuerySnapshot>> allTasks ;
+        List<Task> tasks = new ArrayList<>();
+        if(courseNames.size()>0 && courseDescriptions.size()>0) {
+            for(String courseName:courseNames) {
+                //task1 = firestore.collection("Users").whereIn("userFirstName", users).get();
+                //task2 = firestore.collection("Users").whereIn("userLastName", users).get();
+                //task3 = firestore.collection("Users").whereIn("userName", users).get();
+                tasks.add(firestore.collection("Courses").whereGreaterThanOrEqualTo("courseName", courseName).whereLessThan("courseName", courseName+'z').get());
+
+            }
+            for(String courseDescription:courseDescriptions) {
+                tasks.add(firestore.collection("Courses").whereGreaterThanOrEqualTo("courseDescription", courseDescription).whereLessThan("courseDescription", courseDescription+'z').get());
+            }
+            //allTasks = Tasks.whenAllSuccess(task1,task2,task3, task4);
+            //tasks.add(task1);
+            //tasks.add(task2);
+            //tasks.add(task3);
+            //tasks.add(task4);
+            allTasks = Tasks.whenAllSuccess(tasks);
+        }
+        else if(courseNames.size()==0 && courseDescriptions.size()>0){
+            for(String courseDescription:courseDescriptions) {
+                tasks.add(firestore.collection("Courses").whereGreaterThanOrEqualTo("courseDescription", courseDescription).whereLessThan("courseDescription", courseDescription+'z').get());
+            }
+            allTasks = Tasks.whenAllSuccess(tasks);
+        }
+        else if(courseNames.size()>0){
+            for(String courseName:courseNames) {
+                //task1 = firestore.collection("Users").whereIn("userFirstName", users).get();
+                //task2 = firestore.collection("Users").whereIn("userLastName", users).get();
+                //task3 = firestore.collection("Users").whereIn("userName", users).get();
+                tasks.add(firestore.collection("Courses").whereGreaterThanOrEqualTo("courseName", courseName).whereLessThan("courseName", courseName+'z').get());
+
+            }
+            allTasks = Tasks.whenAllSuccess(tasks);
+        }
+        else{
+            task1 = firestore.collection("Courses").get();
+            allTasks = Tasks.whenAllSuccess(task1);
+        }
+
+        allTasks.addOnSuccessListener(new OnSuccessListener<List<QuerySnapshot>>() {
+            @Override
+            public void onSuccess(List<QuerySnapshot> querySnapshots) {
+
+                if(querySnapshots.stream().anyMatch(q->q.getDocuments().size()>0)) {
+                    for (QuerySnapshot queryDocumentSnapshots : querySnapshots) {
+                        for (QueryDocumentSnapshot queryDocumentSnapshot : queryDocumentSnapshots) {
+                            CourseDto course = queryDocumentSnapshot.toObject(CourseDto.class);
+                            addQueryCourse(course);
+                            listener.onComplete();
+                        }
+                    }
+                }
+                else{
+                    firestore.collection("Courses").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            for (QueryDocumentSnapshot queryDocumentSnapshot : queryDocumentSnapshots) {
+                                CourseDto course = queryDocumentSnapshot.toObject(CourseDto.class);
+                                addQueryCourse(course);
+                                listener.onComplete();
+                            }
+                        }
+                    });
+                }
+
+
+            }
+        });
+    }
+
+    @Override
+    public void signInDataInstances(String email, String password) {
+        mAuth.signInWithEmailAndPassword(email, password);
+    }
+
+    @Override
+    public void createNewUserDataInstance(UserDto user, String password, CustomOnCompleteListener listener) {
+        mAuth.createUserWithEmailAndPassword(user.getUserEmail(), password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(TAG, "createUserWithEmail:success");
+                    FirebaseUser currentUser = mAuth.getCurrentUser();
+                    user.setUserId(currentUser.getUid());
+                    if(user instanceof AdminUserDto) {
+                        database.getReference("Users").child(currentUser.getUid()).setValue(UserType.ADMIN);
+                    }
+                    else if(user instanceof TeacherUserDto){
+                        database.getReference("Users").child(currentUser.getUid()).setValue(UserType.TEACHER);
+                    }
+                    else{
+                        database.getReference("Users").child(currentUser.getUid()).setValue(UserType.STUDENT);
+                    }
+                    Random random = new Random();
+                    int number = random.nextInt(hardCodedCourses.size());
+                    List<String> newList = new ArrayList<>();
+                    newList.add(hardCodedCourses.get(number));
+                    user.setCourses(newList);
+                    firestore.collection("Users").document(currentUser.getUid()).set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            firestore.collection("Users").document(user.getUserId()).update("courses", newList).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    System.out.println("Course added");
+                                    listener.onComplete();
+                                }
+                            });
+
+                            listener.onComplete();
+                        }
+                    });
+
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                }
+            }
+        });
     }
 }

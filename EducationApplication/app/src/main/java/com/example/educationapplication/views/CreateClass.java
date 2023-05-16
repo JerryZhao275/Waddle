@@ -31,7 +31,6 @@ public class CreateClass extends AppCompatActivity {
         createClassBinding.setViewModel(new CreateClassViewModel());
         TeacherUserDto user = (TeacherUserDto)getIntent().getSerializableExtra("teacher");
         createClassBinding.getViewModel().setTeacher(user);
-        System.out.println(user.getUserName());
         createClassBackButton = findViewById(R.id.createclass_backbutton);
 
         createClassButton = findViewById(R.id.createClassBtn);

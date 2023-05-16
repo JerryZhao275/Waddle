@@ -35,13 +35,27 @@ public class MockWaddleDatabaseServiceClient implements WaddleDatabaseServiceCli
     }
 
     @Override
+    public void fetchAllCoursesForSearch(Exp expression, CustomOnCompleteListener listener) {
+    }
+
+    @Override
     public List<UserDto> getQueryUsers() {
+        return null;
+    }
+
+    @Override
+    public List<CourseDto> getQueryCourses() {
         return null;
     }
 
     @Override
     public UserDto getUserDetails() {
         return null;
+    }
+
+    @Override
+    public void createNewUserDataInstance(UserDto user, String password, CustomOnCompleteListener listener) {
+
     }
 
     @Override
@@ -55,13 +69,43 @@ public class MockWaddleDatabaseServiceClient implements WaddleDatabaseServiceCli
     }
 
     @Override
+    public void setNullUser() {
+
+    }
+
+    @Override
+    public void fetchUserCourses(CustomOnCompleteListener listener) {
+
+    }
+
+    @Override
+    public List<CourseDto> getUserCourses() {
+        return null;
+    }
+
+    @Override
     public void addCourse(CourseDto course, CustomOnCompleteListener listener) {
+
+    }
+
+    @Override
+    public void synchCourses(CustomOnCompleteListener listener) {
+
+    }
+
+    @Override
+    public void synchUsers(CustomOnCompleteListener listener) {
 
     }
 
     @Override
     public void signOut() {
         this.currentUser = null;
+    }
+
+    @Override
+    public void signInDataInstances(String email, String password) {
+
     }
 
     @Override
