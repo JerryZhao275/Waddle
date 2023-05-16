@@ -39,8 +39,8 @@ public class UserViewModel extends BaseObservable {
     StudentUserDto student;
     TeacherUserDto teacher;
 
-    static List<String> coursesList;
-    List<CourseDto> userCourses;
+    static List<String> coursesList = new ArrayList<>();
+    List<CourseDto> userCourses = new ArrayList<>();
 
     public UserViewModel() {
         config = ConfigurationManager.configInstance();
