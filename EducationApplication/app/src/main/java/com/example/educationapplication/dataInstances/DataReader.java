@@ -21,7 +21,6 @@ import dataObjects.CustomOnCompleteListener;
 import dataObjects.StudentUserDto;
 
 public class DataReader {
-
     private final WaddleDatabaseServiceClient databaseServiceClient;
     private final WaddleDatabaseConfiguration config;
     String password;
@@ -34,16 +33,13 @@ public class DataReader {
     public WaddleDatabaseServiceClient getDatabaseServiceClient() {
         return databaseServiceClient;
     }
-
     private String line;
     private BufferedReader loginBufferedReader;
     public void getUserInfo(Context context) {
         try {
-            loginBufferedReader = new BufferedReader(new InputStreamReader(context.getAssets().open("testDataInstances.csv"), StandardCharsets.UTF_8));
-
+            loginBufferedReader = new BufferedReader(new InputStreamReader(context.getAssets().open("dataInstances.csv"), StandardCharsets.UTF_8));
             line = loginBufferedReader.readLine();
             dataLooper();
-
         } catch (IOException e) {
             System.out.println("Did not open csv file");
             e.printStackTrace();
@@ -64,9 +60,6 @@ public class DataReader {
             String firstName = tokens[0];
             String lastName = tokens[1];
             String email = tokens[2];
-            System.out.println(firstName);
-            System.out.println(lastName);
-            System.out.println(email);
             createUserAndLogin(email, firstName, lastName, new CustomOnCompleteListener() {
                 @Override
                 public void onComplete() {
@@ -78,7 +71,6 @@ public class DataReader {
                     }
                 }
             });
-            System.out.println(password);
         }
     }
 
@@ -102,17 +94,6 @@ public class DataReader {
                 listener.onComplete();
             }
         });
-
-//        getDatabaseServiceClient().signIn(email, password, new CustomOnCompleteListener() {
-//            @Override
-//            public void onComplete() {
-//                if (getDatabaseServiceClient().getCurrentUser() == null) {
-//                    System.out.println("null user");
-//                }
-//                getDatabaseServiceClient().signOut();
-//                getDatabaseServiceClient().setNullUser();
-//            }
-//        });
     }
 
     public static String generateRandomString(int length) {
