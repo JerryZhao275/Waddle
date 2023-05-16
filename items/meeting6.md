@@ -2,7 +2,7 @@
 G39
 
 ## Team Meeting [6] - Week [11] - [16/05/2023] (3:11PM - 5:13PM)
-**Lead/scribe:** Jerry Zhao
+**Lead/scribe:** Jerry Zhao<br>
 Karthik and Jerry Present
 
 ## Agreed Procedure
