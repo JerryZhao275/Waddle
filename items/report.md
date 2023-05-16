@@ -252,10 +252,11 @@ Implementing all the functionality and firebase logic in a single class or activ
 
 
 2. [2500 Data Instances]. There must be data file(s) with at least 2,500 valid data instances **easy**
-    * Classes utilised:
-        * some class that will utilises
-        * Users can login to the app using an existing Firebase account. When a user enters their email and password on the login page, the app checks if the credentials match an existing user in the Firebase database. If there is a match, the user is directed to the dashboard fragment.
-
+    * Classes/files utilised:
+      * DataReader.java
+      * LoginView.java
+      * dataInstances.csv
+    * 2500 user instances were added to Firebase Authentication and Firestore. These instances were auto-generated with first name, last name, and email information, stored in a CSV file named "dataInstances.csv" with comma-separated values. The DataReader class was used to read and parse the CSV file using BufferedReader. The parsed tokens were then processed in the createUserAndLogin method to create users and sync them with the Firestore database. The DataReader class was instantiated in the LoginView to generate all 2500 user instances and removed afterward. Additionally, each user was enrolled in a randomly selected COMP course from a pool of three courses, visible under the participants tab on the course page.
 
 3. [Load data/information]. Users must be able to load data/information from Firebase and visualise it **(medium)**
     - Classes utilised: All ViewModel, View and Firebase related classes.
