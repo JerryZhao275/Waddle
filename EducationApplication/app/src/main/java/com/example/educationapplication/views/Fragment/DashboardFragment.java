@@ -68,7 +68,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
             @Override
             public void onComplete() {
                 mData = fragBinding.getViewModel().getUserCourseDetails();
-                System.out.println(mData.get(0).getCourseName());
                 RecyclerViewAdapter adapter = new RecyclerViewAdapter(getContext(), mData);
                 myRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                 myRecyclerView.setAdapter(adapter);

@@ -44,7 +44,7 @@ public class UserViewModel extends BaseObservable {
     public UserViewModel() {
         config = ConfigurationManager.configInstance();
         databaseServiceClient = WaddleDatabaseServiceClientFactory.createClient(config);
-        databaseServiceClient.fetchUserDetails(new CustomOnCompleteListener(){
+        databaseServiceClient.synchUsers(new CustomOnCompleteListener(){
             @Override
             public void onComplete() {
                 // Get the user details

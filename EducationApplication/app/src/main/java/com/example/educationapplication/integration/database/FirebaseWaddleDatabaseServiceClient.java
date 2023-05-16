@@ -151,9 +151,9 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
 
     @Override
     public void addCourse(CourseDto course, CustomOnCompleteListener listener) {
-        firestore.collection("Courses").add(course).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+        firestore.collection("Courses").document(course.getCourseId().toString()).set(course).addOnCompleteListener(new OnCompleteListener() {
             @Override
-            public void onComplete(@NonNull Task<DocumentReference> task) {
+            public void onComplete(@NonNull Task task) {
                 if(task.isSuccessful()){
                     List<String> newCourseName = new ArrayList<>();
                     if(course.getTeacher().getCourses()!=null){
@@ -173,6 +173,35 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
                 }
             }
         });
+    }
+    @Override
+    public void synchUsers(CustomOnCompleteListener listener){
+        database.getReference("Users").child(mAuth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                DataSnapshot document1 = task.getResult();
+                System.out.println(document1.getValue());
+                userType = document1.getValue().toString();
+                firestore.collection("Users").whereEqualTo("userId", mAuth.getCurrentUser().getUid()).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        courseList = new ArrayList<>();
+                        if(error!=null){
+                            System.out.println("Course Error");
+                        }
+                        else{
+                            assert value != null;
+                            for(DocumentSnapshot documentSnapshot : value.getDocuments()){
+                                System.out.println();
+                                userDetails = UserTypeFactory.createUser(userType, documentSnapshot);
+                            }
+                            listener.onComplete();
+                        }
+                    }
+                });
+            }
+        });
+
     }
 
     @Override
