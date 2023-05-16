@@ -15,6 +15,9 @@
             android:name=".views.Fragment.QuizFragment"
             android:exported="false" />
         <activity
+            android:name=".views.Fragment.DiscussionPage"
+            android:exported="false" />
+        <activity
             android:name=".views.CoursePage"
             android:exported="false" />
         <activity
