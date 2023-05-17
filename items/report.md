@@ -234,7 +234,7 @@ Production Rules:
 ## Implemented Features
 
 ### Basic App
-1. [Login]. Users must be able to log in and sign up**(easy)**
+1. [Login]. Users must be able to log in and sign up **(easy)**
     * Classes utilised:
         * model/LoginModel.java, whole file
         * viewmodel/LoginEvent.java, whole file
@@ -266,10 +266,10 @@ Production Rules:
 ### General Features
 Feature Category: Firebase Integration <br>
 1. [FB-Auth]. Use Firebase to implement User Authentication/Authorisation. **(easy)**
-    * Class utilised:
-        * database/FirebaseWaddleDatabaseServiceClient.java
-        * database/WaddleDatabaseServiceClient.java
-    * In the app, Firebase Authentication is utilised through the use of the FirebaseAuth object. When the app is launched, users are taken to the login page where they can either sign in with an existing account or register for a new account using Firebase. To create a new account, the user must fill in various textboxes with information, and then their email and password are passed into the "createUserWithEmailAndPassword" method. This creates a new user object in the firestore database. Once a user has an account, the "signInWithEmailAndPassword" method from Firebase Authentication is used to authenticate the user against the firestore database. If the user is verified, they are directed to MainActivity.java.
+   * Class utilised:
+      * database/FirebaseWaddleDatabaseServiceClient.java
+      * database/WaddleDatabaseServiceClient.java
+   * In the app, Firebase Authentication is utilised through the use of the FirebaseAuth object. When the app is launched, users are taken to the login page where they can either sign in with an existing account or register for a new account using Firebase. To create a new account, the user must fill in various textboxes with information, and then their email and password are passed into the "createUserWithEmailAndPassword" method. This creates a new user object in the firestore database. Once a user has an account, the "signInWithEmailAndPassword" method from Firebase Authentication is used to authenticate the user against the firestore database. If the user is verified, they are directed to MainActivity.java.
 
 2. [FB-Persist]. Use Firebase to persist all data used in your app. **(medium)**
     * Classes utilised:
