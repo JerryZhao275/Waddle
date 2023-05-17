@@ -50,92 +50,10 @@
             app:layout_constraintStart_toEndOf="@+id/peopleTab"
             app:layout_constraintTop_toBottomOf="@+id/search" />
 
-        <Toolbar
-            android:id="@+id/searchLogoutDim"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#AA000000"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
-
-        <Toolbar
-            android:id="@+id/confirmWhiteBox"
-            android:layout_width="340dp"
-            android:layout_height="187dp"
-            android:background="#FFFFFF"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.492"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/searchConfirm"
-            android:layout_width="120sp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="64dp"
-            android:layout_marginBottom="292dp"
-            android:backgroundTint="#FF9800"
-            android:text="Confirm"
-            android:textStyle="bold"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <Button
-            android:id="@+id/searchCancel"
-            android:layout_width="120sp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="40dp"
-            android:layout_marginBottom="292dp"
-            android:backgroundTint="#BABABA"
-            android:text="Cancel"
-            android:textStyle="bold"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/searchConfirm" />
-
-        <TextView
-            android:id="@+id/confirmText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="300dp"
-            android:text="Confirm Joining Course"
-            android:textColor="#000000"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toTopOf="@+id/searchConfirm"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.103" />
-
-        <ImageButton
-            android:id="@+id/temp"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="400dp"
-            android:src="@drawable/cancelbutton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/searchLogoutDim" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/listview"
             android:layout_width="match_parent"
             android:layout_height="550dp"
-            app:layout_constraintEnd_toEndOf="@+id/searchLogoutDim"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/peopleTab" />
 

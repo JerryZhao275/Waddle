@@ -25,6 +25,7 @@ import com.example.educationapplication.databinding.FragmentSearchBinding;
 import com.example.educationapplication.search.Exp;
 import com.example.educationapplication.search.SearchBarParser;
 import com.example.educationapplication.search.SearchBarTokenizer;
+import com.example.educationapplication.viewmodels.CourseRecyclerViewAdapter;
 import com.example.educationapplication.viewmodels.ListViewAdapter;
 import com.example.educationapplication.viewmodels.RecyclerViewAdapter;
 import com.example.educationapplication.viewmodels.UserViewModel;
@@ -43,12 +44,6 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
     Button classes;
     View view;
     View subView;
-    Toolbar bg;
-    Toolbar whitebox;
-    Button yes;
-    Button no;
-    TextView confirmText;
-    ImageButton test;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,18 +62,7 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
         classes = view.findViewById(R.id.classesTab);
         classes.setOnClickListener(this);
         adapter = new ListViewAdapter(getContext());
-
-        bg = view.findViewById(R.id.searchLogoutDim);
-        whitebox = view.findViewById(R.id.confirmWhiteBox);
-        yes = view.findViewById(R.id.searchConfirm);
-        no = view.findViewById(R.id.searchCancel);
-        confirmText = view.findViewById(R.id.confirmText);
-        test = view.findViewById(R.id.temp);
         myRecyclerView = view.findViewById(R.id.listview);
-
-        yes.setOnClickListener(this);
-        no.setOnClickListener(this);
-        test.setOnClickListener(this);
 
         editsearch = view.findViewById(R.id.search);
         editsearch.setOnQueryTextListener(this);
@@ -102,14 +86,16 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
                 }
             });
         }
-        else{
+        else {
             tokenizer = new SearchBarTokenizer(query, 'c');
             SearchBarParser parser = new SearchBarParser(tokenizer);
             expression = parser.parseCourse();
             adapter.filterCourseList(expression, new CustomOnCompleteListener() {
                 @Override
                 public void onComplete() {
-                    //Logic
+                    CourseRecyclerViewAdapter userAdapter = new CourseRecyclerViewAdapter(getContext(), adapter.getCourses());
+                    myRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                    myRecyclerView.setAdapter(userAdapter);
                 }
             });
         }
@@ -128,28 +114,6 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.temp) {
-            people.setVisibility(View.INVISIBLE);
-            classes.setVisibility(View.INVISIBLE);
-            yes.setVisibility(View.VISIBLE);
-            no.setVisibility(View.VISIBLE);
-            confirmText.setVisibility(View.VISIBLE);
-            whitebox.setVisibility(View.VISIBLE);
-            bg.setVisibility(View.VISIBLE);
-        }
-        if (view.getId() == R.id.searchConfirm) {
-            //Do something to add class
-        }
-        else if (view.getId() == R.id.searchCancel ) {
-            people.setVisibility(View.VISIBLE);
-            classes.setVisibility(View.VISIBLE);
-            yes.setVisibility(View.INVISIBLE);
-            no.setVisibility(View.INVISIBLE);
-            confirmText.setVisibility(View.INVISIBLE);
-            whitebox.setVisibility(View.INVISIBLE);
-            bg.setVisibility(View.INVISIBLE);
-        }
-
         subView = view;
         if (view.getId() == R.id.peopleTab) {
             adapter.displayPeople();

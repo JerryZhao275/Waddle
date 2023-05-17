@@ -59,6 +59,7 @@ public class CoursePage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 onBackPressed();
+                hideKeyboard(CoursePage.this);
             }
         });
 

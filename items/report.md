@@ -285,7 +285,7 @@ Feature Category: Firebase Integration <br>
         * view/Dashboard/DashboardFragment.java
         * view/CoursePage.java
         * viewmodel/UserViewModel.java
-    * 
+    * The UserViewModel.java class has a CustomOnCompleteListener attached to the fetchUserCourseDetails method. This method, in turn, calls the synchCourses method in FirebaseWaddleDatabaseServiceClient.java. The synchCourses method updates the user's course list whenever a change in their courses is detected. The listener adds the queried course to the courseList, which is then automatically displayed in the user's Dashboard with an updated list of courses. A similar process was developed for discussion board messages, where the syncDiscussions method updates the displayed discussions and posts and syncs the user's discussion board tab in a course page without requiring a page reload.
 
 
 Feature Category: UI Design and Testing <br>
@@ -304,16 +304,14 @@ Feature Category: Search-related features <br>
 6. [Search-Invalid]. Search functionality can handle partially valid and invalid search queries. **(medium)**
     * Classes utilised:
 
-7. [Search-Filter]. Sort and/or filter a list of items returned from a search, with the help of suitable UI components. **(easy)**
-    * Classes utilised:
 
 Feature Category: User Interactivity <br>
-8. [Interact-Follow]. The ability to ‘follow’ a course or any specific items. **(medium)**
+7. [Interact-Follow]. The ability to ‘follow’ a course or any specific items. **(medium)**
     * Classes utilised:
         * view/Dashboard/DashboardFragment.java
         * viewmodel/UserViewModel.java
         * database/FirebaseWaddleDatabaseServiceClient
-
+    * Both teachers and students have the option to join classes by either entering a class code using the expandable button or manually searching for a course through the app's search function. When a user tries to join a course, the joinCourse method in UserViewModel.java is executed, adding the queried course to the user's list of courses. The updated list of courses is then displayed in DashboardFragment.java, where the user can click on each course to access its content, view participants, and access discussion forums.
 
 *List all features you have completed in their separate categories with their difficulty classification. If they are features that are suggested and approved, please state this somewhere as well.*
 

@@ -104,8 +104,7 @@ public class ListViewAdapter extends BaseAdapter {
         final ViewHolder holder;
         if (view == null) {
             holder = new ViewHolder();
-            view = inflater.inflate(R.layout.list_view_items, null);
-            //Change list_view_items to some other .xml resource for classes and quizzes
+            view = inflater.inflate(R.layout.list_view_people, null);
 
             holder.name = view.findViewById(R.id.name);
             view.setTag(holder);
