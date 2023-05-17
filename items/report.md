@@ -168,7 +168,6 @@ Once a user joins a course, it becomes visible on their dashboard. By clicking o
      * All classes in viewmodel folder
    * The facade design pattern played a crucial role in our project, serving as the main architectural framework for our application. We organized all the Firebase-related logic into the database folder and accessed it through the viewmodel course, incorporating additional logic when necessary. This approach allowed us to present a simplified interface for a sophisticated subsystem that encompassed numerous interconnected elements. Given the complexity of our application, which involved multiple features and intricate logic for seamless integration, the facade design pattern greatly facilitated the overall development process.
 
-![mvvmdiagram](./images/mvvmdiagram.png) <br>
 
 *[What other design decisions have you made which you feel are relevant? Feel free to separate these into their own subheadings.]*
 
@@ -197,6 +196,7 @@ Production Rules:
 * The MVVM Design pattern was utilised for all files in the model, view, and viewmodel files.
 * Implementing all the functionality and firebase logic in a single class or activity would lead to problems in testing and refactoring the code. This is due to difficulty and unreliability in testing two components of an application simultaneously. Hence, the separation of code and clean architecture can allow us to develop a Mock database to test easily against our program and its individual components.
 
+![mvvmdiagram](./images/mvvmdiagram.png) <br>
 
 ## Summary of Known Errors and Bugs
 
