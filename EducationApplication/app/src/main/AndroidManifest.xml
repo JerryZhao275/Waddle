@@ -15,10 +15,10 @@
             android:name=".ClassPage"
             android:exported="false" />
         <activity
-            android:name=".views.CreateClass"
+            android:name=".util.views.CreateClass"
             android:exported="false" />
         <activity
-            android:name=".views.Fragment.SearchFragment"
+            android:name=".util.views.Fragment.SearchFragment"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
@@ -29,13 +29,13 @@
                 android:resource="@layout/fragment_search" />
         </activity>
         <activity
-            android:name=".views.MainActivity"
+            android:name=".util.views.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".views.SignupView"
+            android:name=".util.views.SignupView"
             android:exported="false" />
         <activity
-            android:name=".views.LoginView"
+            android:name=".util.views.LoginView"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

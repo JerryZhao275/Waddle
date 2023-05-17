@@ -13,7 +13,7 @@ public class QuizForumDiscussionDto extends QuizForumDto{
         messages = new ArrayList<MessageDto>();
     }
 
-    public void createMessage(Integer userId, Integer courseId,String message){
+    public void createMessage(String userId, Integer courseId,String message){
         messages.add(new MessageDto(userId, courseId, quizId, message));
     }
 

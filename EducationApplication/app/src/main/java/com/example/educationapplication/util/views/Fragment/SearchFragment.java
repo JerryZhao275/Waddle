@@ -1,4 +1,4 @@
-package com.example.educationapplication.views.Fragment;
+package com.example.educationapplication.util.views.Fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

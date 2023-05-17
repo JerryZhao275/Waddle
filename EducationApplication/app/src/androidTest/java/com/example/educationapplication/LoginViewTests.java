@@ -11,7 +11,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import com.example.educationapplication.views.LoginView;
+import com.example.educationapplication.util.views.LoginView;
 
 import org.junit.Before;
 import org.junit.Test;

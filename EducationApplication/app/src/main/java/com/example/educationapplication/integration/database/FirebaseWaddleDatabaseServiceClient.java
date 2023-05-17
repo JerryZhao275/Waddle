@@ -6,40 +6,66 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.educationapplication.observer.Observer;
+import com.example.educationapplication.observer.Subject;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.checkerframework.checker.units.qual.A;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import dataObjects.AdminUserDto;
 import dataObjects.CustomOnCompleteListener;
 import dataObjects.LoginUserDto;
+import dataObjects.MessageDto;
 import dataObjects.TeacherUserDto;
 import dataObjects.UserDto;
 import dataObjects.UserType;
 
-public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServiceClient {
+public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServiceClient, Subject {
     final private FirebaseDatabase database;
     final private FirebaseFirestore firestore;
     final private FirebaseAuth mAuth;
     private String userType;
     public FirebaseWaddleDatabaseServiceClient() {
+        observers = new ArrayList<>();
         database = FirebaseDatabase.getInstance();
         firestore = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
+
+        database.getReference().addValueEventListener(listener);
     }
+
+    ValueEventListener listener = new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot snapshot) {
+            notifyAllObservers("COMP");
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError error) {
+
+        }
+    };
 
     private LoginUserDto currentUser = new LoginUserDto("","");
     private UserDto userDetails;
+
+    private ArrayList<Observer> observers;
 
     @Override
     public LoginUserDto getCurrentUser() {
@@ -60,9 +86,10 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 
                         if (task.isSuccessful()) {
-
                             DocumentSnapshot document = task.getResult();
                             userDetails = UserTypeFactory.createUser(userType, document);
+                            attach(userDetails);
+                            System.out.println(userDetails.getDirectMessages().size());
                             listener.onComplete();
                             if (document.exists()) {
                                 Log.d(TAG, "DocumentSnapshot data: " + document.getData());
@@ -81,6 +108,29 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
     public void setCurrentUser(LoginUserDto currentUser) {
         this.currentUser = currentUser;
     }
+
+    @Override
+    public void attach(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void detach(Observer observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyAllObservers(String courseName) {
+        for(Observer obs : observers){
+            obs.update(courseName);
+        }
+    }
+
+    @Override
+    public void detachAll() {
+        observers = new ArrayList<>();
+    }
+
     public interface OnCompleteCallback{
         void onComplete(boolean success);
     }

@@ -1,4 +1,4 @@
-package com.example.educationapplication.views;
+package com.example.educationapplication.util.views;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,5 +16,6 @@ public class DirectMessage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.direct_message_chat);
+
     }
 }

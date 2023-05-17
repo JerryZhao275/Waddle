@@ -1,5 +1,7 @@
 package dataObjects;
 
+import com.example.educationapplication.observer.Observer;
+
 import java.util.List;
 
 public class TeacherUserDto extends UserDto {
@@ -60,5 +62,4 @@ public class TeacherUserDto extends UserDto {
     public List<String> getCourses(){
         return courses;
     }
-
 }

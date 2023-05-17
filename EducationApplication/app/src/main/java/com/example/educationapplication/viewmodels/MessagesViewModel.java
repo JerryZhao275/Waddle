@@ -1,5 +1,7 @@
 package com.example.educationapplication.viewmodels;
 
+import android.widget.ArrayAdapter;
+
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
@@ -9,22 +11,32 @@ import com.example.educationapplication.integration.database.WaddleDatabaseServi
 import com.example.educationapplication.integration.database.config.ConfigurationManager;
 import com.example.educationapplication.integration.database.config.WaddleDatabaseConfiguration;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+
 import dataObjects.CustomOnCompleteListener;
+import dataObjects.MessageDto;
 import dataObjects.StudentUserDto;
 import dataObjects.TeacherUserDto;
 import dataObjects.UserDto;
 
-public class UserViewModel extends BaseObservable {
+public class MessagesViewModel extends BaseObservable {
+
+    UserDto user;
+
+    ArrayAdapter adapter;
+
+    public static List<String> messages;
+
     WaddleDatabaseConfiguration config;
     WaddleDatabaseServiceClient databaseServiceClient;
-    UserDto user;
-    String userFirstName = "";
-    String email = "";
-    String userType;
-    boolean isTeacher;
-    boolean isStudent;
 
-    public UserViewModel() {
+    public MessagesViewModel() {
+        user = new StudentUserDto();
+        if(messages == null)
+            messages = new ArrayList<>();
+        messages.add("test");
         config = ConfigurationManager.configInstance();
         databaseServiceClient = WaddleDatabaseServiceClientFactory.createClient(config);
         databaseServiceClient.fetchUserDetails(new CustomOnCompleteListener(){
@@ -32,46 +44,20 @@ public class UserViewModel extends BaseObservable {
             public void onComplete() {
                 user = databaseServiceClient.getUserDetails();
                 System.out.println(user.getUserName()+" "+user.getUserEmail());
-                setFirstName(user.getUserFirstName());
-                setEmail(user.getUserEmail());
-                isStudent = user instanceof StudentUserDto;
-                isTeacher = user instanceof TeacherUserDto;
-                if (isStudent) setUserType("Student");
-                else if (isTeacher) setUserType("Teacher");
+                for(MessageDto m: user.getDirectMessages()){
+                    messages.add(m.getMessage());
+                }
+                if(adapter != null) adapter.notifyDataSetChanged();
             }
         });
-
-    }
-    @Bindable
-    public String getEmail() {
-        return email;
+        if(adapter != null) adapter.notifyDataSetChanged();
     }
 
-    @Bindable
-    public String getFirstName() {
-        return userFirstName;
-    }
-    @Bindable
-    public void setFirstName(String firstName) {
-        userFirstName = firstName;
-        notifyPropertyChanged(BR.firstName);
+    public List<String> getMessages(){
+        return messages;
     }
 
-    @Bindable
-    public void setEmail(String email) {
-        this.email = email;
-        notifyPropertyChanged(BR.email);
+    public void setAdapter(ArrayAdapter t){
+        adapter = t;
     }
-
-    @Bindable
-    public String getUserType() {
-        return userType;
-    }
-
-    @Bindable
-    public void setUserType(String type) {
-        this.userType = type;
-        notifyPropertyChanged(BR.userType);
-    }
-
 }

@@ -1,33 +1,21 @@
-package com.example.educationapplication.views;
+package com.example.educationapplication.util.views;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.Toast;
+import android.widget.Button;
+import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.educationapplication.integration.database.WaddleDatabaseServiceClient;
-import com.example.educationapplication.integration.database.WaddleDatabaseServiceClientFactory;
-import com.example.educationapplication.integration.database.config.ConfigurationManager;
-import com.example.educationapplication.integration.database.config.WaddleDatabaseConfiguration;
-import com.example.educationapplication.views.Fragment.DashboardFragment;
-import com.example.educationapplication.views.Fragment.MessagesFragment;
-import com.example.educationapplication.views.Fragment.ProfileFragment;
-import com.example.educationapplication.views.Fragment.SearchFragment;
+import com.example.educationapplication.util.views.Fragment.DashboardFragment;
+import com.example.educationapplication.util.views.Fragment.MessagesFragment;
+import com.example.educationapplication.util.views.Fragment.ProfileFragment;
+import com.example.educationapplication.util.views.Fragment.SearchFragment;
 import com.example.educationapplication.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
-
-import dataObjects.CustomOnCompleteListener;
-import dataObjects.UserDto;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });*/
-
 
     }
 

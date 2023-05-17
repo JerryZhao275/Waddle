@@ -1,4 +1,4 @@
-package com.example.educationapplication.views.Fragment;
+package com.example.educationapplication.util.views.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -17,23 +17,13 @@ import android.widget.Toast;
 
 import com.example.educationapplication.R;
 import com.example.educationapplication.databinding.FragmentDashboardBinding;
-import com.example.educationapplication.databinding.LoginBinding;
-import com.example.educationapplication.integration.database.WaddleDatabaseServiceClient;
-import com.example.educationapplication.integration.database.WaddleDatabaseServiceClientFactory;
-import com.example.educationapplication.integration.database.config.ConfigurationManager;
-import com.example.educationapplication.integration.database.config.WaddleDatabaseConfiguration;
-import com.example.educationapplication.viewmodels.ListViewAdapter;
-import com.example.educationapplication.viewmodels.LoginViewModel;
+import com.example.educationapplication.util.views.CreateClass;
 import com.example.educationapplication.viewmodels.UserViewModel;
-import com.example.educationapplication.views.CreateClass;
-import com.example.educationapplication.views.LoginView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.firestore.auth.User;
 
 import java.util.ArrayList;
 
 import dataObjects.CourseDto;
-import dataObjects.CustomOnCompleteListener;
 import dataObjects.TeacherUserDto;
 import dataObjects.UserDto;
 

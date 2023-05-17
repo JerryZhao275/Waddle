@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:windowSoftInputMode="adjustPan"
-    tools:context=".views.Fragment.SearchFragment">
+    tools:context=".util.views.Fragment.SearchFragment">
 
     <SearchView
         android:id="@+id/search"
