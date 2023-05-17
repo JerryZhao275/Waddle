@@ -179,8 +179,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
             fragBinding.getViewModel().joinCourse(code, new CustomOnCompleteListener() {
                 @Override
                 public void onComplete() {
-                    System.out.println(fragBinding.getViewModel().getCourses());
-                    System.out.println("||||||||||||||");
                     codeEntered.setText("");
                     bg.setVisibility(View.INVISIBLE);
                     join.setVisibility(View.INVISIBLE);

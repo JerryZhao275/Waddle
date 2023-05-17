@@ -9,17 +9,22 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.educationapplication.R;
+import com.example.educationapplication.views.ConfirmJoinCourse;
 import com.example.educationapplication.views.UserPage;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import dataObjects.CourseDto;
 import dataObjects.UserDto;
 
-public class UsersRecyclerViewAdapter extends RecyclerView.Adapter<UsersRecyclerViewAdapter.ViewHolder>{
+public class CourseRecyclerViewAdapter  extends RecyclerView.Adapter<CourseRecyclerViewAdapter.ViewHolder>{
     private static Context mContext;
-    private static List<UserDto> mData = new ArrayList<UserDto>();
+    private static List<CourseDto> mData = new ArrayList<CourseDto>();
 
-    public UsersRecyclerViewAdapter(Context mContext, List<UserDto> mData) {
+    public CourseRecyclerViewAdapter(Context mContext, List<CourseDto> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }
@@ -27,10 +32,10 @@ public class UsersRecyclerViewAdapter extends RecyclerView.Adapter<UsersRecycler
     // inflating layout (giving layout the look)
 
     @Override
-    public UsersRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CourseRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v;
-        v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_view_people,parent,false);
-        UsersRecyclerViewAdapter.ViewHolder vHolder = new UsersRecyclerViewAdapter.ViewHolder(v);
+        v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_view_courses,parent,false);
+        CourseRecyclerViewAdapter.ViewHolder vHolder = new CourseRecyclerViewAdapter.ViewHolder(v);
 
         return vHolder;
     }
@@ -38,10 +43,9 @@ public class UsersRecyclerViewAdapter extends RecyclerView.Adapter<UsersRecycler
     // assigning values to each rows as they come onto screen
     // based on position of recycler view
     @Override
-    public void onBindViewHolder(UsersRecyclerViewAdapter.ViewHolder holder, int position) {
-
-        UserDto user = mData.get(position);
-        holder.bind(user);
+    public void onBindViewHolder(CourseRecyclerViewAdapter.ViewHolder holder, int position) {
+        CourseDto course = mData.get(position);
+        holder.bind(course);
 
         // Set item views based on your views and data model
 //        TextView textView = holder.courseName;
@@ -58,25 +62,24 @@ public class UsersRecyclerViewAdapter extends RecyclerView.Adapter<UsersRecycler
     // grabbing views from recycler view layout
     // Recycler view equivalent to onCreate method
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        //private TextView userName;
-        private TextView userName;
+
+        private TextView courseName;
         public ViewHolder(View item) {
             super(item);
-            userName = item.findViewById(R.id.name);
+            courseName = item.findViewById(R.id.name);
             item.setOnClickListener(this);
-
         }
 
-        public void bind(UserDto user) {
-            userName.setText(user.getUserFirstName() + " " + user.getUserLastName());
+        public void bind(CourseDto course) {
+            courseName.setText(course.getCourseName());
         }
 
         @Override
         public void onClick(View view) {
             int position = getAdapterPosition();
-            UserDto selectedUser = mData.get(position);
-            Intent intent = new Intent(mContext, UserPage.class);
-            intent.putExtra("user", selectedUser);
+            CourseDto selectedCourse = mData.get(position);
+            Intent intent = new Intent(mContext, ConfirmJoinCourse.class);
+            intent.putExtra("course", selectedCourse);
             mContext.startActivity(intent);
         }
     }
