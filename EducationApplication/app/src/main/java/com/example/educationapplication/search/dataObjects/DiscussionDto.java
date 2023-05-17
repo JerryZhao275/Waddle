@@ -1,4 +1,4 @@
-package dataObjects;
+package com.example.educationapplication.search.dataObjects;
 
 import java.io.Serializable;
 import java.util.Date;

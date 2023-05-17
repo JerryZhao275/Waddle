@@ -1,4 +1,4 @@
-package dataObjects;
+package com.example.educationapplication.search.dataObjects;
 
 public class QuizDto {
     private Integer quizId;

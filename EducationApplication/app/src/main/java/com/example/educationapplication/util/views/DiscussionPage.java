@@ -16,14 +16,13 @@ import android.widget.TextView;
 
 import com.example.educationapplication.R;
 import com.example.educationapplication.viewmodels.CommentRVAdapter;
-import com.example.educationapplication.viewmodels.DiscussionAdapter;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import dataObjects.CommentDto;
-import dataObjects.DiscussionDto;
+import com.example.educationapplication.search.dataObjects.CommentDto;
+import com.example.educationapplication.search.dataObjects.DiscussionDto;
 
 
 public class DiscussionPage extends AppCompatActivity {

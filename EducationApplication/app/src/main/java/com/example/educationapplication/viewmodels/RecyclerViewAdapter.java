@@ -2,28 +2,21 @@ package com.example.educationapplication.viewmodels;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.Bindable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.educationapplication.BR;
 import com.example.educationapplication.R;
-import com.example.educationapplication.views.CoursePage;
+import com.example.educationapplication.util.views.CoursePage;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import dataObjects.CourseDto;
-import dataObjects.TeacherUserDto;
+import com.example.educationapplication.search.dataObjects.CourseDto;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     private static Context mContext;

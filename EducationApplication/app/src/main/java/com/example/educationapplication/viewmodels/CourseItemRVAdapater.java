@@ -12,13 +12,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.educationapplication.R;
-import com.example.educationapplication.views.CoursePage;
+import com.example.educationapplication.util.views.CoursePage;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import dataObjects.CourseDto;
-import dataObjects.QuizDto;
+import com.example.educationapplication.search.dataObjects.QuizDto;
 
 public class CourseItemRVAdapater extends RecyclerView.Adapter<CourseItemRVAdapater.ViewHolder>  {
     private static Context mContext;

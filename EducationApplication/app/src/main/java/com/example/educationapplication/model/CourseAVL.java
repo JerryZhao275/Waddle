@@ -2,7 +2,7 @@ package com.example.educationapplication.model;
 
 import java.util.ArrayList;
 
-import dataObjects.CourseDto;
+import com.example.educationapplication.search.dataObjects.CourseDto;
 
 public class CourseAVL {
     public CourseDto course;

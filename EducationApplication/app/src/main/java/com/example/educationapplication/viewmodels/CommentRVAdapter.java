@@ -1,8 +1,6 @@
 package com.example.educationapplication.viewmodels;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import dataObjects.CommentDto;
-import dataObjects.DiscussionDto;
-import dataObjects.QuizDto;
+import com.example.educationapplication.search.dataObjects.CommentDto;
 
 public class CommentRVAdapter extends RecyclerView.Adapter<CommentRVAdapter.CommentViewHolder>{
     private static Context mContext;

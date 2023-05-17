@@ -2,7 +2,6 @@ package com.example.educationapplication.viewmodels;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.educationapplication.R;
 import com.example.educationapplication.views.DiscussionPage;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import dataObjects.DiscussionDto;
+import com.example.educationapplication.search.dataObjects.DiscussionDto;
 
 public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.DiscussionViewHolder> {
     private static Context mContext;

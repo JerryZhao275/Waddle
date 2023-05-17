@@ -6,7 +6,7 @@ import com.example.educationapplication.model.CourseAVL;
 import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
-import dataObjects.CourseDto;
+import com.example.educationapplication.search.dataObjects.CourseDto;
 
 public class CourseAVLTest {
 

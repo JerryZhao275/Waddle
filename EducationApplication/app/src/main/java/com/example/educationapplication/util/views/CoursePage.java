@@ -1,38 +1,30 @@
 package com.example.educationapplication.util.views;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 import com.example.educationapplication.R;
 import com.example.educationapplication.viewmodels.CourseItemRVAdapater;
 import com.example.educationapplication.viewmodels.DiscussionAdapter;
-import com.example.educationapplication.views.Fragment.DashboardFragment;
-import androidx.appcompat.app.AppCompatActivity;
 
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import dataObjects.CourseDto;
-import dataObjects.DiscussionDto;
-import dataObjects.QuizDto;
+import com.example.educationapplication.search.dataObjects.CourseDto;
+import com.example.educationapplication.search.dataObjects.DiscussionDto;
+import com.example.educationapplication.search.dataObjects.QuizDto;
 
 public class CoursePage extends AppCompatActivity {
     private CourseDto selectedCourse;

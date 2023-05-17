@@ -10,8 +10,7 @@ import com.example.educationapplication.R;
 import com.example.educationapplication.databinding.LoginBinding;
 import com.example.educationapplication.viewmodels.LoginViewModel;
 
-import com.example.educationapplication.dataInstances.DataReader;
-import dataObjects.CustomOnCompleteListener;
+import com.example.educationapplication.search.dataObjects.CustomOnCompleteListener;
 
 public class LoginView extends AppCompatActivity {
 

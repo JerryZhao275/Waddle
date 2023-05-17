@@ -5,10 +5,10 @@ import com.example.educationapplication.search.Exp;
 import java.util.List;
 import java.util.UUID;
 
-import dataObjects.CourseDto;
-import dataObjects.CustomOnCompleteListener;
-import dataObjects.LoginUserDto;
-import dataObjects.UserDto;
+import com.example.educationapplication.search.dataObjects.CourseDto;
+import com.example.educationapplication.search.dataObjects.CustomOnCompleteListener;
+import com.example.educationapplication.search.dataObjects.LoginUserDto;
+import com.example.educationapplication.search.dataObjects.UserDto;
 
 public class MockWaddleDatabaseServiceClient implements WaddleDatabaseServiceClient {
     final private List<LoginUserDto> mockedUsers;

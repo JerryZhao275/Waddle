@@ -1,4 +1,4 @@
-package dataObjects.Session;
+package com.example.educationapplication.search.dataObjects.Session;
 
 public class UserClassSession extends State {
 

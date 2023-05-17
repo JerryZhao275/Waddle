@@ -1,9 +1,6 @@
-package dataObjects;
-
-import com.example.educationapplication.observer.Observer;
+package com.example.educationapplication.search.dataObjects;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 public class StudentUserDto extends UserDto implements Serializable {

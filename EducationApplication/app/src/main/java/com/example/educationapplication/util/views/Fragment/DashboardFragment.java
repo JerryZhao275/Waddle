@@ -1,6 +1,5 @@
 package com.example.educationapplication.views.Fragment;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -20,20 +19,17 @@ import android.widget.EditText;
 import android.widget.Toolbar;
 import com.example.educationapplication.R;
 import com.example.educationapplication.databinding.FragmentDashboardBinding;
-import com.example.educationapplication.databinding.LoginBinding;
-import com.example.educationapplication.viewmodels.LoginViewModel;
+import com.example.educationapplication.util.views.CreateClass;
 import com.example.educationapplication.viewmodels.RecyclerViewAdapter;
 import com.example.educationapplication.viewmodels.UserViewModel;
-import com.example.educationapplication.views.CreateClass;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import dataObjects.CourseDto;
-import dataObjects.CustomOnCompleteListener;
-import dataObjects.CustomOnCompleteListener;
-import dataObjects.TeacherUserDto;
+import com.example.educationapplication.search.dataObjects.CourseDto;
+import com.example.educationapplication.search.dataObjects.CustomOnCompleteListener;
+import com.example.educationapplication.search.dataObjects.TeacherUserDto;
 
 public class DashboardFragment extends Fragment implements View.OnClickListener{
     private Animation rotateOpen, rotateClose, toBottom, fromBottom;

@@ -7,8 +7,8 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.educationapplication.observer.Observer;
-import com.example.educationapplication.observer.Subject;
+import com.example.educationapplication.util.views.Fragment.observer.Observer;
+import com.example.educationapplication.util.views.Fragment.observer.Subject;
 import com.example.educationapplication.model.CourseAVL;
 import com.example.educationapplication.search.Exp;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -19,9 +19,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 
@@ -29,12 +28,10 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import org.checkerframework.checker.units.qual.A;
-
-import java.util.ArrayList;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -42,23 +39,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import dataObjects.AdminUserDto;
-import dataObjects.CourseDto;
-import dataObjects.CustomOnCompleteListener;
-import dataObjects.LoginUserDto;
-import dataObjects.MessageDto;
-import dataObjects.TeacherUserDto;
-import dataObjects.UserDto;
-import dataObjects.UserType;
+import com.example.educationapplication.search.dataObjects.AdminUserDto;
+import com.example.educationapplication.search.dataObjects.CourseDto;
+import com.example.educationapplication.search.dataObjects.CustomOnCompleteListener;
+import com.example.educationapplication.search.dataObjects.LoginUserDto;
+import com.example.educationapplication.search.dataObjects.TeacherUserDto;
+import com.example.educationapplication.search.dataObjects.UserDto;
+import com.example.educationapplication.search.dataObjects.UserType;
 
 public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServiceClient, Subject {
-public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServiceClient {
     private final CourseAVL courseAVL = new CourseAVL();
     final private List<String> hardCodedCourses = new ArrayList<>(Arrays.asList("COMP2100", "COMP6320", "COMP1110"));
     final private FirebaseDatabase database;
     final private FirebaseFirestore firestore;
     final private FirebaseAuth mAuth;
     private String userType;
+
+    private static ListenerRegistration registration;
     private List<CourseDto> courseList;
     public FirebaseWaddleDatabaseServiceClient() {
         observers = new ArrayList<>();
@@ -66,23 +63,43 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
         firestore = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
 
-        database.getReference().addValueEventListener(listener);
+        fetchUserDetails(() -> {
+        });
+
+        if(registration != null) registration.remove();
+        registration = firestore.collection("Courses").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot snapshot,
+                                @Nullable FirebaseFirestoreException e) {
+                for(DocumentChange dc :snapshot.getDocumentChanges()){
+                    switch (dc.getType()) {
+                        case ADDED:
+                            notifyAllObservers((String) dc.getDocument().get("courseName"), dc.getType().toString());
+                            if(userDetails != null)
+                                System.out.println("ADDED " + userDetails.getDirectMessages().size());
+                            break;
+                        case MODIFIED:
+                            notifyAllObservers((String) dc.getDocument().get("courseName"), dc.getType().toString());
+                            if(userDetails != null){
+                                System.out.println("MODIFIED " + userDetails.getDirectMessages().size());
+                            }
+                            break;
+                        case REMOVED:
+                            notifyAllObservers((String) dc.getDocument().get("courseName"), dc.getType().toString());
+                            if(userDetails != null)
+                                System.out.println("REMOVED " + userDetails.getDirectMessages().size());
+                            break;
+                    }
+                }
+
+            }
+        });
+
+
         courseAVL.insert(new CourseDto(1110, "COMP1110", null, "Structured Programming"));
         courseAVL.insert(new CourseDto(2100, "COMP2100", null, "Software Construction"));
         courseAVL.insert(new CourseDto(6320, "COMP6320", null, "Artificial Intelligence"));
     }
-
-    ValueEventListener listener = new ValueEventListener() {
-        @Override
-        public void onDataChange(@NonNull DataSnapshot snapshot) {
-            notifyAllObservers("COMP");
-        }
-
-        @Override
-        public void onCancelled(@NonNull DatabaseError error) {
-
-        }
-    };
 
     private LoginUserDto currentUser = new LoginUserDto("","");
     private UserDto userDetails;
@@ -96,7 +113,12 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
 
     @Override
     public void fetchUserDetails(CustomOnCompleteListener listener) {
-        DocumentReference docRef = firestore.collection("Users").document(mAuth.getCurrentUser().getUid());
+            DocumentReference docRef;
+        try {
+            docRef = firestore.collection("Users").document(mAuth.getCurrentUser().getUid());
+        } catch (NullPointerException e){
+            return;
+        }
         database.getReference("Users").child(mAuth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -110,9 +132,9 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
                         if (task.isSuccessful()) {
 
                             DocumentSnapshot document = task.getResult();
+                            detachAll();
                             userDetails = UserTypeFactory.createUser(userType, document);
                             attach(userDetails);
-                            System.out.println(userDetails.getDirectMessages().size());
                             listener.onComplete();
                             if (document.exists()) {
                                 Log.d(TAG, "DocumentSnapshot data: " + document.getData());
@@ -134,7 +156,8 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
 
     @Override
     public void attach(Observer observer) {
-        observers.add(observer);
+        if(!observers.contains(observer))
+            observers.add(observer);
     }
 
     @Override
@@ -143,9 +166,9 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
     }
 
     @Override
-    public void notifyAllObservers(String courseName) {
+    public void notifyAllObservers(String courseName, String type) {
         for(Observer obs : observers){
-            obs.update(courseName);
+            obs.update(courseName, type);
         }
     }
 
@@ -158,7 +181,7 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
         void onComplete(boolean success);
     }
     @Override
-    public boolean signIn(String email, String password) {
+    public boolean signIn(String email, String password, CustomOnCompleteListener listener) {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -606,7 +629,6 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
                             listener.onComplete();
                         }
                     });
-
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "createUserWithEmail:failure", task.getException());

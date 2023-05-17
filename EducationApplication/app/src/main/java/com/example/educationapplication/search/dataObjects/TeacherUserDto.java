@@ -1,6 +1,4 @@
-package dataObjects;
-
-import com.example.educationapplication.observer.Observer;
+package com.example.educationapplication.search.dataObjects;
 
 import java.io.Serializable;
 import java.util.List;

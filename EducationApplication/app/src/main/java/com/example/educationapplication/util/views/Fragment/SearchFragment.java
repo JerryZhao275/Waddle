@@ -24,7 +24,7 @@ import com.example.educationapplication.search.SearchBarParser;
 import com.example.educationapplication.search.SearchBarTokenizer;
 import com.example.educationapplication.viewmodels.ListViewAdapter;
 import com.example.educationapplication.viewmodels.UserViewModel;
-import com.example.educationapplication.views.LoginView;
+import com.example.educationapplication.util.views.LoginView;
 
 public class SearchFragment extends Fragment implements SearchView.OnQueryTextListener, View.OnClickListener {
     ListView list;

@@ -2,27 +2,21 @@ package com.example.educationapplication.viewmodels;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.example.educationapplication.BR;
-import com.example.educationapplication.R;
-import com.example.educationapplication.integration.database.FirebaseWaddleDatabaseServiceClient;
 import com.example.educationapplication.integration.database.WaddleDatabaseServiceClient;
 import com.example.educationapplication.integration.database.WaddleDatabaseServiceClientFactory;
 import com.example.educationapplication.integration.database.config.ConfigurationManager;
 import com.example.educationapplication.integration.database.config.WaddleDatabaseConfiguration;
-import com.example.educationapplication.views.Fragment.DashboardFragment;
-import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import dataObjects.AdminUserDto;
-import dataObjects.CourseDto;
-import dataObjects.CustomOnCompleteListener;
-import dataObjects.StudentUserDto;
-import dataObjects.TeacherUserDto;
-import dataObjects.UserDto;
+import com.example.educationapplication.search.dataObjects.CourseDto;
+import com.example.educationapplication.search.dataObjects.CustomOnCompleteListener;
+import com.example.educationapplication.search.dataObjects.StudentUserDto;
+import com.example.educationapplication.search.dataObjects.TeacherUserDto;
+import com.example.educationapplication.search.dataObjects.UserDto;
 
 public class UserViewModel extends BaseObservable {
     WaddleDatabaseConfiguration config;

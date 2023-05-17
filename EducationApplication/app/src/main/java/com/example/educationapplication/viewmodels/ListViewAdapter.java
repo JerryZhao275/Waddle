@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import com.example.educationapplication.R;
-import com.example.educationapplication.integration.database.FirebaseWaddleDatabaseServiceClient;
 import com.example.educationapplication.integration.database.WaddleDatabaseServiceClient;
 import com.example.educationapplication.integration.database.WaddleDatabaseServiceClientFactory;
 import com.example.educationapplication.integration.database.config.ConfigurationManager;
@@ -19,9 +18,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
-import dataObjects.CourseDto;
-import dataObjects.CustomOnCompleteListener;
-import dataObjects.UserDto;
+import com.example.educationapplication.search.dataObjects.CourseDto;
+import com.example.educationapplication.search.dataObjects.CustomOnCompleteListener;
+import com.example.educationapplication.search.dataObjects.UserDto;
 
 public class ListViewAdapter extends BaseAdapter {
     Context mContext;

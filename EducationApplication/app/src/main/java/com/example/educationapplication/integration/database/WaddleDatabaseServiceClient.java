@@ -4,11 +4,10 @@ import com.example.educationapplication.search.Exp;
 
 import java.util.List;
 
-import dataObjects.CourseDto;
-import dataObjects.CustomOnCompleteListener;
-import dataObjects.LoginUserDto;
-import dataObjects.UserDto;
-import dataObjects.UserDto;
+import com.example.educationapplication.search.dataObjects.CourseDto;
+import com.example.educationapplication.search.dataObjects.CustomOnCompleteListener;
+import com.example.educationapplication.search.dataObjects.LoginUserDto;
+import com.example.educationapplication.search.dataObjects.UserDto;
 
 public interface WaddleDatabaseServiceClient {
     LoginUserDto getUser(String email, String password);

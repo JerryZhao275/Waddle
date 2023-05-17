@@ -1,24 +1,12 @@
-package dataObjects;
+package com.example.educationapplication.search.dataObjects;
 
-import android.content.Intent;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
-import com.example.educationapplication.observer.Observer;
-import com.example.educationapplication.util.views.LoginView;
-import com.example.educationapplication.util.views.MainActivity;
+import com.example.educationapplication.util.views.Fragment.observer.Observer;
+import com.example.educationapplication.util.views.Fragment.observer.messagefactory.MessageFactory;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public abstract class UserDto implements Observer, Serializable {
@@ -45,8 +33,10 @@ public abstract class UserDto implements Observer, Serializable {
         this.userEmail = "";
         this.userDesc = "";
         this.courses = new ArrayList<>();
-        if(directMessages == null)
+        if(directMessages == null){
             directMessages = new ArrayList<>();
+        }
+
     }
     public UserDto(String userId, String userFirstName, String userLastName, String userName, String userEmail,
                    String userDesc){
@@ -142,9 +132,9 @@ public abstract class UserDto implements Observer, Serializable {
     }
 
     @Override
-    public void update(String msg){
-        addMessage(msg, 0,0);
-        System.out.println("here");
+    public void update(String course, String type){
+        addMessage(MessageFactory.generateMessage(course, type), 0,0);
+        System.out.println(directMessages.size());
     }
 
 }

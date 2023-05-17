@@ -2,18 +2,10 @@ package com.example.educationapplication.viewmodels;
 
 import static androidx.databinding.DataBindingUtil.setContentView;
 
-import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
-import android.widget.EditText;
-import android.widget.Toast;
-
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
 import com.example.educationapplication.BR;
-import com.example.educationapplication.R;
-import com.example.educationapplication.integration.database.FirebaseWaddleDatabaseServiceClient;
 import com.example.educationapplication.integration.database.WaddleDatabaseServiceClient;
 import com.example.educationapplication.integration.database.WaddleDatabaseServiceClientFactory;
 import com.example.educationapplication.integration.database.config.ConfigurationManager;
@@ -21,12 +13,10 @@ import com.example.educationapplication.integration.database.config.WaddleDataba
 import com.example.educationapplication.model.LoginModel;
 import com.example.educationapplication.util.CommonRegexUtil;
 import com.example.educationapplication.util.StringUtils;
-import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.regex.Pattern;
 
-import dataObjects.CustomOnCompleteListener;
-import dataObjects.UserDto;
+import com.example.educationapplication.search.dataObjects.CustomOnCompleteListener;
 
 public class LoginViewModel extends BaseObservable {
     private final WaddleDatabaseConfiguration config;

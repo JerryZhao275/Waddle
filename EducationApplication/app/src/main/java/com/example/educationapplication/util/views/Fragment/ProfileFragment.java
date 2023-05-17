@@ -1,4 +1,4 @@
-package com.example.educationapplication.views.Fragment;
+package com.example.educationapplication.util.views.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.databinding.DataBindingUtil;
@@ -14,9 +14,8 @@ import android.widget.Toolbar;
 
 import com.example.educationapplication.R;
 import com.example.educationapplication.databinding.FragmentProfileBinding;
+import com.example.educationapplication.util.views.LoginView;
 import com.example.educationapplication.viewmodels.UserViewModel;
-import com.example.educationapplication.views.CreateClass;
-import com.example.educationapplication.views.LoginView;
 
 import java.util.Objects;
 

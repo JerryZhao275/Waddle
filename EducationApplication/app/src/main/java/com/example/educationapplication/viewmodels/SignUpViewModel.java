@@ -13,10 +13,9 @@ import com.example.educationapplication.util.StringUtils;
 
 import java.util.regex.Pattern;
 
-import dataObjects.AdminUserDto;
-import dataObjects.StudentUserDto;
-import dataObjects.TeacherUserDto;
-import dataObjects.UserDto;
+import com.example.educationapplication.search.dataObjects.StudentUserDto;
+import com.example.educationapplication.search.dataObjects.TeacherUserDto;
+import com.example.educationapplication.search.dataObjects.UserDto;
 
 public class SignUpViewModel extends BaseObservable {
     private final WaddleDatabaseConfiguration config;

@@ -1,7 +1,4 @@
-package dataObjects;
-
-import android.os.Parcel;
-import android.os.Parcelable;
+package com.example.educationapplication.search.dataObjects;
 
 import java.io.Serializable;
 import java.util.ArrayList;
