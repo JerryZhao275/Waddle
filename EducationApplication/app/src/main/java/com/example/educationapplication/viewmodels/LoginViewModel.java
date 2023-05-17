@@ -43,7 +43,6 @@ public class LoginViewModel extends BaseObservable {
         config = ConfigurationManager.configInstance();
         databaseServiceClient = WaddleDatabaseServiceClientFactory.createClient(config);
         databaseServiceClient.signOut();
-        System.out.println(databaseServiceClient.getCurrentUser());
     }
 
     public WaddleDatabaseServiceClient getDatabaseServiceClient() {
@@ -94,7 +93,6 @@ public class LoginViewModel extends BaseObservable {
     public void login(CustomOnCompleteListener listener) {
         boolean questionsAnswered = StringUtils.isNotEmpty(login.getEmail()) && StringUtils.isNotEmpty(login.getPassword());
         boolean isEmailValid = Pattern.matches(CommonRegexUtil.EMAIL, login.getEmail());
-
         if (!questionsAnswered) {
             setErrorMessage(EMPTY_FIELD);
             setAuthorised(false);
@@ -105,44 +103,15 @@ public class LoginViewModel extends BaseObservable {
             setAuthorised(false);
             return;
         }
-        getDatabaseServiceClient().signIn(login.getEmail(), login.getPassword(), new CustomOnCompleteListener() {
-            @Override
-            public void onComplete() {
-                if (getDatabaseServiceClient().getCurrentUser() == null) {
-                    setErrorMessage(INVALID_USER);
-                    setAuthorised(false);
-                    return;
-                }
-                setAuthorised(true);
-                listener.onComplete();
+        getDatabaseServiceClient().signIn(login.getEmail(), login.getPassword(), () -> {
+            if (getDatabaseServiceClient().getCurrentUser() == null) {
+                setErrorMessage(INVALID_USER);
+                setAuthorised(false);
+                return;
             }
-        });
-    }
-
-    public void login() {
-        boolean questionsAnswered = StringUtils.isNotEmpty(login.getEmail()) && StringUtils.isNotEmpty(login.getPassword());
-        boolean isEmailValid = Pattern.matches(CommonRegexUtil.EMAIL, login.getEmail());
-
-        if (!questionsAnswered) {
-            setErrorMessage(EMPTY_FIELD);
-            setAuthorised(false);
-            return;
-        }
-        if (!isEmailValid) {
-            setErrorMessage(LOGIN_FAILED);
-            setAuthorised(false);
-            return;
-        }
-        getDatabaseServiceClient().signIn(login.getEmail(), login.getPassword(), new CustomOnCompleteListener() {
-            @Override
-            public void onComplete() {
-                if (getDatabaseServiceClient().getCurrentUser() == null) {
-                    setErrorMessage(INVALID_USER);
-                    setAuthorised(false);
-                    return;
-                }
-                setAuthorised(true);
-            }
+            setAuthorised(true);
+            setErrorMessage(null);
+            listener.onComplete();
         });
     }
 

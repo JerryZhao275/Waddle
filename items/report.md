@@ -82,31 +82,24 @@ Once a user joins a course, it becomes visible on their dashboard. By clicking o
 *[What is your application, what does it do? Include photos or diagrams if necessary]*
 
 
-**Application Use Cases and or Examples**
+**Application Use Cases and Examples**
 
-*[Provide use cases and examples of people using your application. Who are the target users of your application? How do the users use your application?]*
+Waddle is primarily targeted towards high school/university students who require a more accessible view of courses, announcements, and simple-to-use discussion forums. Teachers are also encouraged to utilise Waddle to not only be able to send out announcements, but also manage and view their course details with ease.
 
-*Here is a pet training application example*
+During a crucial week, the ANU's Wattle page is undergoing maintenance, and Kevin requires access to the COMP2100 course page to check for announcements by Bernado.
+   * Kevin can log in to the application and utilise the search feature to find the COMP2100 course. 
+   * Once he joins the course, he will be able to view all the announcements made by Bernado. 
+   * In case Kevin is uncertain about any of Bernado's announcements, he can seek assistance by posting on the course page's discussion board, where both teachers and students can provide help.
 
-*Molly wants to inquiry about her cat, McPurr's recent troublesome behaviour*
-1. *Molly notices that McPurr has been hostile since...*
-2. *She makes a post about... with the tag...*
-3. *Lachlan, a vet, writes a reply to Molly's post...*
-4. ...
-5. *Molly gives Lachlan's reply a 'tick' response*
+At the start of a new semester, Anthony is interested in finding out which courses his friends are enrolled in:
+   * Anthony utilises the search function in the app by entering his friend's email address, returning the results related to his friend. 
+   * Anthony can then click on his friend's profile to gather more information such as the friend's email, full name, and a list of courses in which they are currently enrolled. 
+   * Anthony can now easily discover the courses his friends are doing for the new semester.
 
-*Here is a map navigation application example*
-
-*Targets Users: Drivers*
-
-* *Users can use it to navigate in order to reach the destinations.*
-* *Users can learn the traffic conditions*
-* ...
-
-*Target Users: Those who want to find some good restaurants*
-
-* *Users can find nearby restaurants and the application can give recommendations*
-* ...
+Kate wants to post a question on the discussion forum regarding AVLTrees discussed in the latest COMP2100 lecture. Here's how she can do it:
+   * Kate goes to the COMP2100 course page from her dashboard and selects the discussion forums tab. 
+   * Within the discussion forums, Kate creates and posts a new post with a suitable title and writes her question in the post. 
+   * Kate doesn't need to reload the page. As soon as Bernado or other users respond to her forum post, their answers will be displayed instantly.
 
 *List all the use cases in text descriptions or create use case diagrams. Please refer to https://www.visual-paradigm.com/guide/uml-unified-modeling-language/what-is-use-case-diagram/ for use case diagram.*
 
@@ -162,11 +155,12 @@ Once a user joins a course, it becomes visible on their dashboard. By clicking o
         * TeacherUserDto.java, whole file
     * The factory method design pattern allows for the creation of objects without having to specify the exact class of the object that will be created. In the context of a UserDto class extended by TeacherUserDto and StudentUserDto, utilising the factory method design pattern can offer several benefits. It allows for the creation of objects of the UserDto class and its subclasses without needing to know the exact class of the object at runtime. This can simplify the codebase, reduce code duplication, and make the system more modular. It also provides a clear separation of concerns between the creation of objects and their implementation, making it easier to maintain and test the code.
 
-3. **Android MVVM Design Pattern**
-    * The MVVM Design pattern was utilised for all files in the model, view, and viewmodel files.
-    * Implementing all the functionality and firebase logic in a single class or activity would lead to problems in testing and refactoring the code. This is due to difficulty and unreliability in testing two components of an application simultaneously. Hence, the separation of code and clean architecture can allow us to develop a Mock database to test easily against our program and its individual components.
+3. **Facade Design Pattern**
+   * Classes utilised:
+     * All classes in database folder
+     * All classes in viewmodel folder
+   * The facade design pattern played a crucial role in our project, serving as the main architectural framework for our application. We organized all the Firebase-related logic into the database folder and accessed it through the viewmodel course, incorporating additional logic when necessary. This approach allowed us to present a simplified interface for a sophisticated subsystem that encompassed numerous interconnected elements. Given the complexity of our application, which involved multiple features and intricate logic for seamless integration, the facade design pattern greatly facilitated the overall development process.
 
-![mvvmdiagram](./images/mvvmdiagram.png) <br>
 
 *[What other design decisions have you made which you feel are relevant? Feel free to separate these into their own subheadings.]*
 
@@ -191,7 +185,11 @@ Production Rules:
 
 *[If you implement the surprise item, explain how your solution addresses the surprise task. What decisions do your team make in addressing the problem?]*
 
-**Other**
+**Android MVVM Design Pattern**
+* The MVVM Design pattern was utilised for all files in the model, view, and viewmodel files.
+* Implementing all the functionality and firebase logic in a single class or activity would lead to problems in testing and refactoring the code. This is due to difficulty and unreliability in testing two components of an application simultaneously. Hence, the separation of code and clean architecture can allow us to develop a Mock database to test easily against our program and its individual components.
+
+![mvvmdiagram](./images/mvvmdiagram.png) <br>
 
 ## Summary of Known Errors and Bugs
 
@@ -236,7 +234,7 @@ Production Rules:
 ## Implemented Features
 
 ### Basic App
-1. [Login]. Users must be able to log in **(easy)**
+1. [Login]. Users must be able to log in and sign up**(easy)**
     * Classes utilised:
         * model/LoginModel.java, whole file
         * viewmodel/LoginEvent.java, whole file
@@ -248,7 +246,7 @@ Production Rules:
         * database/FirebaseWaddleDatabaseServiceClient.java, createNewUser, signIn, lines of code: 88-152*
     * Users can login to the app using an existing Firebase account. When a user enters their email and password on the login page, the app checks if the credentials match an existing user in the Firebase database. If there is a match, the user is directed to the dashboard fragment. The login page also implements null safe exceptions such as the user not entering an email or password, or entering a string not in the form of an email. All of these exceptions result in a concise error message being returned at the bottom of the screen for the user
 
-2. [2500 Data Instances]. There must be data file(s) with at least 2,500 valid data instances **easy**
+2. [2500 Data Instances]. There must be data file(s) with at least 2,500 valid data instances **(easy)**
     * Classes/files utilised:
       * DataReader.java
       * LoginView.java
