@@ -72,7 +72,7 @@ public class ListViewAdapter extends BaseAdapter {
                 courses = databaseServiceClient.getQueryCourses();
                 List<String> courseNames = new ArrayList<>();
                 for(CourseDto course: courses){
-                    courseNames.add(course.getCourseDescription());
+                    courseNames.add( course.getCourseDescription());
                 }
                 System.out.println(courseNames);
                 displayList = courseNames;

@@ -176,17 +176,23 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
             System.out.println("||||||||||||||");
             System.out.println(fragBinding.getViewModel().getFirstName());
             System.out.println(fragBinding.getViewModel().getCourses());
-            fragBinding.getViewModel().setCourses(code);
-            System.out.println(fragBinding.getViewModel().getCourses());
-            System.out.println("||||||||||||||");
-            codeEntered.setText("");
-            bg.setVisibility(View.INVISIBLE);
-            join.setVisibility(View.INVISIBLE);
-            codeEntered.setVisibility(View.INVISIBLE);
-            addClass.startAnimation(rotateOpen);
-            isOpen = false;
-            hideKeyboard(this);
+            fragBinding.getViewModel().joinCourse(code, new CustomOnCompleteListener() {
+                @Override
+                public void onComplete() {
+                    System.out.println(fragBinding.getViewModel().getCourses());
+                    System.out.println("||||||||||||||");
+                    codeEntered.setText("");
+                    bg.setVisibility(View.INVISIBLE);
+                    join.setVisibility(View.INVISIBLE);
+                    codeEntered.setVisibility(View.INVISIBLE);
+                    addClass.startAnimation(rotateOpen);
+                    isOpen = false;
+
+                }
+            });
+
         });
+        hideKeyboard(this);
         fragBinding.executePendingBindings();
         return view;
     }

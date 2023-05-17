@@ -32,6 +32,7 @@ public interface WaddleDatabaseServiceClient {
     public void addCourse(CourseDto course, CustomOnCompleteListener listener);
     public void synchCourses(CustomOnCompleteListener listener);
     public void synchUsers(CustomOnCompleteListener listener);
+    public void addStudentToCourse(String course,CustomOnCompleteListener listener);
     void signOut();
 
     void signInDataInstances(String email, String password);

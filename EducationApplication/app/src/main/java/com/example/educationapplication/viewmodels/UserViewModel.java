@@ -63,7 +63,7 @@ public class UserViewModel extends BaseObservable {
                     // Set the user type to "Student"
                     setUserType("Student");
                     student = (StudentUserDto) user;
-                    coursesList = student.getCourses();
+                    //coursesList = student.getCourses();
                 }
                 else if (isTeacher) {
                     // Set the user type to "Teacher"
@@ -86,6 +86,14 @@ public class UserViewModel extends BaseObservable {
                 for(CourseDto course: courses){
                     setCourses(course.getCourseName());
                 }
+                listener.onComplete();
+            }
+        });
+    }
+    public void joinCourse(String course, CustomOnCompleteListener listener){
+        databaseServiceClient.addStudentToCourse(course, new CustomOnCompleteListener() {
+            @Override
+            public void onComplete() {
                 listener.onComplete();
             }
         });

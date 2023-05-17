@@ -23,6 +23,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldPath;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -219,6 +220,25 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
     }
 
     @Override
+    public void addStudentToCourse(String course, CustomOnCompleteListener listener) {
+        if(course.length()==8) {
+            firestore.collection("Courses").document(course.substring(4)).update("allStudents", FieldValue.arrayUnion(mAuth.getCurrentUser().getUid())).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        firestore.collection("Users").document(mAuth.getCurrentUser().getUid()).update("courses", FieldValue.arrayUnion(course)).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                listener.onComplete();
+                            }
+                        });
+                    }
+                }
+            });
+        }
+    }
+
+    @Override
     public void synchCourses(CustomOnCompleteListener listener) {
         FieldPath fieldPath = FieldPath.of("teacher", "userId");
         firestore.collection("Courses").whereEqualTo(fieldPath, mAuth.getCurrentUser().getUid()).addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -233,6 +253,25 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
                     for(DocumentSnapshot documentSnapshot : value.getDocuments()){
                         CourseDto queryCourse = documentSnapshot.toObject(CourseDto.class);
                         courseList.add(queryCourse);
+                    }
+                    listener.onComplete();
+                }
+            }
+        });
+        firestore.collection("Courses").whereArrayContains("allStudents", mAuth.getCurrentUser().getUid()).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                if(error!=null){
+                    System.out.println("Course Error");
+                }
+                else{
+                    assert value != null;
+                    for(DocumentSnapshot documentSnapshot : value.getDocuments()){
+                        CourseDto queryCourse = documentSnapshot.toObject(CourseDto.class);
+                        if(courseList.stream().noneMatch(u -> u.getCourseName().equals(queryCourse.getCourseName()))) {
+                            courseList.add(queryCourse);
+                        }
                     }
                     listener.onComplete();
                 }
