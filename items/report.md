@@ -287,19 +287,19 @@ Feature Category: Firebase Integration <br>
     * The UserViewModel.java class has a CustomOnCompleteListener attached to the fetchUserCourseDetails method. This method, in turn, calls the synchCourses method in FirebaseWaddleDatabaseServiceClient.java. The synchCourses method updates the user's course list whenever a change in their courses is detected. The listener adds the queried course to the courseList, which is then automatically displayed in the user's Dashboard with an updated list of courses. A similar process was developed for discussion board messages, where the syncDiscussions method updates the displayed discussions and posts and syncs the user's discussion board tab in a course page without requiring a page reload.
 
 Feature Category: Creating Processes <br>
-4. [Process-Permission]. Only users with permission can have certain permissions in the app. **(easy)**
+1. [Process-Permission]. Only users with permission can have certain permissions in the app. **(easy)**
     * Classes utilised:
         * UserViewModel.java
         * DashboardFragment.java
     * Within the UserViewModel.java class, a boolean variable isStudent is used to indicate whether the user is a student or not by using the instanceof keyword with StudentDto and TeacherDto. The permission of certain users is implemented by an OnClickListener within a lambda function setExpandButton which is executed on the click of the expandable button. For a teacher, both create class and join class options will be displayed, but when the student attempts to expand the button, only the join class button will display.
 
 Feature Category: Search-related features <br>
-5. [Search-Invalid]. Search functionality can handle partially valid and invalid search queries. **(medium)**
+1. [Search-Invalid]. Search functionality can handle partially valid and invalid search queries. **(medium)**
     * Classes utilised:
 
 
 Feature Category: User Interactivity <br>
-6. [Interact-Follow]. The ability to ‘follow’ a course or any specific items. **(medium)**
+1. [Interact-Follow]. The ability to ‘follow’ a course or any specific items. **(medium)**
     * Classes utilised:
         * view/Dashboard/DashboardFragment.java
         * viewmodel/UserViewModel.java
@@ -308,7 +308,7 @@ Feature Category: User Interactivity <br>
 
 
 Feature Category: UI Design and Testing <br>
-7. [UI-Test]. UI tests using espresso or similar. **(hard)**
+1. [UI-Test]. UI tests using espresso or similar. **(hard)**
    * Classes utilised:
 
 
