@@ -25,9 +25,6 @@ import dataObjects.UserDto;
 public class ListViewAdapter extends BaseAdapter {
     Context mContext;
     LayoutInflater inflater;
-
-
-    //REPLACE WITH DB LISTS
     private final WaddleDatabaseConfiguration config;
     private final WaddleDatabaseServiceClient databaseServiceClient;
     List<UserDto> users = new ArrayList<>();

@@ -87,6 +87,7 @@ public class UserViewModel extends BaseObservable {
             }
         });
     }
+
     public void joinCourse(String course, CustomOnCompleteListener listener){
         databaseServiceClient.addStudentToCourse(course, new CustomOnCompleteListener() {
             @Override

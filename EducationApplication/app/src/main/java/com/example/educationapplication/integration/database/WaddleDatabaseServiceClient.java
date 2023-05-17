@@ -21,6 +21,7 @@ public interface WaddleDatabaseServiceClient {
     public void fetchAllCoursesForSearch(Exp expression, CustomOnCompleteListener listener);
     public List<UserDto> getQueryUsers();
     public List<CourseDto> getQueryCourses();
+
     UserDto getUserDetails();
     String getCurrentUserId();
 
