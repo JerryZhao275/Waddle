@@ -169,25 +169,33 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
 
     @Override
     public void addCourse(CourseDto course, CustomOnCompleteListener listener) {
-        firestore.collection("Courses").document(course.getCourseId().toString()).set(course).addOnCompleteListener(new OnCompleteListener() {
+        firestore.collection("Courses").document(course.getCourseId().toString()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onComplete(@NonNull Task task) {
-                if(task.isSuccessful()){
-                    List<String> newCourseName = new ArrayList<>();
-                    if(course.getTeacher().getCourses()!=null){
-                        newCourseName = course.getTeacher().getCourses();
-                    }
-                    newCourseName.add(course.getCourseName());
-                    courseAVL.insert(course);
-                    firestore.collection("Users").document(course.getTeacher().getUserId()).update("courses", newCourseName).addOnCompleteListener(new OnCompleteListener<Void>() {
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(!task.getResult().exists()){
+                    firestore.collection("Courses").document(course.getCourseId().toString()).set(course).addOnCompleteListener(new OnCompleteListener() {
                         @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            listener.onComplete();
+                        public void onComplete(@NonNull Task task) {
+                            if(task.isSuccessful()){
+                                List<String> newCourseName = new ArrayList<>();
+                                if(course.getTeacher().getCourses()!=null){
+                                    newCourseName = course.getTeacher().getCourses();
+                                }
+                                newCourseName.add(course.getCourseName());
+                                courseAVL.insert(course);
+                                firestore.collection("Users").document(course.getTeacher().getUserId()).update("courses", newCourseName).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        listener.onComplete();
+                                    }
+                                });
+                            }
                         }
                     });
                 }
             }
         });
+
     }
     @Override
     public void synchUsers(CustomOnCompleteListener listener){
