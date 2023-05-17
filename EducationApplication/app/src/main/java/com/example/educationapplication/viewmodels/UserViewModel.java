@@ -72,9 +72,6 @@ public class UserViewModel extends BaseObservable {
                 }
             }
         });
-
-
-
     }
     public void fetchUserCourseDetails(CustomOnCompleteListener listener){
         databaseServiceClient.synchCourses(new CustomOnCompleteListener() {

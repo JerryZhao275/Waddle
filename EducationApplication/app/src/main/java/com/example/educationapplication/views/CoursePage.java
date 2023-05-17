@@ -1,21 +1,27 @@
 package com.example.educationapplication.views;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.example.educationapplication.R;
 import com.example.educationapplication.viewmodels.DiscussionAdapter;
 
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Date;

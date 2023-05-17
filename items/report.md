@@ -86,6 +86,7 @@ Once a user joins a course, it becomes visible on their dashboard. By clicking o
 
 Waddle is primarily targeted towards high school/university students who require a more accessible view of courses, announcements, and simple-to-use discussion forums. Teachers are also encouraged to utilise Waddle to not only be able to send out announcements, but also manage and view their course details with ease.
 
+
 During a crucial week, the ANU's Wattle page is undergoing maintenance, and Kevin requires access to the COMP2100 course page to check for announcements by Bernado.
    * Kevin can log in to the application and utilise the search feature to find the COMP2100 course. 
    * Once he joins the course, he will be able to view all the announcements made by Bernado. 

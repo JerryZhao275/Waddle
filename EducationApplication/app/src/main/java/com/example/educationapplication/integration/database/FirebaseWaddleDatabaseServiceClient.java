@@ -31,14 +31,14 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 import dataObjects.AdminUserDto;
+import dataObjects.CommentDto;
 import dataObjects.CourseDto;
 import dataObjects.CustomOnCompleteListener;
+import dataObjects.DiscussionDto;
 import dataObjects.LoginUserDto;
 import dataObjects.TeacherUserDto;
 import dataObjects.UserDto;
@@ -176,8 +176,6 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
                         newCourseName = course.getTeacher().getCourses();
                     }
                     newCourseName.add(course.getCourseName());
-                    Map<String, List<String>> map = new HashMap<>();
-                    map.put("courses", newCourseName);
                     courseAVL.insert(course);
                     firestore.collection("Users").document(course.getTeacher().getUserId()).update("courses", newCourseName).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
@@ -217,6 +215,34 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
             }
         });
 
+    }
+
+    @Override
+    public void addDiscussion(DiscussionDto discussion, CustomOnCompleteListener listener) {
+        firestore.collection("Discussion").document(discussion.getDiscussionID()).set(discussion)
+                .addOnCompleteListener(new OnCompleteListener() {
+            @Override
+            public void onComplete(@NonNull Task task) {
+                if(task.isSuccessful()){
+                    List<String> newDiscussion = new ArrayList<>();
+                    newDiscussion.add(discussion.getDiscussionID());
+                }
+            }
+        });
+    }
+
+    @Override
+    public void addComment(CommentDto comment, CustomOnCompleteListener listener) {
+        firestore.collection("Discussion").document(comment.getDiscussionID()).set(comment)
+                .addOnCompleteListener(new OnCompleteListener() {
+            @Override
+            public void onComplete(@NonNull Task task) {
+                if(task.isSuccessful()){
+                    List<String> newDiscussion = new ArrayList<>();
+                    newDiscussion.add(comment.getDiscussionID());
+                }
+            }
+        });
     }
 
     @Override

@@ -5,8 +5,10 @@ import com.example.educationapplication.search.Exp;
 import java.util.List;
 import java.util.UUID;
 
+import dataObjects.CommentDto;
 import dataObjects.CourseDto;
 import dataObjects.CustomOnCompleteListener;
+import dataObjects.DiscussionDto;
 import dataObjects.LoginUserDto;
 import dataObjects.UserDto;
 
@@ -91,12 +93,22 @@ public class MockWaddleDatabaseServiceClient implements WaddleDatabaseServiceCli
     }
 
     @Override
+    public void addDiscussion(DiscussionDto discussion, CustomOnCompleteListener listener) {
+
+    }
+
+    @Override
     public void synchCourses(CustomOnCompleteListener listener) {
 
     }
 
     @Override
     public void synchUsers(CustomOnCompleteListener listener) {
+
+    }
+
+    @Override
+    public void addComment(CommentDto comment, CustomOnCompleteListener listener) {
 
     }
 

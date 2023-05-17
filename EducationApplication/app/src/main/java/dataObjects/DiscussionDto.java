@@ -9,13 +9,16 @@ public class DiscussionDto implements Serializable {
     private String content;
     private String author;
     private Date timestamp;
-
+    private String discussionID;
+    private String courseID;
 
     public DiscussionDto(String title, String content, String author, Date timestamp) {
         this.title = title;
         this.content = content;
         this.author = author;
         this.timestamp = timestamp;
+        this.discussionID = "";
+        this.courseID = "";
     }
 
     public String getTitle() {
@@ -49,5 +52,14 @@ public class DiscussionDto implements Serializable {
     public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
     }
+    public String getDiscussionID() {
+        return discussionID;
+    }
+    public void setDiscussionID(String discussionID) {this.discussionID = discussionID;}
+
+    public String getCourseID() {
+        return courseID;
+    }
+    public void setCourseID(String courseID) {this.courseID = courseID;}
 
 }
