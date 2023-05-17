@@ -101,7 +101,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             int position = getAdapterPosition();
             CourseDto selectedCourse = mData.get(position);
             Intent intent = new Intent(mContext, CoursePage.class);
-            intent.putExtra("course", (Serializable) selectedCourse);
+            intent.putExtra("course", selectedCourse);
             mContext.startActivity(intent);
         }
     }

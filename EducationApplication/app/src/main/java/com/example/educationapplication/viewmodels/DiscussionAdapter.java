@@ -2,6 +2,7 @@ package com.example.educationapplication.viewmodels;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.educationapplication.R;
-import com.example.educationapplication.views.Fragment.DiscussionPage;
+import com.example.educationapplication.views.DiscussionPage;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,7 +23,6 @@ import dataObjects.DiscussionDto;
 
 public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.DiscussionViewHolder> {
     private static Context mContext;
-
     private static List<DiscussionDto> discussions = new ArrayList<>();
 
     public DiscussionAdapter(Context mContext, List<DiscussionDto> discussions) {
@@ -46,16 +47,14 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.Di
     @Override
     public void onBindViewHolder(@NonNull DiscussionViewHolder holder, int position) {
         DiscussionDto discussion = discussions.get(position);
+        holder.bind(discussion);
 
         // Set item views based on your views and data model
-        TextView title = holder.titleTextView;
-        title.setText(discussion.getTitle());
 
         holder.titleTextView.setText(discussion.getTitle());
         holder.contentTextView.setText(discussion.getContent());
         holder.authorTextView.setText(discussion.getAuthor());
         holder.timestampTextView.setText(formatTimestamp(discussion.getTimestamp()));
-        holder.bind(discussion);
 
     }
 
@@ -66,12 +65,10 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.Di
 
     // ViewHolder class
     static class DiscussionViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView titleTextView;
-        TextView contentTextView;
-        TextView authorTextView;
-        TextView timestampTextView;
+        private TextView titleTextView, contentTextView, authorTextView, timestampTextView;
 
-        DiscussionViewHolder(@NonNull View itemView) {
+
+        DiscussionViewHolder(View itemView) {
             super(itemView);
             titleTextView = itemView.findViewById(R.id.titleTextView);
             contentTextView = itemView.findViewById(R.id.contentTextView);
@@ -81,14 +78,15 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.Di
         }
         public void bind(DiscussionDto course) {
             titleTextView.setText(course.getTitle());
-            contentTextView.setText(course.getTitle());
-            authorTextView.setText(course.getTitle());
-            timestampTextView.setText(course.getTitle());}
+            contentTextView.setText(course.getContent());
+            authorTextView.setText(course.getAuthor());
+            timestampTextView.setText(course.getTimestamp().toString());}
         @Override
         public void onClick(View view) {
             int position = getAdapterPosition();
             DiscussionDto selectedItem = discussions.get(position);
             Intent intent = new Intent(mContext, DiscussionPage.class);
+            intent.putExtra("discussion", selectedItem);
             mContext.startActivity(intent);
         }
     }

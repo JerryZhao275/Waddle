@@ -1,8 +1,9 @@
 package dataObjects;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class DiscussionDto {
+public class DiscussionDto implements Serializable {
     // Discussion.java
     private String title;
     private String content;

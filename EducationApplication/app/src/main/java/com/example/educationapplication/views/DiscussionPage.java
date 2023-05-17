@@ -1,41 +1,35 @@
-package com.example.educationapplication.views.Fragment;
+package com.example.educationapplication.views;
 
 import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.educationapplication.R;
 import com.example.educationapplication.viewmodels.CommentRVAdapter;
+import com.example.educationapplication.viewmodels.DiscussionAdapter;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import dataObjects.CommentDto;
+import dataObjects.DiscussionDto;
 
 
 public class DiscussionPage extends AppCompatActivity {
-    List<CommentDto> mData = new ArrayList<>();
-    CommentRVAdapter commentRVAdapter;
-    private CommentDto selectedItem;
-    View view;
-    Button postComment;
-    EditText commentText;
-    RecyclerView commentRecyclerView;
-    TextView contentTextView, authorTextView, timestampTextView;
+    private List<CommentDto> mData = new ArrayList<>();
+    private CommentRVAdapter commentRVAdapter;
+    private DiscussionDto selectedItem;
 
 
     @Override
@@ -43,28 +37,38 @@ public class DiscussionPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discussion_page);
 
-        selectedItem = getIntent().getParcelableExtra("comment");
+        selectedItem = (DiscussionDto) getIntent().getSerializableExtra("discussion");
 
-        commentRecyclerView = findViewById(R.id.commentRecyclerView);
+        Button postComment = findViewById(R.id.postComment);
+        ImageButton discBackBtn = findViewById(R.id.discussionBackButton);
+
+        TextView discTitleTextView = findViewById(R.id.discTitleTextView);
+        TextView discussionTextView = findViewById(R.id.discussionTextView);
+        TextView authorDiscTextView = findViewById(R.id.authorDiscTextView);
+        TextView timestampDiscTextView = findViewById(R.id.timestampDiscTextView);
+
+        discTitleTextView.setText(selectedItem.getTitle());
+        discussionTextView.setText(selectedItem.getContent());
+        authorDiscTextView.setText((selectedItem.getAuthor()));
+        timestampDiscTextView.setText(selectedItem.getTimestamp().toString());
+
+        RecyclerView commentRecyclerView = findViewById(R.id.commentRecyclerView);
         commentRVAdapter = new CommentRVAdapter(this, mData);
-
         commentRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         commentRecyclerView.setAdapter(commentRVAdapter);
 
-        postComment = findViewById(R.id.postButton);
-        commentText = findViewById(R.id.commentText);
-        commentRecyclerView = findViewById(R.id.commentRecyclerView);
-        contentTextView = findViewById(R.id.commentTextView);
-        authorTextView = findViewById(R.id.authorCommentTextView);
-        timestampTextView = findViewById(R.id.timestampCommentTextView);
 
-        contentTextView.setText(selectedItem.getComment());
-        authorTextView.setText((selectedItem.getAuthor()));
-        timestampTextView.setText((CharSequence) selectedItem.getTimestamp());
+        discBackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
         postComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                EditText commentText = findViewById(R.id.commentText);
                 String content = commentText.getText().toString();
                 String author = "Current User"; // Replace with your user authentication logic
                 Date timestamp = new Date();
