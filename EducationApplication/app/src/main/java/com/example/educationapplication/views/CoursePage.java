@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toolbar;
 
 import com.example.educationapplication.R;
+import com.example.educationapplication.util.StringUtils;
 import com.example.educationapplication.viewmodels.DiscussionAdapter;
 
 
@@ -73,14 +74,16 @@ public class CoursePage extends AppCompatActivity {
                 // Get user input
                 String title = titleEditText.getText().toString();
                 String content = contentEditText.getText().toString();
-                String author = "Current User"; // Replace with your user authentication logic
-                Date timestamp = new Date();
+                if(!StringUtils.isEmpty(title)&&!StringUtils.isEmpty(content)) {
+                    String author = "Current User"; // Replace with your user authentication logic
+                    Date timestamp = new Date();
 
-                // Create a new discussion object
-                DiscussionDto discussion = new DiscussionDto(title, content, author, timestamp);
+                    // Create a new discussion object
+                    DiscussionDto discussion = new DiscussionDto(title, content, author, timestamp);
 
-                // Add the discussion to the list
-                discussionAdapter.addDiscussion(discussion);
+                    // Add the discussion to the list
+                    discussionAdapter.addDiscussion(discussion);
+                }
 
                 // Notify the adapter about the new discussion
                 //discussionAdapter.notifyItemInserted(discussions.size() - 1);

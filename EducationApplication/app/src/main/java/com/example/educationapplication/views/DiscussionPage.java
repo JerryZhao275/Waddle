@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.educationapplication.R;
+import com.example.educationapplication.util.StringUtils;
 import com.example.educationapplication.viewmodels.CommentRVAdapter;
 import com.example.educationapplication.viewmodels.DiscussionAdapter;
 
@@ -71,17 +72,19 @@ public class DiscussionPage extends AppCompatActivity {
             public void onClick(View view) {
                 EditText commentText = findViewById(R.id.commentText);
                 String content = commentText.getText().toString();
-                String author = user.getUserFirstName()+" "+user.getUserLastName(); // Replace with your user authentication logic
-                String authorId = user.getUserId();
-                String discussionId = selectedItem.getDiscussionID();
-                String commentId = selectedItem.getDiscussionID()+"-"+(mData.size()+1);
-                Date timestamp = new Date();
+                if(!StringUtils.isEmpty(content)) {
+                    String author = user.getUserFirstName() + " " + user.getUserLastName(); // Replace with your user authentication logic
+                    String authorId = user.getUserId();
+                    String discussionId = selectedItem.getDiscussionID();
+                    String commentId = selectedItem.getDiscussionID() + "-" + (mData.size() + 1);
+                    Date timestamp = new Date();
 
-                // Create a new comment object
-                CommentDto comment = new CommentDto(commentId, content, timestamp, author, authorId, discussionId);
+                    // Create a new comment object
+                    CommentDto comment = new CommentDto(commentId, content, timestamp, author, authorId, discussionId);
 
-                // Add the comment to the list
-                commentRVAdapter.addComment(comment);
+                    // Add the comment to the list
+                    commentRVAdapter.addComment(comment);
+                }
 
                 // Notify the adapter about the new comment
                 //commentRVAdapter.notifyItemInserted(mData.size() - 1);
