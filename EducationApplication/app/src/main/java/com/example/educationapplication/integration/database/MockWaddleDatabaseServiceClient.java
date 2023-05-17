@@ -51,6 +51,11 @@ public class MockWaddleDatabaseServiceClient implements WaddleDatabaseServiceCli
     }
 
     @Override
+    public UserDto getOtherUserDetails() {
+        return null;
+    }
+
+    @Override
     public UserDto getUserDetails() {
         return null;
     }
@@ -62,6 +67,11 @@ public class MockWaddleDatabaseServiceClient implements WaddleDatabaseServiceCli
 
     @Override
     public void createNewUserDataInstance(UserDto user, String password, CustomOnCompleteListener listener) {
+
+    }
+
+    @Override
+    public void fetchOtherUserDetails(UserDto user, CustomOnCompleteListener listener) {
 
     }
 

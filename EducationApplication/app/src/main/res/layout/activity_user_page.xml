@@ -12,81 +12,99 @@
         android:layout_height="match_parent"
         bind:context=".views.UserPage">
 
+        <ImageView
+            android:id="@+id/profile_imgbackground3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userPageOrangeBar"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/cartoonplanes" />
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/userwhitebox"
+            android:layout_width="279dp"
+            android:layout_height="544dp"
+            android:background="#FFFFFF"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:layout_constraintBottom_toBottomOf="@+id/profile_imgbackground3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.278" />
+
         <TextView
             android:id="@+id/userCourseList"
-            android:layout_width="377dp"
-            android:layout_height="257dp"
+            android:layout_width="307dp"
+            android:layout_height="236dp"
             android:text="@{viewModel.convertListToString()}"
             android:textColor="#000000"
             android:textSize="25sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.846"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/user_userName"
-            app:layout_constraintVertical_bias="0.797" />
+            app:layout_constraintVertical_bias="0.448" />
 
         <TextView
             android:id="@+id/user_userName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:text="@{viewModel.firstName + ` ` + viewModel.lastName}"
             android:textColor="#000000"
             android:textSize="25sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.165"
+            app:layout_constraintHorizontal_bias="0.279"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/userProfilePic"
-            app:layout_constraintVertical_bias="0.057" />
+            app:layout_constraintVertical_bias="0.046" />
 
         <TextView
             android:id="@+id/user_Email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:text="@{viewModel.email}"
             android:textColor="#000000"
-            android:textSize="25sp"
-            android:textStyle="bold"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.165"
+            app:layout_constraintHorizontal_bias="0.428"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/user_userName"
-            app:layout_constraintVertical_bias="0.126" />
+            app:layout_constraintTop_toBottomOf="@+id/userStudentTeacher"
+            app:layout_constraintVertical_bias="0.047" />
 
         <TextView
             android:id="@+id/userStudentTeacher"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="168dp"
-            android:layout_marginEnd="204dp"
-            android:gravity="center"
+            android:layout_marginTop="276dp"
             android:text="@{viewModel.userType}"
             android:textColor="#000000"
-            android:textSize="25sp"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.412"
-            app:layout_constraintStart_toEndOf="@+id/userProfilePic"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.728" />
+            app:layout_constraintHorizontal_bias="0.24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/userProfilePic"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_marginTop="33dp"
             android:src="@drawable/profile"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.09"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.181" />
+            app:layout_constraintTop_toBottomOf="@+id/userPageOrangeBar"
+            app:layout_constraintVertical_bias="0.057" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/userPageOrangeBar"
