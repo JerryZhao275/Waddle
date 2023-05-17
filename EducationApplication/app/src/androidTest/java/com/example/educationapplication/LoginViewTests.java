@@ -27,7 +27,7 @@ public class LoginViewTests {
 
     @Test
     public void incorrect_password_message_surfaces() {
-        onView(withId(R.id.editTextUsername)).perform(
+        onView(withId(R.id.editTextEmail)).perform(
                 typeText("u7499989@anu.edu.au"),
                 closeSoftKeyboard()
         );
@@ -42,7 +42,7 @@ public class LoginViewTests {
 
     @Test
     public void correct_password_changes_views_to_main() {
-        onView(withId(R.id.editTextUsername)).perform(
+        onView(withId(R.id.editTextEmail)).perform(
                 typeText("not even an email"),
                 closeSoftKeyboard()
         );
