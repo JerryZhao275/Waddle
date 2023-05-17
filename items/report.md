@@ -64,24 +64,23 @@ The following is a report template to help your team successfully provide all th
 
 ## Conflict Resolution Protocol
 
-*[Write a well defined protocol your team can use to handle conflicts. That is, if your group has problems, what is the procedure for reaching consensus or solving a problem?
-(If you choose to make this an external document, link to it here)]*
+1. Define the source of the conflict: The mediator will initiate communication with all team members and identify where the conflict lies.
+2. Look beyond the incident: Party members will act professionally to not let personal emotions play a part in your actions.
+3. Request solutions: The mediator will ask all party members for solutions. If a solution cannot be thought of, then the party's perspective on the situation should be said.
+4. Identify solutions both disputants can support: Find the most acceptable solution, a compromise between both/all party members.
+5. Agreement: The mediator will ask party members to accept one of the alternatives identified and reach a negotiated agreement
 
 
 ## Application Description
+Waddle is an educational app that enables seamless access to school content for university students and teachers. Users can join courses created by teachers, which include content, discussion forums, and participant lists. The app features a search function for finding friends and interesting courses. Users can explore the courses enrolled by other users, including their name and email. Additionally, users can engage in course discussions by posting questions and participating in group chat messaging. Waddle simplifies the educational experience, fostering collaboration and knowledge-sharing among students and teachers.
 
-[Finish when the rest of the report is written]
+Waddle offers a user-friendly sign-up process where users can easily create an account by providing essential information such as their first name, last name, username, email, and password. During sign-up, users also have the option to choose their role as a teacher or student, which determines their course management permissions. The app is organised into four tabs: the dashboard, user/course search, notifications, and profile view. After logging in, users are initially greeted with an empty dashboard until they enroll in courses. To join a course, users can navigate to the join course pop-up where they enter a course code provided by their teacher. Alternatively, if no course code is given, users can explore the search tab to manually find and join courses of interest.
 
-- Waddle is an educational application which allows university students to easily view their courses and upcoming quizzes
-- Target Users: Students for accessible view of courses, quizzes and friends, and teachers for efficient class management
-
+Once a user joins a course, it becomes visible on their dashboard. By clicking on the course, users can access information like course content, participants, and discussion forums. The search tab allows users to find and connect with friends, view their enrolled courses, and access their email addresses. In the profile tab, users can view their personal information, including full name, user status, and a list of enrolled courses. Additionally, a convenient logout function is available in the profile tab for users who wish to log out.
 
 
 *[What is your application, what does it do? Include photos or diagrams if necessary]*
 
-*Here is a pet specific application example*
-
-*PetBook is a social media application specifically targetting pet owners... it provides... certified practitioners, such as veterians are indicated by a label next to their profile...*
 
 **Application Use Cases and or Examples**
 
@@ -121,7 +120,7 @@ The following is a report template to help your team successfully provide all th
 
 *Please give clear and concise descriptions for each subsections of this part. It would be better to list all the concrete items for each subsection and give no more than `5` concise, crucial reasons of your design. Here is an example for the subsection `Data Structures`:*
 
-*I used the following data structures in my project:*
+*We used the following data structures in our project:*
 
 **Data Structures**
 
@@ -156,13 +155,20 @@ The following is a report template to help your team successfully provide all th
     * Since the singleton design pattern ensures only one instance of a class is created throughout the lifetime of an application, utilising this design pattern can ensure that only one instance of the FirebaseWaddleDatabaseServicesClient.java class is created, preventing any potential concurrency issues and improving the overall performance of the application. Additionally, it simplifies the codebase by providing a global point of access to the FirebaseWaddleDatabaseServicesClient.java instance, making it easier to maintain and debug, overall, leading to more efficient and streamlined code and an improved user experience.
 
 
-3. **Factory Method Design Pattern**
+2. **Factory Method Design Pattern**
     * Classes utilised:
         * UserDto.java, whole file
         * StudentUserDto.java, whole file
         * TeacherUserDto.java, whole file
     * The factory method design pattern allows for the creation of objects without having to specify the exact class of the object that will be created. In the context of a UserDto class extended by TeacherUserDto and StudentUserDto, utilising the factory method design pattern can offer several benefits. It allows for the creation of objects of the UserDto class and its subclasses without needing to know the exact class of the object at runtime. This can simplify the codebase, reduce code duplication, and make the system more modular. It also provides a clear separation of concerns between the creation of objects and their implementation, making it easier to maintain and test the code.
 
+3. **Android MVVM Design Pattern**
+    * The MVVM Design pattern was utilised for all files in the model, view, and viewmodel files.
+    * Implementing all the functionality and firebase logic in a single class or activity would lead to problems in testing and refactoring the code. This is due to difficulty and unreliability in testing two components of an application simultaneously. Hence, the separation of code and clean architecture can allow us to develop a Mock database to test easily against our program and its individual components.
+
+![mvvmdiagram](./images/mvvmdiagram.png) <br>
+
+*[What other design decisions have you made which you feel are relevant? Feel free to separate these into their own subheadings.]*
 
 *[What design patterns did your team utilise? Where and why?]*
 
@@ -186,14 +192,6 @@ Production Rules:
 *[If you implement the surprise item, explain how your solution addresses the surprise task. What decisions do your team make in addressing the problem?]*
 
 **Other**
-
-**Android MVVM Design Pattern**
-
-Implementing all the functionality and firebase logic in a single class or activity would lead to problems in testing and refactoring the code. This is due to difficulty and unreliability in testing two components of an application simultaneously. Hence, the separation of code and clean architecture can allow us to develop a Mock database to test easily against our program and its individual components.
-
-![mvvmdiagram](./images/mvvmdiagram.png) <br>
-
-*[What other design decisions have you made which you feel are relevant? Feel free to separate these into their own subheadings.]*
 
 ## Summary of Known Errors and Bugs
 
@@ -250,7 +248,6 @@ Implementing all the functionality and firebase logic in a single class or activ
         * database/FirebaseWaddleDatabaseServiceClient.java, createNewUser, signIn, lines of code: 88-152*
     * Users can login to the app using an existing Firebase account. When a user enters their email and password on the login page, the app checks if the credentials match an existing user in the Firebase database. If there is a match, the user is directed to the dashboard fragment. The login page also implements null safe exceptions such as the user not entering an email or password, or entering a string not in the form of an email. All of these exceptions result in a concise error message being returned at the bottom of the screen for the user
 
-
 2. [2500 Data Instances]. There must be data file(s) with at least 2,500 valid data instances **easy**
     * Classes/files utilised:
       * DataReader.java
@@ -284,6 +281,12 @@ Feature Category: Firebase Integration <br>
 
 3. [FB-Syn]. Using Firebase or another remote database to store user information and having the app updated as the remote database is updated **(hard)**
     * Classes utilised:
+        * database/FirebaseWaddleDatabaseServiceClient.java
+        * database/WaddleDatabaseServiceClient.java
+        * view/Dashboard/DashboardFragment.java
+        * view/CoursePage.java
+        * viewmodel/UserViewModel.java
+    * 
 
 
 Feature Category: UI Design and Testing <br>
@@ -308,6 +311,9 @@ Feature Category: Search-related features <br>
 Feature Category: User Interactivity <br>
 8. [Interact-Follow]. The ability to ‘follow’ a course or any specific items. **(medium)**
     * Classes utilised:
+        * view/Dashboard/DashboardFragment.java
+        * viewmodel/UserViewModel.java
+        * database/FirebaseWaddleDatabaseServiceClient
 
 
 *List all features you have completed in their separate categories with their difficulty classification. If they are features that are suggested and approved, please state this somewhere as well.*
@@ -321,6 +327,7 @@ Feature Category: User Interactivity <br>
 - *[Team Meeting 3](./meeting3.md)*
 - *[Team Meeting 4](./meeting4.md)*
 - *[Team Meeting 5](./meeting5.md)*
+- *[Team Meeting 6](./meeting6.md)*
 
 * Link to the minutes of your meetings as above. There must be at least 4 team meetings.
   Note that you must commit your minute meetings shortly after your meeting has taken place (e.g., within 24h), otherwise your meeting minute will not be accepted.

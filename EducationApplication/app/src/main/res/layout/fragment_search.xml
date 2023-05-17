@@ -1,60 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:windowSoftInputMode="adjustPan"
-    tools:context=".views.Fragment.SearchFragment">
-
-    <SearchView
-        android:id="@+id/search"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
-        android:iconifiedByDefault="false"
-        android:queryHint="Search here"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <requestFocus />
-    </SearchView>
-
-    <ListView
-        android:id="@+id/listview"
+    xmlns:bind="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.educationapplication.viewmodels.UserViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="540dp"
-        android:layout_below="@+id/search"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/classesTab"
-        app:layout_constraintVertical_bias="0.0" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:windowSoftInputMode="adjustPan"
+        bind:context=".views.Fragment.SearchFragment">
 
-    <Button
-        android:id="@+id/peopleTab"
-        android:layout_width="206dp"
-        android:layout_height="wrap_content"
-        android:background="#FFFFFF"
-        android:backgroundTint="#FFFFFF"
-        android:fallbackLineSpacing="false"
-        android:text="People"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search" />
+        <SearchView
+            android:id="@+id/search"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="88dp"
+            android:iconifiedByDefault="false"
+            android:queryHint="Search here"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/classesTab"
-        android:layout_width="206dp"
-        android:layout_height="wrap_content"
-        android:background="#FFFFFF"
-        android:backgroundTint="#FFFFFF"
-        android:text="Classes"
-        app:layout_constraintStart_toEndOf="@+id/peopleTab"
-        app:layout_constraintTop_toBottomOf="@+id/search" />
+            <requestFocus />
+        </SearchView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ListView
+            android:id="@+id/listview"
+            android:layout_width="match_parent"
+            android:layout_height="540dp"
+            android:layout_below="@+id/search"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/classesTab"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/peopleTab"
+            android:layout_width="206dp"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:backgroundTint="#FFFFFF"
+            android:fallbackLineSpacing="false"
+            android:text="People"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/search" />
+
+        <Button
+            android:id="@+id/classesTab"
+            android:layout_width="206dp"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:backgroundTint="#FFFFFF"
+            android:text="Classes"
+            app:layout_constraintStart_toEndOf="@+id/peopleTab"
+            app:layout_constraintTop_toBottomOf="@+id/search" />
+
+        <Toolbar
+            android:id="@+id/searchLogoutDim"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#AA000000"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <Toolbar
+            android:id="@+id/confirmWhiteBox"
+            android:layout_width="340dp"
+            android:layout_height="187dp"
+            android:background="#FFFFFF"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.492"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/searchConfirm"
+            android:layout_width="120sp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="64dp"
+            android:layout_marginBottom="292dp"
+            android:backgroundTint="#FF9800"
+            android:text="Confirm"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <Button
+            android:id="@+id/searchCancel"
+            android:layout_width="120sp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="292dp"
+            android:backgroundTint="#BABABA"
+            android:text="Cancel"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/searchConfirm" />
+
+        <TextView
+            android:id="@+id/confirmText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="300dp"
+            android:text="Confirm Joining Course"
+            android:textColor="#000000"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/searchConfirm"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.103" />
+
+        <ImageButton
+            android:id="@+id/temp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="400dp"
+            android:src="@drawable/cancelbutton"
+            app:layout_constraintBottom_toBottomOf="@+id/listview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/searchLogoutDim" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

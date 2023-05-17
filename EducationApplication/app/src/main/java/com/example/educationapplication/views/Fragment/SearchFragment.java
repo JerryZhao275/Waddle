@@ -1,20 +1,30 @@
 package com.example.educationapplication.views.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.TextView;
+import android.widget.Toolbar;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import com.example.educationapplication.R;
+import com.example.educationapplication.databinding.FragmentProfileBinding;
+import com.example.educationapplication.databinding.FragmentSearchBinding;
 import com.example.educationapplication.search.Exp;
 import com.example.educationapplication.search.SearchBarParser;
 import com.example.educationapplication.search.SearchBarTokenizer;
 import com.example.educationapplication.viewmodels.ListViewAdapter;
+import com.example.educationapplication.viewmodels.UserViewModel;
+import com.example.educationapplication.views.LoginView;
 
 public class SearchFragment extends Fragment implements SearchView.OnQueryTextListener, View.OnClickListener {
     ListView list;
@@ -22,8 +32,15 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
     SearchView editsearch;
     Button people;
     Button classes;
-    View mView;
+    View view;
     View subView;
+    Toolbar bg;
+    Toolbar whitebox;
+    Button yes;
+    Button no;
+    TextView confirmText;
+
+    ImageButton test;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,19 +49,33 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mView = inflater.inflate(R.layout.fragment_search, container, false);
-        people = mView.findViewById(R.id.peopleTab);
+        FragmentSearchBinding fragBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_search, container,false);
+        fragBinding.setViewModel(new UserViewModel());
+        view = fragBinding.getRoot();
+
+        people = view.findViewById(R.id.peopleTab);
         subView = people;
         people.setOnClickListener(this);
-        classes = mView.findViewById(R.id.classesTab);
+        classes = view.findViewById(R.id.classesTab);
         classes.setOnClickListener(this);
-        list = mView.findViewById(R.id.listview);
+        list = view.findViewById(R.id.listview);
         adapter = new ListViewAdapter(getContext());
 
+        bg = view.findViewById(R.id.searchLogoutDim);
+        whitebox = view.findViewById(R.id.confirmWhiteBox);
+        yes = view.findViewById(R.id.searchConfirm);
+        no = view.findViewById(R.id.searchCancel);
+        confirmText = view.findViewById(R.id.confirmText);
+        test = view.findViewById(R.id.temp);
+
+        yes.setOnClickListener(this);
+        no.setOnClickListener(this);
+        test.setOnClickListener(this);
+
         list.setAdapter(adapter);
-        editsearch = mView.findViewById(R.id.search);
+        editsearch = view.findViewById(R.id.search);
         editsearch.setOnQueryTextListener(this);
-        return mView;
+        return view;
     }
 
     @Override
@@ -67,7 +98,6 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
         while(expression.getCurrentValue()!=null){
             expression = expression.getNext();
         }
-
         return false;
     }
 
@@ -79,6 +109,28 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
 
     @Override
     public void onClick(View view) {
+        if (view.getId() == R.id.temp) {
+            people.setVisibility(View.INVISIBLE);
+            classes.setVisibility(View.INVISIBLE);
+            yes.setVisibility(View.VISIBLE);
+            no.setVisibility(View.VISIBLE);
+            confirmText.setVisibility(View.VISIBLE);
+            whitebox.setVisibility(View.VISIBLE);
+            bg.setVisibility(View.VISIBLE);
+        }
+        if (view.getId() == R.id.searchConfirm) {
+            //Do something to add class
+        }
+        else if (view.getId() == R.id.searchCancel ) {
+            people.setVisibility(View.VISIBLE);
+            classes.setVisibility(View.VISIBLE);
+            yes.setVisibility(View.INVISIBLE);
+            no.setVisibility(View.INVISIBLE);
+            confirmText.setVisibility(View.INVISIBLE);
+            whitebox.setVisibility(View.INVISIBLE);
+            bg.setVisibility(View.INVISIBLE);
+        }
+
         subView = view;
         if (view.getId() == R.id.peopleTab) {
             adapter.displayPeople();
@@ -91,4 +143,5 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
         adapter.updateData(adapter.getDisplayList());
         adapter.notifyDataSetChanged();
     }
+
 }

@@ -23,6 +23,7 @@ import java.util.Objects;
 public class ProfileFragment extends Fragment implements View.OnClickListener {
 
     Toolbar bg;
+    Toolbar whitebox;
     Button yes;
     Button no;
     TextView logoutText;
@@ -43,6 +44,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         view = fragBinding.getRoot();
 
         bg = view.findViewById(R.id.logoutDim);
+        whitebox = view.findViewById(R.id.logoutWhiteBox);
         yes = view.findViewById(R.id.yesLogout);
         no = view.findViewById(R.id.noLogout);
         logoutText = view.findViewById(R.id.logoutconfirmationText);
@@ -62,6 +64,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             yes.setVisibility(View.VISIBLE);
             no.setVisibility(View.VISIBLE);
             logoutText.setVisibility(View.VISIBLE);
+            whitebox.setVisibility(View.VISIBLE);
             bg.setVisibility(View.VISIBLE);
         }
         if (view.getId() == R.id.yesLogout) {
@@ -73,6 +76,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             yes.setVisibility(View.INVISIBLE);
             no.setVisibility(View.INVISIBLE);
             logoutText.setVisibility(View.INVISIBLE);
+            whitebox.setVisibility(View.INVISIBLE);
             bg.setVisibility(View.INVISIBLE);
         }
     }
