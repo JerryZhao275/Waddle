@@ -10,6 +10,9 @@ import com.example.educationapplication.R;
 import com.example.educationapplication.databinding.LoginBinding;
 import com.example.educationapplication.viewmodels.LoginViewModel;
 
+import com.example.educationapplication.dataInstances.DataReader;
+import dataObjects.CustomOnCompleteListener;
+
 public class LoginView extends AppCompatActivity {
 
     @Override
@@ -18,26 +21,20 @@ public class LoginView extends AppCompatActivity {
         LoginBinding loginBinding = DataBindingUtil.setContentView(this, R.layout.login);
         loginBinding.setViewModel(new LoginViewModel());
         loginBinding.setOnLogin(()-> {
-            loginBinding.getViewModel().login();
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-
-            changeToHomepage(loginBinding.getViewModel().isAuthorised());
+            loginBinding.getViewModel().login(new CustomOnCompleteListener() {
+                @Override
+                public void onComplete() {
+                    changeToHomepage(loginBinding.getViewModel().isAuthorised());
+                }
+            });
         });
         loginBinding.setOnSignup(()-> {
             finish();
             Intent intent = new Intent(getApplicationContext(), SignupView.class);
             startActivity(intent);
         });
-        loginBinding.setOnSignupTest(()-> {
-            finish();
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
-        });
         loginBinding.executePendingBindings();
+
     }
 
     protected void changeToHomepage(boolean isAuthorised) {

@@ -1,18 +1,13 @@
-package com.example.educationapplication.util.views;
+package com.example.educationapplication.views;
 
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.ListView;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-
-import com.example.educationapplication.util.views.Fragment.DashboardFragment;
-import com.example.educationapplication.util.views.Fragment.MessagesFragment;
-import com.example.educationapplication.util.views.Fragment.ProfileFragment;
-import com.example.educationapplication.util.views.Fragment.SearchFragment;
+import com.example.educationapplication.views.Fragment.DashboardFragment;
+import com.example.educationapplication.views.Fragment.MessagesFragment;
+import com.example.educationapplication.views.Fragment.ProfileFragment;
+import com.example.educationapplication.views.Fragment.SearchFragment;
 import com.example.educationapplication.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -30,18 +25,6 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(R.id.fragment_container, newFragment);
         transaction.addToBackStack(null);
         transaction.commit();
-        //WaddleDatabaseConfiguration config = ConfigurationManager.configInstance();
-        //WaddleDatabaseServiceClient databaseServiceClient = WaddleDatabaseServiceClientFactory.createClient(config);
-        /*databaseServiceClient.setUserDetails(new CustomOnCompleteListener(){
-            @Override
-            public void onComplete() {
-                user = databaseServiceClient.getUserDetails();
-                System.out.println(user.getUserEmail());
-                System.out.println(user.getUserFirstName());
-
-            }
-        });*/
-
     }
 
     private final NavigationBarView.OnItemSelectedListener navListener = item -> {

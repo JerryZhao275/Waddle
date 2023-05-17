@@ -1,5 +1,5 @@
 # [Team Name]
-This following is a very simple team meeting template. You should expand it based on the scope and nature of your discussion.
+G39
 
 ## Team Meeting [1] - Week [6] - [11/04/2023] (2:00PM-2:44PM)
 **Absent:** Michael Ostapenko

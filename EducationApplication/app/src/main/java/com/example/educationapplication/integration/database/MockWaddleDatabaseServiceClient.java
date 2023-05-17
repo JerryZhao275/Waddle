@@ -1,8 +1,11 @@
 package com.example.educationapplication.integration.database;
 
+import com.example.educationapplication.search.Exp;
+
 import java.util.List;
 import java.util.UUID;
 
+import dataObjects.CourseDto;
 import dataObjects.CustomOnCompleteListener;
 import dataObjects.LoginUserDto;
 import dataObjects.UserDto;
@@ -27,12 +30,36 @@ public class MockWaddleDatabaseServiceClient implements WaddleDatabaseServiceCli
     }
 
     @Override
+    public void fetchAllUsersForSearch(Exp expression, CustomOnCompleteListener listener) {
+        return;
+    }
+
+    @Override
+    public void fetchAllCoursesForSearch(Exp expression, CustomOnCompleteListener listener) {
+    }
+
+    @Override
+    public List<UserDto> getQueryUsers() {
+        return null;
+    }
+
+    @Override
+    public List<CourseDto> getQueryCourses() {
+        return null;
+    }
+
+    @Override
     public UserDto getUserDetails() {
         return null;
     }
 
     @Override
-    public boolean signIn(String username, String password) {
+    public void createNewUserDataInstance(UserDto user, String password, CustomOnCompleteListener listener) {
+
+    }
+
+    @Override
+    public boolean signIn(String username, String password, CustomOnCompleteListener listener) {
         LoginUserDto userToLogInAs = getUser(username, password);
         if (userToLogInAs != null) {
             this.currentUser = userToLogInAs;
@@ -42,8 +69,43 @@ public class MockWaddleDatabaseServiceClient implements WaddleDatabaseServiceCli
     }
 
     @Override
+    public void setNullUser() {
+
+    }
+
+    @Override
+    public void fetchUserCourses(CustomOnCompleteListener listener) {
+
+    }
+
+    @Override
+    public List<CourseDto> getUserCourses() {
+        return null;
+    }
+
+    @Override
+    public void addCourse(CourseDto course, CustomOnCompleteListener listener) {
+
+    }
+
+    @Override
+    public void synchCourses(CustomOnCompleteListener listener) {
+
+    }
+
+    @Override
+    public void synchUsers(CustomOnCompleteListener listener) {
+
+    }
+
+    @Override
     public void signOut() {
         this.currentUser = null;
+    }
+
+    @Override
+    public void signInDataInstances(String email, String password) {
+
     }
 
     @Override

@@ -7,31 +7,78 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import com.example.educationapplication.R;
+import com.example.educationapplication.integration.database.FirebaseWaddleDatabaseServiceClient;
+import com.example.educationapplication.integration.database.WaddleDatabaseServiceClient;
+import com.example.educationapplication.integration.database.WaddleDatabaseServiceClientFactory;
+import com.example.educationapplication.integration.database.config.ConfigurationManager;
+import com.example.educationapplication.integration.database.config.WaddleDatabaseConfiguration;
+import com.example.educationapplication.search.Exp;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
+import dataObjects.CourseDto;
+import dataObjects.CustomOnCompleteListener;
+import dataObjects.UserDto;
+
 public class ListViewAdapter extends BaseAdapter {
     Context mContext;
     LayoutInflater inflater;
-    private ArrayList<String> arraylist;
 
     //REPLACE WITH DB LISTS
+    private final WaddleDatabaseConfiguration config;
+    private final WaddleDatabaseServiceClient databaseServiceClient;
+    List<UserDto> users = new ArrayList<>();
+    List<CourseDto> courses = new ArrayList<>();
     String[] namesList = {"Jerry Zhao", "Karthik Vemireddy", "Matthew Richards",
             "Ryan Yoon", "Michael Ostapenko", "Bernado Nunes"};
     String[] classesList = {"COMP2100", "COMP2420", "COMP2620", "COMP2300", "COMP1140"};
     private List<String> displayList = List.of(namesList);
 
     public ListViewAdapter(Context context) {
+        config = ConfigurationManager.configInstance();
+        databaseServiceClient = WaddleDatabaseServiceClientFactory.createClient(config);
         mContext = context;
         inflater = LayoutInflater.from(mContext);
-        this.arraylist = new ArrayList<>();
-        this.arraylist.addAll(displayList);
+
     }
 
     public String[] getDisplayList() {
         return displayList.toArray(new String[0]);
+    }
+
+    public void filterUserList(Exp expression) {
+        databaseServiceClient.fetchAllUsersForSearch(expression, new CustomOnCompleteListener() {
+            @Override
+            public void onComplete() {
+                users = databaseServiceClient.getQueryUsers();
+                List<String> userNames = new ArrayList<>();
+                for(UserDto user: users){
+                    userNames.add(user.getUserFirstName()+" "+user.getUserLastName());
+                }
+                System.out.println(userNames);
+                displayList = userNames;
+                notifyDataSetChanged();
+            }
+        });
+    }
+
+    public void filterCourseList(Exp expression) {
+        databaseServiceClient.fetchAllCoursesForSearch(expression, new CustomOnCompleteListener() {
+            @Override
+            public void onComplete() {
+                courses = databaseServiceClient.getQueryCourses();
+                List<String> courseNames = new ArrayList<>();
+                for(CourseDto course: courses){
+                    courseNames.add(course.getCourseDescription());
+                }
+                System.out.println(courseNames);
+                displayList = courseNames;
+                notifyDataSetChanged();
+            }
+        });
     }
 
     public static class ViewHolder {
@@ -74,10 +121,10 @@ public class ListViewAdapter extends BaseAdapter {
         charText = charText.toLowerCase(Locale.getDefault());
         List<String> filteredList = new ArrayList<>();
         if (charText.length() == 0) {
-            filteredList.addAll(arraylist);
+            filteredList.addAll(displayList);
         }
         else {
-            for (String listNames : arraylist) {
+            for (String listNames : displayList) {
                 if (listNames.toLowerCase(Locale.getDefault()).contains(charText)) {
                     filteredList.add(listNames);
                 }
@@ -88,13 +135,13 @@ public class ListViewAdapter extends BaseAdapter {
     }
 
     public void updateData(String[] newData) {
-        arraylist = new ArrayList<>(Arrays.asList(newData));
+        displayList = Arrays.asList(newData);
         notifyDataSetChanged();
     }
 
     public void displayPeople() {
         displayList = List.of(namesList);
-
+        
     }
     public void displayClasses() {
         displayList = List.of(classesList);

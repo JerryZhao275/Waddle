@@ -16,7 +16,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-public abstract class UserDto implements Observer {
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+
+public abstract class UserDto implements Observer, Serializable {
+
+
 
     private String userId;
     private String userFirstName;
@@ -28,6 +35,8 @@ public abstract class UserDto implements Observer {
     private static List<MessageDto> directMessages;
 
 
+    private List<String> courses;
+
     public UserDto(){
         userId = "";
         userFirstName = "";
@@ -35,6 +44,7 @@ public abstract class UserDto implements Observer {
         this.userName = "";
         this.userEmail = "";
         this.userDesc = "";
+        this.courses = new ArrayList<>();
         if(directMessages == null)
             directMessages = new ArrayList<>();
     }
@@ -60,6 +70,13 @@ public abstract class UserDto implements Observer {
             directMessages = new ArrayList<>();
     }
 
+    public List<String> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<String> courses) {
+        this.courses = courses;
+    }
 
     public String getUserId(){
         return userId;

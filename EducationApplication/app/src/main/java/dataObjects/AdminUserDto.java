@@ -1,7 +1,5 @@
 package dataObjects;
 
-import com.example.educationapplication.observer.Observer;
-
 import java.util.List;
 
 public class AdminUserDto extends UserDto{
