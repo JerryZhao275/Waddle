@@ -1,6 +1,10 @@
 package dataObjects;
 
-public abstract class UserDto {
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class UserDto implements Serializable {
 
     private String userId;
     private String userFirstName;
@@ -10,6 +14,8 @@ public abstract class UserDto {
     private String userDesc;
 
 
+    private List<String> courses;
+
     public UserDto(){
         userId = "";
         userFirstName = "";
@@ -17,6 +23,7 @@ public abstract class UserDto {
         this.userName = "";
         this.userEmail = "";
         this.userDesc = "";
+        this.courses = new ArrayList<>();
     }
     public UserDto(String userId, String userFirstName, String userLastName, String userName, String userEmail,
                    String userDesc){
@@ -36,6 +43,13 @@ public abstract class UserDto {
         this.userEmail = userEmail;
     }
 
+    public List<String> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<String> courses) {
+        this.courses = courses;
+    }
 
     public String getUserId(){
         return userId;

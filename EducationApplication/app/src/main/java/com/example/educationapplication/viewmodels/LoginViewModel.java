@@ -25,6 +25,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.regex.Pattern;
 
+import dataObjects.CustomOnCompleteListener;
 import dataObjects.UserDto;
 
 public class LoginViewModel extends BaseObservable {
@@ -41,7 +42,7 @@ public class LoginViewModel extends BaseObservable {
     public LoginViewModel() {
         config = ConfigurationManager.configInstance();
         databaseServiceClient = WaddleDatabaseServiceClientFactory.createClient(config);
-        System.out.println(databaseServiceClient.getCurrentUser());
+        databaseServiceClient.signOut();
     }
 
     public WaddleDatabaseServiceClient getDatabaseServiceClient() {
@@ -50,13 +51,11 @@ public class LoginViewModel extends BaseObservable {
 
     @Bindable
     public String getEmail() {
-        System.out.println(login.getEmail());
         return login.getEmail();
     }
 
     @Bindable
     public void setEmail(String email) {
-        System.out.println(email);
         login.setEmail(email);
         notifyPropertyChanged(BR.email);
     }
@@ -91,10 +90,9 @@ public class LoginViewModel extends BaseObservable {
         this.authorised = authorised;
     }
 
-    public void login() {
+    public void login(CustomOnCompleteListener listener) {
         boolean questionsAnswered = StringUtils.isNotEmpty(login.getEmail()) && StringUtils.isNotEmpty(login.getPassword());
         boolean isEmailValid = Pattern.matches(CommonRegexUtil.EMAIL, login.getEmail());
-
         if (!questionsAnswered) {
             setErrorMessage(EMPTY_FIELD);
             setAuthorised(false);
@@ -105,14 +103,16 @@ public class LoginViewModel extends BaseObservable {
             setAuthorised(false);
             return;
         }
-        getDatabaseServiceClient().signIn(login.getEmail(), login.getPassword());
-
-        if (getDatabaseServiceClient().getCurrentUser() == null) {
-            setErrorMessage(INVALID_USER);
-            setAuthorised(false);
-            return;
-        }
-        setAuthorised(true);
+        getDatabaseServiceClient().signIn(login.getEmail(), login.getPassword(), () -> {
+            if (getDatabaseServiceClient().getCurrentUser() == null) {
+                setErrorMessage(INVALID_USER);
+                setAuthorised(false);
+                return;
+            }
+            setAuthorised(true);
+            setErrorMessage(null);
+            listener.onComplete();
+        });
     }
 
 }

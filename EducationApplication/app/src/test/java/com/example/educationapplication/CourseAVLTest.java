@@ -1,5 +1,8 @@
 package com.example.educationapplication;
 import static org.junit.Assert.*;
+
+import com.example.educationapplication.model.CourseAVL;
+
 import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;

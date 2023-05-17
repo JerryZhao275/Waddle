@@ -13,6 +13,30 @@
         android:orientation="vertical"
         bind:context=".views.Fragment.ProfileFragment">
 
+        <ImageView
+            android:id="@+id/profile_imgbackground"
+            android:layout_width="match_parent"
+            android:layout_height="420dp"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="@+id/logoutDim"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/cartoonplanes" />
+
+        <ImageButton
+            android:id="@+id/logoutbutton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="112dp"
+            android:background="@drawable/logout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.908"
+            app:layout_constraintStart_toEndOf="@+id/profileText"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/profileText"
             android:layout_width="wrap_content"
@@ -29,12 +53,12 @@
             app:layout_constraintVertical_bias="0.146" />
 
         <TextView
-            android:id="@+id/upcomingQuizzes"
+            android:id="@+id/courseListText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Enrolled Courses"
-            android:textColor="#FF6822"
-            android:textSize="20sp"
+            android:textColor="#FF5100"
+            android:textSize="25sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -43,7 +67,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/profilepic"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_marginTop="33dp"
@@ -56,44 +80,128 @@
             app:layout_constraintVertical_bias="0.22" />
 
         <TextView
-            android:id="@+id/profileDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="48dp"
-            android:layout_marginBottom="59dp"
-            android:text="TODO Description of the user"
-            app:layout_constraintBottom_toTopOf="@+id/upcomingQuizzes"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.751"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.616" />
-
-        <TextView
             android:id="@+id/studentTeacherText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@{viewModel.userType}"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/upcomingQuizzes"
+            android:textColor="#000000"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toTopOf="@+id/logoutconfirmationText"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.187"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView"
-            app:layout_constraintVertical_bias="0.24" />
+            app:layout_constraintHorizontal_bias="0.285"
+            app:layout_constraintStart_toEndOf="@+id/profilepic"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.728" />
 
-        <Button
-            android:id="@+id/editProfileButton"
+        <TextView
+            android:id="@+id/profile_userName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="72dp"
-            android:backgroundTint="#FF9800"
-            android:text="Edit Profile"
+            android:gravity="center"
+            android:text="@{viewModel.firstName + ` ` + viewModel.lastName}"
+            android:textColor="#000000"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/courseListText"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.73"
+            app:layout_constraintHorizontal_bias="0.082"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profileDescription" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.879" />
+
+        <TextView
+            android:id="@+id/profile_courseList"
+            android:layout_width="377dp"
+            android:layout_height="257dp"
+            android:text="@{viewModel.convertListToString()}"
+            android:textColor="#000000"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/courseListText"
+            app:layout_constraintVertical_bias="0.175" />
+
+        <Toolbar
+            android:id="@+id/logoutDim"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#AA000000"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <Toolbar
+            android:id="@+id/logoutWhiteBox"
+            android:layout_width="340dp"
+            android:layout_height="187dp"
+            android:background="#FFFFFF"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.492"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/yesLogout"
+            android:layout_width="120sp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="64dp"
+            android:layout_marginBottom="308dp"
+            android:backgroundTint="#FF9800"
+            android:text="Yes"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintStart_toStartOf="@+id/dimbackground"
+            app:layout_constraintTop_toBottomOf="@+id/classCodeTextBox"
+            app:layout_constraintVertical_bias="0.123" />
+
+        <Button
+            android:id="@+id/noLogout"
+            android:layout_width="120sp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="48dp"
+            android:layout_marginBottom="308dp"
+            android:backgroundTint="#BABABA"
+            android:text="No"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/yesLogout"
+            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintStart_toStartOf="@+id/dimbackground"
+            app:layout_constraintTop_toBottomOf="@+id/classCodeTextBox"
+            app:layout_constraintVertical_bias="0.123"
+            bind:ignore="UnknownIdInLayout" />
+
+        <TextView
+            android:id="@+id/logoutconfirmationText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Do you wish to log out?"
+            android:textColor="#000000"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/logoutDim"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.428" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

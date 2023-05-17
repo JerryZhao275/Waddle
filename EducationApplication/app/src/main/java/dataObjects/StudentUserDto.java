@@ -1,8 +1,10 @@
 package dataObjects;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-public class StudentUserDto extends UserDto {
+public class StudentUserDto extends UserDto implements Serializable {
 
     private Integer age;
     private String school;
