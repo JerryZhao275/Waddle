@@ -82,31 +82,24 @@ Once a user joins a course, it becomes visible on their dashboard. By clicking o
 *[What is your application, what does it do? Include photos or diagrams if necessary]*
 
 
-**Application Use Cases and or Examples**
+**Application Use Cases and Examples**
 
-*[Provide use cases and examples of people using your application. Who are the target users of your application? How do the users use your application?]*
+Waddle is primarily targeted towards high school/university students who require a more accessible view of courses, announcements, and simple-to-use discussion forums. Teachers are also encouraged to utilise Waddle to not only be able to send out announcements, but also manage and view their course details with ease.
 
-*Here is a pet training application example*
+During a crucial week, the ANU's Wattle page is undergoing maintenance, and Kevin requires access to the COMP2100 course page to check for announcements by Bernado.
+   * Kevin can log in to the application and utilise the search feature to find the COMP2100 course. 
+   * Once he joins the course, he will be able to view all the announcements made by Bernado. 
+   * In case Kevin is uncertain about any of Bernado's announcements, he can seek assistance by posting on the course page's discussion board, where both teachers and students can provide help.
 
-*Molly wants to inquiry about her cat, McPurr's recent troublesome behaviour*
-1. *Molly notices that McPurr has been hostile since...*
-2. *She makes a post about... with the tag...*
-3. *Lachlan, a vet, writes a reply to Molly's post...*
-4. ...
-5. *Molly gives Lachlan's reply a 'tick' response*
+At the start of a new semester, Anthony is interested in finding out which courses his friends are enrolled in:
+   * Anthony utilises the search function in the app by entering his friend's email address, returning the results related to his friend. 
+   * Anthony can then click on his friend's profile to gather more information such as the friend's email, full name, and a list of courses in which they are currently enrolled. 
+   * Anthony can now easily discover the courses his friends are doing for the new semester.
 
-*Here is a map navigation application example*
-
-*Targets Users: Drivers*
-
-* *Users can use it to navigate in order to reach the destinations.*
-* *Users can learn the traffic conditions*
-* ...
-
-*Target Users: Those who want to find some good restaurants*
-
-* *Users can find nearby restaurants and the application can give recommendations*
-* ...
+Kate wants to post a question on the discussion forum regarding AVLTrees discussed in the latest COMP2100 lecture. Here's how she can do it:
+   * Kate goes to the COMP2100 course page from her dashboard and selects the discussion forums tab. 
+   * Within the discussion forums, Kate creates and posts a new post with a suitable title and writes her question in the post. 
+   * Kate doesn't need to reload the page. As soon as Bernado or other users respond to her forum post, their answers will be displayed instantly.
 
 *List all the use cases in text descriptions or create use case diagrams. Please refer to https://www.visual-paradigm.com/guide/uml-unified-modeling-language/what-is-use-case-diagram/ for use case diagram.*
 
