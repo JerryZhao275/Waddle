@@ -162,9 +162,11 @@ Once a user joins a course, it becomes visible on their dashboard. By clicking o
         * TeacherUserDto.java, whole file
     * The factory method design pattern allows for the creation of objects without having to specify the exact class of the object that will be created. In the context of a UserDto class extended by TeacherUserDto and StudentUserDto, utilising the factory method design pattern can offer several benefits. It allows for the creation of objects of the UserDto class and its subclasses without needing to know the exact class of the object at runtime. This can simplify the codebase, reduce code duplication, and make the system more modular. It also provides a clear separation of concerns between the creation of objects and their implementation, making it easier to maintain and test the code.
 
-3. **Android MVVM Design Pattern**
-    * The MVVM Design pattern was utilised for all files in the model, view, and viewmodel files.
-    * Implementing all the functionality and firebase logic in a single class or activity would lead to problems in testing and refactoring the code. This is due to difficulty and unreliability in testing two components of an application simultaneously. Hence, the separation of code and clean architecture can allow us to develop a Mock database to test easily against our program and its individual components.
+3. **Facade Design Pattern**
+   * Classes utilised:
+     * All classes in database folder
+     * All classes in viewmodel folder
+   * The facade design pattern played a crucial role in our project, serving as the main architectural framework for our application. We organized all the Firebase-related logic into the database folder and accessed it through the viewmodel course, incorporating additional logic when necessary. This approach allowed us to present a simplified interface for a sophisticated subsystem that encompassed numerous interconnected elements. Given the complexity of our application, which involved multiple features and intricate logic for seamless integration, the facade design pattern greatly facilitated the overall development process.
 
 ![mvvmdiagram](./images/mvvmdiagram.png) <br>
 
@@ -191,7 +193,10 @@ Production Rules:
 
 *[If you implement the surprise item, explain how your solution addresses the surprise task. What decisions do your team make in addressing the problem?]*
 
-**Other**
+**Android MVVM Design Pattern**
+* The MVVM Design pattern was utilised for all files in the model, view, and viewmodel files.
+* Implementing all the functionality and firebase logic in a single class or activity would lead to problems in testing and refactoring the code. This is due to difficulty and unreliability in testing two components of an application simultaneously. Hence, the separation of code and clean architecture can allow us to develop a Mock database to test easily against our program and its individual components.
+
 
 ## Summary of Known Errors and Bugs
 

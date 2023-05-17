@@ -16,7 +16,7 @@
         <ImageView
             android:id="@+id/profile_imgbackground"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="420dp"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="@+id/logoutDim"
             app:layout_constraintEnd_toEndOf="parent"
