@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import com.example.educationapplication.R;
-import com.example.educationapplication.integration.database.FirebaseWaddleDatabaseServiceClient;
 import com.example.educationapplication.integration.database.WaddleDatabaseServiceClient;
 import com.example.educationapplication.integration.database.WaddleDatabaseServiceClientFactory;
 import com.example.educationapplication.integration.database.config.ConfigurationManager;
@@ -26,6 +25,7 @@ import dataObjects.UserDto;
 public class ListViewAdapter extends BaseAdapter {
     Context mContext;
     LayoutInflater inflater;
+
 
     //REPLACE WITH DB LISTS
     private final WaddleDatabaseConfiguration config;
@@ -49,7 +49,7 @@ public class ListViewAdapter extends BaseAdapter {
         return displayList.toArray(new String[0]);
     }
 
-    public void filterUserList(Exp expression) {
+    public void filterUserList(Exp expression, CustomOnCompleteListener listener) {
         databaseServiceClient.fetchAllUsersForSearch(expression, new CustomOnCompleteListener() {
             @Override
             public void onComplete() {
@@ -61,11 +61,12 @@ public class ListViewAdapter extends BaseAdapter {
                 System.out.println(userNames);
                 displayList = userNames;
                 notifyDataSetChanged();
+                listener.onComplete();
             }
         });
     }
 
-    public void filterCourseList(Exp expression) {
+    public void filterCourseList(Exp expression, CustomOnCompleteListener listener) {
         databaseServiceClient.fetchAllCoursesForSearch(expression, new CustomOnCompleteListener() {
             @Override
             public void onComplete() {
@@ -77,6 +78,7 @@ public class ListViewAdapter extends BaseAdapter {
                 System.out.println(courseNames);
                 displayList = courseNames;
                 notifyDataSetChanged();
+                listener.onComplete();
             }
         });
     }
@@ -145,5 +147,22 @@ public class ListViewAdapter extends BaseAdapter {
     }
     public void displayClasses() {
         displayList = List.of(classesList);
+    }
+
+    public List<UserDto> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<UserDto> users) {
+        this.users = users;
+        notifyDataSetChanged();
+    }
+
+    public List<CourseDto> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<CourseDto> courses) {
+        this.courses = courses;
     }
 }
