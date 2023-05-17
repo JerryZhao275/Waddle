@@ -1,30 +1,21 @@
 package com.example.educationapplication.views;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 import com.example.educationapplication.R;
-import com.example.educationapplication.viewmodels.CourseItemRVAdapater;
 import com.example.educationapplication.viewmodels.DiscussionAdapter;
-import com.example.educationapplication.views.Fragment.DashboardFragment;
-import androidx.appcompat.app.AppCompatActivity;
 
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,11 +27,9 @@ import dataObjects.QuizDto;
 
 public class CoursePage extends AppCompatActivity {
     private CourseDto selectedCourse;
-    private List<QuizDto> mData = new ArrayList<>();
 
     private List<DiscussionDto> discussions = new ArrayList<>();
     private DiscussionAdapter discussionAdapter;
-    private CourseItemRVAdapater itemAdapter;
 
 
     @Override
@@ -61,13 +50,6 @@ public class CoursePage extends AppCompatActivity {
         discussionAdapter = new DiscussionAdapter(this, discussions);
         discussionRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         discussionRecyclerView.setAdapter(discussionAdapter);
-
-        /* Enable to get quiz items instead
-        RecyclerView itemRecyclerView = findViewById(R.id.discussionRecyclerView);
-        itemAdapter = new CourseItemRVAdapater(getApplicationContext(), mData);
-        itemRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        itemRecyclerView.setAdapter(itemAdapter);
-         */
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override

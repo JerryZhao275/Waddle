@@ -63,8 +63,10 @@ public class MockWaddleDatabaseServiceClient implements WaddleDatabaseServiceCli
         LoginUserDto userToLogInAs = getUser(username, password);
         if (userToLogInAs != null) {
             this.currentUser = userToLogInAs;
+            listener.onComplete();
             return true;
         }
+        listener.onComplete();
         return false;
     }
 
