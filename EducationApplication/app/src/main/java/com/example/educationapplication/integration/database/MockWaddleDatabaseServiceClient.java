@@ -129,7 +129,6 @@ public class MockWaddleDatabaseServiceClient implements WaddleDatabaseServiceCli
 
     @Override
     public void signInDataInstances(String email, String password) {
-
     }
 
     @Override

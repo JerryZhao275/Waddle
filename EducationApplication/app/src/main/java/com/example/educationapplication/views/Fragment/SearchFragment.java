@@ -16,6 +16,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.educationapplication.R;
 import com.example.educationapplication.databinding.FragmentProfileBinding;
 import com.example.educationapplication.databinding.FragmentSearchBinding;
@@ -23,10 +26,16 @@ import com.example.educationapplication.search.Exp;
 import com.example.educationapplication.search.SearchBarParser;
 import com.example.educationapplication.search.SearchBarTokenizer;
 import com.example.educationapplication.viewmodels.ListViewAdapter;
+import com.example.educationapplication.viewmodels.RecyclerViewAdapter;
 import com.example.educationapplication.viewmodels.UserViewModel;
+import com.example.educationapplication.viewmodels.UsersRecyclerViewAdapter;
 import com.example.educationapplication.views.LoginView;
 
+import dataObjects.CustomOnCompleteListener;
+
 public class SearchFragment extends Fragment implements SearchView.OnQueryTextListener, View.OnClickListener {
+
+    private RecyclerView myRecyclerView;
     ListView list;
     ListViewAdapter adapter;
     SearchView editsearch;
@@ -39,7 +48,6 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
     Button yes;
     Button no;
     TextView confirmText;
-
     ImageButton test;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,7 +66,6 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
         people.setOnClickListener(this);
         classes = view.findViewById(R.id.classesTab);
         classes.setOnClickListener(this);
-        list = view.findViewById(R.id.listview);
         adapter = new ListViewAdapter(getContext());
 
         bg = view.findViewById(R.id.searchLogoutDim);
@@ -67,12 +74,12 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
         no = view.findViewById(R.id.searchCancel);
         confirmText = view.findViewById(R.id.confirmText);
         test = view.findViewById(R.id.temp);
+        myRecyclerView = view.findViewById(R.id.listview);
 
         yes.setOnClickListener(this);
         no.setOnClickListener(this);
         test.setOnClickListener(this);
 
-        list.setAdapter(adapter);
         editsearch = view.findViewById(R.id.search);
         editsearch.setOnQueryTextListener(this);
         return view;
@@ -86,15 +93,27 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
             tokenizer = new SearchBarTokenizer(query, 'u');
             SearchBarParser parser = new SearchBarParser(tokenizer);
             expression = parser.parseName();
-            adapter.filterUserList(expression);
+            adapter.filterUserList(expression, new CustomOnCompleteListener() {
+                @Override
+                public void onComplete() {
+                    UsersRecyclerViewAdapter userAdapter = new UsersRecyclerViewAdapter(getContext(), adapter.getUsers());
+                    myRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                    myRecyclerView.setAdapter(userAdapter);
+                }
+            });
         }
         else{
             tokenizer = new SearchBarTokenizer(query, 'c');
             SearchBarParser parser = new SearchBarParser(tokenizer);
             expression = parser.parseCourse();
-            adapter.filterCourseList(expression);
-
+            adapter.filterCourseList(expression, new CustomOnCompleteListener() {
+                @Override
+                public void onComplete() {
+                    //Logic
+                }
+            });
         }
+
         while(expression.getCurrentValue()!=null){
             expression = expression.getNext();
         }

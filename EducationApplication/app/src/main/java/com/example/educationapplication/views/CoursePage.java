@@ -26,10 +26,8 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import dataObjects.CourseDto;
 import dataObjects.DiscussionDto;
-import dataObjects.QuizDto;
 
 public class CoursePage extends AppCompatActivity {
     private CourseDto selectedCourse;
