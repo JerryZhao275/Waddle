@@ -264,6 +264,8 @@ Production Rules:
 
 
 ### General Features
+Our application consists of 7 implemented features, consisting of 2 **hard**, 3 **medium**, and 2 **easy** features.
+
 Feature Category: Firebase Integration <br>
 1. [FB-Auth]. Use Firebase to implement User Authentication/Authorisation. **(easy)**
    * Class utilised:
