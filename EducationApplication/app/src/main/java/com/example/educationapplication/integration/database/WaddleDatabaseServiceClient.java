@@ -22,10 +22,14 @@ public interface WaddleDatabaseServiceClient {
     public List<UserDto> getQueryUsers();
     public List<CourseDto> getQueryCourses();
 
+    UserDto getOtherUserDetails();
+
     UserDto getUserDetails();
     String getCurrentUserId();
 
     void createNewUserDataInstance(UserDto user, String password, CustomOnCompleteListener listener);
+
+    void fetchOtherUserDetails(UserDto user, CustomOnCompleteListener listener);
 
     boolean signIn(String username, String password, CustomOnCompleteListener listener);
 

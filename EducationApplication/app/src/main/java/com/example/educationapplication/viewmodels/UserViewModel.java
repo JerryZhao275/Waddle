@@ -88,6 +88,16 @@ public class UserViewModel extends BaseObservable {
         });
     }
 
+    public void fetchOtherUserDetails(UserDto user, CustomOnCompleteListener listener){
+        databaseServiceClient.fetchOtherUserDetails(user, new CustomOnCompleteListener() {
+            @Override
+            public void onComplete() {
+
+                listener.onComplete();
+            }
+        });
+    }
+
     public void joinCourse(String course, CustomOnCompleteListener listener){
         databaseServiceClient.addStudentToCourse(course, new CustomOnCompleteListener() {
             @Override
@@ -96,6 +106,11 @@ public class UserViewModel extends BaseObservable {
             }
         });
     }
+
+    public UserDto getOtherUserDetails(){
+        return databaseServiceClient.getOtherUserDetails();
+    }
+
 
     public List<CourseDto> getUserCourseDetails(){
         return userCourses;

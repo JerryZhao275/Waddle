@@ -65,6 +65,7 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
 
     private LoginUserDto currentUser = new LoginUserDto("","");
     private UserDto userDetails;
+    private UserDto otherUserDetails;
 
     @Override
     public LoginUserDto getCurrentUser() {
@@ -88,6 +89,36 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
 
                             DocumentSnapshot document = task.getResult();
                             userDetails = UserTypeFactory.createUser(userType, document);
+                            listener.onComplete();
+                            if (document.exists()) {
+                                Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                            } else {
+                                Log.d(TAG, "No such document");
+                            }
+                        } else {
+                            Log.d(TAG, "get failed with ", task.getException());
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    @Override
+    public void fetchOtherUserDetails(UserDto user, CustomOnCompleteListener listener) {
+        DocumentReference docRef = firestore.collection("Users").document(user.getUserId());
+        database.getReference("Users").child(user.getUserId()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                DataSnapshot document1 = task.getResult();
+                System.out.println(document1.getValue());
+                userType = document1.getValue().toString();
+                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            otherUserDetails = UserTypeFactory.createUser(userType, document);
                             listener.onComplete();
                             if (document.exists()) {
                                 Log.d(TAG, "DocumentSnapshot data: " + document.getData());
@@ -305,6 +336,10 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
         });
     }
 
+    @Override
+    public UserDto getOtherUserDetails(){
+        return otherUserDetails;
+    }
     public UserDto getUserDetails(){
         return userDetails;
     }

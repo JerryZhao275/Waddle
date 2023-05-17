@@ -13,24 +13,25 @@
             name="onSignup"
             type="com.example.educationapplication.viewmodels.SignUpEvent" />
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/signupText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         bind:context=".views.SignupView">
 
-    <Button
+        <Button
             android:id="@+id/signupLoginButton"
             android:layout_width="70dp"
             android:layout_height="45dp"
             android:layout_marginBottom="5dp"
             android:backgroundTint="#FFFFFF"
             android:foregroundTint="#FFFFFF"
+            android:onClick="@{()->onLogin.run()}"
             android:outlineSpotShadowColor="#FFFFFF"
             android:shadowColor="#FFFFFF"
             android:text="Login"
             android:visibility="visible"
-            android:onClick="@{()->onLogin.run()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.053"
@@ -204,19 +205,19 @@
                 android:id="@+id/radioButton"
                 android:layout_width="173dp"
                 android:layout_height="wrap_content"
+                android:buttonTint="@color/orange"
                 android:checked="@{viewModel.isTeacherOrStudent==true}"
                 android:onClick="@{()->viewModel.setIsTeacherOrStudent(true)}"
-                android:text="Teacher"
-                android:buttonTint="@color/orange"/>
+                android:text="Teacher" />
 
             <RadioButton
                 android:id="@+id/radioButton2"
                 android:layout_width="173dp"
                 android:layout_height="wrap_content"
+                android:buttonTint="@color/orange"
                 android:checked="@{viewModel.isTeacherOrStudent==false}"
                 android:onClick="@{()->viewModel.setIsTeacherOrStudent(false)}"
-                android:text="Student"
-                android:buttonTint="@color/orange"/>
+                android:text="Student" />
         </RadioGroup>
 
         <TextView
