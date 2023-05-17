@@ -18,26 +18,51 @@ import java.util.Date;
 import java.util.List;
 
 import dataObjects.CommentDto;
+import dataObjects.CustomOnCompleteListener;
 import dataObjects.DiscussionDto;
 import dataObjects.QuizDto;
 
 public class CommentRVAdapter extends RecyclerView.Adapter<CommentRVAdapter.CommentViewHolder>{
     private static Context mContext;
     private static List<CommentDto> mData = new ArrayList<>();
-
-    public CommentRVAdapter(Context mContext, List<CommentDto> mData) {
+    private CommentViewModel commentViewModel;
+    public CommentRVAdapter(Context mContext, List<CommentDto> mData, DiscussionDto discussion) {
         this.mContext = mContext;
         this.mData = mData;
+        commentViewModel = new CommentViewModel(discussion, new CustomOnCompleteListener() {
+            @Override
+            public void onComplete() {
+                setComments(commentViewModel.getComments());
+            }
+        });
+
 
         //TESTING PURPOSES
-        mData.add(new CommentDto("nice", "Peer 1", new Date()));
+        /*mData.add(new CommentDto("nice", "Peer 1", new Date()));
         mData.add(new CommentDto("nice", "Peer 2", new Date()));
         mData.add(new CommentDto("nice", "Peer 3", new Date()));
         mData.add(new CommentDto("nice", "Peer 4", new Date()));
-        mData.add(new CommentDto("nice", "Teacher 1", new Date()));
+        mData.add(new CommentDto("nice", "Teacher 1", new Date()));*/
+    }
+    public void addComment(CommentDto comment){
+        commentViewModel.addComment(comment, new CustomOnCompleteListener() {
+            @Override
+            public void onComplete() {
+                commentViewModel.syncComments(new CustomOnCompleteListener() {
+                    @Override
+                    public void onComplete() {
+                        setComments(commentViewModel.getComments());
+                    }
+                });
+            }
+        });
     }
 
     // inflating layout (giving layout the look)
+    public void setComments(List<CommentDto> comments){
+        mData = comments;
+        notifyDataSetChanged();
+    }
 
     @Override
     public CommentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

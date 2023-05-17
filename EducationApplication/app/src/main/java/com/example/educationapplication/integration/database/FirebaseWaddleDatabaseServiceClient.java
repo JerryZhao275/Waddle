@@ -53,6 +53,7 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
     private String userType;
     private List<CourseDto> courseList;
     private List<DiscussionDto> discussions;
+    private List<CommentDto> comments;
     public FirebaseWaddleDatabaseServiceClient() {
         database = FirebaseDatabase.getInstance();
         firestore = FirebaseFirestore.getInstance();
@@ -233,13 +234,12 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
 
     @Override
     public void addComment(CommentDto comment, CustomOnCompleteListener listener) {
-        firestore.collection("Discussion").document(comment.getDiscussionID()).set(comment)
+        firestore.collection("Comments").add(comment)
                 .addOnCompleteListener(new OnCompleteListener() {
             @Override
             public void onComplete(@NonNull Task task) {
                 if(task.isSuccessful()){
-                    List<String> newDiscussion = new ArrayList<>();
-                    newDiscussion.add(comment.getDiscussionID());
+                    listener.onComplete();
                 }
             }
         });
@@ -613,6 +613,33 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
     @Override
     public List<DiscussionDto> getDiscussions() {
         return discussions;
+    }
+
+    @Override
+    public void syncComments(String discussionID, CustomOnCompleteListener listener) {
+        firestore.collection("Comments").whereEqualTo("discussionID", discussionID).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if(error!=null){
+                    System.out.println("Failed to sync comments");
+                }
+                else{
+                    if(value!=null){
+                        comments = new ArrayList<>();
+                        for(DocumentSnapshot document:value.getDocuments()){
+                            CommentDto comment = document.toObject(CommentDto.class);
+                            comments.add(comment);
+                        }
+                        listener.onComplete();
+                    }
+                }
+            }
+        });
+    }
+
+    @Override
+    public List<CommentDto> getComments() {
+        return comments;
     }
 
     @Override

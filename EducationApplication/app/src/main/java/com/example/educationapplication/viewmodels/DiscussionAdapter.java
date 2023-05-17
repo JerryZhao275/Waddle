@@ -26,7 +26,7 @@ import dataObjects.DiscussionDto;
 public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.DiscussionViewHolder> {
     private static Context mContext;
     private static List<DiscussionDto> discussions = new ArrayList<>();
-    DiscussionViewModel discussionViewModel;
+    static DiscussionViewModel discussionViewModel;
 
     public DiscussionAdapter(Context mContext, List<DiscussionDto> discussions, CourseDto course) {
         this.mContext = mContext;
@@ -110,6 +110,7 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.Di
             int position = getAdapterPosition();
             DiscussionDto selectedItem = discussions.get(position);
             Intent intent = new Intent(mContext, DiscussionPage.class);
+            intent.putExtra("user", discussionViewModel.getUserDetails());
             intent.putExtra("discussion", selectedItem);
             mContext.startActivity(intent);
         }

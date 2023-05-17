@@ -142,6 +142,16 @@ public class MockWaddleDatabaseServiceClient implements WaddleDatabaseServiceCli
     }
 
     @Override
+    public void syncComments(String discussionID,CustomOnCompleteListener listener) {
+
+    }
+
+    @Override
+    public List<CommentDto> getComments() {
+        return null;
+    }
+
+    @Override
     public LoginUserDto getUser(String email, String password) {
         return mockedUsers.stream().filter(user -> email.equalsIgnoreCase(user.getLoginUserEmail())&&password.equals(user.getPassword()))
                 .findFirst()

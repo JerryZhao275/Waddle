@@ -14,12 +14,15 @@ import java.util.List;
 import dataObjects.CourseDto;
 import dataObjects.CustomOnCompleteListener;
 import dataObjects.DiscussionDto;
+import dataObjects.UserDto;
 
 public class DiscussionViewModel {
     private String content;
     private String author;
+    private String authorId;
     private String courseId;
     private Date timestamp = new Date();
+    private UserDto userDetails;
     List<DiscussionDto> discussions = new ArrayList<>();
     private final WaddleDatabaseConfiguration config;
     private final WaddleDatabaseServiceClient databaseServiceClient;
@@ -28,8 +31,20 @@ public class DiscussionViewModel {
         courseId = course.getCourseName();
         config = ConfigurationManager.configInstance();
         databaseServiceClient = WaddleDatabaseServiceClientFactory.createClient(config);
-        author = databaseServiceClient.getCurrentUserId();
+        databaseServiceClient.fetchUserDetails(new CustomOnCompleteListener() {
+            @Override
+            public void onComplete() {
+                UserDto user = databaseServiceClient.getUserDetails();
+                author = user.getUserFirstName()+" "+user.getUserLastName();
+                authorId = user.getUserId();
+                userDetails = user;
+            }
+        });
         syncDiscussions(listener);
+    }
+
+    public UserDto getUserDetails(){
+        return userDetails;
     }
 
     public void syncDiscussions(CustomOnCompleteListener listener){
@@ -45,6 +60,7 @@ public class DiscussionViewModel {
     public void addDiscussion(DiscussionDto discussion, CustomOnCompleteListener listener){
         discussion.setDiscussionID(courseId+"-"+(discussions.size()+1));
         discussion.setAuthor(author);
+        discussion.setAuthorID(authorId);
         discussion.setCourseID(courseId);
         databaseServiceClient.addDiscussion(discussion, new CustomOnCompleteListener() {
             @Override

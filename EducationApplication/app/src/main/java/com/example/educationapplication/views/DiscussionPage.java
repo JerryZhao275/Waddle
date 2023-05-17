@@ -24,13 +24,14 @@ import java.util.List;
 
 import dataObjects.CommentDto;
 import dataObjects.DiscussionDto;
+import dataObjects.UserDto;
 
 
 public class DiscussionPage extends AppCompatActivity {
     private List<CommentDto> mData = new ArrayList<>();
     private CommentRVAdapter commentRVAdapter;
     private DiscussionDto selectedItem;
-
+    private UserDto user;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,7 +39,7 @@ public class DiscussionPage extends AppCompatActivity {
         setContentView(R.layout.activity_discussion_page);
 
         selectedItem = (DiscussionDto) getIntent().getSerializableExtra("discussion");
-
+        user = (UserDto) getIntent().getSerializableExtra("user");
         Button postComment = findViewById(R.id.postComment);
         ImageButton discBackBtn = findViewById(R.id.discussionBackButton);
 
@@ -53,7 +54,7 @@ public class DiscussionPage extends AppCompatActivity {
         timestampDiscTextView.setText(selectedItem.getTimestamp().toString());
 
         RecyclerView commentRecyclerView = findViewById(R.id.commentRecyclerView);
-        commentRVAdapter = new CommentRVAdapter(this, mData);
+        commentRVAdapter = new CommentRVAdapter(this, mData, selectedItem);
         commentRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         commentRecyclerView.setAdapter(commentRVAdapter);
 
@@ -70,17 +71,20 @@ public class DiscussionPage extends AppCompatActivity {
             public void onClick(View view) {
                 EditText commentText = findViewById(R.id.commentText);
                 String content = commentText.getText().toString();
-                String author = "Current User"; // Replace with your user authentication logic
+                String author = user.getUserFirstName()+" "+user.getUserLastName(); // Replace with your user authentication logic
+                String authorId = user.getUserId();
+                String discussionId = selectedItem.getDiscussionID();
+                String commentId = selectedItem.getDiscussionID()+"-"+(mData.size()+1);
                 Date timestamp = new Date();
 
                 // Create a new comment object
-                CommentDto comment = new CommentDto(content, author, timestamp);
+                CommentDto comment = new CommentDto(commentId, content, timestamp, author, authorId, discussionId);
 
                 // Add the comment to the list
-                mData.add(comment);
+                commentRVAdapter.addComment(comment);
 
                 // Notify the adapter about the new comment
-                commentRVAdapter.notifyItemInserted(mData.size() - 1);
+                //commentRVAdapter.notifyItemInserted(mData.size() - 1);
 
                 // Clear the input fields
                 commentText.setText("");

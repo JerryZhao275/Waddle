@@ -48,4 +48,6 @@ public interface WaddleDatabaseServiceClient {
     void signInDataInstances(String email, String password);
     public void syncDiscussions(String courseId,CustomOnCompleteListener listener);
     public List<DiscussionDto> getDiscussions();
+    public void syncComments(String discussionID, CustomOnCompleteListener listener);
+    public List<CommentDto> getComments();
 }
