@@ -19,20 +19,44 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import dataObjects.CourseDto;
+import dataObjects.CustomOnCompleteListener;
 import dataObjects.DiscussionDto;
 
 public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.DiscussionViewHolder> {
     private static Context mContext;
     private static List<DiscussionDto> discussions = new ArrayList<>();
+    DiscussionViewModel discussionViewModel;
 
-    public DiscussionAdapter(Context mContext, List<DiscussionDto> discussions) {
+    public DiscussionAdapter(Context mContext, List<DiscussionDto> discussions, CourseDto course) {
         this.mContext = mContext;
         this.discussions = discussions;
-
-        discussions.add(new DiscussionDto("Title 1", "Content 1", "Author 1", new Date()));
-        discussions.add(new DiscussionDto("Title 2", "Content 2", "Author 2", new Date()));
+        discussionViewModel = new DiscussionViewModel(course, new CustomOnCompleteListener() {
+            @Override
+            public void onComplete() {
+                setDiscussions(discussionViewModel.getDiscussions());
+            }
+        });
+        //discussions.add(new DiscussionDto("Title 1", "Content 1", "Author 1", new Date()));
+        //discussions.add(new DiscussionDto("Title 2", "Content 2", "Author 2", new Date()));
     }
-
+    public void setDiscussions(List<DiscussionDto> discussions){
+        this.discussions = discussions;
+        notifyDataSetChanged();
+    }
+    public void addDiscussion(DiscussionDto discussion){
+        discussionViewModel.addDiscussion(discussion, new CustomOnCompleteListener() {
+            @Override
+            public void onComplete() {
+                discussionViewModel.syncDiscussions(new CustomOnCompleteListener() {
+                    @Override
+                    public void onComplete() {
+                        setDiscussions(discussionViewModel.getDiscussions());
+                    }
+                });
+            }
+        });
+    }
     // Constructor and methods
 
     @Override

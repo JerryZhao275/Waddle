@@ -56,6 +56,11 @@ public class MockWaddleDatabaseServiceClient implements WaddleDatabaseServiceCli
     }
 
     @Override
+    public String getCurrentUserId() {
+        return null;
+    }
+
+    @Override
     public void createNewUserDataInstance(UserDto user, String password, CustomOnCompleteListener listener) {
 
     }
@@ -125,6 +130,16 @@ public class MockWaddleDatabaseServiceClient implements WaddleDatabaseServiceCli
     @Override
     public void signInDataInstances(String email, String password) {
 
+    }
+
+    @Override
+    public void syncDiscussions(String courseId, CustomOnCompleteListener listener) {
+
+    }
+
+    @Override
+    public List<DiscussionDto> getDiscussions() {
+        return null;
     }
 
     @Override

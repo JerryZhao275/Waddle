@@ -22,6 +22,7 @@ public interface WaddleDatabaseServiceClient {
     public List<UserDto> getQueryUsers();
     public List<CourseDto> getQueryCourses();
     UserDto getUserDetails();
+    String getCurrentUserId();
 
     void createNewUserDataInstance(UserDto user, String password, CustomOnCompleteListener listener);
 
@@ -44,4 +45,6 @@ public interface WaddleDatabaseServiceClient {
     void signOut();
 
     void signInDataInstances(String email, String password);
+    public void syncDiscussions(String courseId,CustomOnCompleteListener listener);
+    public List<DiscussionDto> getDiscussions();
 }

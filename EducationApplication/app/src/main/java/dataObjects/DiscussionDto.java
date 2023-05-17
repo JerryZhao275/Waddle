@@ -12,6 +12,15 @@ public class DiscussionDto implements Serializable {
     private String discussionID;
     private String courseID;
 
+    public DiscussionDto(){
+        this.title = "";
+        this.content = "";
+        this.author = "";
+        this.timestamp = new Date();
+        this.discussionID = "";
+        this.courseID = "";
+    }
+
     public DiscussionDto(String title, String content, String author, Date timestamp) {
         this.title = title;
         this.content = content;

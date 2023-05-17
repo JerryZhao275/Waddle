@@ -53,7 +53,7 @@ public class CoursePage extends AppCompatActivity {
         courseDesc.setText(selectedCourse.getCourseDescription());
 
         RecyclerView discussionRecyclerView = findViewById(R.id.discussionRecyclerView);
-        discussionAdapter = new DiscussionAdapter(this, discussions);
+        discussionAdapter = new DiscussionAdapter(this, discussions, selectedCourse);
         discussionRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         discussionRecyclerView.setAdapter(discussionAdapter);
 
@@ -81,10 +81,10 @@ public class CoursePage extends AppCompatActivity {
                 DiscussionDto discussion = new DiscussionDto(title, content, author, timestamp);
 
                 // Add the discussion to the list
-                discussions.add(discussion);
+                discussionAdapter.addDiscussion(discussion);
 
                 // Notify the adapter about the new discussion
-                discussionAdapter.notifyItemInserted(discussions.size() - 1);
+                //discussionAdapter.notifyItemInserted(discussions.size() - 1);
 
                 // Clear the input fields
                 titleEditText.setText("");

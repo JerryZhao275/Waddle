@@ -52,6 +52,7 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
     final private FirebaseAuth mAuth;
     private String userType;
     private List<CourseDto> courseList;
+    private List<DiscussionDto> discussions;
     public FirebaseWaddleDatabaseServiceClient() {
         database = FirebaseDatabase.getInstance();
         firestore = FirebaseFirestore.getInstance();
@@ -219,13 +220,12 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
 
     @Override
     public void addDiscussion(DiscussionDto discussion, CustomOnCompleteListener listener) {
-        firestore.collection("Discussion").document(discussion.getDiscussionID()).set(discussion)
+        firestore.collection("Discussions").add(discussion)
                 .addOnCompleteListener(new OnCompleteListener() {
             @Override
             public void onComplete(@NonNull Task task) {
                 if(task.isSuccessful()){
-                    List<String> newDiscussion = new ArrayList<>();
-                    newDiscussion.add(discussion.getDiscussionID());
+                    listener.onComplete();
                 }
             }
         });
@@ -308,6 +308,12 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
     public UserDto getUserDetails(){
         return userDetails;
     }
+
+    @Override
+    public String getCurrentUserId() {
+        return mAuth.getCurrentUser().getUid();
+    }
+
     @Override
     public void signOut() {
         mAuth.signOut();
@@ -580,6 +586,33 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
     @Override
     public void signInDataInstances(String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password);
+    }
+
+    @Override
+    public void syncDiscussions(String courseId, CustomOnCompleteListener listener) {
+        firestore.collection("Discussions").whereEqualTo("courseID", courseId).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if(error!=null){
+                    System.out.println("Discussion Failed to Sync");
+                }
+                else{
+                    discussions = new ArrayList<>();
+                    if(value!=null){
+                        for(DocumentSnapshot document:value.getDocuments()){
+                            DiscussionDto discussion = document.toObject(DiscussionDto.class);
+                            discussions.add(discussion);
+                        }
+                    }
+                    listener.onComplete();
+                }
+            }
+        });
+    }
+
+    @Override
+    public List<DiscussionDto> getDiscussions() {
+        return discussions;
     }
 
     @Override
