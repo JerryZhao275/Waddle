@@ -17,9 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
-import dataObjects.CourseDto;
-import dataObjects.CustomOnCompleteListener;
-import dataObjects.UserDto;
+import com.example.educationapplication.search.dataObjects.*;
 
 public class ListViewAdapter extends BaseAdapter {
     Context mContext;

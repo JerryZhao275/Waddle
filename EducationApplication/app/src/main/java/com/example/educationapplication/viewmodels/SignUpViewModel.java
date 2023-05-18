@@ -13,10 +13,7 @@ import com.example.educationapplication.util.StringUtils;
 
 import java.util.regex.Pattern;
 
-import dataObjects.CustomOnCompleteListener;
-import dataObjects.StudentUserDto;
-import dataObjects.TeacherUserDto;
-import dataObjects.UserDto;
+import com.example.educationapplication.search.dataObjects.*;
 
 public class SignUpViewModel extends BaseObservable {
     private final WaddleDatabaseConfiguration config;

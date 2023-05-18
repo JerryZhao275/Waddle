@@ -10,7 +10,7 @@ import com.example.educationapplication.model.LoginModel;
 import com.example.educationapplication.util.CommonRegexUtil;
 import com.example.educationapplication.util.StringUtils;
 import java.util.regex.Pattern;
-import dataObjects.CustomOnCompleteListener;
+import com.example.educationapplication.search.dataObjects.*;
 
 public class LoginViewModel extends BaseObservable {
     private final WaddleDatabaseConfiguration config;

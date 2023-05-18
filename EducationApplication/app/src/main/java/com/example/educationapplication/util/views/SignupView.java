@@ -11,7 +11,7 @@ import com.example.educationapplication.R;
 import com.example.educationapplication.databinding.SignupBinding;
 import com.example.educationapplication.viewmodels.SignUpViewModel;
 
-import dataObjects.CustomOnCompleteListener;
+import com.example.educationapplication.search.dataObjects.*;
 
 public class SignupView extends AppCompatActivity {
     @Override

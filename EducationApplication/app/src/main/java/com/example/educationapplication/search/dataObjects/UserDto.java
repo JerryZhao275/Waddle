@@ -2,6 +2,7 @@ package com.example.educationapplication.search.dataObjects;
 
 import com.example.educationapplication.util.views.Fragment.observer.Observer;
 import com.example.educationapplication.util.views.Fragment.observer.messagefactory.MessageFactory;
+import com.example.educationapplication.viewmodels.UserViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -133,7 +134,9 @@ public abstract class UserDto implements Observer, Serializable {
 
     @Override
     public void update(String course, String type, String path, String name){
-        if(courses.contains(course))
+        System.out.println(getCourses());
+        if(UserViewModel.getCoursesList() == null) return;
+        if(UserViewModel.getCoursesList().contains(course))
             addMessage(MessageFactory.generateMessage(course, type, path, name), 0,0);
         System.out.println(directMessages.size());
     }

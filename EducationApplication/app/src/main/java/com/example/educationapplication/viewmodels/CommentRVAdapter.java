@@ -11,9 +11,7 @@ import com.example.educationapplication.R;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import dataObjects.CommentDto;
-import dataObjects.CustomOnCompleteListener;
-import dataObjects.DiscussionDto;
+import com.example.educationapplication.search.dataObjects.*;
 
 public class CommentRVAdapter extends RecyclerView.Adapter<CommentRVAdapter.CommentViewHolder> {
     private static Context mContext;

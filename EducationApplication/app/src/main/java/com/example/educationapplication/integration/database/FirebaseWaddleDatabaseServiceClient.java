@@ -42,6 +42,7 @@ import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -70,10 +71,12 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
 
         if(coursesRegistration != null) coursesRegistration.remove();
         if(discussionRegistration != null) discussionRegistration.remove();
+
         coursesRegistration = firestore.collection("Courses").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot snapshot,
                                 @Nullable FirebaseFirestoreException e) {
+
                 for(DocumentChange dc :snapshot.getDocumentChanges()){
                     switch (dc.getType()) {
                         case ADDED:
@@ -97,6 +100,7 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
 
             }
         });
+
 
         discussionRegistration = firestore.collection("Discussions").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
