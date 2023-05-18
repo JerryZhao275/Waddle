@@ -37,6 +37,10 @@ code:
     url: https://www.youtube.com/watch?v=Mc0XT58A1Z4
     licence: CC BY
 
+  - comment: Firebase Scanning for Updates Code from Firebase Website
+    url: https://firebase.google.com/docs/firestore/query-data/listen#java_2
+    licence: fair use
+
 
 # add as many "url+licence+comment" entries as necessary
 # (or remove it altogether if you haven't used any external assets)
@@ -75,7 +79,7 @@ members:
     uid:
   - name:
     uid:
-  - name:
-    uid:
+  - name: Michael Ostapenko
+    uid: u7474428
   - name: Ryan Yoon
     uid: u7124454
