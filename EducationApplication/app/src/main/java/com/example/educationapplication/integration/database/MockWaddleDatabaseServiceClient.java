@@ -5,8 +5,10 @@ import com.example.educationapplication.search.Exp;
 import java.util.List;
 import java.util.UUID;
 
+import dataObjects.CommentDto;
 import dataObjects.CourseDto;
 import dataObjects.CustomOnCompleteListener;
+import dataObjects.DiscussionDto;
 import dataObjects.LoginUserDto;
 import dataObjects.UserDto;
 
@@ -49,12 +51,27 @@ public class MockWaddleDatabaseServiceClient implements WaddleDatabaseServiceCli
     }
 
     @Override
+    public UserDto getOtherUserDetails() {
+        return null;
+    }
+
+    @Override
     public UserDto getUserDetails() {
         return null;
     }
 
     @Override
+    public String getCurrentUserId() {
+        return null;
+    }
+
+    @Override
     public void createNewUserDataInstance(UserDto user, String password, CustomOnCompleteListener listener) {
+
+    }
+
+    @Override
+    public void fetchOtherUserDetails(UserDto user, CustomOnCompleteListener listener) {
 
     }
 
@@ -91,6 +108,11 @@ public class MockWaddleDatabaseServiceClient implements WaddleDatabaseServiceCli
     }
 
     @Override
+    public void addDiscussion(DiscussionDto discussion, CustomOnCompleteListener listener) {
+
+    }
+
+    @Override
     public void synchCourses(CustomOnCompleteListener listener) {
 
     }
@@ -101,13 +123,42 @@ public class MockWaddleDatabaseServiceClient implements WaddleDatabaseServiceCli
     }
 
     @Override
+    public void addComment(CommentDto comment, CustomOnCompleteListener listener) {
+
+    }
+
+    @Override
+    public void addStudentToCourse(String course, CustomOnCompleteListener listener) {
+
+    }
+
+    @Override
     public void signOut() {
         this.currentUser = null;
     }
 
     @Override
     public void signInDataInstances(String email, String password) {
+    }
 
+    @Override
+    public void syncDiscussions(String courseId, CustomOnCompleteListener listener) {
+
+    }
+
+    @Override
+    public List<DiscussionDto> getDiscussions() {
+        return null;
+    }
+
+    @Override
+    public void syncComments(String discussionID,CustomOnCompleteListener listener) {
+
+    }
+
+    @Override
+    public List<CommentDto> getComments() {
+        return null;
     }
 
     @Override
@@ -118,7 +169,7 @@ public class MockWaddleDatabaseServiceClient implements WaddleDatabaseServiceCli
     }
 
     @Override
-    public void createNewUser(UserDto user, String password) {
+    public void createNewUser(UserDto user, String password, CustomOnCompleteListener listener) {
         this.mockedUsers.add(new LoginUserDto(UUID.randomUUID().toString(), user.getUserEmail(), user.getUserEmail(), password));
     }
 

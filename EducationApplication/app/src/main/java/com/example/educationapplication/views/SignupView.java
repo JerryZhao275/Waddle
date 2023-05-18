@@ -11,33 +11,38 @@ import com.example.educationapplication.R;
 import com.example.educationapplication.databinding.SignupBinding;
 import com.example.educationapplication.viewmodels.SignUpViewModel;
 
+import dataObjects.CustomOnCompleteListener;
+
 public class SignupView extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Set up data binding for the activity
         SignupBinding signupBinding = DataBindingUtil.setContentView(this, R.layout.signup);
         signupBinding.setViewModel(new SignUpViewModel());
         signupBinding.setOnSignup(()->{
-            signupBinding.getViewModel().createUser();
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            if(signupBinding.getViewModel().getErrorMessage().equals("")) {
-                finish();
-                Toast toast = Toast.makeText(getApplicationContext(), "Account successfully created!", Toast.LENGTH_SHORT);
-                toast.show();
-                Intent intent = new Intent(getApplicationContext(), LoginView.class);
-                startActivity(intent);
-            }
+            signupBinding.getViewModel().createUser(new CustomOnCompleteListener() {
+                @Override
+                public void onComplete() {
+                    finish();
+                    Toast toast = Toast.makeText(getApplicationContext(), "Account successfully created!", Toast.LENGTH_SHORT);
+                    toast.show();
+                    Intent intent = new Intent(getApplicationContext(), LoginView.class);
+                    startActivity(intent);
+                }
+            });
         });
-        signupBinding.setOnLogin(()->{
+
+        // Set a callback for the login button click event
+        signupBinding.setOnLogin(() -> {
+            // Finish the activity and start the LoginView activity
             finish();
             Intent intent = new Intent(getApplicationContext(), LoginView.class);
             startActivity(intent);
         });
+
+        // Ensure all pending bindings are executed
         signupBinding.executePendingBindings();
     }
-
 }

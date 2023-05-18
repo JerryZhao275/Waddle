@@ -6,12 +6,10 @@ import java.util.List;
 public class TeacherUserDto extends UserDto implements Serializable {
     private Integer age;
     private String school;
-    private List<String> courses = null;
     public TeacherUserDto(){
         super();
         age = 0;
         school = "";
-        courses = null;
     }
     public TeacherUserDto(String userId, String userFirstName, String userLastName, String userName, String userEmail, String userDesc, Integer age, String school) {
         super(userId, userFirstName, userLastName, userName, userEmail, userDesc);
@@ -48,18 +46,6 @@ public class TeacherUserDto extends UserDto implements Serializable {
 
     public Integer getAge(){
         return this.age;
-    }
-
-    public void addCourse(String course){
-        this.courses.add(course);
-    }
-
-    public void addCourses(List<String> courses){
-        this.courses.addAll(courses);
-    }
-
-    public List<String> getCourses(){
-        return courses;
     }
 
 }

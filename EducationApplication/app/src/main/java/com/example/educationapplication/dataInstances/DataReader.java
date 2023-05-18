@@ -60,9 +60,6 @@ public class DataReader {
             String firstName = tokens[0];
             String lastName = tokens[1];
             String email = tokens[2];
-            System.out.println(firstName);
-            System.out.println(lastName);
-            System.out.println(email);
             createUserAndLogin(email, firstName, lastName, new CustomOnCompleteListener() {
                 @Override
                 public void onComplete() {
