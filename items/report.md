@@ -80,7 +80,7 @@ Once a user joins a course, it becomes visible on their dashboard. By clicking o
 ![Key Features](./images/keyfeatures.png) <br>
 
 
-**Application Use Cases and Examples**
+**Application Use Cases and Examples**<br>
 Waddle is primarily targeted towards high school/university students who require a more accessible view of courses, announcements, and simple-to-use discussion forums. Teachers are also encouraged to utilise Waddle to not only be able to send out announcements, but also manage and view their course details with ease.
 
 During a crucial week, the ANU's Wattle page is undergoing maintenance, and Kevin requires access to the COMP2100 course page to check for announcements by Bernado.
@@ -97,8 +97,6 @@ Kate wants to post a question on the discussion forum regarding AVLTrees discuss
    * Kate goes to the COMP2100 course page from her dashboard and selects the discussion forums tab. 
    * Within the discussion forums, Kate creates and posts a new post with a suitable title and writes her question in the post. 
    * Kate doesn't need to reload the page. As soon as Bernado or other users respond to her forum post, their answers will be displayed instantly.
-
-*List all the use cases in text descriptions or create use case diagrams. Please refer to https://www.visual-paradigm.com/guide/uml-unified-modeling-language/what-is-use-case-diagram/ for use case diagram.*
 
 ## Application UML
 **Front End UML**
@@ -174,12 +172,13 @@ Production Rules:
 
 *Here is an example:*
 
-1. *Bug 1:*
+1. Joining course via Enter key bug 
+   * In the dashboard, if a user tries to join classes by pressing the "Enter" key instead of clicking the button, they need to press "Enter" again for the action to take effect. 
+   * However, when the user clicks the button directly, it works smoothly without any issues.
 
-- *A space bar (' ') in the sign in email will crash the application.*
-- ...
+2. User email display bug in UserPage.java
+   * When viewing other users, if a user's email address exceeds the length of the designated white box, the text extends beyond the box boundaries and overlaps with the background.
 
-2. *Bug 2:*
 3. ...
 
 *List all the known errors and bugs here. If we find bugs/errors that your team does not know of, it shows that your testing is not thorough.*
@@ -245,7 +244,7 @@ Production Rules:
 
 
 ### General Features
-Our application consists of 7 implemented features, consisting of 2 **hard**, 3 **medium**, and 2 **easy** features.
+Our application consists of 8 implemented features, consisting of 2 **hard**, 3 **medium**, and 3 **easy** features.
 
 Feature Category: Firebase Integration <br>
 1. [FB-Auth]. Use Firebase to implement User Authentication/Authorisation. **(easy)**
@@ -289,7 +288,6 @@ Feature Category: Search-related features <br>
     * The Firestore Database allows users to search for other users and courses. The search functionality accommodates partially valid queries and returns the most accurate results based on the given query. For example, searching for "COMP" under the classes section will retrieve all courses that contain the substring "COMP". This search is accomplished using the fetchAllUsersForSearch method, which breaks down the user's input string into tokens and analyses it against the attributes of courses and users. It compares each attribute and returns the matching queries.
 
 <img src="./images/invalidsearch.png" alt="Search-Invalid" height="600"><br>
-
 
 Feature Category: User Interactivity <br>
 1. [Interact-Follow]. The ability to ‘follow’ a course or any specific items. **(medium)**
