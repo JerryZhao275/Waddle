@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.educationapplication.R;
@@ -15,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import dataObjects.UserDto;
 
-public class UsersRecyclerViewAdapter extends RecyclerView.Adapter<UsersRecyclerViewAdapter.ViewHolder>{
+public class UsersRecyclerViewAdapter extends RecyclerView.Adapter<UsersRecyclerViewAdapter.ViewHolder> {
     private static Context mContext;
     private static List<UserDto> mData = new ArrayList<UserDto>();
 
@@ -24,53 +23,74 @@ public class UsersRecyclerViewAdapter extends RecyclerView.Adapter<UsersRecycler
         this.mData = mData;
     }
 
-    // inflating layout (giving layout the look)
-
+    /**
+     * Creates and returns a new ViewHolder by inflating the layout.
+     *
+     * @param parent   The parent ViewGroup.
+     * @param viewType The view type of the new ViewHolder.
+     * @return A new ViewHolder that holds the inflated layout.
+     */
     @Override
     public UsersRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v;
-        v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_view_people,parent,false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_view_people, parent, false);
         UsersRecyclerViewAdapter.ViewHolder vHolder = new UsersRecyclerViewAdapter.ViewHolder(v);
 
         return vHolder;
     }
 
-    // assigning values to each rows as they come onto screen
-    // based on position of recycler view
+    /**
+     * Binds the data to the views in each row.
+     *
+     * @param holder   The ViewHolder to bind data to.
+     * @param position The position of the item in the RecyclerView.
+     */
     @Override
     public void onBindViewHolder(UsersRecyclerViewAdapter.ViewHolder holder, int position) {
-
         UserDto user = mData.get(position);
         holder.bind(user);
-
-        // Set item views based on your views and data model
-//        TextView textView = holder.courseName;
-//        textView.setText(course.getCourseName());
     }
 
-    //number of items displayed
+    /**
+     * Returns the number of items in the RecyclerView.
+     *
+     * @return The number of items.
+     */
     @Override
     public int getItemCount() {
         return mData.size();
     }
 
-
-    // grabbing views from recycler view layout
-    // Recycler view equivalent to onCreate method
+    /**
+     * ViewHolder class representing each item in the RecyclerView.
+     */
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        //private TextView userName;
         private TextView userName;
+
+        /**
+         * Constructor for the ViewHolder.
+         *
+         * @param item The item view for the ViewHolder.
+         */
         public ViewHolder(View item) {
             super(item);
             userName = item.findViewById(R.id.name);
             item.setOnClickListener(this);
-
         }
 
+        /**
+         * Binds the data to the views in the ViewHolder.
+         *
+         * @param user The UserDto object containing the user information.
+         */
         public void bind(UserDto user) {
             userName.setText(user.getUserFirstName() + " " + user.getUserLastName());
         }
 
+        /**
+         * Handles the click event when an item is clicked.
+         *
+         * @param view The clicked view.
+         */
         @Override
         public void onClick(View view) {
             int position = getAdapterPosition();

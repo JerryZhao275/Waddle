@@ -315,6 +315,14 @@ Feature Category: User Interactivity <br>
     * Both teachers and students have the option to join classes by either entering a class code using the expandable button or manually searching for a course through the app's search function. When a user tries to join a course, the joinCourse method in UserViewModel.java is executed, adding the queried course to the user's list of courses. The updated list of courses is then displayed in DashboardFragment.java, where the user can click on each course to access its content, view participants, and access discussion forums.
 
 
+Feature Category: Greater Data Usage, Handling and Sophistication <br>
+1. [Data-Profile] User profile or Course material activity containing a media file (image, animation (e.g. gif), video). **(easy)**
+   * Classes utilised:
+     * activity_user_page.xml
+     * profile_fragment.xml
+   * 
+
+
 Feature Category: UI Design and Testing <br>
 1. [UI-Test]. UI tests using espresso or similar. **(hard)**
    * Classes utilised:
