@@ -42,8 +42,8 @@ public class LoginView extends AppCompatActivity {
         // Ensure all pending bindings are executed
         loginBinding.executePendingBindings();
 
-        DataReader newr = new DataReader();
-        newr.getUserInfo(LoginView.this);
+        //DataReader newr = new DataReader();
+        //newr.getUserInfo(LoginView.this);
 
     }
 
