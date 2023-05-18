@@ -306,8 +306,7 @@ Feature Category: Greater Data Usage, Handling and Sophistication <br>
      * activity_user_page.xml
      * profile_fragment.xml
    * 
-
-![Data-Profile](./images/dataprofile.png) <br>
+<img src="./images/dataprofile.png" alt="Data Profile" height="300">
 
 Feature Category: UI Design and Testing <br>
 1. [UI-Test]. UI tests using espresso or similar. **(hard)**
