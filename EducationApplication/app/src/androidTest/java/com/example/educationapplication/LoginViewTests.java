@@ -5,6 +5,7 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
@@ -41,7 +42,7 @@ public class LoginViewTests {
     }
 
     @Test
-    public void correct_password_changes_views_to_main() {
+    public void test_invalid_email_path_works() {
         onView(withId(R.id.editTextEmail)).perform(
                 typeText("not even an email"),
                 closeSoftKeyboard()
@@ -54,4 +55,20 @@ public class LoginViewTests {
 
         onView(withId(R.id.errorText)).check(matches(withText("Invalid email. Check your spelling and try again.")));
     }
+
+    @Test
+    public void test_correct_password_leads_to_dashboard() {
+        onView(withId(R.id.editTextEmail)).perform(
+                typeText("u7499989@anu.edu.au"),
+                closeSoftKeyboard()
+        );
+        onView(withId(R.id.editTextPassword)).perform(
+                typeText("password1"),
+                closeSoftKeyboard()
+        );
+        onView(withId(R.id.loginButton)).perform(click());
+
+        onView(withId(R.id.dashboardText)).check(matches(isDisplayed()));
+    }
+
 }
