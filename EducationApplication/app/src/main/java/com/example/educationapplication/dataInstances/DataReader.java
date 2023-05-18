@@ -94,8 +94,6 @@ public class DataReader {
         getDatabaseServiceClient().createNewUserDataInstance(newUser, password, new CustomOnCompleteListener() {
             @Override
             public void onComplete() {
-
-
                 listener.onComplete();
             }
         });
