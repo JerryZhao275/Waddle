@@ -193,15 +193,34 @@ Production Rules:
     * rightRotate
     * leftRotate
 
-*Here is an example:*
+**LoginPageTests.java**
+- Number of test cases: 5
+- Code coverage: 100% line by line of the LoginViewModel.java class
+- Tests created:
+    * Tests getters and setters are functional in the login page view model
+    * Tests that empty fields in the page causes an error pop up
+    * Tests that incorrect passwords cause an error
+    * Tests that an invalid user causes an error
+    * Tests that a correct login flags the model to be authorised to continue
 
-- *Number of test cases: ...*
+**RegexTests.java**
+- Number of test cases: 1
+- Code coverage: 100% of CommonRegexUtil 
+- Tests created:
+    * Checks the email regex against a sample of valid and invalid emails
 
-- *Code coverage: ...*
+**DashboardTests.java**
+- Number of test cases: 4
+- Code coverage: N/A (UI test)
+- Tests created:
+    * These four tests assert that the four tabs show their respective displays
 
-- *Types of tests created: ...*
+**LoginViewTests.java**
+- Number of test cases: 4
+- Code coverage: N/A (UI test)
+- Tests created:
+    * Mirrors the LoginPageTests logic tests, but in the UI using Espresso
 
-*Please provide some screenshots of your testing summary, showing the achieved testing coverage. Feel free to provide further details on your tests.*
 
 ## Implemented Features
 
@@ -307,6 +326,9 @@ Feature Category: Greater Data Usage, Handling and Sophistication <br>
 Feature Category: UI Design and Testing <br>
 1. [UI-Test]. UI tests using espresso or similar. **(hard)**
    * Classes utilised:
+     * DashboardTests.java
+     * LoginViewTests.java
+   * These tests open the Android emulator in the IDE and press various buttons across the UI to make assertions against the true functionality of the app, as it would appear to the user, rather than just asserting against the logic that may or may not have been bridged correctly to the real-life observer.
 
 
 ## Team Meetings
