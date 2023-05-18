@@ -37,7 +37,7 @@ public class DataReader {
     private BufferedReader loginBufferedReader;
     public void getUserInfo(Context context) {
         try {
-            loginBufferedReader = new BufferedReader(new InputStreamReader(context.getAssets().open("dataInstances.csv"), StandardCharsets.UTF_8));
+            loginBufferedReader = new BufferedReader(new InputStreamReader(context.getAssets().open("testInstance.csv"), StandardCharsets.UTF_8));
             line = loginBufferedReader.readLine();
             dataLooper();
         } catch (IOException e) {
