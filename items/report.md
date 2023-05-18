@@ -223,7 +223,7 @@ Production Rules:
         * database/FirebaseWaddleDatabaseServiceClient.java, createNewUser, signIn, lines of code: 88-152*
     * Users can login to the app using an existing Firebase account. When a user enters their email and password on the login page, the app checks if the credentials match an existing user in the Firebase database. If there is a match, the user is directed to the dashboard fragment. The login page also implements null safe exceptions such as the user not entering an email or password, or entering a string not in the form of an email. All of these exceptions result in a concise error message being returned at the bottom of the screen for the user
 
-<img src="./images/login.png" alt="Login" height="600">
+<img src="./images/login.png" alt="Login" height="600"><br>
 
 2. [2500 Data Instances]. There must be data file(s) with at least 2,500 valid data instances **(easy)**
     * Classes/files utilised:
@@ -236,12 +236,12 @@ Production Rules:
     - Classes utilised: All ViewModel, View and Firebase related classes.
     - The app retrieves data from Firebase to display information across most of its activities and fragments. This data includes a user's course list, course participants, and their roles as either a student or teacher. The information is utilised across the application and is mainly displayed within the four primary fragments. This is performed through a ClassBinding variable within a View class, which can be set to utilise a ViewModel class. Hence, we can use our defined methods, getters/setters in our ViewModel class to return a user's information and display it on our application UI.
 
-<img src="./images/loadinfo.png" alt="Load Data/Information" height="600">
+<img src="./images/loadinfo.png" alt="Load Data/Information" height="600"><br>
 
 5. [Search by Parsers/Tokenisers]. Users must be able to search for information on your app. **(medium)**
     - To be added
 
-<img src="./images/search.png" alt="Search by Parsers/Tokenisers" height="600">
+<img src="./images/search.png" alt="Search by Parsers/Tokenisers" height="600"><br>
 
 
 ### General Features
@@ -276,7 +276,7 @@ Feature Category: Creating Processes <br>
         * DashboardFragment.java
     * Within the UserViewModel.java class, a boolean variable isStudent is used to indicate whether the user is a student or not by using the instanceof keyword with StudentDto and TeacherDto. The permission of certain users is implemented by an OnClickListener within a lambda function setExpandButton which is executed on the click of the expandable button. For a teacher, both create class and join class options will be displayed, but when the student attempts to expand the button, only the join class button will display.
 
-<img src="./images/processpermission.png" alt="Process-Permission" height="600">
+<img src="./images/processpermission.png" alt="Process-Permission" height="600"><br>
 
 Feature Category: Search-related features <br>
 1. [Search-Invalid]. Search functionality can handle partially valid and invalid search queries. **(medium)**
@@ -288,7 +288,7 @@ Feature Category: Search-related features <br>
       * SearchFragment.java
     * The Firestore Database allows users to search for other users and courses. The search functionality accommodates partially valid queries and returns the most accurate results based on the given query. For example, searching for "COMP" under the classes section will retrieve all courses that contain the substring "COMP". This search is accomplished using the fetchAllUsersForSearch method, which breaks down the user's input string into tokens and analyses it against the attributes of courses and users. It compares each attribute and returns the matching queries.
 
-<img src="./images/invalidsearch.png" alt="Search-Invalid" height="600">
+<img src="./images/invalidsearch.png" alt="Search-Invalid" height="600"><br>
 
 
 Feature Category: User Interactivity <br>
@@ -299,7 +299,7 @@ Feature Category: User Interactivity <br>
         * database/FirebaseWaddleDatabaseServiceClient
     * Both teachers and students have the option to join classes by either entering a class code using the expandable button or manually searching for a course through the app's search function. When a user tries to join a course, the joinCourse method in UserViewModel.java is executed, adding the queried course to the user's list of courses. The updated list of courses is then displayed in DashboardFragment.java, where the user can click on each course to access its content, view participants, and access discussion forums.
 
-<img src="./images/interactfollow.png" alt="Interact-Follow" height="600">
+<img src="./images/interactfollow.png" alt="Interact-Follow" height="600"><br>
 
 Feature Category: Greater Data Usage, Handling and Sophistication <br>
 1. [Data-Profile] User profile or Course material activity containing a media file (image, animation (e.g. gif), video). **(easy)**
@@ -307,7 +307,7 @@ Feature Category: Greater Data Usage, Handling and Sophistication <br>
      * activity_user_page.xml
      * profile_fragment.xml
    * 
-<img src="./images/dataprofile.png" alt="Data Profile" height="600">
+<img src="./images/dataprofile.png" alt="Data Profile" height="600"><br>
 
 Feature Category: UI Design and Testing <br>
 1. [UI-Test]. UI tests using espresso or similar. **(hard)**
