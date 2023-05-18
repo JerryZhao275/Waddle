@@ -42,6 +42,7 @@ public class LoginView extends AppCompatActivity {
         // Ensure all pending bindings are executed
         loginBinding.executePendingBindings();
 
+        //Code for adding 2500 data instances
         //DataReader newr = new DataReader();
         //newr.getUserInfo(LoginView.this);
 

@@ -702,21 +702,19 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
                     firestore.collection("Users").document(currentUser.getUid()).set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                                    firestore.collection("Courses").document(newList.get(0).substring(4)).update("allStudents", FieldValue.arrayUnion(user.getUserId())).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if (task.isSuccessful()) {
-                                                firestore.collection("Users").document(user.getUserId()).update("courses", FieldValue.arrayUnion(newList.get(0))).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                        listener.onComplete();
-                                                    }
-                                                });
+                            firestore.collection("Courses").document(newList.get(0).substring(4)).update("allStudents", FieldValue.arrayUnion(user.getUserId())).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        firestore.collection("Users").document(user.getUserId()).update("courses", FieldValue.arrayUnion(newList.get(0))).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                listener.onComplete();
                                             }
-                                        }
-                                    });
-                                    listener.onComplete();
-
+                                        });
+                                    }
+                                }
+                            });
                             listener.onComplete();
                         }
                     });
