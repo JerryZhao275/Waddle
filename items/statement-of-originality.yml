@@ -29,9 +29,10 @@ collaboration:
 # add as many "url+licence+comment" entries as necessary
 # (or remove it altogether if you haven't used any external code)
 code:
-  - comment:
-    url:
-    licence:
+  - comment: Firebase Scanning for Updates Code from Firebase Website
+    url: https://firebase.google.com/docs/firestore/query-data/listen#java_2
+    licence: fair use
+
 
 
 # add as many "url+licence+comment" entries as necessary
@@ -69,5 +70,5 @@ members:
     uid:
   - name:
     uid:
-  - name:
-    uid:
+  - name: Michael Ostapenko
+    uid: u7474428
