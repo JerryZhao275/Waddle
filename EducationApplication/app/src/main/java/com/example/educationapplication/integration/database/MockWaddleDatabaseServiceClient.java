@@ -169,7 +169,7 @@ public class MockWaddleDatabaseServiceClient implements WaddleDatabaseServiceCli
     }
 
     @Override
-    public void createNewUser(UserDto user, String password) {
+    public void createNewUser(UserDto user, String password, CustomOnCompleteListener listener) {
         this.mockedUsers.add(new LoginUserDto(UUID.randomUUID().toString(), user.getUserEmail(), user.getUserEmail(), password));
     }
 

@@ -1,20 +1,16 @@
 package com.example.educationapplication.viewmodels;
 
-import androidx.databinding.Bindable;
-
 import com.example.educationapplication.integration.database.WaddleDatabaseServiceClient;
 import com.example.educationapplication.integration.database.WaddleDatabaseServiceClientFactory;
 import com.example.educationapplication.integration.database.config.ConfigurationManager;
 import com.example.educationapplication.integration.database.config.WaddleDatabaseConfiguration;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import com.example.educationapplication.search.dataObjects.CourseDto;
-import com.example.educationapplication.search.dataObjects.CustomOnCompleteListener;
-import com.example.educationapplication.search.dataObjects.DiscussionDto;
-import com.example.educationapplication.search.dataObjects.UserDto;
+import dataObjects.CourseDto;
+import dataObjects.CustomOnCompleteListener;
+import dataObjects.DiscussionDto;
+import dataObjects.UserDto;
 
 public class DiscussionViewModel {
     private String content;
@@ -27,7 +23,7 @@ public class DiscussionViewModel {
     private final WaddleDatabaseConfiguration config;
     private final WaddleDatabaseServiceClient databaseServiceClient;
 
-    public DiscussionViewModel(CourseDto course, CustomOnCompleteListener listener){
+    public DiscussionViewModel(CourseDto course, CustomOnCompleteListener listener) {
         courseId = course.getCourseName();
         config = ConfigurationManager.configInstance();
         databaseServiceClient = WaddleDatabaseServiceClientFactory.createClient(config);
@@ -35,7 +31,7 @@ public class DiscussionViewModel {
             @Override
             public void onComplete() {
                 UserDto user = databaseServiceClient.getUserDetails();
-                author = user.getUserFirstName()+" "+user.getUserLastName();
+                author = user.getUserFirstName() + " " + user.getUserLastName();
                 authorId = user.getUserId();
                 userDetails = user;
             }
@@ -43,11 +39,21 @@ public class DiscussionViewModel {
         syncDiscussions(listener);
     }
 
-    public UserDto getUserDetails(){
+    /**
+     * Get the user details associated with the discussion.
+     *
+     * @return The user details.
+     */
+    public UserDto getUserDetails() {
         return userDetails;
     }
 
-    public void syncDiscussions(CustomOnCompleteListener listener){
+    /**
+     * Synchronize the discussions for the course from the database.
+     *
+     * @param listener The listener to be called when the synchronization is complete.
+     */
+    public void syncDiscussions(CustomOnCompleteListener listener) {
         databaseServiceClient.syncDiscussions(courseId, new CustomOnCompleteListener() {
             @Override
             public void onComplete() {
@@ -57,8 +63,14 @@ public class DiscussionViewModel {
         });
     }
 
-    public void addDiscussion(DiscussionDto discussion, CustomOnCompleteListener listener){
-        discussion.setDiscussionID(courseId+"-"+(discussions.size()+1));
+    /**
+     * Add a new discussion to the database.
+     *
+     * @param discussion The discussion to be added.
+     * @param listener   The listener to be called when the addition is complete.
+     */
+    public void addDiscussion(DiscussionDto discussion, CustomOnCompleteListener listener) {
+        discussion.setDiscussionID(courseId + "-" + (discussions.size() + 1));
         discussion.setAuthor(author);
         discussion.setAuthorID(authorId);
         discussion.setCourseID(courseId);
@@ -70,19 +82,31 @@ public class DiscussionViewModel {
         });
     }
 
-    public List<DiscussionDto> getDiscussions(){
+    /**
+     * Get the discussions associated with the course.
+     *
+     * @return The list of discussions.
+     */
+    public List<DiscussionDto> getDiscussions() {
         return discussions;
     }
 
+    /**
+     * Get the content of the discussion.
+     *
+     * @return The content of the discussion.
+     */
     public String getDiscussionContent() {
         return content;
     }
 
+    /**
+     * Set the content of the discussion.
+     *
+     * @param content The content of the discussion.
+     */
     public void setDiscussionContent(String content) {
         this.content = content;
         //notifyPropertyChanged(BR.discussionContent);
     }
-
-
-
 }

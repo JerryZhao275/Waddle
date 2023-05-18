@@ -171,9 +171,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
 
         // Handle join class button click
         fragBinding.setJoinClass((code) -> {
-            System.out.println("||||||||||||||");
-            System.out.println(fragBinding.getViewModel().getFirstName());
-            System.out.println(fragBinding.getViewModel().getCourses());
             fragBinding.getViewModel().joinCourse(code, new CustomOnCompleteListener() {
                 @Override
                 public void onComplete() {

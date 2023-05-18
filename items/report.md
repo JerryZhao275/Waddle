@@ -63,7 +63,6 @@ The following is a report template to help your team successfully provide all th
 *[Miscellaneous contributions. You are welcome to provide anything that you consider as a contribution to the project or team.]*
 
 ## Conflict Resolution Protocol
-
 1. Define the source of the conflict: The mediator will initiate communication with all team members and identify where the conflict lies.
 2. Look beyond the incident: Party members will act professionally to not let personal emotions play a part in your actions.
 3. Request solutions: The mediator will ask all party members for solutions. If a solution cannot be thought of, then the party's perspective on the situation should be said.
@@ -78,14 +77,11 @@ Waddle offers a user-friendly sign-up process where users can easily create an a
 
 Once a user joins a course, it becomes visible on their dashboard. By clicking on the course, users can access information like course content, participants, and discussion forums. The search tab allows users to find and connect with friends, view their enrolled courses, and access their email addresses. In the profile tab, users can view their personal information, including full name, user status, and a list of enrolled courses. Additionally, a convenient logout function is available in the profile tab for users who wish to log out.
 
+![Key Features](./images/keyfeatures.png) <br>
 
-*[What is your application, what does it do? Include photos or diagrams if necessary]*
 
-
-**Application Use Cases and Examples**
-
+**Application Use Cases and Examples**<br>
 Waddle is primarily targeted towards high school/university students who require a more accessible view of courses, announcements, and simple-to-use discussion forums. Teachers are also encouraged to utilise Waddle to not only be able to send out announcements, but also manage and view their course details with ease.
-
 
 During a crucial week, the ANU's Wattle page is undergoing maintenance, and Kevin requires access to the COMP2100 course page to check for announcements by Bernado.
    * Kevin can log in to the application and utilise the search feature to find the COMP2100 course. 
@@ -102,44 +98,31 @@ Kate wants to post a question on the discussion forum regarding AVLTrees discuss
    * Within the discussion forums, Kate creates and posts a new post with a suitable title and writes her question in the post. 
    * Kate doesn't need to reload the page. As soon as Bernado or other users respond to her forum post, their answers will be displayed instantly.
 
-*List all the use cases in text descriptions or create use case diagrams. Please refer to https://www.visual-paradigm.com/guide/uml-unified-modeling-language/what-is-use-case-diagram/ for use case diagram.*
-
 ## Application UML
+**Front End UML**
+![Front End UML](./images/frontendUML.png) <br>
 
-![ClassDiagramExample](./images/ClassDiagramExample.png) <br>
-*[Replace the above with a class diagram. You can look at how we have linked an image here as an example of how you can do it too.]*
+**Back End UML**
+![Back End UML](./images/backendUML.png) <br>
+
 
 ## Application Design and Decisions
-
-
-*Please give clear and concise descriptions for each subsections of this part. It would be better to list all the concrete items for each subsection and give no more than `5` concise, crucial reasons of your design. Here is an example for the subsection `Data Structures`:*
-
 *We used the following data structures in our project:*
 
 **Data Structures**
 
 1. **List**
-
     * Objective: Lists are used to primarily store a user’s courses. It is also used in custom adapter classes for displaying courses or course participants as a scrollable list in the app.
-
     * Locations: MockWaddleDatabaseServiceClient.java, WaddleDatabaseServiceClientFactory.java , ListViewAdapter.java, RecyclerViewAdapter.java, UserViewModel.java, AdminUserDto.java, CourseDto.java, StudentUserDto.java, TeacherUserDto.java
-
     * Reasons:
-
         * Lists were used for these classes to handle insertion/deletion operations and memory allocations. If a course is to be added/deleted within the
 
 2. **AVL Tree**
-
     * Objective: AVL Trees are used for storing and managing all courses which exist in the Waddle firebase
-
     * Locations: CourseAVL.java
-
     * Reasons:
-
         * The addition of an arbitrary amount of classes will add complexity to the program, making it slower for the user to navigate the application.
-
         * Using a tree lowers insertion time to O(log n) giving a worst case of O(n log n) which is significantly less time complexity compared to that of an array.
-
 
 
 **Design Patterns**
@@ -162,10 +145,6 @@ Kate wants to post a question on the discussion forum regarding AVLTrees discuss
    * The facade design pattern played a crucial role in our project, serving as the main architectural framework for our application. We organized all the Firebase-related logic into the database folder and accessed it through the viewmodel course, incorporating additional logic when necessary. This approach allowed us to present a simplified interface for a sophisticated subsystem that encompassed numerous interconnected elements. Given the complexity of our application, which involved multiple features and intricate logic for seamless integration, the facade design pattern greatly facilitated the overall development process.
 
 
-*[What other design decisions have you made which you feel are relevant? Feel free to separate these into their own subheadings.]*
-
-*[What design patterns did your team utilise? Where and why?]*
-
 **Grammar(s)**
 
 Production Rules:
@@ -181,10 +160,6 @@ Production Rules:
 
 *[Where do you use tokenisers and parsers? How are they built? What are the advantages of the designs?]*
 
-**Surprise Item**
-
-*[If you implement the surprise item, explain how your solution addresses the surprise task. What decisions do your team make in addressing the problem?]*
-
 **Android MVVM Design Pattern**
 * The MVVM Design pattern was utilised for all files in the model, view, and viewmodel files.
 * Implementing all the functionality and firebase logic in a single class or activity would lead to problems in testing and refactoring the code. This is due to difficulty and unreliability in testing two components of an application simultaneously. Hence, the separation of code and clean architecture can allow us to develop a Mock database to test easily against our program and its individual components.
@@ -193,16 +168,13 @@ Production Rules:
 
 ## Summary of Known Errors and Bugs
 
-*[Where are the known errors and bugs? What consequences might they lead to?]*
+1. Joining course via Enter key bug 
+   * In the dashboard, if a user tries to join classes by pressing the "Enter" key instead of clicking the button, they need to press "Enter" again for the action to take effect. 
+   * However, when the user clicks the button directly, it works smoothly without any issues.
 
-*Here is an example:*
+2. User email display bug in UserPage.java
+   * When viewing other users, if a user's email address exceeds the length of the designated white box, the text extends beyond the box boundaries and overlaps with the background.
 
-1. *Bug 1:*
-
-- *A space bar (' ') in the sign in email will crash the application.*
-- ...
-
-2. *Bug 2:*
 3. ...
 
 *List all the known errors and bugs here. If we find bugs/errors that your team does not know of, it shows that your testing is not thorough.*
@@ -246,6 +218,8 @@ Production Rules:
         * database/FirebaseWaddleDatabaseServiceClient.java, createNewUser, signIn, lines of code: 88-152*
     * Users can login to the app using an existing Firebase account. When a user enters their email and password on the login page, the app checks if the credentials match an existing user in the Firebase database. If there is a match, the user is directed to the dashboard fragment. The login page also implements null safe exceptions such as the user not entering an email or password, or entering a string not in the form of an email. All of these exceptions result in a concise error message being returned at the bottom of the screen for the user
 
+<img src="./images/login.png" alt="Login" height="600"><br>
+
 2. [2500 Data Instances]. There must be data file(s) with at least 2,500 valid data instances **(easy)**
     * Classes/files utilised:
       * DataReader.java
@@ -257,14 +231,16 @@ Production Rules:
     - Classes utilised: All ViewModel, View and Firebase related classes.
     - The app retrieves data from Firebase to display information across most of its activities and fragments. This data includes a user's course list, course participants, and their roles as either a student or teacher. The information is utilised across the application and is mainly displayed within the four primary fragments. This is performed through a ClassBinding variable within a View class, which can be set to utilise a ViewModel class. Hence, we can use our defined methods, getters/setters in our ViewModel class to return a user's information and display it on our application UI.
 
+<img src="./images/loadinfo.png" alt="Load Data/Information" height="600"><br>
 
 5. [Search by Parsers/Tokenisers]. Users must be able to search for information on your app. **(medium)**
     - To be added
 
+<img src="./images/search.png" alt="Search by Parsers/Tokenisers" height="600"><br>
 
 
 ### General Features
-Our application consists of 7 implemented features, consisting of 2 **hard**, 3 **medium**, and 2 **easy** features.
+Our application consists of 8 implemented features, consisting of 2 **hard**, 3 **medium**, and 3 **easy** features.
 
 Feature Category: Firebase Integration <br>
 1. [FB-Auth]. Use Firebase to implement User Authentication/Authorisation. **(easy)**
@@ -295,6 +271,8 @@ Feature Category: Creating Processes <br>
         * DashboardFragment.java
     * Within the UserViewModel.java class, a boolean variable isStudent is used to indicate whether the user is a student or not by using the instanceof keyword with StudentDto and TeacherDto. The permission of certain users is implemented by an OnClickListener within a lambda function setExpandButton which is executed on the click of the expandable button. For a teacher, both create class and join class options will be displayed, but when the student attempts to expand the button, only the join class button will display.
 
+<img src="./images/processpermission.png" alt="Process-Permission" height="600"><br>
+
 Feature Category: Search-related features <br>
 1. [Search-Invalid]. Search functionality can handle partially valid and invalid search queries. **(medium)**
     * Classes utilised:
@@ -305,6 +283,7 @@ Feature Category: Search-related features <br>
       * SearchFragment.java
     * The Firestore Database allows users to search for other users and courses. The search functionality accommodates partially valid queries and returns the most accurate results based on the given query. For example, searching for "COMP" under the classes section will retrieve all courses that contain the substring "COMP". This search is accomplished using the fetchAllUsersForSearch method, which breaks down the user's input string into tokens and analyses it against the attributes of courses and users. It compares each attribute and returns the matching queries.
 
+<img src="./images/invalidsearch.png" alt="Search-Invalid" height="600"><br>
 
 Feature Category: User Interactivity <br>
 1. [Interact-Follow]. The ability to ‘follow’ a course or any specific items. **(medium)**
@@ -314,17 +293,23 @@ Feature Category: User Interactivity <br>
         * database/FirebaseWaddleDatabaseServiceClient
     * Both teachers and students have the option to join classes by either entering a class code using the expandable button or manually searching for a course through the app's search function. When a user tries to join a course, the joinCourse method in UserViewModel.java is executed, adding the queried course to the user's list of courses. The updated list of courses is then displayed in DashboardFragment.java, where the user can click on each course to access its content, view participants, and access discussion forums.
 
+<img src="./images/interactfollow.png" alt="Interact-Follow" height="600"><br>
+
+Feature Category: Greater Data Usage, Handling and Sophistication <br>
+1. [Data-Profile] User profile or Course material activity containing a media file (image, animation (e.g. gif), video). **(easy)**
+   * Classes utilised:
+     * activity_user_page.xml
+     * profile_fragment.xml
+   * 
+
+<img src="./images/dataprofile.png" alt="Data Profile" height="600"><br>
 
 Feature Category: UI Design and Testing <br>
 1. [UI-Test]. UI tests using espresso or similar. **(hard)**
    * Classes utilised:
 
 
-*List all features you have completed in their separate categories with their difficulty classification. If they are features that are suggested and approved, please state this somewhere as well.*
-
 ## Team Meetings
-
-*Here is an example (you could start numbering your meetings from 1):*
 
 - *[Team Meeting 1](./meeting1.md)*
 - *[Team Meeting 2](./meeting2.md)*
@@ -332,7 +317,3 @@ Feature Category: UI Design and Testing <br>
 - *[Team Meeting 4](./meeting4.md)*
 - *[Team Meeting 5](./meeting5.md)*
 - *[Team Meeting 6](./meeting6.md)*
-
-* Link to the minutes of your meetings as above. There must be at least 4 team meetings.
-  Note that you must commit your minute meetings shortly after your meeting has taken place (e.g., within 24h), otherwise your meeting minute will not be accepted.
-  Your meetings (and each member's commits) should also have a reasonable date span across Week 6 to 11.*

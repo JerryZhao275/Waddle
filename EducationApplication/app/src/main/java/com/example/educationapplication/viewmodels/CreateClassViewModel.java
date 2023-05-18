@@ -2,6 +2,7 @@ package com.example.educationapplication.viewmodels;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
+
 import com.example.educationapplication.BR;
 import com.example.educationapplication.integration.database.WaddleDatabaseServiceClient;
 import com.example.educationapplication.integration.database.WaddleDatabaseServiceClientFactory;
@@ -19,41 +20,74 @@ public class CreateClassViewModel extends BaseObservable {
     private TeacherUserDto teacher;
     private final WaddleDatabaseConfiguration config;
     private final WaddleDatabaseServiceClient databaseServiceClient;
-    public CreateClassViewModel(){
+
+    public CreateClassViewModel() {
         config = ConfigurationManager.configInstance();
         databaseServiceClient = WaddleDatabaseServiceClientFactory.createClient(config);
         course = new CourseDto();
     }
-    public void setTeacher(TeacherUserDto teacher){
+
+    /**
+     * Set the teacher for the course.
+     *
+     * @param teacher The teacher for the course.
+     */
+    public void setTeacher(TeacherUserDto teacher) {
         this.teacher = teacher;
     }
+
+    /**
+     * Get the course name.
+     *
+     * @return The course name.
+     */
     @Bindable
-    public String getCourseName(){
+    public String getCourseName() {
         return courseName;
     }
 
-    public void setCourseName(String courseName){
+    /**
+     * Set the course name.
+     *
+     * @param courseName The course name to be set.
+     */
+    public void setCourseName(String courseName) {
         this.courseName = courseName;
         course.setCourseName(courseName);
         notifyPropertyChanged(BR.courseName);
     }
 
+    /**
+     * Get the course description.
+     *
+     * @return The course description.
+     */
     @Bindable
-    public String getCourseDescription(){
+    public String getCourseDescription() {
         return courseDescription;
     }
 
-    public void setCourseDescription(String courseDescription){
+    /**
+     * Set the course description.
+     *
+     * @param courseDescription The course description to be set.
+     */
+    public void setCourseDescription(String courseDescription) {
         this.courseDescription = courseDescription;
         course.setCourseDescription(courseDescription);
         System.out.println(this.courseDescription);
         notifyPropertyChanged(BR.courseDescription);
     }
 
-    public void createCourse(CustomOnCompleteListener listener){
-        String first = courseName.substring(0,4);
+    /**
+     * Create a new course.
+     *
+     * @param listener The listener to be notified when the course creation is complete.
+     */
+    public void createCourse(CustomOnCompleteListener listener) {
+        String first = courseName.substring(0, 4);
         String second = courseName.substring(4);
-        if(!first.matches("[0-9]+")&&second.matches("[0-9]+")&&second.length()==4&&first.length()==4){
+        if (!first.matches("[0-9]+") && second.matches("[0-9]+") && second.length() == 4 && first.length() == 4) {
             System.out.println("Yo");
             course.setCourseId(Integer.parseInt(second));
             System.out.println(teacher);

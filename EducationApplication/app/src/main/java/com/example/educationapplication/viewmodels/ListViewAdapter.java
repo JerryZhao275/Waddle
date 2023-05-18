@@ -1,4 +1,5 @@
 package com.example.educationapplication.viewmodels;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,15 +13,13 @@ import com.example.educationapplication.integration.database.WaddleDatabaseServi
 import com.example.educationapplication.integration.database.config.ConfigurationManager;
 import com.example.educationapplication.integration.database.config.WaddleDatabaseConfiguration;
 import com.example.educationapplication.search.Exp;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
-
-import com.example.educationapplication.search.dataObjects.CourseDto;
-import com.example.educationapplication.search.dataObjects.CustomOnCompleteListener;
-import com.example.educationapplication.search.dataObjects.UserDto;
+import dataObjects.CourseDto;
+import dataObjects.CustomOnCompleteListener;
+import dataObjects.UserDto;
 
 public class ListViewAdapter extends BaseAdapter {
     Context mContext;
@@ -39,23 +38,32 @@ public class ListViewAdapter extends BaseAdapter {
         databaseServiceClient = WaddleDatabaseServiceClientFactory.createClient(config);
         mContext = context;
         inflater = LayoutInflater.from(mContext);
-
     }
 
+    /**
+     * Get the display list of items.
+     *
+     * @return The display list as an array of strings.
+     */
     public String[] getDisplayList() {
         return displayList.toArray(new String[0]);
     }
 
+    /**
+     * Filter the user list based on the provided expression.
+     *
+     * @param expression The expression to filter the user list.
+     * @param listener   The listener to be called when the filtering operation is complete.
+     */
     public void filterUserList(Exp expression, CustomOnCompleteListener listener) {
         databaseServiceClient.fetchAllUsersForSearch(expression, new CustomOnCompleteListener() {
             @Override
             public void onComplete() {
                 users = databaseServiceClient.getQueryUsers();
                 List<String> userNames = new ArrayList<>();
-                for(UserDto user: users){
-                    userNames.add(user.getUserFirstName()+" "+user.getUserLastName());
+                for (UserDto user : users) {
+                    userNames.add(user.getUserFirstName() + " " + user.getUserLastName());
                 }
-                System.out.println(userNames);
                 displayList = userNames;
                 notifyDataSetChanged();
                 listener.onComplete();
@@ -63,16 +71,21 @@ public class ListViewAdapter extends BaseAdapter {
         });
     }
 
+    /**
+     * Filter the course list based on the provided expression.
+     *
+     * @param expression The expression to filter the course list.
+     * @param listener   The listener to be called when the filtering operation is complete.
+     */
     public void filterCourseList(Exp expression, CustomOnCompleteListener listener) {
         databaseServiceClient.fetchAllCoursesForSearch(expression, new CustomOnCompleteListener() {
             @Override
             public void onComplete() {
                 courses = databaseServiceClient.getQueryCourses();
                 List<String> courseNames = new ArrayList<>();
-                for(CourseDto course: courses){
-                    courseNames.add( course.getCourseDescription());
+                for (CourseDto course : courses) {
+                    courseNames.add(course.getCourseDescription());
                 }
-                System.out.println(courseNames);
                 displayList = courseNames;
                 notifyDataSetChanged();
                 listener.onComplete();
@@ -84,16 +97,19 @@ public class ListViewAdapter extends BaseAdapter {
         TextView name;
     }
 
+    //Return size of the list
     @Override
     public int getCount() {
         return displayList.size();
     }
 
+    //Return the item at the position given in the list
     @Override
     public String getItem(int position) {
         return displayList.get(position);
     }
 
+    //Return the item ID
     @Override
     public long getItemId(int position) {
         return position;
@@ -115,13 +131,17 @@ public class ListViewAdapter extends BaseAdapter {
         return view;
     }
 
+    /**
+     * Filter the display list based on the provided search query.
+     *
+     * @param charText The search query to filter the display list.
+     */
     public void filter(String charText) {
         charText = charText.toLowerCase(Locale.getDefault());
         List<String> filteredList = new ArrayList<>();
         if (charText.length() == 0) {
             filteredList.addAll(displayList);
-        }
-        else {
+        } else {
             for (String listNames : displayList) {
                 if (listNames.toLowerCase(Locale.getDefault()).contains(charText)) {
                     filteredList.add(listNames);
@@ -132,15 +152,26 @@ public class ListViewAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    /**
+     * Update the data displayed in the adapter with new data.
+     *
+     * @param newData The new data to be displayed.
+     */
     public void updateData(String[] newData) {
         displayList = Arrays.asList(newData);
         notifyDataSetChanged();
     }
 
+    /**
+     * Display the people in the list.
+     */
     public void displayPeople() {
         displayList = List.of(namesList);
-        
     }
+
+    /**
+     * Display the classes in the list.
+     */
     public void displayClasses() {
         displayList = List.of(classesList);
     }
@@ -149,16 +180,8 @@ public class ListViewAdapter extends BaseAdapter {
         return users;
     }
 
-    public void setUsers(List<UserDto> users) {
-        this.users = users;
-        notifyDataSetChanged();
-    }
-
     public List<CourseDto> getCourses() {
         return courses;
     }
 
-    public void setCourses(List<CourseDto> courses) {
-        this.courses = courses;
-    }
 }

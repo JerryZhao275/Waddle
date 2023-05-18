@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import com.example.educationapplication.R;
+import com.example.educationapplication.dataInstances.DataReader;
 import com.example.educationapplication.databinding.LoginBinding;
 import com.example.educationapplication.util.views.MainActivity;
 import com.example.educationapplication.util.views.SignupView;
@@ -42,6 +43,11 @@ public class LoginView extends AppCompatActivity {
 
         // Ensure all pending bindings are executed
         loginBinding.executePendingBindings();
+
+        //Code for adding 2500 data instances
+        //DataReader newr = new DataReader();
+        //newr.getUserInfo(LoginView.this);
+
     }
 
     protected void changeToHomepage(boolean isAuthorised) {

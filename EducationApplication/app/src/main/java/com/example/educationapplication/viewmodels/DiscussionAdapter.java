@@ -2,26 +2,20 @@ package com.example.educationapplication.viewmodels;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.educationapplication.R;
 import com.example.educationapplication.views.DiscussionPage;
-
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import com.example.educationapplication.search.dataObjects.CourseDto;
-import com.example.educationapplication.search.dataObjects.CustomOnCompleteListener;
-import com.example.educationapplication.search.dataObjects.DiscussionDto;
+import dataObjects.CourseDto;
+import dataObjects.CustomOnCompleteListener;
+import dataObjects.DiscussionDto;
 
 public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.DiscussionViewHolder> {
     private static Context mContext;
@@ -37,14 +31,24 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.Di
                 setDiscussions(discussionViewModel.getDiscussions());
             }
         });
-        //discussions.add(new DiscussionDto("Title 1", "Content 1", "Author 1", new Date()));
-        //discussions.add(new DiscussionDto("Title 2", "Content 2", "Author 2", new Date()));
     }
-    public void setDiscussions(List<DiscussionDto> discussions){
+
+    /**
+     * Set the list of discussions in the adapter.
+     *
+     * @param discussions The list of discussions.
+     */
+    public void setDiscussions(List<DiscussionDto> discussions) {
         this.discussions = discussions;
         notifyDataSetChanged();
     }
-    public void addDiscussion(DiscussionDto discussion){
+
+    /**
+     * Add a new discussion to the adapter and database.
+     *
+     * @param discussion The discussion to be added.
+     */
+    public void addDiscussion(DiscussionDto discussion) {
         discussionViewModel.addDiscussion(discussion, new CustomOnCompleteListener() {
             @Override
             public void onComplete() {
@@ -57,7 +61,6 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.Di
             }
         });
     }
-    // Constructor and methods
 
     @Override
     public DiscussionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -65,7 +68,6 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.Di
         v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_discussion, parent, false);
         DiscussionViewHolder vHolder = new DiscussionViewHolder(v);
         return vHolder;
-
     }
 
     @Override
@@ -74,12 +76,10 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.Di
         holder.bind(discussion);
 
         // Set item views based on your views and data model
-
         holder.titleTextView.setText(discussion.getTitle());
         holder.contentTextView.setText(discussion.getContent());
         holder.authorTextView.setText(discussion.getAuthor());
         holder.timestampTextView.setText(formatTimestamp(discussion.getTimestamp()));
-
     }
 
     @Override
@@ -91,7 +91,6 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.Di
     static class DiscussionViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView titleTextView, contentTextView, authorTextView, timestampTextView;
 
-
         DiscussionViewHolder(View itemView) {
             super(itemView);
             titleTextView = itemView.findViewById(R.id.titleTextView);
@@ -100,11 +99,19 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.Di
             timestampTextView = itemView.findViewById(R.id.timestampTextView);
             itemView.setOnClickListener(this);
         }
-        public void bind(DiscussionDto course) {
-            titleTextView.setText(course.getTitle());
-            contentTextView.setText(course.getContent());
-            authorTextView.setText(course.getAuthor());
-            timestampTextView.setText(course.getTimestamp().toString());}
+
+        /**
+         * Bind the discussion data to the views.
+         *
+         * @param discussion The discussion data to be bound.
+         */
+        public void bind(DiscussionDto discussion) {
+            titleTextView.setText(discussion.getTitle());
+            contentTextView.setText(discussion.getContent());
+            authorTextView.setText(discussion.getAuthor());
+            timestampTextView.setText(discussion.getTimestamp().toString());
+        }
+
         @Override
         public void onClick(View view) {
             int position = getAdapterPosition();
@@ -116,8 +123,12 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.Di
         }
     }
 
-
-    // Utility method to format timestamp
+    /**
+     * Utility method to format the discussion timestamp.
+     *
+     * @param timestamp The timestamp to be formatted.
+     * @return The formatted timestamp as a string.
+     */
     private String formatTimestamp(Date timestamp) {
         // Implement your desired timestamp formatting logic here
         return timestamp.toString();
