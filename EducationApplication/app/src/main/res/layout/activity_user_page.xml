@@ -41,20 +41,21 @@
             android:id="@+id/userCourseList"
             android:layout_width="307dp"
             android:layout_height="236dp"
+            android:gravity="center"
             android:textColor="#000000"
             android:textSize="25sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.846"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/user_userName"
-            app:layout_constraintVertical_bias="0.448" />
+            app:layout_constraintTop_toBottomOf="@+id/user_Email"
+            app:layout_constraintVertical_bias="0.075" />
 
         <TextView
             android:id="@+id/user_userName"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="@{viewModel.firstName + ` ` + viewModel.lastName}"
             android:textColor="#000000"
             android:textSize="25sp"
@@ -68,8 +69,9 @@
 
         <TextView
             android:id="@+id/user_Email"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="@{viewModel.email}"
             android:textColor="#000000"
             android:textSize="20sp"
@@ -82,9 +84,10 @@
 
         <TextView
             android:id="@+id/userStudentTeacher"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="276dp"
+            android:gravity="center"
             android:text="@{viewModel.userType}"
             android:textColor="#000000"
             android:textSize="20sp"
