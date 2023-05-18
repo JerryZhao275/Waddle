@@ -79,7 +79,6 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 DataSnapshot document1 = task.getResult();
-                System.out.println(document1.getValue());
                 userType = document1.getValue().toString();
                 docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
@@ -111,7 +110,6 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 DataSnapshot document1 = task.getResult();
-                System.out.println(document1.getValue());
                 userType = document1.getValue().toString();
                 docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
@@ -146,19 +144,15 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        System.out.println(email);
-                        System.out.println(password);
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser fUser = mAuth.getCurrentUser();
                             LoginUserDto user = new LoginUserDto(fUser.getUid(), fUser.getEmail());
-                            System.out.println(user);
                             setCurrentUser(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            System.out.println(getCurrentUser());
                             setCurrentUser(null);
                         }
                         listener.onComplete();
@@ -234,19 +228,16 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 DataSnapshot document1 = task.getResult();
-                System.out.println(document1.getValue());
                 userType = document1.getValue().toString();
                 firestore.collection("Users").whereEqualTo("userId", mAuth.getCurrentUser().getUid()).addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                         courseList = new ArrayList<>();
                         if(error!=null){
-                            System.out.println("Course Error");
                         }
                         else{
                             assert value != null;
                             for(DocumentSnapshot documentSnapshot : value.getDocuments()){
-                                System.out.println();
                                 userDetails = UserTypeFactory.createUser(userType, documentSnapshot);
                             }
                             listener.onComplete();
@@ -367,7 +358,6 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
 
     @Override
     public LoginUserDto getUser(String email, String password) {
-        System.out.println(mAuth.getCurrentUser());
         return null;
     }
 
@@ -424,7 +414,6 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
         List<String> users = new ArrayList<>();
         List<String> emails = new ArrayList<>();
         queryUsers = new ArrayList<>();
-        System.out.println(expression.showExpType());
         while(expression.getCurrentValue()!=null){
             if(expression.showExpType().equals("EMAIL")){
                 emails.add(expression.getCurrentValue());
@@ -497,11 +486,8 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
                                         public void onComplete(@NonNull Task<DataSnapshot> task) {
                                             DataSnapshot document1 = task.getResult();
                                             userType = document1.getValue().toString();
-                                            System.out.println(userType);
                                             UserDto user = UserTypeFactory.createUser(userType, queryDocumentSnapshot);
-                                            System.out.println(user.getUserName());
                                             addQueryUser(user);
-                                            System.out.println(queryUsers.size());
                                             listener.onComplete();
                                         }
                                     }
@@ -515,18 +501,14 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
                         public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                             for (QueryDocumentSnapshot queryDocumentSnapshot : queryDocumentSnapshots) {
                                 String id = queryDocumentSnapshot.get("userId").toString();
-                                System.out.println(id);
                                 database.getReference("Users").child(id).get().addOnCompleteListener(
                                         new OnCompleteListener<DataSnapshot>() {
                                             @Override
                                             public void onComplete(@NonNull Task<DataSnapshot> task) {
                                                 DataSnapshot document1 = task.getResult();
                                                 userType = document1.getValue().toString();
-                                                System.out.println(userType);
                                                 UserDto user = UserTypeFactory.createUser(userType, queryDocumentSnapshot);
-                                                System.out.println(user.getUserName());
                                                 addQueryUser(user);
-                                                System.out.println(queryUsers.size());
                                                 listener.onComplete();
                                             }
                                         }
@@ -546,7 +528,6 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
         List<String> courseNames = new ArrayList<>();
         List<String> courseDescriptions = new ArrayList<>();
         queryCourses = new ArrayList<>();
-        System.out.println(expression.showExpType());
         while(expression.getCurrentValue()!=null){
             if(expression.showExpType().equals("COURSE ID")){
                 courseNames.add(expression.getCurrentValue());
@@ -717,7 +698,6 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
                             firestore.collection("Users").document(user.getUserId()).update("courses", newList).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-                                    System.out.println("Course added");
                                     firestore.collection("Courses").document(newList.get(0).substring(4)).update("allStudents", FieldValue.arrayUnion(user.getUserId())).addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
