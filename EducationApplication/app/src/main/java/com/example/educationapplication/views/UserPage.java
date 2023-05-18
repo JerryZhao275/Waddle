@@ -40,8 +40,10 @@ public class UserPage extends AppCompatActivity {
                 selectedUser = userpageBinding.getViewModel().getOtherUserDetails();
                 TextView username = findViewById(R.id.user_userName);
                 TextView email = findViewById(R.id.user_Email);
+                TextView courses = findViewById(R.id.userCourseList);
                 username.setText(selectedUser.getUserFirstName() + " " + selectedUser.getUserLastName());
                 email.setText(selectedUser.getUserEmail());
+                courses.setText(convertListToString(selectedUser.getCourses()));
             }
         });
 
@@ -60,10 +62,8 @@ public class UserPage extends AppCompatActivity {
         if(courses==null){
             courses = new ArrayList<>();
         }
-        int i = 0;
         for (String item : courses) {
-            if (i != 0) stringBuilder.append(item).append("\n");
-            i++;
+            stringBuilder.append(item).append("\n");
         }
         return stringBuilder.toString();
     }

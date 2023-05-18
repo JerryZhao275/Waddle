@@ -8,13 +8,10 @@ public class StudentUserDto extends UserDto implements Serializable {
 
     private Integer age;
     private String school;
-
-    private List<String> courses;
     public StudentUserDto(){
         super();
         age = 0;
         school = "";
-        courses = null;
     }
     public StudentUserDto(String userId, String userFirstName, String userLastName, String userName, String userEmail, String userDesc, Integer age, String school) {
         super(userId, userFirstName, userLastName, userName, userEmail, userDesc);
@@ -50,17 +47,5 @@ public class StudentUserDto extends UserDto implements Serializable {
     public Integer getAge(){
         return this.age;
     }
-    public void addCourse(String course){
-        courses.add(course);
-    }
-
-    public void addCourses(List<String> courses){
-        this.courses.addAll(courses);
-    }
-
-    public List<String> getCourses(){
-        return courses;
-    }
-
 
 }
