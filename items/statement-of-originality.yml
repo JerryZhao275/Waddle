@@ -29,23 +29,31 @@ collaboration:
 # add as many "url+licence+comment" entries as necessary
 # (or remove it altogether if you haven't used any external code)
 code:
-  - comment:
-    url:
-    licence:
+  - comment: Used to understand how to have onclick for RecyclerView items.
+    url: https://www.youtube.com/watch?v=7GPUpvcU1FE
+    licence: CC BY
+
+  - comment: Used to understand how to implement RecyclerView and adding items..
+    url: https://www.youtube.com/watch?v=Mc0XT58A1Z4
+    licence: CC BY
 
 
 # add as many "url+licence+comment" entries as necessary
 # (or remove it altogether if you haven't used any external assets)
 assets:
   # NOTE: "Bliss" is just here as an example, you SHOULD REMOVE IT
-  - comment: "_Bliss_ by Charles O'Rear"
-    url: https://en.wikipedia.org/wiki/Bliss_(image)
-    licence: fair use
+  - comment: Create Class icon
+    url: https://www.freeiconspng.com/img/3602
+    licence: personal use
+
+  - comment: Join Class icon
+    url: https://www.veryicon.com/icons/internet--web/monochrome-linear-icon/join-class.html
+    licence: Free for personal and commercial purpose.
 
 
 ### Questions (answer before final submission):
 1. You (as a group) completed this work (tick the most appropriate option): 
-  - [ ] by yourself (as a group) without the help of others; 
+  - [ ] by yourself (as a group) without the help of others;
   - [ ] with Gen AI tools (e.g., ChatGPT, Co-Pilot).
 
 2. If not completed by yourself only, how did the use of Gen AI tools (and which ones), contribute to completing this assignment? 
@@ -69,5 +77,5 @@ members:
     uid:
   - name:
     uid:
-  - name:
-    uid:
+  - name: Ryan Yoon
+    uid: u7124454
