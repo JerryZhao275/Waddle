@@ -39,6 +39,12 @@ code:
     url: https://firebase.google.com/docs/firestore/query-data/listen#java_2
     licence: fair use
 
+  - comment: (Unused Code) CustomAdapter Class adapted from responses following the url.
+    url: https://stackoverflow.com/questions/32475996/custom-adapter-for-listview-in-fragment-android
+    licence: fair use
+
+  
+
 
 # add as many "url+licence+comment" entries as necessary
 # (or remove it altogether if you haven't used any external assets)
