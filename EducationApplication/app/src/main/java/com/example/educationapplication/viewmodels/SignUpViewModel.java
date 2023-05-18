@@ -13,7 +13,6 @@ import com.example.educationapplication.util.StringUtils;
 
 import java.util.regex.Pattern;
 
-import dataObjects.AdminUserDto;
 import dataObjects.CustomOnCompleteListener;
 import dataObjects.StudentUserDto;
 import dataObjects.TeacherUserDto;
@@ -223,9 +222,8 @@ public class SignUpViewModel extends BaseObservable {
     /**
      * Create a new user.
      */
-    public void createUser() {
-        // Check if all required fields are filled and passwords match
     public void createUser(CustomOnCompleteListener listener) {
+        // Check if all required fields are filled and passwords match
         boolean questionsAnswered = StringUtils.isNotEmpty(userDetails.getUserEmail()) && StringUtils.isNotEmpty(password) && StringUtils.isNotEmpty(userDetails.getUserFirstName())
                 && StringUtils.isNotEmpty(userDetails.getUserLastName()) && StringUtils.isNotEmpty(userDetails.getUserName()) && StringUtils.isNotEmpty(confPassword) && confPassword.equals(password);
         // Check if the email is valid
@@ -241,7 +239,6 @@ public class SignUpViewModel extends BaseObservable {
         }
         setErrorMessage("");
         // Create the new user using the database service client
-        getDatabaseServiceClient().createNewUser(userDetails, password);
         getDatabaseServiceClient().createNewUser(userDetails, password, new CustomOnCompleteListener() {
             @Override
             public void onComplete() {
