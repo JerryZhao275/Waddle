@@ -168,10 +168,6 @@ Production Rules:
 
 ## Summary of Known Errors and Bugs
 
-*[Where are the known errors and bugs? What consequences might they lead to?]*
-
-*Here is an example:*
-
 1. Joining course via Enter key bug 
    * In the dashboard, if a user tries to join classes by pressing the "Enter" key instead of clicking the button, they need to press "Enter" again for the action to take effect. 
    * However, when the user clicks the button directly, it works smoothly without any issues.
