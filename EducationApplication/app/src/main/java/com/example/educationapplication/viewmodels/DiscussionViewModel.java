@@ -7,10 +7,7 @@ import com.example.educationapplication.integration.database.config.WaddleDataba
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import dataObjects.CourseDto;
-import dataObjects.CustomOnCompleteListener;
-import dataObjects.DiscussionDto;
-import dataObjects.UserDto;
+import com.example.educationapplication.search.dataObjects.*;
 
 public class DiscussionViewModel {
     private String content;

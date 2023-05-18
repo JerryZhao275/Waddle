@@ -9,9 +9,9 @@ import com.example.educationapplication.integration.database.WaddleDatabaseServi
 import com.example.educationapplication.integration.database.config.ConfigurationManager;
 import com.example.educationapplication.integration.database.config.WaddleDatabaseConfiguration;
 
-import dataObjects.CourseDto;
-import dataObjects.CustomOnCompleteListener;
-import dataObjects.TeacherUserDto;
+import com.example.educationapplication.search.dataObjects.CourseDto;
+import com.example.educationapplication.search.dataObjects.CustomOnCompleteListener;
+import com.example.educationapplication.search.dataObjects.TeacherUserDto;
 
 public class CreateClassViewModel extends BaseObservable {
     private CourseDto course;

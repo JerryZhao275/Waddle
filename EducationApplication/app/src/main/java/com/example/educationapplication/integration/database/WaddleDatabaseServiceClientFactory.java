@@ -4,7 +4,7 @@ import com.example.educationapplication.integration.database.config.WaddleDataba
 
 import java.util.List;
 
-import dataObjects.LoginUserDto;
+import com.example.educationapplication.search.dataObjects.LoginUserDto;
 
 public class WaddleDatabaseServiceClientFactory {
     public static WaddleDatabaseServiceClient createClient(WaddleDatabaseConfiguration config) {

@@ -7,6 +7,17 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.educationapplication.search.dataObjects.AdminUserDto;
+import com.example.educationapplication.search.dataObjects.CommentDto;
+import com.example.educationapplication.search.dataObjects.CourseDto;
+import com.example.educationapplication.search.dataObjects.CustomOnCompleteListener;
+import com.example.educationapplication.search.dataObjects.DiscussionDto;
+import com.example.educationapplication.search.dataObjects.LoginUserDto;
+import com.example.educationapplication.search.dataObjects.TeacherUserDto;
+import com.example.educationapplication.search.dataObjects.UserDto;
+import com.example.educationapplication.search.dataObjects.UserType;
+import com.example.educationapplication.util.views.Fragment.observer.Observer;
+import com.example.educationapplication.util.views.Fragment.observer.Subject;
 import com.example.educationapplication.model.CourseAVL;
 import com.example.educationapplication.search.Exp;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -18,6 +29,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 
@@ -26,38 +38,97 @@ import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import dataObjects.AdminUserDto;
-import dataObjects.CommentDto;
-import dataObjects.CourseDto;
-import dataObjects.CustomOnCompleteListener;
-import dataObjects.DiscussionDto;
-import dataObjects.LoginUserDto;
-import dataObjects.TeacherUserDto;
-import dataObjects.UserDto;
-import dataObjects.UserType;
-
-public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServiceClient {
+public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServiceClient, Subject {
     private final CourseAVL courseAVL = new CourseAVL();
     final private List<String> hardCodedCourses = new ArrayList<>(Arrays.asList("COMP2100", "COMP6320", "COMP1110"));
     final private FirebaseDatabase database;
     final private FirebaseFirestore firestore;
     final private FirebaseAuth mAuth;
     private String userType;
+
+    private static ListenerRegistration coursesRegistration, discussionRegistration;
     private List<CourseDto> courseList;
     private List<DiscussionDto> discussions;
     private List<CommentDto> comments;
     public FirebaseWaddleDatabaseServiceClient() {
+        observers = new ArrayList<>();
         database = FirebaseDatabase.getInstance();
         firestore = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
+
+        fetchUserDetails(() -> {
+        });
+
+        if(coursesRegistration != null) coursesRegistration.remove();
+        if(discussionRegistration != null) discussionRegistration.remove();
+
+        coursesRegistration = firestore.collection("Courses").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot snapshot,
+                                @Nullable FirebaseFirestoreException e) {
+
+                for(DocumentChange dc :snapshot.getDocumentChanges()){
+                    switch (dc.getType()) {
+                        case ADDED:
+                            notifyAllObservers((String) dc.getDocument().get("courseName"), dc.getType().toString(), "COURSES","");
+                            if(userDetails != null)
+                                System.out.println("ADDED " + userDetails.getDirectMessages().size());
+                            break;
+                        case MODIFIED:
+                            notifyAllObservers((String) dc.getDocument().get("courseName"), dc.getType().toString(), "COURSES","");
+                            if(userDetails != null){
+                                System.out.println("MODIFIED " + userDetails.getDirectMessages().size());
+                            }
+                            break;
+                        case REMOVED:
+                            notifyAllObservers((String) dc.getDocument().get("courseName"), dc.getType().toString(), "COURSES","");
+                            if(userDetails != null)
+                                System.out.println("REMOVED " + userDetails.getDirectMessages().size());
+                            break;
+                    }
+                }
+
+            }
+        });
+
+
+        discussionRegistration = firestore.collection("Discussions").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot snapshot, @Nullable FirebaseFirestoreException error) {
+                for(DocumentChange dc :snapshot.getDocumentChanges()){
+                    switch (dc.getType()) {
+                        case ADDED:
+                            notifyAllObservers((String) dc.getDocument().get("courseID"), dc.getType().toString(), "DISCUSSION",(String) dc.getDocument().get("title"));
+                            if(userDetails != null)
+                                System.out.println("ADDED " + userDetails.getDirectMessages().size());
+                            break;
+                        case MODIFIED:
+                            notifyAllObservers((String) dc.getDocument().get("courseID"), dc.getType().toString(), "DISCUSSION",(String) dc.getDocument().get("title"));
+                            if(userDetails != null){
+                                System.out.println("MODIFIED " + userDetails.getDirectMessages().size());
+                            }
+                            break;
+                        case REMOVED:
+                            notifyAllObservers((String) dc.getDocument().get("courseID"), dc.getType().toString(), "DISCUSSION",(String) dc.getDocument().get("title"));
+                            if(userDetails != null)
+                                System.out.println("REMOVED " + userDetails.getDirectMessages().size());
+                            break;
+                    }
+                }
+            }
+        });
+
+
         courseAVL.insert(new CourseDto(1110, "COMP1110", null, "Structured Programming"));
         courseAVL.insert(new CourseDto(2100, "COMP2100", null, "Software Construction"));
         courseAVL.insert(new CourseDto(6320, "COMP6320", null, "Artificial Intelligence"));
@@ -67,6 +138,8 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
     private UserDto userDetails;
     private UserDto otherUserDetails;
 
+    private ArrayList<Observer> observers;
+
     @Override
     public LoginUserDto getCurrentUser() {
         return currentUser;
@@ -74,7 +147,12 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
 
     @Override
     public void fetchUserDetails(CustomOnCompleteListener listener) {
-        DocumentReference docRef = firestore.collection("Users").document(mAuth.getCurrentUser().getUid());
+            DocumentReference docRef;
+        try {
+            docRef = firestore.collection("Users").document(mAuth.getCurrentUser().getUid());
+        } catch (NullPointerException e){
+            return;
+        }
         database.getReference("Users").child(mAuth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -87,7 +165,9 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
                         if (task.isSuccessful()) {
 
                             DocumentSnapshot document = task.getResult();
+                            detachAll();
                             userDetails = UserTypeFactory.createUser(userType, document);
+                            attach(userDetails);
                             listener.onComplete();
                             if (document.exists()) {
                                 Log.d(TAG, "DocumentSnapshot data: " + document.getData());
@@ -135,6 +215,30 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
     public void setCurrentUser(LoginUserDto currentUser) {
         this.currentUser = currentUser;
     }
+
+    @Override
+    public void attach(Observer observer) {
+        if(!observers.contains(observer))
+            observers.add(observer);
+    }
+
+    @Override
+    public void detach(Observer observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyAllObservers(String courseName, String type, String path, String name) {
+        for(Observer obs : observers){
+            obs.update(courseName, type, path, name);
+        }
+    }
+
+    @Override
+    public void detachAll() {
+        observers = new ArrayList<>();
+    }
+
     public interface OnCompleteCallback{
         void onComplete(boolean success);
     }

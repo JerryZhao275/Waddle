@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        bind:context=".views.Fragment.ProfileFragment">
+        bind:context=".util.views.Fragment.ProfileFragment">
 
         <ImageView
             android:id="@+id/profile_imgbackground"

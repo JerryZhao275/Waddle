@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:backgroundTint="#F07402"
-    bind:context=".views.LoginView">
+    bind:context=".util.views.LoginView">
 
     <View
         android:id="@+id/white_background"

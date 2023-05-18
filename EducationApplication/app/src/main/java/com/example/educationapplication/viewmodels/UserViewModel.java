@@ -9,11 +9,7 @@ import com.example.educationapplication.integration.database.config.Configuratio
 import com.example.educationapplication.integration.database.config.WaddleDatabaseConfiguration;
 import java.util.ArrayList;
 import java.util.List;
-import dataObjects.CourseDto;
-import dataObjects.CustomOnCompleteListener;
-import dataObjects.StudentUserDto;
-import dataObjects.TeacherUserDto;
-import dataObjects.UserDto;
+import com.example.educationapplication.search.dataObjects.*;
 
 public class UserViewModel extends BaseObservable {
     WaddleDatabaseConfiguration config;
@@ -32,6 +28,10 @@ public class UserViewModel extends BaseObservable {
 
     static List<String> coursesList = new ArrayList<>();
     List<CourseDto> userCourses = new ArrayList<>();
+
+    public static List<String> getCoursesList(){
+        return coursesList;
+    }
 
     public UserViewModel() {
         // Initialize database configuration and service client

@@ -12,7 +12,7 @@ import com.example.educationapplication.R;
 import com.example.educationapplication.views.CoursePage;
 import java.util.ArrayList;
 import java.util.List;
-import dataObjects.CourseDto;
+import com.example.educationapplication.search.dataObjects.*;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     private static Context mContext;

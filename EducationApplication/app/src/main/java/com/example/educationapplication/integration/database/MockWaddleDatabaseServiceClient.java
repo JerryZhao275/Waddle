@@ -1,16 +1,16 @@
 package com.example.educationapplication.integration.database;
 
 import com.example.educationapplication.search.Exp;
+import com.example.educationapplication.search.dataObjects.LoginUserDto;
 
 import java.util.List;
 import java.util.UUID;
 
-import dataObjects.CommentDto;
-import dataObjects.CourseDto;
-import dataObjects.CustomOnCompleteListener;
-import dataObjects.DiscussionDto;
-import dataObjects.LoginUserDto;
-import dataObjects.UserDto;
+import com.example.educationapplication.search.dataObjects.CommentDto;
+import com.example.educationapplication.search.dataObjects.CourseDto;
+import com.example.educationapplication.search.dataObjects.CustomOnCompleteListener;
+import com.example.educationapplication.search.dataObjects.DiscussionDto;
+import com.example.educationapplication.search.dataObjects.UserDto;
 
 public class MockWaddleDatabaseServiceClient implements WaddleDatabaseServiceClient {
     final private List<LoginUserDto> mockedUsers;
