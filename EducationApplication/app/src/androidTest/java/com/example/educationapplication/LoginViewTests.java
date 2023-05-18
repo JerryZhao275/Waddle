@@ -57,6 +57,17 @@ public class LoginViewTests {
     }
 
     @Test
+    public void test_not_entering_a_password_surfaces_error() {
+        onView(withId(R.id.editTextEmail)).perform(
+                typeText("test@gmail.com"),
+                closeSoftKeyboard()
+        );
+        onView(withId(R.id.loginButton)).perform(click());
+
+        onView(withId(R.id.errorText)).check(matches(withText("ill out all fields.")));
+    }
+
+    @Test
     public void test_correct_password_leads_to_dashboard() {
         onView(withId(R.id.editTextEmail)).perform(
                 typeText("u7499989@anu.edu.au"),
