@@ -64,7 +64,7 @@ public class LoginViewTests {
         );
         onView(withId(R.id.loginButton)).perform(click());
 
-        onView(withId(R.id.errorText)).check(matches(withText("ill out all fields.")));
+        onView(withId(R.id.errorText)).check(matches(withText("Please fill out all fields.")));
     }
 
     @Test

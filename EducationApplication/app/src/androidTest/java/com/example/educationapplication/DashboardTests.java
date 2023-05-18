@@ -10,7 +10,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 import androidx.test.core.app.ActivityScenario;
 
-import com.example.educationapplication.views.LoginView;
+import com.example.educationapplication.util.views.LoginView;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -47,7 +47,7 @@ public class DashboardTests {
     @Test
     public void test_messages_tab() {
         onView(withId(R.id.messages)).perform(click());
-        onView(withId(R.id.messages_lastmessage)).check(matches(isDisplayed()));
+        onView(withId(R.id.messagelist)).check(matches(isDisplayed()));
     }
 
     @Test
