@@ -165,9 +165,8 @@ Production Rules:
 **Android MVVM Design Pattern**
 * The MVVM Design pattern was utilised for all files in the model, view, and viewmodel files.
 * Implementing all the functionality and firebase logic in a single class or activity would lead to problems in testing and refactoring the code. This is due to difficulty and unreliability in testing two components of an application simultaneously. Hence, the separation of code and clean architecture can allow us to develop a Mock database to test easily against our program and its individual components.
-<div style="text-align: center;">
+
 ![mvvmdiagram](./images/mvvmdiagram.png) <br>
-</div>
 
 ## Summary of Known Errors and Bugs
 
