@@ -13,6 +13,9 @@ import com.example.educationapplication.search.dataObjects.CourseDto;
 import com.example.educationapplication.search.dataObjects.CustomOnCompleteListener;
 import com.example.educationapplication.search.dataObjects.TeacherUserDto;
 
+/**
+ * Class Creation View Model
+ */
 public class CreateClassViewModel extends BaseObservable {
     private CourseDto course;
     private String courseName;

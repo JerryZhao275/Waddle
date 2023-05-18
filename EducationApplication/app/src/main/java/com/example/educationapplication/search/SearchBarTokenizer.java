@@ -2,6 +2,9 @@ package com.example.educationapplication.search;
 
 import java.util.List;
 
+/**
+ * Tokenizer that tokenizes queries in the search bar
+ */
 public class SearchBarTokenizer {
     private String[] allTokens;
     private Token currentToken;
@@ -13,6 +16,13 @@ public class SearchBarTokenizer {
             }
     }
 
+    /**
+     * Tokenizes as User email if string contains @
+     * and UserName otherwise when in user mode
+     * Tokenizes as CourseName when the string is alphanumeric
+     * and Course Description otherwise
+     * @param mode
+     */
     public void tokenize(char mode){
             if(index<allTokens.length) {
                 if (mode == 'u') {
@@ -35,10 +45,18 @@ public class SearchBarTokenizer {
             }
     }
 
+    /**
+     * Checks if current token is null or not
+     * @return boolean
+     */
     public boolean hasNext(){
         return currentToken!=null;
     }
 
+    /**
+     * get current token
+     * @return current token
+     */
     public Token getCurrentToken(){
         return currentToken;
     }

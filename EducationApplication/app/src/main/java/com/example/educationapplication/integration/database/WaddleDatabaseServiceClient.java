@@ -10,7 +10,9 @@ import com.example.educationapplication.search.dataObjects.UserDto;
 
 import java.util.List;
 
-
+/**
+ * Interface for a database service client for multiple implementations
+ */
 public interface WaddleDatabaseServiceClient {
     LoginUserDto getUser(String email, String password);
     void createNewUser(UserDto user, String password, CustomOnCompleteListener listener);

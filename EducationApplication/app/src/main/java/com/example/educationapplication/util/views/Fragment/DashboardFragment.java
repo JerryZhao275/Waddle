@@ -1,4 +1,4 @@
-package com.example.educationapplication.views.Fragment;
+package com.example.educationapplication.util.views.Fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,7 +20,7 @@ import com.example.educationapplication.R;
 import com.example.educationapplication.databinding.FragmentDashboardBinding;
 import com.example.educationapplication.viewmodels.RecyclerViewAdapter;
 import com.example.educationapplication.viewmodels.UserViewModel;
-import com.example.educationapplication.views.CreateClass;
+import com.example.educationapplication.util.views.CreateClass;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.educationapplication.views;
+package com.example.educationapplication.util.views;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;

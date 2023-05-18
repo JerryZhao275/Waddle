@@ -1,5 +1,8 @@
 package com.example.educationapplication.search;
 
+/**
+ * Course Description Expression for parsing
+ */
 public class CourseDescExpression implements Exp{
     String titleToken;
     Exp next;

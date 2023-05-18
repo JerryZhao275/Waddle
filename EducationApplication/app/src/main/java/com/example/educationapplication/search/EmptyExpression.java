@@ -1,5 +1,8 @@
 package com.example.educationapplication.search;
 
+/**
+ * Empty expression for parsing
+ */
 public class EmptyExpression implements Exp{
     public EmptyExpression(){
 

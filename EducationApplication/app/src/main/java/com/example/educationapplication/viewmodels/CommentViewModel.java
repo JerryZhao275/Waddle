@@ -8,12 +8,20 @@ import java.util.ArrayList;
 import java.util.List;
 import com.example.educationapplication.search.dataObjects.*;
 
+/**
+ * View Model for the comments of a discussion
+ */
 public class CommentViewModel {
     private final WaddleDatabaseConfiguration config;
     private final WaddleDatabaseServiceClient databaseServiceClient;
     private List<CommentDto> comments = new ArrayList<>();
     private DiscussionDto discussion;
 
+    /**
+     * Constructor
+     * @param discussion
+     * @param listener
+     */
     public CommentViewModel(DiscussionDto discussion, CustomOnCompleteListener listener) {
         config = ConfigurationManager.configInstance();
         databaseServiceClient = WaddleDatabaseServiceClientFactory.createClient(config);

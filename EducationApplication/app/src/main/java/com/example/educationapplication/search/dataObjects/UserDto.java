@@ -9,7 +9,9 @@ import java.util.List;
 
 import java.io.Serializable;
 
-
+/**
+ * User abstract class for different user types
+ */
 public abstract class UserDto implements Observer, Serializable {
 
 

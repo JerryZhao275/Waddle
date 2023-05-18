@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 import com.example.educationapplication.search.dataObjects.*;
 
+/**
+ * User view model for all the user interactions
+ */
 public class UserViewModel extends BaseObservable {
     WaddleDatabaseConfiguration config;
     WaddleDatabaseServiceClient databaseServiceClient;

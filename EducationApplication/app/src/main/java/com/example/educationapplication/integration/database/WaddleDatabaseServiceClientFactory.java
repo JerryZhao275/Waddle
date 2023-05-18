@@ -6,6 +6,10 @@ import java.util.List;
 
 import com.example.educationapplication.search.dataObjects.LoginUserDto;
 
+/**
+ * Factory to return required Data Service clients based on config
+ * (Currently using Firebase)
+ */
 public class WaddleDatabaseServiceClientFactory {
     public static WaddleDatabaseServiceClient createClient(WaddleDatabaseConfiguration config) {
         if (config.isMocked()) {

@@ -13,6 +13,9 @@ import java.util.Date;
 import java.util.List;
 import com.example.educationapplication.search.dataObjects.*;
 
+/**
+ * Comment Recycle View Adapter
+ */
 public class CommentRVAdapter extends RecyclerView.Adapter<CommentRVAdapter.CommentViewHolder> {
     private static Context mContext;
     private static List<CommentDto> mData = new ArrayList<>();

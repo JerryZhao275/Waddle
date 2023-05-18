@@ -1,5 +1,8 @@
 package com.example.educationapplication.search.dataObjects;
 
+/**
+ * Quiz data object
+ */
 public class QuizDto {
     private Integer quizId;
     private String quizTitle;

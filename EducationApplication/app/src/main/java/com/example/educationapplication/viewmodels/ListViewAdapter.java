@@ -19,6 +19,9 @@ import java.util.List;
 import java.util.Locale;
 import com.example.educationapplication.search.dataObjects.*;
 
+/**
+ * List view adapter for user and course search
+ */
 public class ListViewAdapter extends BaseAdapter {
     Context mContext;
     LayoutInflater inflater;

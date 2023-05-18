@@ -9,6 +9,9 @@ import java.util.Date;
 import java.util.List;
 import com.example.educationapplication.search.dataObjects.*;
 
+/**
+ * Discussion view model for the discussion page of the course
+ */
 public class DiscussionViewModel {
     private String content;
     private String author;

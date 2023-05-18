@@ -1,4 +1,4 @@
-package com.example.educationapplication.views;
+package com.example.educationapplication.util.views;
 
 import android.app.Activity;
 import android.os.Bundle;

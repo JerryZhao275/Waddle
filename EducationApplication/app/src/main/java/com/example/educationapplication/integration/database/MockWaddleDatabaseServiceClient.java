@@ -17,6 +17,10 @@ public class MockWaddleDatabaseServiceClient implements WaddleDatabaseServiceCli
 
     private LoginUserDto currentUser = null;
 
+    /**
+     * Another implementation of a database service client used for mocking real behaviour
+     * @param mockedUsers
+     */
     public MockWaddleDatabaseServiceClient(List<LoginUserDto> mockedUsers) {
         this.mockedUsers = mockedUsers;
     }

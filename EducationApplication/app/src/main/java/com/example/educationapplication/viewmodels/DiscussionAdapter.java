@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.educationapplication.R;
-import com.example.educationapplication.views.DiscussionPage;
+import com.example.educationapplication.util.views.DiscussionPage;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

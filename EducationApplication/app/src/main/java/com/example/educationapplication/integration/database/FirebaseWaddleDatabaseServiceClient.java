@@ -60,6 +60,11 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
     private List<CourseDto> courseList;
     private List<DiscussionDto> discussions;
     private List<CommentDto> comments;
+
+    /**
+     * Constructor for Firebase Service Client, Listening to Course changes and syncing notifications
+     * Accordingly
+     */
     public FirebaseWaddleDatabaseServiceClient() {
         observers = new ArrayList<>();
         database = FirebaseDatabase.getInstance();
@@ -100,8 +105,6 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
 
             }
         });
-
-
         discussionRegistration = firestore.collection("Discussions").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot snapshot, @Nullable FirebaseFirestoreException error) {
@@ -140,11 +143,19 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
 
     private ArrayList<Observer> observers;
 
+    /**
+     * gets current user
+     * @return LoginUserDto user
+     */
     @Override
     public LoginUserDto getCurrentUser() {
         return currentUser;
     }
 
+    /**
+     * fetches current logged in User details
+     * @param listener
+     */
     @Override
     public void fetchUserDetails(CustomOnCompleteListener listener) {
             DocumentReference docRef;
@@ -183,6 +194,11 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
         });
     }
 
+    /**
+     * fetches details of the user searched.
+     * @param user
+     * @param listener
+     */
     @Override
     public void fetchOtherUserDetails(UserDto user, CustomOnCompleteListener listener) {
         DocumentReference docRef = firestore.collection("Users").document(user.getUserId());
@@ -212,21 +228,40 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
         });
     }
 
+    /**
+     * set the logged in user.
+     * @param currentUser
+     */
     public void setCurrentUser(LoginUserDto currentUser) {
         this.currentUser = currentUser;
     }
 
+    /**
+     * Attach observer
+     * @param observer
+     */
     @Override
     public void attach(Observer observer) {
         if(!observers.contains(observer))
             observers.add(observer);
     }
 
+    /**
+     * detach observer
+     * @param observer
+     */
     @Override
     public void detach(Observer observer) {
         observers.remove(observer);
     }
 
+    /**
+     * Notify all the observers related to a course
+     * @param courseName
+     * @param type
+     * @param path
+     * @param name
+     */
     @Override
     public void notifyAllObservers(String courseName, String type, String path, String name) {
         for(Observer obs : observers){
@@ -234,14 +269,21 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
         }
     }
 
+    /**
+     * detach all observers
+     */
     @Override
     public void detachAll() {
         observers = new ArrayList<>();
     }
 
-    public interface OnCompleteCallback{
-        void onComplete(boolean success);
-    }
+    /**
+     * Signs in the user that is trying to login in
+     * @param email
+     * @param password
+     * @param listener
+     * @return
+     */
     @Override
     public boolean signIn(String email, String password, CustomOnCompleteListener listener) {
         mAuth.signInWithEmailAndPassword(email, password)
@@ -266,11 +308,18 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
         return false;
     }
 
+    /**
+     * set current user to null;
+     */
     @Override
     public void setNullUser() {
         setCurrentUser(null);
     }
 
+    /**
+     * Fetch all user courses
+     * @param listener
+     */
     @Override
     public void fetchUserCourses(CustomOnCompleteListener listener) {
         FieldPath fieldPath = FieldPath.of("teacher", "userId");
@@ -290,12 +339,20 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
     }
 
 
-
+    /**
+     * get User courses that have been fetched
+     * @return
+     */
     @Override
     public List<CourseDto> getUserCourses() {
         return courseList;
     }
 
+    /**
+     * Adds courses set by a teacher account
+     * @param course
+     * @param listener
+     */
     @Override
     public void addCourse(CourseDto course, CustomOnCompleteListener listener) {
         firestore.collection("Courses").document(course.getCourseId().toString()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -321,6 +378,11 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
         });
 
     }
+
+    /**
+     * Updates changes made to the user itself
+     * @param listener
+     */
     @Override
     public void synchUsers(CustomOnCompleteListener listener){
         database.getReference("Users").child(mAuth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -348,6 +410,11 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
 
     }
 
+    /**
+     * Adds a discussion forum
+     * @param discussion
+     * @param listener
+     */
     @Override
     public void addDiscussion(DiscussionDto discussion, CustomOnCompleteListener listener) {
         firestore.collection("Discussions").add(discussion)
@@ -361,7 +428,11 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
                 });
     }
 
-
+    /**
+     * Adds a comment in a discussion Forum
+     * @param comment
+     * @param listener
+     */
     @Override
     public void addComment(CommentDto comment, CustomOnCompleteListener listener) {
         firestore.collection("Comments").add(comment)
@@ -375,6 +446,11 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
                 });
     }
 
+    /**
+     * Links Student and the courses
+     * @param course
+     * @param listener
+     */
     @Override
     public void addStudentToCourse(String course, CustomOnCompleteListener listener) {
         if(course.length()==8) {
@@ -395,7 +471,10 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
     }
 
 
-
+    /**
+     * Sync any changes made to the course
+     * @param listener
+     */
     @Override
     public void synchCourses(CustomOnCompleteListener listener) {
         FieldPath fieldPath = FieldPath.of("teacher", "userId");
@@ -437,19 +516,35 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
         });
     }
 
+    /**
+     * Get searched user details
+     * @return
+     */
     @Override
     public UserDto getOtherUserDetails(){
         return otherUserDetails;
     }
+
+    /**
+     * Get all current logged in user details
+     * @return
+     */
     public UserDto getUserDetails(){
         return userDetails;
     }
 
+    /**
+     * Get current logged in user ID
+     * @return
+     */
     @Override
     public String getCurrentUserId() {
         return mAuth.getCurrentUser().getUid();
     }
 
+    /**
+     * Sign Out current user
+     */
     @Override
     public void signOut() {
         mAuth.signOut();
@@ -460,6 +555,12 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
         return null;
     }
 
+    /**
+     * Signs up a new user
+     * @param user
+     * @param password
+     * @param listener
+     */
     @Override
     public void createNewUser(UserDto user, String password, CustomOnCompleteListener listener) {
         mAuth.createUserWithEmailAndPassword(user.getUserEmail(), password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -507,20 +608,36 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
             queryUsers.add(user);
         }
     }
+
+    /**
+     * Gets the result for search a query for Users
+     * @return
+     */
     public List<UserDto> getQueryUsers(){
         return queryUsers;
     }
-
+    /**
+     * Adds the result for search a query for Courses
+     * @return
+     */
     public void addQueryCourse(CourseDto course){
         if(queryCourses.stream().noneMatch(u -> u.getCourseName().equals(course.getCourseName()))){
             queryCourses.add(course);
         }
     }
+    /**
+     * Gets the result for search a query for Courses
+     * @return
+     */
     public List<CourseDto> getQueryCourses(){
         return queryCourses;
     }
 
-
+    /**
+     * Query all users from a search Query
+     * @param expression
+     * @param listener
+     */
     public void fetchAllUsersForSearch(Exp expression, CustomOnCompleteListener listener){
         List<String> users = new ArrayList<>();
         List<String> emails = new ArrayList<>();
@@ -634,6 +751,11 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
         });
     }
 
+    /**
+     * Query all courses from a user Query
+     * @param expression
+     * @param listener
+     */
     @Override
     public void fetchAllCoursesForSearch(Exp expression, CustomOnCompleteListener listener) {
         List<String> courseNames = new ArrayList<>();
@@ -721,11 +843,21 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
         });
     }
 
+    /**
+     * Signs in various instances, used for created valid data instance samples.
+     * @param email
+     * @param password
+     */
     @Override
     public void signInDataInstances(String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password);
     }
 
+    /**
+     * Sync all discussions in joined courses
+     * @param courseId
+     * @param listener
+     */
     @Override
     public void syncDiscussions(String courseId, CustomOnCompleteListener listener) {
         firestore.collection("Discussions").whereEqualTo("courseID", courseId).addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -748,11 +880,20 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
         });
     }
 
+    /**
+     * return discussions
+     * @return discussions
+     */
     @Override
     public List<DiscussionDto> getDiscussions() {
         return discussions;
     }
 
+    /**
+     * Sync all comments in a discussion of a course
+     * @param discussionID
+     * @param listener
+     */
     @Override
     public void syncComments(String discussionID, CustomOnCompleteListener listener) {
         firestore.collection("Comments").whereEqualTo("discussionID", discussionID).addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -775,11 +916,21 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
         });
     }
 
+    /**
+     * Get all comments
+     * @return comments
+     */
     @Override
     public List<CommentDto> getComments() {
         return comments;
     }
 
+    /**
+     * Creates a new user for a sample data instance
+     * @param user
+     * @param password
+     * @param listener
+     */
     @Override
     public void createNewUserDataInstance(UserDto user, String password, CustomOnCompleteListener listener) {
         mAuth.createUserWithEmailAndPassword(user.getUserEmail(), password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {

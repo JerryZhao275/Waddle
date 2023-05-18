@@ -1,5 +1,8 @@
 package com.example.educationapplication.search;
 
+/**
+ * User Name expression for parsing
+ */
 public class NameExpression implements Exp{
     String userName;
     Exp secondaryName;

@@ -1,5 +1,8 @@
 package com.example.educationapplication.search;
 
+/**
+ * Course Name expression for parsing
+ */
 public class CourseExpression implements Exp{
     String courseId;
     Exp courseDesc;

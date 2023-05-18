@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.educationapplication.util.views.Fragment.ProfileFragment;
 import com.example.educationapplication.util.views.Fragment.SearchFragment;
-import com.example.educationapplication.views.Fragment.DashboardFragment;
+import com.example.educationapplication.util.views.Fragment.DashboardFragment;
 import com.example.educationapplication.util.views.Fragment.MessagesFragment;
 import com.example.educationapplication.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;

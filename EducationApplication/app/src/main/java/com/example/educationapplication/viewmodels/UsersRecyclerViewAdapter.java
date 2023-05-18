@@ -15,6 +15,9 @@ import com.example.educationapplication.util.views.UserPage;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Recycler View Adapter for user search
+ */
 public class UsersRecyclerViewAdapter extends RecyclerView.Adapter<UsersRecyclerViewAdapter.ViewHolder> {
     private static Context mContext;
     private static List<UserDto> mData = new ArrayList<>();

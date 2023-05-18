@@ -15,6 +15,9 @@ import java.util.regex.Pattern;
 
 import com.example.educationapplication.search.dataObjects.*;
 
+/**
+ * View model for signing up the user details
+ */
 public class SignUpViewModel extends BaseObservable {
     private final WaddleDatabaseConfiguration config;
     private final WaddleDatabaseServiceClient databaseServiceClient;

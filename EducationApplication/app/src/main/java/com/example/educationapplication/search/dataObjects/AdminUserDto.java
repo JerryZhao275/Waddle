@@ -2,6 +2,9 @@ package com.example.educationapplication.search.dataObjects;
 
 import java.util.List;
 
+/**
+ * Admin User Data Object
+ */
 public class AdminUserDto extends UserDto{
     private Integer age;
     private String school;

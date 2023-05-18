@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Course Data Object
+ */
 public class CourseDto implements Serializable {
     //we can make this Integer or string as well. Up for more discussion.
     private Integer courseId;

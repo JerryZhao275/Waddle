@@ -21,9 +21,7 @@ declaration: >-
 
 # add as many "name+comment" entries as necessary
 # (or remove it altogether if you haven't collaborated with anyone outside your group)
-collaboration:
-  - name:
-    comment: >-
+
 
 
 # add as many "url+licence+comment" entries as necessary
@@ -57,7 +55,7 @@ assets:
 
 ### Questions (answer before final submission):
 1. You (as a group) completed this work (tick the most appropriate option): 
-  - [ ] by yourself (as a group) without the help of others;
+  - [x] by yourself (as a group) without the help of others;
   - [ ] with Gen AI tools (e.g., ChatGPT, Co-Pilot).
 
 2. If not completed by yourself only, how did the use of Gen AI tools (and which ones), contribute to completing this assignment? 
@@ -75,8 +73,8 @@ assets:
 members:
   - name: Jerry Zhao
     uid: u7490271
-  - name:
-    uid:
+  - name: Karthik Reddy Vemireddy
+    uid: u7348473
   - name: Matthew Richards
     uid: u7499989
   - name: Michael Ostapenko

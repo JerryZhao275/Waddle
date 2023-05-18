@@ -3,6 +3,9 @@ package com.example.educationapplication.search.dataObjects;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * Discussion data objects
+ */
 public class DiscussionDto implements Serializable {
     // Discussion.java
     private String title;

@@ -1,5 +1,8 @@
 package com.example.educationapplication.search.dataObjects;
 
+/**
+ * Logged in user data object
+ */
 public class LoginUserDto {
     private String loginUserId;
     private String loginUserName;

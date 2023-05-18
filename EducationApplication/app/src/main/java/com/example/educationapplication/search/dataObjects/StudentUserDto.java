@@ -3,6 +3,9 @@ package com.example.educationapplication.search.dataObjects;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * Student User Data Object
+ */
 public class StudentUserDto extends UserDto implements Serializable {
 
     private Integer age;

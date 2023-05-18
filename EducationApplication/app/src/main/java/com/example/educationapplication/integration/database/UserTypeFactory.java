@@ -10,7 +10,11 @@ import com.example.educationapplication.search.dataObjects.UserDto;
 
 import java.util.List;
 
+/**
+ * User Factory to return the type of User: Admin, Teacher, Student
+ */
 public class UserTypeFactory {
+
     public static UserDto createUser(String type, DocumentSnapshot map){
         UserDto user = new StudentUserDto();
         List<MessageDto> messages = user.getDirectMessages();

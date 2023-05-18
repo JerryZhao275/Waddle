@@ -12,6 +12,9 @@ import com.example.educationapplication.util.StringUtils;
 import java.util.regex.Pattern;
 import com.example.educationapplication.search.dataObjects.*;
 
+/**
+ * View model for logging the user into the app
+ */
 public class LoginViewModel extends BaseObservable {
     private final WaddleDatabaseConfiguration config;
     private final WaddleDatabaseServiceClient databaseServiceClient;

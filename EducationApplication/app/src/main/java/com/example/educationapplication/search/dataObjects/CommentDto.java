@@ -3,6 +3,9 @@ package com.example.educationapplication.search.dataObjects;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * Comment Data Object
+ */
 public class CommentDto implements Serializable {
     private String comment;
     private String author;

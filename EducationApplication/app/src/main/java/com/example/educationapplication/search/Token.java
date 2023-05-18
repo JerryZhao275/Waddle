@@ -1,5 +1,8 @@
 package com.example.educationapplication.search;
 
+/**
+ * Class for token for tokenizer and parser
+ */
 public class Token {
     public enum Type {NAME, EMAIL,COURSENAME, COURSEDESC}
     private String token;

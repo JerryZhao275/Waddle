@@ -3,6 +3,9 @@ package com.example.educationapplication.search.dataObjects;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Message Data Object
+ */
 public class MessageDto {
     private String userId;
     private String message;

@@ -1,11 +1,19 @@
 package com.example.educationapplication.search;
 
+/**
+ * Parser for the search bar queries
+ */
 public class SearchBarParser {
     SearchBarTokenizer tokenizer;
     public SearchBarParser(SearchBarTokenizer tokenizer){
         this.tokenizer = tokenizer;
     }
 
+    /**
+     * Returns expression for user search
+     * Grammer: user: <user, email>|email|empty
+     * @return Expression
+     */
     public Exp parseName(){
         if(tokenizer.hasNext()){
             Token current = tokenizer.getCurrentToken();
@@ -19,6 +27,11 @@ public class SearchBarParser {
         return new EmptyExpression();
     }
 
+    /**
+     * Returns expression for user search
+     * Grammer: email: <email, email>|user|empty
+     * @return Expression
+     */
     public Exp parseEmail(){
         if(tokenizer.hasNext()){
             Token current = tokenizer.getCurrentToken();
@@ -31,7 +44,11 @@ public class SearchBarParser {
         }
         return new EmptyExpression();
     }
-
+    /**
+     * Returns expression for course search
+     * Grammer: course name: <course name, course description>|course description|empty
+     * @return Expression
+     */
     public Exp parseCourse(){
         if(tokenizer.hasNext()){
             Token current = tokenizer.getCurrentToken();
@@ -44,7 +61,11 @@ public class SearchBarParser {
         }
         return new EmptyExpression();
     }
-
+    /**
+     * Returns expression for course search
+     * Grammer: course description: <course description, course description>|course name|empty
+     * @return Expression
+     */
     public Exp parseCourseDesc(){
         if(tokenizer.hasNext()){
             Token current = tokenizer.getCurrentToken();

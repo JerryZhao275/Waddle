@@ -1,5 +1,8 @@
 package com.example.educationapplication.search;
 
+/**
+ * User Email Expression for parsing
+ */
 public class EmailExpression implements Exp{
     String email;
     Exp next;
