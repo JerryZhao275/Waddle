@@ -301,6 +301,7 @@ Feature Category: Greater Data Usage, Handling and Sophistication <br>
      * activity_user_page.xml
      * profile_fragment.xml
    * 
+
 <img src="./images/dataprofile.png" alt="Data Profile" height="600"><br>
 
 Feature Category: UI Design and Testing <br>
