@@ -80,8 +80,10 @@ public class UserViewModel extends BaseObservable {
                 setCourses(null);
                 List<CourseDto> courses = databaseServiceClient.getUserCourses();
                 userCourses = courses;
-                for(CourseDto course: courses){
-                    setCourses(course.getCourseName());
+                if(courses!=null) {
+                    for (CourseDto course : courses) {
+                        setCourses(course.getCourseName());
+                    }
                 }
                 listener.onComplete();
             }

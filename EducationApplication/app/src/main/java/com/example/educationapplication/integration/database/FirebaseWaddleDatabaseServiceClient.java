@@ -369,7 +369,7 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
     }
 
     @Override
-    public void createNewUser(UserDto user, String password) {
+    public void createNewUser(UserDto user, String password, CustomOnCompleteListener listener) {
         mAuth.createUserWithEmailAndPassword(user.getUserEmail(), password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -378,16 +378,28 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
                     Log.d(TAG, "createUserWithEmail:success");
                     FirebaseUser currentUser = mAuth.getCurrentUser();
                     user.setUserId(currentUser.getUid());
+                    UserType type = null;
                     if(user instanceof AdminUserDto) {
-                        database.getReference("Users").child(currentUser.getUid()).setValue(UserType.ADMIN);
+                        type = UserType.ADMIN;
                     }
                     else if(user instanceof TeacherUserDto){
-                        database.getReference("Users").child(currentUser.getUid()).setValue(UserType.TEACHER);
+                        type = UserType.TEACHER;
                     }
                     else{
-                        database.getReference("Users").child(currentUser.getUid()).setValue(UserType.STUDENT);
+                        type = UserType.STUDENT;
+
                     }
-                    firestore.collection("Users").document(currentUser.getUid()).set(user);
+                    database.getReference("Users").child(currentUser.getUid()).setValue(UserType.STUDENT).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            firestore.collection("Users").document(currentUser.getUid()).set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    listener.onComplete();
+                                }
+                            });
+                        }
+                    });
 
                 } else {
                     // If sign in fails, display a message to the user.

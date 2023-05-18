@@ -14,6 +14,7 @@ import com.example.educationapplication.util.StringUtils;
 import java.util.regex.Pattern;
 
 import dataObjects.AdminUserDto;
+import dataObjects.CustomOnCompleteListener;
 import dataObjects.StudentUserDto;
 import dataObjects.TeacherUserDto;
 import dataObjects.UserDto;
@@ -134,7 +135,7 @@ public class SignUpViewModel extends BaseObservable {
         notifyPropertyChanged(BR.isTeacherOrStudent);
 
     }
-    public void createUser() {
+    public void createUser(CustomOnCompleteListener listener) {
         boolean questionsAnswered = StringUtils.isNotEmpty(userDetails.getUserEmail()) && StringUtils.isNotEmpty(password) && StringUtils.isNotEmpty(userDetails.getUserFirstName())
                 && StringUtils.isNotEmpty(userDetails.getUserLastName()) && StringUtils.isNotEmpty(userDetails.getUserName()) && StringUtils.isNotEmpty(confPassword) && confPassword.equals(password);
         boolean isEmailValid = Pattern.matches(CommonRegexUtil.EMAIL, userDetails.getUserEmail());
@@ -148,6 +149,11 @@ public class SignUpViewModel extends BaseObservable {
             return;
         }
         setErrorMessage("");
-        getDatabaseServiceClient().createNewUser(userDetails, password);
+        getDatabaseServiceClient().createNewUser(userDetails, password, new CustomOnCompleteListener() {
+            @Override
+            public void onComplete() {
+                listener.onComplete();
+            }
+        });
     }
 }

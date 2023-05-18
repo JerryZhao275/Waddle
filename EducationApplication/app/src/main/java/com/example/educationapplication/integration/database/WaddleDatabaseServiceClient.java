@@ -14,7 +14,7 @@ import dataObjects.UserDto;
 
 public interface WaddleDatabaseServiceClient {
     LoginUserDto getUser(String email, String password);
-    void createNewUser(UserDto user, String password);
+    void createNewUser(UserDto user, String password, CustomOnCompleteListener listener);
     LoginUserDto getCurrentUser(); // TODO dto LoggedInUser { user: User, firebaseUser: FirebaseUser, sessionId, etc.?  }
     void fetchUserDetails(CustomOnCompleteListener listener);
     public void fetchAllUsersForSearch(Exp expression, CustomOnCompleteListener listener);
