@@ -101,8 +101,11 @@ Kate wants to post a question on the discussion forum regarding AVLTrees discuss
 *List all the use cases in text descriptions or create use case diagrams. Please refer to https://www.visual-paradigm.com/guide/uml-unified-modeling-language/what-is-use-case-diagram/ for use case diagram.*
 
 ## Application UML
+* Front End UML Class Diagram
+![ClassDiagramExample](./images/frontendUML.png) <br>
+* Back End UML Class Diagram
+![ClassDiagramExample](./images/backendUML.png) <br>
 
-![ClassDiagramExample](./images/ClassDiagramExample.png) <br>
 *[Replace the above with a class diagram. You can look at how we have linked an image here as an example of how you can do it too.]*
 
 ## Application Design and Decisions
