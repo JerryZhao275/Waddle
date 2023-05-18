@@ -37,7 +37,7 @@ public class DataReader {
     private BufferedReader loginBufferedReader;
     public void getUserInfo(Context context) {
         try {
-            loginBufferedReader = new BufferedReader(new InputStreamReader(context.getAssets().open("dataInstances.csv"), StandardCharsets.UTF_8));
+            loginBufferedReader = new BufferedReader(new InputStreamReader(context.getAssets().open("testInstance.csv"), StandardCharsets.UTF_8));
             line = loginBufferedReader.readLine();
             dataLooper();
         } catch (IOException e) {
@@ -60,9 +60,6 @@ public class DataReader {
             String firstName = tokens[0];
             String lastName = tokens[1];
             String email = tokens[2];
-            System.out.println(firstName);
-            System.out.println(lastName);
-            System.out.println(email);
             createUserAndLogin(email, firstName, lastName, new CustomOnCompleteListener() {
                 @Override
                 public void onComplete() {

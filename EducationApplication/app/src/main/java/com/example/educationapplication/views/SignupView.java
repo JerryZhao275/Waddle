@@ -17,6 +17,8 @@ public class SignupView extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Set up data binding for the activity
         SignupBinding signupBinding = DataBindingUtil.setContentView(this, R.layout.signup);
         signupBinding.setViewModel(new SignUpViewModel());
         signupBinding.setOnSignup(()->{
@@ -31,12 +33,16 @@ public class SignupView extends AppCompatActivity {
                 }
             });
         });
-        signupBinding.setOnLogin(()->{
+
+        // Set a callback for the login button click event
+        signupBinding.setOnLogin(() -> {
+            // Finish the activity and start the LoginView activity
             finish();
             Intent intent = new Intent(getApplicationContext(), LoginView.class);
             startActivity(intent);
         });
+
+        // Ensure all pending bindings are executed
         signupBinding.executePendingBindings();
     }
-
 }

@@ -2,7 +2,6 @@ package com.example.educationapplication.views;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,13 +9,9 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.educationapplication.R;
 import com.example.educationapplication.databinding.ActivityConfirmJoinCourseBinding;
-import com.example.educationapplication.databinding.CreateClassBinding;
-import com.example.educationapplication.viewmodels.CreateClassViewModel;
 import com.example.educationapplication.viewmodels.UserViewModel;
-
 import dataObjects.CourseDto;
 import dataObjects.CustomOnCompleteListener;
 
@@ -31,34 +26,43 @@ public class ConfirmJoinCourse extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_join_course);
 
+        // Set up data binding for the activity
         ActivityConfirmJoinCourseBinding confirmJoinCourseBinding = DataBindingUtil.setContentView(this, R.layout.activity_confirm_join_course);
         confirmJoinCourseBinding.setViewModel(new UserViewModel());
 
-
+        // Get references to views in the layout
         courseName = findViewById(R.id.confirmjoinclasscode);
         confirm = findViewById(R.id.confirmjoincoursebutton);
         cancel = findViewById(R.id.canceljoincoursebutton);
 
-
+        // Retrieve the selected course from the intent
         selectedCourse = (CourseDto) getIntent().getSerializableExtra("course");
         courseName.setText(selectedCourse.getCourseName());
 
+        // Set a click listener for the confirm button
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Call the joinCourse method on the view model and pass the selected course name
                 confirmJoinCourseBinding.getViewModel().joinCourse(selectedCourse.getCourseName(), new CustomOnCompleteListener() {
                     @Override
                     public void onComplete() {
+                        // Hide the keyboard and finish the activity when the operation is complete
                         hideKeyboard(ConfirmJoinCourse.this);
                         finish();
                     }
                 });
+
+                // Display a toast message to indicate successful joining of the course
                 Toast.makeText(getApplicationContext(), "You have been added to " + selectedCourse.getCourseName() + "!", Toast.LENGTH_SHORT).show();
             }
         });
+
+        // Set a click listener for the cancel button
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Finish the activity when the cancel button is clicked
                 finish();
             }
         });
@@ -74,5 +78,4 @@ public class ConfirmJoinCourse extends AppCompatActivity {
         }
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
-
 }

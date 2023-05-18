@@ -1,9 +1,7 @@
 package com.example.educationapplication.views.Fragment;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,18 +18,13 @@ import android.widget.EditText;
 import android.widget.Toolbar;
 import com.example.educationapplication.R;
 import com.example.educationapplication.databinding.FragmentDashboardBinding;
-import com.example.educationapplication.databinding.LoginBinding;
-import com.example.educationapplication.viewmodels.LoginViewModel;
 import com.example.educationapplication.viewmodels.RecyclerViewAdapter;
 import com.example.educationapplication.viewmodels.UserViewModel;
 import com.example.educationapplication.views.CreateClass;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import dataObjects.CourseDto;
-import dataObjects.CustomOnCompleteListener;
 import dataObjects.CustomOnCompleteListener;
 import dataObjects.TeacherUserDto;
 
@@ -42,7 +35,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
     Toolbar bg;
     Button join;
     EditText codeEntered;
-
     List<CourseDto> mData = new ArrayList<>();
     @Override
     public void onCreate(Bundle savedInstanceState) {super.onCreate(savedInstanceState);}
@@ -56,14 +48,14 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
     FragmentDashboardBinding fragBinding;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        view = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        fragBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_dashboard, container,false);
+        fragBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_dashboard, container, false);
         fragBinding.setViewModel(viewModel);
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         view = fragBinding.getRoot();
         myRecyclerView = view.findViewById(R.id.courseList);
+
+        // Fetch user course details and update the RecyclerView
         fragBinding.getViewModel().fetchUserCourseDetails(new CustomOnCompleteListener() {
             @Override
             public void onComplete() {
@@ -73,6 +65,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
                 myRecyclerView.setAdapter(adapter);
             }
         });
+
         addClass = view.findViewById(R.id.addClassButton);
         createClass = view.findViewById(R.id.createBtn);
         joinClass = view.findViewById(R.id.joinBtn);
@@ -84,7 +77,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
         codeEntered = view.findViewById(R.id.classCodeTextBox);
         join.setOnClickListener(this);
 
-        fragBinding.setExpandButton((c)-> {
+        // Handle expand button click
+        fragBinding.setExpandButton((c) -> {
             View.OnClickListener onClick = new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -92,10 +86,16 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
                     rotateClose = AnimationUtils.loadAnimation(getActivity(), R.anim.rotate_close_anim);
                     fromBottom = AnimationUtils.loadAnimation(getActivity(), R.anim.from_bottom_anim);
                     toBottom = AnimationUtils.loadAnimation(getActivity(), R.anim.to_bottom_anim);
-                    if(fragBinding.getViewModel().isStudent()) {removeCreate = true;}
-                    else {removeCreate = false;}
+
+                    // Check if the user is a student or teacher
+                    if (fragBinding.getViewModel().isStudent()) {
+                        removeCreate = true;
+                    } else {
+                        removeCreate = false;
+                    }
 
                     if (removeCreate) {
+                        // Handle animations and visibility for student user
                         if (view.getId() == R.id.addClassButton && bg.getVisibility() == View.VISIBLE) {
                             bg.setVisibility(View.INVISIBLE);
                             join.setVisibility(View.INVISIBLE);
@@ -119,32 +119,29 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
                             join.setVisibility(View.VISIBLE);
                             codeEntered.setVisibility(View.VISIBLE);
                         }
-                    }
-                    else {
+                    } else {
+                        // Handle animations and visibility for teacher user
                         if (view.getId() == R.id.addClassButton && bg.getVisibility() == View.VISIBLE) {
                             bg.setVisibility(View.INVISIBLE);
                             join.setVisibility(View.INVISIBLE);
                             codeEntered.setVisibility(View.INVISIBLE);
                             addClass.startAnimation(rotateOpen);
                             isOpen = false;
-                        }
-                        else if (view.getId() == R.id.addClassButton && isOpen) {
+                        } else if (view.getId() == R.id.addClassButton && isOpen) {
                             createClass.startAnimation(fromBottom);
                             joinClass.startAnimation(fromBottom);
                             addClass.startAnimation(rotateOpen);
                             createClass.setClickable(false);
                             joinClass.setClickable(false);
                             isOpen = false;
-                        }
-                        else if (view.getId() == R.id.addClassButton && !isOpen) {
+                        } else if (view.getId() == R.id.addClassButton && !isOpen) {
                             createClass.startAnimation(toBottom);
                             joinClass.startAnimation(toBottom);
                             addClass.startAnimation(rotateClose);
                             createClass.setClickable(true);
                             joinClass.setClickable(true);
                             isOpen = true;
-                        }
-                        else if (view.getId() == R.id.joinBtn) {
+                        } else if (view.getId() == R.id.joinBtn) {
                             createClass.startAnimation(fromBottom);
                             createClass.setClickable(false);
                             joinClass.startAnimation(fromBottom);
@@ -152,8 +149,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
                             bg.setVisibility(View.VISIBLE);
                             join.setVisibility(View.VISIBLE);
                             codeEntered.setVisibility(View.VISIBLE);
-                        }
-                        else if (view.getId() == R.id.createBtn) {
+                        } else if (view.getId() == R.id.createBtn) {
+                            // Start the CreateClass activity for teacher user
                             Intent intent = new Intent(getActivity(), CreateClass.class);
                             TeacherUserDto user = fragBinding.getViewModel().returnUserIfTeacher();
                             intent.putExtra("teacher", user);
@@ -172,7 +169,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
             onClick.onClick(addClass);
         });
 
-        fragBinding.setJoinClass((code)-> {
+        // Handle join class button click
+        fragBinding.setJoinClass((code) -> {
             System.out.println("||||||||||||||");
             System.out.println(fragBinding.getViewModel().getFirstName());
             System.out.println(fragBinding.getViewModel().getCourses());
@@ -185,10 +183,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
                     codeEntered.setVisibility(View.INVISIBLE);
                     addClass.startAnimation(rotateOpen);
                     isOpen = false;
-
                 }
             });
-
         });
         hideKeyboard(this);
         fragBinding.executePendingBindings();
@@ -202,6 +198,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
         fromBottom = AnimationUtils.loadAnimation(getActivity(), R.anim.from_bottom_anim);
         toBottom = AnimationUtils.loadAnimation(getActivity(), R.anim.to_bottom_anim);
 
+        // Handle animations and visibility for teacher users
         if (!removeCreate) {
             if (view.getId() == R.id.addClassButton && bg.getVisibility() == View.VISIBLE) {
                 bg.setVisibility(View.INVISIBLE);
@@ -247,6 +244,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
                 isOpen = false;
             }
         }
+        // Handle animations and visibility for student users
         else {
             if (view.getId() == R.id.addClassButton && bg.getVisibility() == View.VISIBLE) {
                 bg.setVisibility(View.INVISIBLE);
@@ -277,6 +275,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
         }
     }
 
+    //Method for hiding keyboard in the fragment view
     public static void hideKeyboard(Fragment fragment) {
         InputMethodManager imm = (InputMethodManager) fragment.requireActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
         //Find the currently focused view, so we can grab the correct window token from it.

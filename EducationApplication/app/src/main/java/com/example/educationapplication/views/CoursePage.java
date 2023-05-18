@@ -1,29 +1,19 @@
 package com.example.educationapplication.views;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toolbar;
-
 import com.example.educationapplication.R;
 import com.example.educationapplication.util.StringUtils;
 import com.example.educationapplication.viewmodels.DiscussionAdapter;
-
-
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -42,39 +32,47 @@ public class CoursePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_page);
 
+        // Retrieve the selected course from the intent
         selectedCourse = (CourseDto) getIntent().getSerializableExtra("course");
 
+        // Get references to the views in the layout
         TextView courseN = findViewById(R.id.classpage_classname);
         TextView courseDesc = findViewById(R.id.classpage_classdescription);
         ImageButton backBtn = findViewById(R.id.classpage_backbutton);
 
+        // Set the course name and description in the text views
         courseN.setText(selectedCourse.getCourseName());
         courseDesc.setText(selectedCourse.getCourseDescription());
 
+        // Set up the discussion recycler view and adapter
         RecyclerView discussionRecyclerView = findViewById(R.id.discussionRecyclerView);
         discussionAdapter = new DiscussionAdapter(this, discussions, selectedCourse);
         discussionRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         discussionRecyclerView.setAdapter(discussionAdapter);
 
+        // Set a click listener for the back button
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Go back to the previous activity
                 onBackPressed();
                 hideKeyboard(CoursePage.this);
             }
         });
 
+        // Set a click listener for the post button
         Button postButton = findViewById(R.id.postButton);
         postButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Get references to the input fields
                 EditText titleEditText = findViewById(R.id.titleEditText);
                 EditText contentEditText = findViewById(R.id.contentEditText);
 
                 // Get user input
                 String title = titleEditText.getText().toString();
                 String content = contentEditText.getText().toString();
-                if(!StringUtils.isEmpty(title)&&!StringUtils.isEmpty(content)) {
+                if (!StringUtils.isEmpty(title) && !StringUtils.isEmpty(content)) {
                     String author = "Current User"; // Replace with your user authentication logic
                     Date timestamp = new Date();
 
@@ -85,18 +83,13 @@ public class CoursePage extends AppCompatActivity {
                     discussionAdapter.addDiscussion(discussion);
                 }
 
-                // Notify the adapter about the new discussion
-                //discussionAdapter.notifyItemInserted(discussions.size() - 1);
-
                 // Clear the input fields
                 titleEditText.setText("");
                 contentEditText.setText("");
                 hideKeyboard(CoursePage.this);
-
             }
         });
     }
-
 
     public static void hideKeyboard(Activity activity) {
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);

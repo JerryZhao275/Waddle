@@ -222,8 +222,8 @@
 
         <TextView
             android:id="@+id/signUpErrorMessage"
-            android:layout_width="202dp"
-            android:layout_height="32dp"
+            android:layout_width="221dp"
+            android:layout_height="48dp"
             android:layout_marginVertical="10dp"
             android:fontFamily="sans-serif"
             android:text="@={viewModel.errorMessage}"
