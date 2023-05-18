@@ -12,8 +12,8 @@ import android.widget.Toast;
 import com.example.educationapplication.R;
 import com.example.educationapplication.databinding.ActivityConfirmJoinCourseBinding;
 import com.example.educationapplication.viewmodels.UserViewModel;
-import dataObjects.CourseDto;
-import dataObjects.CustomOnCompleteListener;
+import com.example.educationapplication.search.dataObjects.CourseDto;
+import com.example.educationapplication.search.dataObjects.CustomOnCompleteListener;
 
 public class ConfirmJoinCourse extends AppCompatActivity {
     private CourseDto selectedCourse;

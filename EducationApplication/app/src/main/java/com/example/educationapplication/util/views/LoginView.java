@@ -1,4 +1,4 @@
-package com.example.educationapplication.views;
+package com.example.educationapplication.util.views;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,8 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import com.example.educationapplication.R;
 import com.example.educationapplication.databinding.LoginBinding;
+import com.example.educationapplication.util.views.MainActivity;
+import com.example.educationapplication.util.views.SignupView;
 import com.example.educationapplication.viewmodels.LoginViewModel;
-import dataObjects.CustomOnCompleteListener;
+import com.example.educationapplication.search.dataObjects.CustomOnCompleteListener;
 
 public class LoginView extends AppCompatActivity {
 

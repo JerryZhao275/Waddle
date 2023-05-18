@@ -11,14 +11,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.educationapplication.R;
+import com.example.educationapplication.search.dataObjects.CourseDto;
 import com.example.educationapplication.views.ConfirmJoinCourse;
-import com.example.educationapplication.views.UserPage;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import dataObjects.CourseDto;
-import dataObjects.UserDto;
 
 public class CourseRecyclerViewAdapter  extends RecyclerView.Adapter<CourseRecyclerViewAdapter.ViewHolder>{
     private static Context mContext;

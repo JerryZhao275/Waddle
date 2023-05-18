@@ -19,9 +19,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import dataObjects.CourseDto;
-import dataObjects.CustomOnCompleteListener;
-import dataObjects.DiscussionDto;
+import com.example.educationapplication.search.dataObjects.CourseDto;
+import com.example.educationapplication.search.dataObjects.CustomOnCompleteListener;
+import com.example.educationapplication.search.dataObjects.DiscussionDto;
 
 public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.DiscussionViewHolder> {
     private static Context mContext;

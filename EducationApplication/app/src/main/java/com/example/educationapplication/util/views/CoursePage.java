@@ -17,8 +17,8 @@ import com.example.educationapplication.viewmodels.DiscussionAdapter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import dataObjects.CourseDto;
-import dataObjects.DiscussionDto;
+import com.example.educationapplication.search.dataObjects.CourseDto;
+import com.example.educationapplication.search.dataObjects.DiscussionDto;
 
 public class CoursePage extends AppCompatActivity {
     private CourseDto selectedCourse;

@@ -132,8 +132,9 @@ public abstract class UserDto implements Observer, Serializable {
     }
 
     @Override
-    public void update(String course, String type){
-        addMessage(MessageFactory.generateMessage(course, type), 0,0);
+    public void update(String course, String type, String path, String name){
+        if(courses.contains(course))
+            addMessage(MessageFactory.generateMessage(course, type, path, name), 0,0);
         System.out.println(directMessages.size());
     }
 

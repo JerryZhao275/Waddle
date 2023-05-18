@@ -9,8 +9,8 @@ import android.widget.ImageButton;
 import com.example.educationapplication.R;
 import com.example.educationapplication.databinding.CreateClassBinding;
 import com.example.educationapplication.viewmodels.CreateClassViewModel;
-import dataObjects.CustomOnCompleteListener;
-import dataObjects.TeacherUserDto;
+import com.example.educationapplication.search.dataObjects.CustomOnCompleteListener;
+import com.example.educationapplication.search.dataObjects.TeacherUserDto;
 
 public class CreateClass extends AppCompatActivity {
 

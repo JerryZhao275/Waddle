@@ -8,9 +8,9 @@ import com.example.educationapplication.integration.database.config.WaddleDataba
 import java.util.ArrayList;
 import java.util.List;
 
-import dataObjects.CommentDto;
-import dataObjects.CustomOnCompleteListener;
-import dataObjects.DiscussionDto;
+import com.example.educationapplication.search.dataObjects.CommentDto;
+import com.example.educationapplication.search.dataObjects.CustomOnCompleteListener;
+import com.example.educationapplication.search.dataObjects.DiscussionDto;
 
 public class CommentViewModel {
     private final WaddleDatabaseConfiguration config;

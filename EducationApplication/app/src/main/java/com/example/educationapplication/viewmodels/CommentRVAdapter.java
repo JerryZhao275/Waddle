@@ -17,10 +17,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import dataObjects.CommentDto;
-import dataObjects.CustomOnCompleteListener;
-import dataObjects.DiscussionDto;
-import dataObjects.QuizDto;
+import com.example.educationapplication.search.dataObjects.CommentDto;
+import com.example.educationapplication.search.dataObjects.CustomOnCompleteListener;
+import com.example.educationapplication.search.dataObjects.DiscussionDto;
+import com.example.educationapplication.search.dataObjects.QuizDto;
 
 public class CommentRVAdapter extends RecyclerView.Adapter<CommentRVAdapter.CommentViewHolder>{
     private static Context mContext;

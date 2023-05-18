@@ -1,4 +1,4 @@
-package com.example.educationapplication.views.Fragment;
+package com.example.educationapplication.util.views.Fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -22,7 +22,7 @@ import com.example.educationapplication.viewmodels.ListViewAdapter;
 import com.example.educationapplication.viewmodels.UserViewModel;
 import com.example.educationapplication.viewmodels.UsersRecyclerViewAdapter;
 
-import dataObjects.CustomOnCompleteListener;
+import com.example.educationapplication.search.dataObjects.CustomOnCompleteListener;
 
 public class SearchFragment extends Fragment implements SearchView.OnQueryTextListener, View.OnClickListener {
 

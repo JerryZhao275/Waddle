@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.educationapplication.R;
-import com.example.educationapplication.util.views.CoursePage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,7 +92,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public void onClick(View view) {
             int position = getAdapterPosition();
             CourseDto selectedCourse = mData.get(position);
-            Intent intent = new Intent(mContext, CoursePage.class);
+            Intent intent = new Intent(mContext, com.example.educationapplication.views.CoursePage.class);
             intent.putExtra("course", selectedCourse);
             mContext.startActivity(intent);
         }

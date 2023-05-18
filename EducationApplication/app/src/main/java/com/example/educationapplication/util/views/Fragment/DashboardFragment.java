@@ -24,9 +24,9 @@ import com.example.educationapplication.views.CreateClass;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
-import dataObjects.CourseDto;
-import dataObjects.CustomOnCompleteListener;
-import dataObjects.TeacherUserDto;
+import com.example.educationapplication.search.dataObjects.CourseDto;
+import com.example.educationapplication.search.dataObjects.CustomOnCompleteListener;
+import com.example.educationapplication.search.dataObjects.TeacherUserDto;
 
 public class DashboardFragment extends Fragment implements View.OnClickListener{
     private Animation rotateOpen, rotateClose, toBottom, fromBottom;

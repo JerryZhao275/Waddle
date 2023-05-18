@@ -17,9 +17,9 @@ import com.example.educationapplication.viewmodels.CommentRVAdapter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import dataObjects.CommentDto;
-import dataObjects.DiscussionDto;
-import dataObjects.UserDto;
+import com.example.educationapplication.search.dataObjects.CommentDto;
+import com.example.educationapplication.search.dataObjects.DiscussionDto;
+import com.example.educationapplication.search.dataObjects.UserDto;
 
 public class DiscussionPage extends AppCompatActivity {
     private List<CommentDto> mData = new ArrayList<>();

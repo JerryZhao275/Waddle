@@ -10,14 +10,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.educationapplication.R;
-import com.example.educationapplication.views.UserPage;
+import com.example.educationapplication.search.dataObjects.UserDto;
+import com.example.educationapplication.util.views.UserPage;
+
 import java.util.ArrayList;
 import java.util.List;
-import dataObjects.UserDto;
 
 public class UsersRecyclerViewAdapter extends RecyclerView.Adapter<UsersRecyclerViewAdapter.ViewHolder>{
     private static Context mContext;
-    private static List<UserDto> mData = new ArrayList<UserDto>();
+    private static List<UserDto> mData = new ArrayList<>();
 
     public UsersRecyclerViewAdapter(Context mContext, List<UserDto> mData) {
         this.mContext = mContext;

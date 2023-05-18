@@ -1,4 +1,4 @@
-package com.example.educationapplication.views;
+package com.example.educationapplication.util.views;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -7,11 +7,11 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import com.example.educationapplication.R;
 import com.example.educationapplication.databinding.ActivityUserPageBinding;
+import com.example.educationapplication.search.dataObjects.CustomOnCompleteListener;
+import com.example.educationapplication.search.dataObjects.UserDto;
 import com.example.educationapplication.viewmodels.UserViewModel;
 import java.util.ArrayList;
 import java.util.List;
-import dataObjects.CustomOnCompleteListener;
-import dataObjects.UserDto;
 
 public class UserPage extends AppCompatActivity {
     private UserDto selectedUser;

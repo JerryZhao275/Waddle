@@ -7,6 +7,15 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.educationapplication.search.dataObjects.AdminUserDto;
+import com.example.educationapplication.search.dataObjects.CommentDto;
+import com.example.educationapplication.search.dataObjects.CourseDto;
+import com.example.educationapplication.search.dataObjects.CustomOnCompleteListener;
+import com.example.educationapplication.search.dataObjects.DiscussionDto;
+import com.example.educationapplication.search.dataObjects.LoginUserDto;
+import com.example.educationapplication.search.dataObjects.TeacherUserDto;
+import com.example.educationapplication.search.dataObjects.UserDto;
+import com.example.educationapplication.search.dataObjects.UserType;
 import com.example.educationapplication.util.views.Fragment.observer.Observer;
 import com.example.educationapplication.util.views.Fragment.observer.Subject;
 import com.example.educationapplication.model.CourseAVL;
@@ -26,6 +35,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldPath;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
@@ -34,18 +44,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
-
-import dataObjects.AdminUserDto;
-import dataObjects.CourseDto;
-import dataObjects.CustomOnCompleteListener;
-import dataObjects.LoginUserDto;
-import dataObjects.TeacherUserDto;
-import dataObjects.UserDto;
-import dataObjects.UserType;
 
 public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServiceClient, Subject {
     private final CourseAVL courseAVL = new CourseAVL();
@@ -55,7 +55,7 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
     final private FirebaseAuth mAuth;
     private String userType;
 
-    private static ListenerRegistration registration;
+    private static ListenerRegistration coursesRegistration, discussionRegistration;
     private List<CourseDto> courseList;
     private List<DiscussionDto> discussions;
     private List<CommentDto> comments;
@@ -68,32 +68,59 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
         fetchUserDetails(() -> {
         });
 
-        if(registration != null) registration.remove();
-        registration = firestore.collection("Courses").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        if(coursesRegistration != null) coursesRegistration.remove();
+        if(discussionRegistration != null) discussionRegistration.remove();
+        coursesRegistration = firestore.collection("Courses").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot snapshot,
                                 @Nullable FirebaseFirestoreException e) {
                 for(DocumentChange dc :snapshot.getDocumentChanges()){
                     switch (dc.getType()) {
                         case ADDED:
-                            notifyAllObservers((String) dc.getDocument().get("courseName"), dc.getType().toString());
+                            notifyAllObservers((String) dc.getDocument().get("courseName"), dc.getType().toString(), "COURSES","");
                             if(userDetails != null)
                                 System.out.println("ADDED " + userDetails.getDirectMessages().size());
                             break;
                         case MODIFIED:
-                            notifyAllObservers((String) dc.getDocument().get("courseName"), dc.getType().toString());
+                            notifyAllObservers((String) dc.getDocument().get("courseName"), dc.getType().toString(), "COURSES","");
                             if(userDetails != null){
                                 System.out.println("MODIFIED " + userDetails.getDirectMessages().size());
                             }
                             break;
                         case REMOVED:
-                            notifyAllObservers((String) dc.getDocument().get("courseName"), dc.getType().toString());
+                            notifyAllObservers((String) dc.getDocument().get("courseName"), dc.getType().toString(), "COURSES","");
                             if(userDetails != null)
                                 System.out.println("REMOVED " + userDetails.getDirectMessages().size());
                             break;
                     }
                 }
 
+            }
+        });
+
+        discussionRegistration = firestore.collection("Discussions").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot snapshot, @Nullable FirebaseFirestoreException error) {
+                for(DocumentChange dc :snapshot.getDocumentChanges()){
+                    switch (dc.getType()) {
+                        case ADDED:
+                            notifyAllObservers((String) dc.getDocument().get("courseID"), dc.getType().toString(), "DISCUSSION",(String) dc.getDocument().get("title"));
+                            if(userDetails != null)
+                                System.out.println("ADDED " + userDetails.getDirectMessages().size());
+                            break;
+                        case MODIFIED:
+                            notifyAllObservers((String) dc.getDocument().get("courseID"), dc.getType().toString(), "DISCUSSION",(String) dc.getDocument().get("title"));
+                            if(userDetails != null){
+                                System.out.println("MODIFIED " + userDetails.getDirectMessages().size());
+                            }
+                            break;
+                        case REMOVED:
+                            notifyAllObservers((String) dc.getDocument().get("courseID"), dc.getType().toString(), "DISCUSSION",(String) dc.getDocument().get("title"));
+                            if(userDetails != null)
+                                System.out.println("REMOVED " + userDetails.getDirectMessages().size());
+                            break;
+                    }
+                }
             }
         });
 
@@ -199,9 +226,9 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
     }
 
     @Override
-    public void notifyAllObservers(String courseName, String type) {
+    public void notifyAllObservers(String courseName, String type, String path, String name) {
         for(Observer obs : observers){
-            obs.update(courseName, type);
+            obs.update(courseName, type, path, name);
         }
     }
 
