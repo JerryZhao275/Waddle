@@ -86,6 +86,7 @@ Once a user joins a course, it becomes visible on their dashboard. By clicking o
 
 Waddle is primarily targeted towards high school/university students who require a more accessible view of courses, announcements, and simple-to-use discussion forums. Teachers are also encouraged to utilise Waddle to not only be able to send out announcements, but also manage and view their course details with ease.
 
+
 During a crucial week, the ANU's Wattle page is undergoing maintenance, and Kevin requires access to the COMP2100 course page to check for announcements by Bernado.
    * Kevin can log in to the application and utilise the search feature to find the COMP2100 course. 
    * Once he joins the course, he will be able to view all the announcements made by Bernado. 
@@ -146,7 +147,6 @@ Kate wants to post a question on the discussion forum regarding AVLTrees discuss
 1. **Singleton Design Pattern**
     * Classes utilised: FirebaseWaddleDatabaseServicesClient.java
     * Since the singleton design pattern ensures only one instance of a class is created throughout the lifetime of an application, utilising this design pattern can ensure that only one instance of the FirebaseWaddleDatabaseServicesClient.java class is created, preventing any potential concurrency issues and improving the overall performance of the application. Additionally, it simplifies the codebase by providing a global point of access to the FirebaseWaddleDatabaseServicesClient.java instance, making it easier to maintain and debug, overall, leading to more efficient and streamlined code and an improved user experience.
-
 
 2. **Factory Method Design Pattern**
     * Classes utilised:
@@ -234,7 +234,7 @@ Production Rules:
 ## Implemented Features
 
 ### Basic App
-1. [Login]. Users must be able to log in and sign up**(easy)**
+1. [Login]. Users must be able to log in and sign up **(easy)**
     * Classes utilised:
         * model/LoginModel.java, whole file
         * viewmodel/LoginEvent.java, whole file
@@ -264,12 +264,14 @@ Production Rules:
 
 
 ### General Features
+Our application consists of 7 implemented features, consisting of 2 **hard**, 3 **medium**, and 2 **easy** features.
+
 Feature Category: Firebase Integration <br>
 1. [FB-Auth]. Use Firebase to implement User Authentication/Authorisation. **(easy)**
-    * Class utilised:
-        * database/FirebaseWaddleDatabaseServiceClient.java
-        * database/WaddleDatabaseServiceClient.java
-    * In the app, Firebase Authentication is utilised through the use of the FirebaseAuth object. When the app is launched, users are taken to the login page where they can either sign in with an existing account or register for a new account using Firebase. To create a new account, the user must fill in various textboxes with information, and then their email and password are passed into the "createUserWithEmailAndPassword" method. This creates a new user object in the firestore database. Once a user has an account, the "signInWithEmailAndPassword" method from Firebase Authentication is used to authenticate the user against the firestore database. If the user is verified, they are directed to MainActivity.java.
+   * Class utilised:
+      * database/FirebaseWaddleDatabaseServiceClient.java
+      * database/WaddleDatabaseServiceClient.java
+   * In the app, Firebase Authentication is utilised through the use of the FirebaseAuth object. When the app is launched, users are taken to the login page where they can either sign in with an existing account or register for a new account using Firebase. To create a new account, the user must fill in various textboxes with information, and then their email and password are passed into the "createUserWithEmailAndPassword" method. This creates a new user object in the firestore database. Once a user has an account, the "signInWithEmailAndPassword" method from Firebase Authentication is used to authenticate the user against the firestore database. If the user is verified, they are directed to MainActivity.java.
 
 2. [FB-Persist]. Use Firebase to persist all data used in your app. **(medium)**
     * Classes utilised:
@@ -284,34 +286,38 @@ Feature Category: Firebase Integration <br>
         * view/Dashboard/DashboardFragment.java
         * view/CoursePage.java
         * viewmodel/UserViewModel.java
-    * 
-
-
-Feature Category: UI Design and Testing <br>
-4. [UI-Test]. UI tests using espresso or similar. **(hard)**
-    * Classes utilised:
-
+    * The UserViewModel.java class has a CustomOnCompleteListener attached to the fetchUserCourseDetails method. This method, in turn, calls the synchCourses method in FirebaseWaddleDatabaseServiceClient.java. The synchCourses method updates the user's course list whenever a change in their courses is detected. The listener adds the queried course to the courseList, which is then automatically displayed in the user's Dashboard with an updated list of courses. A similar process was developed for discussion board messages, where the syncDiscussions method updates the displayed discussions and posts and syncs the user's discussion board tab in a course page without requiring a page reload.
 
 Feature Category: Creating Processes <br>
-5. [Process-Permission]. Only users with permission can have certain permissions in the app. **(easy)**
+1. [Process-Permission]. Only users with permission can have certain permissions in the app. **(easy)**
     * Classes utilised:
         * UserViewModel.java
         * DashboardFragment.java
     * Within the UserViewModel.java class, a boolean variable isStudent is used to indicate whether the user is a student or not by using the instanceof keyword with StudentDto and TeacherDto. The permission of certain users is implemented by an OnClickListener within a lambda function setExpandButton which is executed on the click of the expandable button. For a teacher, both create class and join class options will be displayed, but when the student attempts to expand the button, only the join class button will display.
 
 Feature Category: Search-related features <br>
-6. [Search-Invalid]. Search functionality can handle partially valid and invalid search queries. **(medium)**
+1. [Search-Invalid]. Search functionality can handle partially valid and invalid search queries. **(medium)**
     * Classes utilised:
+      * FirebaseWaddleDatabaseServiceClient.java
+      * ListViewAdapter.java
+      * UsersRecyclerViewAdapter.java
+      * CourseRecyclerViewAdapter.java
+      * SearchFragment.java
+    * The Firestore Database allows users to search for other users and courses. The search functionality accommodates partially valid queries and returns the most accurate results based on the given query. For example, searching for "COMP" under the classes section will retrieve all courses that contain the substring "COMP". This search is accomplished using the fetchAllUsersForSearch method, which breaks down the user's input string into tokens and analyses it against the attributes of courses and users. It compares each attribute and returns the matching queries.
 
-7. [Search-Filter]. Sort and/or filter a list of items returned from a search, with the help of suitable UI components. **(easy)**
-    * Classes utilised:
 
 Feature Category: User Interactivity <br>
-8. [Interact-Follow]. The ability to ‘follow’ a course or any specific items. **(medium)**
+1. [Interact-Follow]. The ability to ‘follow’ a course or any specific items. **(medium)**
     * Classes utilised:
         * view/Dashboard/DashboardFragment.java
         * viewmodel/UserViewModel.java
         * database/FirebaseWaddleDatabaseServiceClient
+    * Both teachers and students have the option to join classes by either entering a class code using the expandable button or manually searching for a course through the app's search function. When a user tries to join a course, the joinCourse method in UserViewModel.java is executed, adding the queried course to the user's list of courses. The updated list of courses is then displayed in DashboardFragment.java, where the user can click on each course to access its content, view participants, and access discussion forums.
+
+
+Feature Category: UI Design and Testing <br>
+1. [UI-Test]. UI tests using espresso or similar. **(hard)**
+   * Classes utilised:
 
 
 *List all features you have completed in their separate categories with their difficulty classification. If they are features that are suggested and approved, please state this somewhere as well.*

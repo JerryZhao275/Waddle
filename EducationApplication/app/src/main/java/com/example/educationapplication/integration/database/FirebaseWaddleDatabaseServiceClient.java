@@ -39,13 +39,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import com.example.educationapplication.search.dataObjects.AdminUserDto;
-import com.example.educationapplication.search.dataObjects.CourseDto;
-import com.example.educationapplication.search.dataObjects.CustomOnCompleteListener;
-import com.example.educationapplication.search.dataObjects.LoginUserDto;
-import com.example.educationapplication.search.dataObjects.TeacherUserDto;
-import com.example.educationapplication.search.dataObjects.UserDto;
-import com.example.educationapplication.search.dataObjects.UserType;
+import dataObjects.AdminUserDto;
+import dataObjects.CourseDto;
+import dataObjects.CustomOnCompleteListener;
+import dataObjects.LoginUserDto;
+import dataObjects.TeacherUserDto;
+import dataObjects.UserDto;
+import dataObjects.UserType;
 
 public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServiceClient, Subject {
     private final CourseAVL courseAVL = new CourseAVL();
@@ -57,6 +57,8 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
 
     private static ListenerRegistration registration;
     private List<CourseDto> courseList;
+    private List<DiscussionDto> discussions;
+    private List<CommentDto> comments;
     public FirebaseWaddleDatabaseServiceClient() {
         observers = new ArrayList<>();
         database = FirebaseDatabase.getInstance();
@@ -103,6 +105,7 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
 
     private LoginUserDto currentUser = new LoginUserDto("","");
     private UserDto userDetails;
+    private UserDto otherUserDetails;
 
     private ArrayList<Observer> observers;
 
@@ -135,6 +138,36 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
                             detachAll();
                             userDetails = UserTypeFactory.createUser(userType, document);
                             attach(userDetails);
+                            listener.onComplete();
+                            if (document.exists()) {
+                                Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                            } else {
+                                Log.d(TAG, "No such document");
+                            }
+                        } else {
+                            Log.d(TAG, "get failed with ", task.getException());
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    @Override
+    public void fetchOtherUserDetails(UserDto user, CustomOnCompleteListener listener) {
+        DocumentReference docRef = firestore.collection("Users").document(user.getUserId());
+        database.getReference("Users").child(user.getUserId()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                DataSnapshot document1 = task.getResult();
+                System.out.println(document1.getValue());
+                userType = document1.getValue().toString();
+                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            otherUserDetails = UserTypeFactory.createUser(userType, document);
                             listener.onComplete();
                             if (document.exists()) {
                                 Log.d(TAG, "DocumentSnapshot data: " + document.getData());
@@ -240,27 +273,33 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
 
     @Override
     public void addCourse(CourseDto course, CustomOnCompleteListener listener) {
-        firestore.collection("Courses").document(course.getCourseId().toString()).set(course).addOnCompleteListener(new OnCompleteListener() {
+        firestore.collection("Courses").document(course.getCourseId().toString()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onComplete(@NonNull Task task) {
-                if(task.isSuccessful()){
-                    List<String> newCourseName = new ArrayList<>();
-                    if(course.getTeacher().getCourses()!=null){
-                        newCourseName = course.getTeacher().getCourses();
-                    }
-                    newCourseName.add(course.getCourseName());
-                    Map<String, List<String>> map = new HashMap<>();
-                    map.put("courses", newCourseName);
-                    courseAVL.insert(course);
-                    firestore.collection("Users").document(course.getTeacher().getUserId()).update("courses", newCourseName).addOnCompleteListener(new OnCompleteListener<Void>() {
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(!task.getResult().exists()){
+                    firestore.collection("Courses").document(course.getCourseId().toString()).set(course).addOnCompleteListener(new OnCompleteListener() {
                         @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            listener.onComplete();
+                        public void onComplete(@NonNull Task task) {
+                            if(task.isSuccessful()){
+                                List<String> newCourseName = new ArrayList<>();
+                                if(course.getTeacher().getCourses()!=null){
+                                    newCourseName = course.getTeacher().getCourses();
+                                }
+                                newCourseName.add(course.getCourseName());
+                                courseAVL.insert(course);
+                                firestore.collection("Users").document(course.getTeacher().getUserId()).update("courses", newCourseName).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        listener.onComplete();
+                                    }
+                                });
+                            }
                         }
                     });
                 }
             }
         });
+
     }
     @Override
     public void synchUsers(CustomOnCompleteListener listener){
@@ -293,6 +332,51 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
     }
 
     @Override
+    public void addDiscussion(DiscussionDto discussion, CustomOnCompleteListener listener) {
+        firestore.collection("Discussions").add(discussion)
+                .addOnCompleteListener(new OnCompleteListener() {
+            @Override
+            public void onComplete(@NonNull Task task) {
+                if(task.isSuccessful()){
+                    listener.onComplete();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void addComment(CommentDto comment, CustomOnCompleteListener listener) {
+        firestore.collection("Comments").add(comment)
+                .addOnCompleteListener(new OnCompleteListener() {
+            @Override
+            public void onComplete(@NonNull Task task) {
+                if(task.isSuccessful()){
+                    listener.onComplete();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void addStudentToCourse(String course, CustomOnCompleteListener listener) {
+        if(course.length()==8) {
+            firestore.collection("Courses").document(course.substring(4)).update("allStudents", FieldValue.arrayUnion(mAuth.getCurrentUser().getUid())).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        firestore.collection("Users").document(mAuth.getCurrentUser().getUid()).update("courses", FieldValue.arrayUnion(course)).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                listener.onComplete();
+                            }
+                        });
+                    }
+                }
+            });
+        }
+    }
+
+    @Override
     public void synchCourses(CustomOnCompleteListener listener) {
         FieldPath fieldPath = FieldPath.of("teacher", "userId");
         firestore.collection("Courses").whereEqualTo(fieldPath, mAuth.getCurrentUser().getUid()).addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -312,11 +396,40 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
                 }
             }
         });
+        firestore.collection("Courses").whereArrayContains("allStudents", mAuth.getCurrentUser().getUid()).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                if(error!=null){
+                    System.out.println("Course Error");
+                }
+                else{
+                    assert value != null;
+                    for(DocumentSnapshot documentSnapshot : value.getDocuments()){
+                        CourseDto queryCourse = documentSnapshot.toObject(CourseDto.class);
+                        if(courseList.stream().noneMatch(u -> u.getCourseName().equals(queryCourse.getCourseName()))) {
+                            courseList.add(queryCourse);
+                        }
+                    }
+                    listener.onComplete();
+                }
+            }
+        });
     }
 
+    @Override
+    public UserDto getOtherUserDetails(){
+        return otherUserDetails;
+    }
     public UserDto getUserDetails(){
         return userDetails;
     }
+
+    @Override
+    public String getCurrentUserId() {
+        return mAuth.getCurrentUser().getUid();
+    }
+
     @Override
     public void signOut() {
         mAuth.signOut();
@@ -592,6 +705,60 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
     }
 
     @Override
+    public void syncDiscussions(String courseId, CustomOnCompleteListener listener) {
+        firestore.collection("Discussions").whereEqualTo("courseID", courseId).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if(error!=null){
+                    System.out.println("Discussion Failed to Sync");
+                }
+                else{
+                    discussions = new ArrayList<>();
+                    if(value!=null){
+                        for(DocumentSnapshot document:value.getDocuments()){
+                            DiscussionDto discussion = document.toObject(DiscussionDto.class);
+                            discussions.add(discussion);
+                        }
+                    }
+                    listener.onComplete();
+                }
+            }
+        });
+    }
+
+    @Override
+    public List<DiscussionDto> getDiscussions() {
+        return discussions;
+    }
+
+    @Override
+    public void syncComments(String discussionID, CustomOnCompleteListener listener) {
+        firestore.collection("Comments").whereEqualTo("discussionID", discussionID).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if(error!=null){
+                    System.out.println("Failed to sync comments");
+                }
+                else{
+                    if(value!=null){
+                        comments = new ArrayList<>();
+                        for(DocumentSnapshot document:value.getDocuments()){
+                            CommentDto comment = document.toObject(CommentDto.class);
+                            comments.add(comment);
+                        }
+                        listener.onComplete();
+                    }
+                }
+            }
+        });
+    }
+
+    @Override
+    public List<CommentDto> getComments() {
+        return comments;
+    }
+
+    @Override
     public void createNewUserDataInstance(UserDto user, String password, CustomOnCompleteListener listener) {
         mAuth.createUserWithEmailAndPassword(user.getUserEmail(), password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -629,6 +796,7 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
                             listener.onComplete();
                         }
                     });
+
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "createUserWithEmail:failure", task.getException());

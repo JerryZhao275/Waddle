@@ -17,9 +17,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Set the layout file as the content view for the activity
         setContentView(R.layout.activity_main);
+
+        // Get a reference to the BottomNavigationView
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+
+        // Set a listener for item selection in the bottom navigation view
         bottomNav.setOnItemSelectedListener(navListener);
+
+        // Replace the fragment container with the initial DashboardFragment
         final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         DashboardFragment newFragment = new DashboardFragment();
         transaction.replace(R.id.fragment_container, newFragment);
@@ -30,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
     private final NavigationBarView.OnItemSelectedListener navListener = item -> {
         Fragment selectedFragment = null;
         int itemId = item.getItemId();
+
+        // Determine which fragment to show based on the selected item in the bottom navigation view
         if (itemId == R.id.dashboard) {
             selectedFragment = new DashboardFragment();
         } else if (itemId == R.id.search) {
@@ -39,10 +49,12 @@ public class MainActivity extends AppCompatActivity {
         } else if (itemId == R.id.profile) {
             selectedFragment = new ProfileFragment();
         }
+
+        // Replace the current fragment with the selected fragment
         if (selectedFragment != null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
         }
+
         return true;
     };
-
 }

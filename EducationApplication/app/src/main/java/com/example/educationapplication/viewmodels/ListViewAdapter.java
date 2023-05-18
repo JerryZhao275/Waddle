@@ -25,8 +25,6 @@ import com.example.educationapplication.search.dataObjects.UserDto;
 public class ListViewAdapter extends BaseAdapter {
     Context mContext;
     LayoutInflater inflater;
-
-    //REPLACE WITH DB LISTS
     private final WaddleDatabaseConfiguration config;
     private final WaddleDatabaseServiceClient databaseServiceClient;
     List<UserDto> users = new ArrayList<>();
@@ -48,7 +46,7 @@ public class ListViewAdapter extends BaseAdapter {
         return displayList.toArray(new String[0]);
     }
 
-    public void filterUserList(Exp expression) {
+    public void filterUserList(Exp expression, CustomOnCompleteListener listener) {
         databaseServiceClient.fetchAllUsersForSearch(expression, new CustomOnCompleteListener() {
             @Override
             public void onComplete() {
@@ -60,22 +58,24 @@ public class ListViewAdapter extends BaseAdapter {
                 System.out.println(userNames);
                 displayList = userNames;
                 notifyDataSetChanged();
+                listener.onComplete();
             }
         });
     }
 
-    public void filterCourseList(Exp expression) {
+    public void filterCourseList(Exp expression, CustomOnCompleteListener listener) {
         databaseServiceClient.fetchAllCoursesForSearch(expression, new CustomOnCompleteListener() {
             @Override
             public void onComplete() {
                 courses = databaseServiceClient.getQueryCourses();
                 List<String> courseNames = new ArrayList<>();
                 for(CourseDto course: courses){
-                    courseNames.add(course.getCourseDescription());
+                    courseNames.add( course.getCourseDescription());
                 }
                 System.out.println(courseNames);
                 displayList = courseNames;
                 notifyDataSetChanged();
+                listener.onComplete();
             }
         });
     }
@@ -104,8 +104,7 @@ public class ListViewAdapter extends BaseAdapter {
         final ViewHolder holder;
         if (view == null) {
             holder = new ViewHolder();
-            view = inflater.inflate(R.layout.list_view_items, null);
-            //Change list_view_items to some other .xml resource for classes and quizzes
+            view = inflater.inflate(R.layout.list_view_people, null);
 
             holder.name = view.findViewById(R.id.name);
             view.setTag(holder);
@@ -144,5 +143,22 @@ public class ListViewAdapter extends BaseAdapter {
     }
     public void displayClasses() {
         displayList = List.of(classesList);
+    }
+
+    public List<UserDto> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<UserDto> users) {
+        this.users = users;
+        notifyDataSetChanged();
+    }
+
+    public List<CourseDto> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<CourseDto> courses) {
+        this.courses = courses;
     }
 }

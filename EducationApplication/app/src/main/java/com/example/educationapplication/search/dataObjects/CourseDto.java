@@ -10,7 +10,6 @@ public class CourseDto implements Serializable {
     private String courseName;
     private String courseDescription;
     private List<QuizDto> quizzes;
-
     private TeacherUserDto teacher;
     private List<String> students;
     public CourseDto(){

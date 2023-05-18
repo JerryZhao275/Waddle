@@ -1,4 +1,5 @@
-package com.example.educationapplication.util.views.Fragment;
+package com.example.educationapplication.views.Fragment;
+
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.databinding.DataBindingUtil;
@@ -6,18 +7,14 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toolbar;
-
 import com.example.educationapplication.R;
 import com.example.educationapplication.databinding.FragmentProfileBinding;
-import com.example.educationapplication.util.views.LoginView;
 import com.example.educationapplication.viewmodels.UserViewModel;
-
-import java.util.Objects;
+import com.example.educationapplication.views.LoginView;
 
 public class ProfileFragment extends Fragment implements View.OnClickListener {
 
@@ -35,6 +32,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     }
 
     View view;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -42,6 +40,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         fragBinding.setViewModel(new UserViewModel());
         view = fragBinding.getRoot();
 
+        // Get references to UI elements
         bg = view.findViewById(R.id.logoutDim);
         whitebox = view.findViewById(R.id.logoutWhiteBox);
         yes = view.findViewById(R.id.yesLogout);
@@ -49,6 +48,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         logoutText = view.findViewById(R.id.logoutconfirmationText);
         logout = view.findViewById(R.id.logoutbutton);
 
+        // Set click listeners for buttons
         yes.setOnClickListener(this);
         no.setOnClickListener(this);
         logout.setOnClickListener(this);
@@ -56,10 +56,11 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         return view;
     }
 
-
     @Override
     public void onClick(View view) {
+        // Handle button clicks
         if (view.getId() == R.id.logoutbutton) {
+            // Show logout confirmation dialog
             yes.setVisibility(View.VISIBLE);
             no.setVisibility(View.VISIBLE);
             logoutText.setVisibility(View.VISIBLE);
@@ -67,11 +68,13 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             bg.setVisibility(View.VISIBLE);
         }
         if (view.getId() == R.id.yesLogout) {
+            // Perform logout
             requireActivity().finish();
             Intent intent = new Intent(getActivity(), LoginView.class);
             startActivity(intent);
         }
         else if (view.getId() == R.id.noLogout ) {
+            // Hide logout confirmation dialog
             yes.setVisibility(View.INVISIBLE);
             no.setVisibility(View.INVISIBLE);
             logoutText.setVisibility(View.INVISIBLE);
