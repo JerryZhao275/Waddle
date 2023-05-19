@@ -315,7 +315,7 @@ Feature Category: Greater Data Usage, Handling and Sophistication <br>
    * Classes utilised:
      * activity_user_page.xml
      * profile_fragment.xml
-   * 
+   * When accessing your own or another user's profile, an aesthetically pleasing background is associated with the activity, enhancing the visual presentation of the information displayed. This captivating background serves as a backdrop while showcasing the comprehensive details of a particular user, encompassing their full name, email address, and their status as a student or teacher. Additionally, the profile furnishes a comprehensive list of the courses in which the user is currently enrolled. This thoughtful design element not only enhances the user experience but also adds a touch of personalisation and visual appeal to the profile-viewing process.
 
 <img src="./images/dataprofile.png" alt="Data Profile" height="600"><br>
 
