@@ -49,6 +49,24 @@
 
 *[Miscellaneous contributions. You are welcome to provide anything that you consider as a contribution to the project or team.]*
 
+u7474428, Michael Ostapenko, I contribute _% of the code. Here are my contributions:
+* MessagesViewModel.java Class (entire class)
+* UserDTO.class: update(), getDirectMessages(), addMessage()
+* MessageFactory.java Class (entire class)
+* FirebaseWaddleDatabaseServiceClient.java: notifyObservers(), detachAll(), attach(), detach()
+* Observer and Subject Interfaces
+* I worked on and completed a password hashing algorithm which ended up being redundant due to using firebase password security
+and not included in the code
+
+I proposed and worked on an Observer design pattern for the project to react to database changes,
+i.e. course changes or discussion changes and then update the user with a notification in the
+notifications tab. Adding to that I also created a Factory Design pattern to generate a notification
+message based of constraints. While I did not suggest it, I did work with the MVVM pattern for designing android
+applications inside of the messages fragment to display those notifications properly. 
+
+For report writing, I wrote in information on the classes and methods I coded in, i.e. the Observer design pattern, my part
+of the Factory pattern I used and the notification system as a whole. 
+
 ## Conflict Resolution Protocol
 1. Define the source of the conflict: The mediator will initiate communication with all team members and identify where the conflict lies.
 2. Look beyond the incident: Party members will act professionally to not let personal emotions play a part in your actions.
