@@ -144,6 +144,12 @@ Kate wants to post a question on the discussion forum regarding AVLTrees discuss
      * All classes in viewmodel folder
    * The facade design pattern played a crucial role in our project, serving as the main architectural framework for our application. We organized all the Firebase-related logic into the database folder and accessed it through the viewmodel course, incorporating additional logic when necessary. This approach allowed us to present a simplified interface for a sophisticated subsystem that encompassed numerous interconnected elements. Given the complexity of our application, which involved multiple features and intricate logic for seamless integration, the facade design pattern greatly facilitated the overall development process.
 
+4. **Observer Design Pattern**
+   * Classes utilised:
+     * FirebaseWaddleDatabaseServiceClient.java (Subject)
+     * UserDto.java (And its child classes) (Observer)
+   * The observer desing pattern plays a side role in the project, and is used to notify the UserDTO of any changes in the database. The firebase client is the subject, and it
+contains a listener which detects changes in necessary parts of the database. The corresponding UserDTO is added to the list of observers and the subject notifies all observers when there is a change. The userDTO then updates, generating a notification message for the user which is then displayed in the messages/ notifications tab. This observer pattern allows a clean and seemless notification method throughout the program and allows observers to respond to necessary changes in the database. 
 
 **Grammar(s)**
 
