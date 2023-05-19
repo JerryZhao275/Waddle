@@ -25,7 +25,7 @@
 | u7474428 | Michael Ostapenko | [role] |
 
 ## Summary of Individual Contributions
-**u7490271, Jerry Zhao**, I contributed approximately … of the code. The following are my contributions:
+**u7490271, Jerry Zhao**, I contributed approximately 35% of the code. The following are my contributions:
 * CourseAVL.java (AVL Tree structure) and CourseAVLTest.java
 * DataReader.java and dataInstances.csv (generation of 2500 data instances)
 * FirebaseWaddleDatabaseServiceClient.java, lines 106-134, 247-272, 679-728
@@ -67,30 +67,51 @@
 
 
 
-*[Summarise the contributions made by each member to the project, e.g. code implementation, code design, UI design, report writing, etc.]*
 
-*[Code Implementation. Which features did you implement? Which classes or methods was each member involved in? Provide an approximate proportion in pecentage of the contribution of each member to the whole code implementation, e.g. 30%.]*
+**u7348473, Karthik Reddy Vemireddy**, I contributed approximately 35% of the code. The following are my contributions:
+* All the search expressions:
+  * CourseDescExpression.java
+  * CourseExpression.java
+  * EmailExpression.java
+  * EmptyExpression.java
+  * Exp.java
+  * NameExpression.java
+* Search Tokenizer SearchBarTokenizer.java
+* Search Parser parseName.java
+* Tokenizer Token class Token.java
+* FirebaseWaddleDatabaseServiceClient.java Wrote the whole database code and others added additional functions.
+* CustomOnCompleteListener.java to listen to firebase async operations completion.
+* Helped in architecting most of the data object classes.
+* Added additional comments in all files.
+* Responsible for code refactoring in many code files.
+* ViewModel classes
+    * CommentRVAdapter.java, added database listener functionality for fire-sync.
+    * CommentViewModel.java, whole file
+    * CreateClassViewModel.java, 75% contribution
+    * DiscussionAdapter.java, added database listener functionality for fire-sync.
+    * DiscussionViewModel.java, whole file
+    * ListViewAdapter.java, added database listener functionality for search.
+    * SignUpViewModel.java, whole file
+    * UserViewModel.java, added additional database related listeners and operations.
+* View classes
+    * DashboardFragment.java added additional logic for MVVM architecture and database interaction.
+    * ProfileFragment.java, whole file
+    * SearchFragment.java onQueryTextSubmit and onQueryTextChange
+    * CoursePage.java Added listeners for database operation completions.
+    * CreateClass.java, half contributions
+    * DiscussionPage.java additional logic for passing to viewModels.
+    * LoginView.java, majority contribution
+    * SignupView.java, whole file
+* XML files
+    * signup.xml
+    * login.xml
+* Report - Writing contributions
+    * Grammar, tokenizer and parser.
+* I additionally assisted all the working teammates to debug several bugs throughout the development
+process. 
 
-*Here is an example:*
 
-*UID1, Name1, I contribute 30% of the code. Here are my contributions:*
-* A.class
-* B.class: function1(), function2(), ...
-* ....
-
-*you should ALSO provide links to the specified classes and/or functions*
-
-*[Code Design. What design patterns, data structures, did the involved member propose?]*
-
-*[UI Design. Specify what design did the involved member propose? What tools were used for the design?]*
-
-*[Report Writing. Which part of the report did the involved member write?]*
-
-*[Slide preparation. Were you responsible for the slides?]*
-
-*[Miscellaneous contributions. You are welcome to provide anything that you consider as a contribution to the project or team.]*
-
-u7474428, Michael Ostapenko, I contribute _% of the code. Here are my contributions:
+u7474428, Michael Ostapenko, I contribute 10% of the code. Here are my contributions:
 * MessagesViewModel.java Class (entire class)
 * MessagesFragment.java Class (filled in entire class)
 * fragment_messages.xml (added the list view for viewing notifications)
@@ -110,7 +131,7 @@ applications inside of the messages fragment to display those notifications prop
 For report writing, I wrote in information on the classes and methods I coded in, i.e. the Observer design pattern, my part
 of the Factory pattern I used and the notification system as a whole. 
 
-u7499989, Matthew Richards, I contribute _% of the code. Here are my contributions:
+u7499989, Matthew Richards, I contribute 10% of the code. Here are my contributions:
 * DashboardTests.java
 * LoginViewTests.java
 * ConfigurationManager.java
