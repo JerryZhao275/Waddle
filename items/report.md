@@ -1,4 +1,5 @@
 # G39 Report
+**Waddle - Educational Application**
 
 ## Table of Contents
 
