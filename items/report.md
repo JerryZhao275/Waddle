@@ -110,6 +110,7 @@
     * Grammar, tokenizer and parser.
 * I additionally assisted all the working teammates to debug several bugs throughout the development
 process. 
+* Worked on the presentation video.
 
 
 u7474428, Michael Ostapenko, I contribute 10% of the code. Here are my contributions:
@@ -168,6 +169,8 @@ u7124454, Ryan Yoon, I contribute 10% of the code. Here are my contributions:
 * activity_discussion_page.xml
 * item_course.xml
 * UML diagrams for the report
+* Worked on the presentation video.
+
 
 The discussion and comment data objects were created to make it possible to submit discussion posts and make comments onto them.
 
