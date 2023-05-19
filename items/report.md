@@ -25,6 +25,47 @@
 | u7474428 | Michael Ostapenko | [role] |
 
 ## Summary of Individual Contributions
+**u7490271, Jerry Zhao**, I contributed approximately … of the code. The following are my contributions:
+    * CourseAVL.java (AVL Tree structure) and CourseAVLTest.java
+    * DataReader.java and dataInstances.csv (generation of 2500 data instances)
+    * FirebaseWaddleDatabaseServiceClient.java, lines 106-134, 247-272, 679-728
+    * Commented all ViewModel and View classes
+    * ViewModel classes
+        * CourseRecyclerViewAdapter.java, whole file
+        * UsersRecyclerViewAdapter.java, whole file
+        * UserViewModel.java, excluding lines 75-90
+    * View classes
+        * DashboardFragment.java, excluding lines 59-67 and initial expandable button clicking logic
+        * ProfileFragment.java, whole file
+        * SearchFragment.java, excluding onQueryTextSubmit and onQueryTextChange
+        * ConfirmJoinCourse.java, whole file
+        * CreateClass.java, half contributions
+        * MainActivity.java, whole file
+        * UserPage.java, whole file
+    * XML files
+        * activity_confirm_join_course.xml
+        * activity_main.xml,
+        * create_class.xml
+        * fragment_profile.xml
+        * fragment_search.xml
+        * list_view_items.xml
+        * bottom_nav.xml
+        * activity_user_page.xml
+        * item_view_courses.xml
+        * item_view_people.xml
+    * Report - Writing contributions
+        * Conflict Resolution Protocol, whole section
+        * Application Description, whole section
+        * Application Design and Decisions excluding Observer pattern, Grammar and Tokeniser and Parsers
+        * Summary of Known Bugs and Errors
+        * CourseAVLTest of Testing summary
+        * All Implemented features excluding Search by Parsers/Tokenisers and UI-Tests
+        * Team Meetings
+    * Scribed Meeting 4, 5, 6
+    * All presentation slides
+
+
+
 
 *[Summarise the contributions made by each member to the project, e.g. code implementation, code design, UI design, report writing, etc.]*
 
