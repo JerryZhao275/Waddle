@@ -92,11 +92,13 @@
 
 u7474428, Michael Ostapenko, I contribute _% of the code. Here are my contributions:
 * MessagesViewModel.java Class (entire class)
+* MessagesFragment.java Class (filled in entire class)
+* fragment_messages.xml (added the list view for viewing notifications)
 * UserDTO.class: update(), getDirectMessages(), addMessage()
 * MessageFactory.java Class (entire class)
 * FirebaseWaddleDatabaseServiceClient.java: notifyObservers(), detachAll(), attach(), detach()
 * Observer and Subject Interfaces
-* I worked on and completed a password hashing algorithm which ended up being redundant due to using firebase password security
+* Worked on and completed a password hashing algorithm which ended up being redundant due to using firebase password security
 and not included in the code
 
 I proposed and worked on an Observer design pattern for the project to react to database changes,
