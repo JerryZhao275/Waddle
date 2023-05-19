@@ -18,11 +18,11 @@
 
 | UID      |       Name        | Role |
 |:---------|:-----------------:| ---: |
-| u7490271 |    Jerry Zhao     | [role] |
-| u7348473 | Karthik Vemireddy | [role] |
-| u7499989 | Matthew Richards  | [role] |
-| u7124454 |     Ryan Yoon     | [role] |
-| u7474428 | Michael Ostapenko | [role] |
+| u7490271 |    Jerry Zhao     | Backend Logic and UI design |
+| u7348473 | Karthik Vemireddy | Firebase Development, Backend logic|
+| u7499989 | Matthew Richards  | Software Testing and Development |
+| u7124454 |     Ryan Yoon     | UI design |
+| u7474428 | Michael Ostapenko | Development |
 
 ## Summary of Individual Contributions
 **u7490271, Jerry Zhao**, I contributed approximately 35% of the code. The following are my contributions:
@@ -77,6 +77,7 @@
   * Exp.java
   * NameExpression.java
 * Search Tokenizer SearchBarTokenizer.java
+* Creation, Maintenance and linking of firebase and development around firebase.
 * Search Parser parseName.java
 * Tokenizer Token class Token.java
 * FirebaseWaddleDatabaseServiceClient.java Wrote the whole database code and others added additional functions.
