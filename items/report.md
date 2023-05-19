@@ -18,8 +18,8 @@
 
 | UID      |       Name        | Role |
 |:---------|:-----------------:| ---: |
-| u7490271 |    Jerry Zhao     | Backend Logic and UI design |
-| u7348473 | Karthik Vemireddy | Firebase Development, Backend logic|
+| u7490271 |    Jerry Zhao     | Backend Logic and UI design and Development|
+| u7348473 | Karthik Vemireddy | Firebase Development, Backend logic and Development|
 | u7499989 | Matthew Richards  | Software Testing and Development |
 | u7124454 |     Ryan Yoon     | UI design |
 | u7474428 | Michael Ostapenko | Development |
