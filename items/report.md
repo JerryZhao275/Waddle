@@ -136,7 +136,8 @@ Kate wants to post a question on the discussion forum regarding AVLTrees discuss
         * UserDto.java, whole file
         * StudentUserDto.java, whole file
         * TeacherUserDto.java, whole file
-    * The factory method design pattern allows for the creation of objects without having to specify the exact class of the object that will be created. In the context of a UserDto class extended by TeacherUserDto and StudentUserDto, utilising the factory method design pattern can offer several benefits. It allows for the creation of objects of the UserDto class and its subclasses without needing to know the exact class of the object at runtime. This can simplify the codebase, reduce code duplication, and make the system more modular. It also provides a clear separation of concerns between the creation of objects and their implementation, making it easier to maintain and test the code.
+        * Creating Messages in UserDto.java (Factory for Strings)
+    * The factory method design pattern allows for the creation of objects without having to specify the exact class of the object that will be created. In the context of a UserDto class extended by TeacherUserDto and StudentUserDto, utilising the factory method design pattern can offer several benefits. It allows for the creation of objects of the UserDto class and its subclasses without needing to know the exact class of the object at runtime. This can simplify the codebase, reduce code duplication, and make the system more modular. Additionally, it used used to generate notification messages given what is changed in the database. It also provides a clear separation of concerns between the creation of objects and their implementation, making it easier to maintain and test the code.
 
 3. **Facade Design Pattern**
    * Classes utilised:
@@ -287,7 +288,9 @@ Feature Category: Firebase Integration <br>
         * view/Dashboard/DashboardFragment.java
         * view/CoursePage.java
         * viewmodel/UserViewModel.java
-    * The UserViewModel.java class has a CustomOnCompleteListener attached to the fetchUserCourseDetails method. This method, in turn, calls the synchCourses method in FirebaseWaddleDatabaseServiceClient.java. The synchCourses method updates the user's course list whenever a change in their courses is detected. The listener adds the queried course to the courseList, which is then automatically displayed in the user's Dashboard with an updated list of courses. A similar process was developed for discussion board messages, where the syncDiscussions method updates the displayed discussions and posts and syncs the user's discussion board tab in a course page without requiring a page reload.
+        * UserDto.java
+        * viewmodel/MessagesViewModel.java
+    * The UserViewModel.java class has a CustomOnCompleteListener attached to the fetchUserCourseDetails method. This method, in turn, calls the synchCourses method in FirebaseWaddleDatabaseServiceClient.java. The synchCourses method updates the user's course list whenever a change in their courses is detected. The listener adds the queried course to the courseList, which is then automatically displayed in the user's Dashboard with an updated list of courses. A similar process was developed for discussion board messages, where the syncDiscussions method updates the displayed discussions and posts and syncs the user's discussion board tab in a course page without requiring a page reload. The database also has a real time listener on data change which then sends a notification to the userDto to generate a nofication message which is then used by MessagesViewModel to display that message. 
 
 Feature Category: Creating Processes <br>
 1. [Process-Permission]. Only users with permission can have certain permissions in the app. **(easy)**
