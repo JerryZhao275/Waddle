@@ -18,14 +18,14 @@
 
 | UID      |       Name        | Role |
 |:---------|:-----------------:| ---: |
-| u7490271 |    Jerry Zhao     | [role] |
-| u7348473 | Karthik Vemireddy | [role] |
-| u7499989 | Matthew Richards  | [role] |
-| u7124454 |     Ryan Yoon     | [role] |
-| u7474428 | Michael Ostapenko | [role] |
+| u7490271 |    Jerry Zhao     | Backend Logic and UI design and Development|
+| u7348473 | Karthik Vemireddy | Firebase Development, Backend logic and Development|
+| u7499989 | Matthew Richards  | Software Testing and Development |
+| u7124454 |     Ryan Yoon     | UI design |
+| u7474428 | Michael Ostapenko | Development |
 
 ## Summary of Individual Contributions
-**u7490271, Jerry Zhao**, I contributed approximately … of the code. The following are my contributions:
+**u7490271, Jerry Zhao**, I contributed approximately 35% of the code. The following are my contributions:
 * CourseAVL.java (AVL Tree structure) and CourseAVLTest.java
 * DataReader.java and dataInstances.csv (generation of 2500 data instances)
 * FirebaseWaddleDatabaseServiceClient.java, lines 106-134, 247-272, 679-728
@@ -67,30 +67,52 @@
 
 
 
-*[Summarise the contributions made by each member to the project, e.g. code implementation, code design, UI design, report writing, etc.]*
 
-*[Code Implementation. Which features did you implement? Which classes or methods was each member involved in? Provide an approximate proportion in pecentage of the contribution of each member to the whole code implementation, e.g. 30%.]*
+**u7348473, Karthik Reddy Vemireddy**, I contributed approximately 35% of the code. The following are my contributions:
+* All the search expressions:
+  * CourseDescExpression.java
+  * CourseExpression.java
+  * EmailExpression.java
+  * EmptyExpression.java
+  * Exp.java
+  * NameExpression.java
+* Search Tokenizer SearchBarTokenizer.java
+* Creation, Maintenance and linking of firebase and development around firebase.
+* Search Parser parseName.java
+* Tokenizer Token class Token.java
+* FirebaseWaddleDatabaseServiceClient.java Wrote the whole database code and others added additional functions.
+* CustomOnCompleteListener.java to listen to firebase async operations completion.
+* Helped in architecting most of the data object classes.
+* Added additional comments in all files.
+* Responsible for code refactoring in many code files.
+* ViewModel classes
+    * CommentRVAdapter.java, added database listener functionality for fire-sync.
+    * CommentViewModel.java, whole file
+    * CreateClassViewModel.java, 75% contribution
+    * DiscussionAdapter.java, added database listener functionality for fire-sync.
+    * DiscussionViewModel.java, whole file
+    * ListViewAdapter.java, added database listener functionality for search.
+    * SignUpViewModel.java, whole file
+    * UserViewModel.java, added additional database related listeners and operations.
+* View classes
+    * DashboardFragment.java added additional logic for MVVM architecture and database interaction.
+    * ProfileFragment.java, whole file
+    * SearchFragment.java onQueryTextSubmit and onQueryTextChange
+    * CoursePage.java Added listeners for database operation completions.
+    * CreateClass.java, half contributions
+    * DiscussionPage.java additional logic for passing to viewModels.
+    * LoginView.java, majority contribution
+    * SignupView.java, whole file
+* XML files
+    * signup.xml
+    * login.xml
+* Report - Writing contributions
+    * Grammar, tokenizer and parser.
+* I additionally assisted all the working teammates to debug several bugs throughout the development
+process. 
 
-*Here is an example:*
 
-*UID1, Name1, I contribute 30% of the code. Here are my contributions:*
-* A.class
-* B.class: function1(), function2(), ...
-* ....
-
-*you should ALSO provide links to the specified classes and/or functions*
-
-*[Code Design. What design patterns, data structures, did the involved member propose?]*
-
-*[UI Design. Specify what design did the involved member propose? What tools were used for the design?]*
-
-*[Report Writing. Which part of the report did the involved member write?]*
-
-*[Slide preparation. Were you responsible for the slides?]*
-
-*[Miscellaneous contributions. You are welcome to provide anything that you consider as a contribution to the project or team.]*
-
-u7474428, Michael Ostapenko, I contribute _% of the code. Here are my contributions:
+u7474428, Michael Ostapenko, I contribute 10% of the code. Here are my contributions:
 * MessagesViewModel.java Class (entire class)
 * MessagesFragment.java Class (filled in entire class)
 * fragment_messages.xml (added the list view for viewing notifications)
@@ -109,6 +131,25 @@ applications inside of the messages fragment to display those notifications prop
 
 For report writing, I wrote in information on the classes and methods I coded in, i.e. the Observer design pattern, my part
 of the Factory pattern I used and the notification system as a whole. 
+
+u7499989, Matthew Richards, I contribute 10% of the code. Here are my contributions:
+* DashboardTests.java
+* LoginViewTests.java
+* ConfigurationManager.java
+* WaddleDatabaseConfiguration.java
+* WaddleDatabaseServiceClient.java
+* MockWaddleDatabaseServiceClient.java
+* FirebaseWaddleDatabaseServiceClient.java (created skeleton, others fleshed it out)
+* WaddleDatabaseServiceClientFactory.java
+* LoginModel.java
+* LoginViewModel.java
+* CommonRegexUtil.java
+* StringUtils.java
+* LoginEvent.java
+* LoginPageTests.java
+* RegexTests.java 
+
+I proposed the initial architecture for the project, that is, the MVVM pattern for our pages, to decouple database and UI interactions from our business logic. I wrote the first example of these, with the LoginView, LoginViewModel, and LoginModel classes, accompanied by the LoginPageTests class, in the hopes that we could establish good practices early on. These unit tests showcased the potential of the MVVM architecture to support reproducible and isolated tests: not relying on Firebase, nor the Android emulator. To facilitate this, I designed and wrote the framework for database interaction through the project: dependency injection of the WaddleDatabaseServiceClient instances. I wrote both a mock, and Firebase implementation of this interface, which is conditionally injected based on an environment.properties file for each environment (production/in-app, unit tests, espresso tests). This allows for our unit tests to be exact and not have to worry about depending on Firebase, but rather purely testing our business rules by replacing dependency on live data with a simple map of hardcoded users. 
 
 u7124454, Ryan Yoon, I contribute 10% of the code. Here are my contributions:
 
@@ -233,16 +274,22 @@ contains a listener which detects changes in necessary parts of the database. Th
 
 Production Rules:
 
-    <Non-Terminal> ::= <some output>
-    <Non-Terminal> ::= <some output>
+    1. <user name> ::= <user name, user email>|<user email>|<empty>
+       <user email> ::= <user email, user email>|<user name>|<empty>
+    2. <course name> ::= <course name, course description>|<course description>|<empty>
+       <course description> ::=  <course description, course description>|<course name>|<empty>
 
-*[How do you design the grammar? What are the advantages of your designs?]*
-
-*If there are several grammars, list them all under this section and what they relate to.*
-
-**Tokenizer and Parsers**
-
-*[Where do you use tokenisers and parsers? How are they built? What are the advantages of the designs?]*
+* The grammar designed is as shown above. This grammar allows us to check if the token is a username or a 
+combination of username and user email or just user email. It can also check if entered token is a combination
+  of multiple emails and queries accordingly.
+* The grammar for courses also works in the same manner. This grammar allows us to check if the token is a course name, or a
+  combination of course name and course description or just course description. It can also check if entered token is a combination
+  of multiple course descriptions and queries accordingly.
+* This grammar allows the user to stack such tokens indefinitely and use all the tokens to query different results.
+  This contributes to a robust result for incorrect queries. Hence, this grammar is used in a tokenizer and parser
+  pair which are used to query search results by the logged-in user. When searching for Users, the grammar(1) used as tokenizer
+  tokenizes the input string into username or user email. Otherwise, grammar(2) is used where the tokenizer tokenizes input to course name or course description.
+* The database queries the parsed input and checks what results to return.
 
 **Android MVVM Design Pattern**
 * The MVVM Design pattern was utilised for all files in the model, view, and viewmodel files.
@@ -259,9 +306,14 @@ Production Rules:
 2. User email display bug in UserPage.java
    * When viewing other users, if a user's email address exceeds the length of the designated white box, the text extends beyond the box boundaries and overlaps with the background.
 
-3. ...
+3. Dashboard name and profile information display bug
+   * The first name of the user in the Dashboard fragment appears a second or so after the user first enters the app. 
+   * Similarly in profile, the user's name, student/teacher status and course information take a second to load when first viewing it.
+   * This is because we used @Bindable for a user's information, which takes a lot longer to load than using Serializable.
 
-*List all the known errors and bugs here. If we find bugs/errors that your team does not know of, it shows that your testing is not thorough.*
+4. Rapid switching between fragments 
+   * When switching too fast between the fragments, the information of users and their courses take longer time to load
+   * Depending on the device, this act may result in the app to crash altogether. This bug may be due to the number of changes in activity and the number of queries sent to the database.
 
 ## Testing Summary
 
