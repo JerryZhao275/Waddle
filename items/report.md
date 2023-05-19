@@ -110,6 +110,35 @@ applications inside of the messages fragment to display those notifications prop
 For report writing, I wrote in information on the classes and methods I coded in, i.e. the Observer design pattern, my part
 of the Factory pattern I used and the notification system as a whole. 
 
+u7124454, Ryan Yoon, I contribute 10% of the code. Here are my contributions:
+
+* CommentRVAdapter.java class (excluding set and add functions)
+* DiscussionAdapter.java class (excluding set and add functions)
+* RecyclerViewAdapter.java class (excluding listToString())
+* DashboardFragment.java class: expandable floating acion button implementation and initial recyclerView implementation inside the onClick()
+* CoursePage.java.java class
+* DiscussionPage.java class
+* DiscussionDto.java class (excluding id instances)
+* CommentDto.java class (excluding id instances)
+* fragment_dashboard.xml
+* item_discussion.xml
+* comment_item.xml
+* activity_course_page.xml
+* activity_discussion_page.xml
+* item_course.xml
+* UML diagrams for the report
+
+The discussion and comment data objects were created to make it possible to submit discussion posts and make comments onto them.
+
+Expandable floating action buttons were implemented in the Dashboard fragment to be able to expand button actions of 
+joining or creating classes to add to the Dashboard Course RecyclerView. Each item was also clickable to access each 
+courses’ discussion page where users could add a discussion with a title and the content of the discussion. The 
+discussions themselves were able to be clicked to access the discussion page where comments relating to the discussion 
+could be posted. I did not implement any of the persistence that relates to the database.
+
+I contributed to making the UML for the report with assistance of my group members in helping understand how to relate and
+ place everything within the diagram.
+
 ## Conflict Resolution Protocol
 1. Define the source of the conflict: The mediator will initiate communication with all team members and identify where the conflict lies.
 2. Look beyond the incident: Party members will act professionally to not let personal emotions play a part in your actions.
