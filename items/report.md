@@ -223,16 +223,22 @@ contains a listener which detects changes in necessary parts of the database. Th
 
 Production Rules:
 
-    <Non-Terminal> ::= <some output>
-    <Non-Terminal> ::= <some output>
+    1. <user name> ::= <user name, user email>|<user email>|<empty>
+       <user email> ::= <user email, user email>|<user name>|<empty>
+    2. <course name> ::= <course name, course description>|<course description>|<empty>
+       <course description> ::=  <course description, course description>|<course name>|<empty>
 
-*[How do you design the grammar? What are the advantages of your designs?]*
-
-*If there are several grammars, list them all under this section and what they relate to.*
-
-**Tokenizer and Parsers**
-
-*[Where do you use tokenisers and parsers? How are they built? What are the advantages of the designs?]*
+* The grammar designed is as shown above. This grammar allows us to check if the token is a username or a 
+combination of username and user email or just user email. It can also check if entered token is a combination
+  of multiple emails and queries accordingly.
+* The grammar for courses also works in the same manner. This grammar allows us to check if the token is a course name, or a
+  combination of course name and course description or just course description. It can also check if entered token is a combination
+  of multiple course descriptions and queries accordingly.
+* This grammar allows the user to stack such tokens indefinitely and use all the tokens to query different results.
+  This contributes to a robust result for incorrect queries. Hence, this grammar is used in a tokenizer and parser
+  pair which are used to query search results by the logged-in user. When searching for Users, the grammar(1) used as tokenizer
+  tokenizes the input string into username or user email. Otherwise, grammar(2) is used where the tokenizer tokenizes input to course name or course description.
+* The database queries the parsed input and checks what results to return.
 
 **Android MVVM Design Pattern**
 * The MVVM Design pattern was utilised for all files in the model, view, and viewmodel files.
