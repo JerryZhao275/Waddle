@@ -249,9 +249,14 @@ Production Rules:
 2. User email display bug in UserPage.java
    * When viewing other users, if a user's email address exceeds the length of the designated white box, the text extends beyond the box boundaries and overlaps with the background.
 
-3. ...
+3. Dashboard name and profile information display bug
+   * The first name of the user in the Dashboard fragment appears a second or so after the user first enters the app. 
+   * Similarly in profile, the user's name, student/teacher status and course information take a second to load when first viewing it.
+   * This is because we used @Bindable for a user's information, which takes a lot longer to load than using Serializable.
 
-*List all the known errors and bugs here. If we find bugs/errors that your team does not know of, it shows that your testing is not thorough.*
+4. Rapid switching between fragments 
+   * When switching too fast between the fragments, the information of users and their courses take longer time to load
+   * Depending on the device, this act may result in the app to crash altogether. This bug may be due to the number of changes in activity and the number of queries sent to the database.
 
 ## Testing Summary
 
