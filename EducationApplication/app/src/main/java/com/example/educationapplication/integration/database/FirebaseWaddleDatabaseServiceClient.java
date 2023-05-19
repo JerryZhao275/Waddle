@@ -582,7 +582,7 @@ public class FirebaseWaddleDatabaseServiceClient implements WaddleDatabaseServic
                         type = UserType.STUDENT;
 
                     }
-                    database.getReference("Users").child(currentUser.getUid()).setValue(UserType.STUDENT).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    database.getReference("Users").child(currentUser.getUid()).setValue(type).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             firestore.collection("Users").document(currentUser.getUid()).set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
