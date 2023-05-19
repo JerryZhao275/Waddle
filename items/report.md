@@ -110,6 +110,25 @@ applications inside of the messages fragment to display those notifications prop
 For report writing, I wrote in information on the classes and methods I coded in, i.e. the Observer design pattern, my part
 of the Factory pattern I used and the notification system as a whole. 
 
+u7499989, Matthew Richards, I contribute _% of the code. Here are my contributions:
+* DashboardTests.java
+* LoginViewTests.java
+* ConfigurationManager.java
+* WaddleDatabaseConfiguration.java
+* WaddleDatabaseServiceClient.java
+* MockWaddleDatabaseServiceClient.java
+* FirebaseWaddleDatabaseServiceClient.java (created skeleton, others fleshed it out)
+* WaddleDatabaseServiceClientFactory.java
+* LoginModel.java
+* LoginViewModel.java
+* CommonRegexUtil.java
+* StringUtils.java
+* LoginEvent.java
+* LoginPageTests.java
+* RegexTests.java 
+
+I proposed the initial architecture for the project, that is, the MVVM pattern for our pages, to decouple database and UI interactions from our business logic. I wrote the first example of these, with the LoginView, LoginViewModel, and LoginModel classes, accompanied by the LoginPageTests class, in the hopes that we could establish good practices early on. These unit tests showcased the potential of the MVVM architecture to support reproducible and isolated tests: not relying on Firebase, nor the Android emulator. To facilitate this, I designed and wrote the framework for database interaction through the project: dependency injection of the WaddleDatabaseServiceClient instances. I wrote both a mock, and Firebase implementation of this interface, which is conditionally injected based on an environment.properties file for each environment (production/in-app, unit tests, espresso tests). This allows for our unit tests to be exact and not have to worry about depending on Firebase, but rather purely testing our business rules by replacing dependency on live data with a simple map of hardcoded users. 
+
 ## Conflict Resolution Protocol
 1. Define the source of the conflict: The mediator will initiate communication with all team members and identify where the conflict lies.
 2. Look beyond the incident: Party members will act professionally to not let personal emotions play a part in your actions.
