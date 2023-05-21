@@ -198,7 +198,7 @@ Waddle offers a user-friendly sign-up process where users can easily create an a
 
 Once a user joins a course, it becomes visible on their dashboard. By clicking on the course, users can access information like course content, participants, and discussion forums. The search tab allows users to find and connect with friends, view their enrolled courses, and access their email addresses. In the profile tab, users can view their personal information, including full name, user status, and a list of enrolled courses. Additionally, a convenient logout function is available in the profile tab for users who wish to log out.
 
-![Key Features](./images/keyfeatures.png) <br>
+![Key Features](./items/images/keyfeatures.png) <br>
 
 
 **Application Use Cases and Examples**<br>
@@ -221,10 +221,10 @@ Kate wants to post a question on the discussion forum regarding AVLTrees discuss
 
 ## Application UML
 **Front End UML**
-![Front End UML](./images/frontendUML.png) <br>
+![Front End UML](./items/images/frontendUML.png) <br>
 
 **Back End UML**
-![Back End UML](./images/backendUML.png) <br>
+![Back End UML](./items/images/backendUML.png) <br>
 
 
 ## Application Design and Decisions
@@ -298,7 +298,7 @@ combination of username and user email or just user email. It can also check if 
 * The MVVM Design pattern was utilised for all files in the model, view, and viewmodel files.
 * Implementing all the functionality and firebase logic in a single class or activity would lead to problems in testing and refactoring the code. This is due to difficulty and unreliability in testing two components of an application simultaneously. Hence, the separation of code and clean architecture can allow us to develop a Mock database to test easily against our program and its individual components.
 
-![mvvmdiagram](./images/mvvmdiagram.png) <br>
+![mvvmdiagram](./items/images/mvvmdiagram.png) <br>
 
 ## Summary of Known Errors and Bugs
 
@@ -376,7 +376,7 @@ combination of username and user email or just user email. It can also check if 
         * database/FirebaseWaddleDatabaseServiceClient.java, createNewUser, signIn, lines of code: 88-152*
     * Users can login to the app using an existing Firebase account. When a user enters their email and password on the login page, the app checks if the credentials match an existing user in the Firebase database. If there is a match, the user is directed to the dashboard fragment. The login page also implements null safe exceptions such as the user not entering an email or password, or entering a string not in the form of an email. All of these exceptions result in a concise error message being returned at the bottom of the screen for the user
 
-<img src="./images/login.png" alt="Login" height="600"><br>
+<img src="./items/images/login.png" alt="Login" height="600"><br>
 
 2. [2500 Data Instances]. There must be data file(s) with at least 2,500 valid data instances **(easy)**
     * Classes/files utilised:
@@ -389,12 +389,12 @@ combination of username and user email or just user email. It can also check if 
     - Classes utilised: All ViewModel, View and Firebase related classes.
     - The app retrieves data from Firebase to display information across most of its activities and fragments. This data includes a user's course list, course participants, and their roles as either a student or teacher. The information is utilised across the application and is mainly displayed within the four primary fragments. This is performed through a ClassBinding variable within a View class, which can be set to utilise a ViewModel class. Hence, we can use our defined methods, getters/setters in our ViewModel class to return a user's information and display it on our application UI.
 
-<img src="./images/loadinfo.png" alt="Load Data/Information" height="600"><br>
+<img src="./items/images/loadinfo.png" alt="Load Data/Information" height="600"><br>
 
 5. [Search by Parsers/Tokenisers]. Users must be able to search for information on your app. **(medium)**
     - To be added
 
-<img src="./images/search.png" alt="Search by Parsers/Tokenisers" height="600"><br>
+<img src="./items/images/search.png" alt="Search by Parsers/Tokenisers" height="600"><br>
 
 
 ### General Features
@@ -431,7 +431,7 @@ Feature Category: Creating Processes <br>
         * DashboardFragment.java
     * Within the UserViewModel.java class, a boolean variable isStudent is used to indicate whether the user is a student or not by using the instanceof keyword with StudentDto and TeacherDto. The permission of certain users is implemented by an OnClickListener within a lambda function setExpandButton which is executed on the click of the expandable button. For a teacher, both create class and join class options will be displayed, but when the student attempts to expand the button, only the join class button will display.
 
-<img src="./images/processpermission.png" alt="Process-Permission" height="600"><br>
+<img src="./items/images/processpermission.png" alt="Process-Permission" height="600"><br>
 
 Feature Category: Search-related features <br>
 1. [Search-Invalid]. Search functionality can handle partially valid and invalid search queries. **(medium)**
@@ -443,7 +443,7 @@ Feature Category: Search-related features <br>
       * SearchFragment.java
     * The Firestore Database allows users to search for other users and courses. The search functionality accommodates partially valid queries and returns the most accurate results based on the given query. For example, searching for "COMP" under the classes section will retrieve all courses that contain the substring "COMP". This search is accomplished using the fetchAllUsersForSearch method, which breaks down the user's input string into tokens and analyses it against the attributes of courses and users. It compares each attribute and returns the matching queries.
 
-<img src="./images/invalidsearch.png" alt="Search-Invalid" height="600"><br>
+<img src="./items/items/images/invalidsearch.png" alt="Search-Invalid" height="600"><br>
 
 Feature Category: User Interactivity <br>
 1. [Interact-Follow]. The ability to ‘follow’ a course or any specific items. **(medium)**
@@ -453,7 +453,7 @@ Feature Category: User Interactivity <br>
         * database/FirebaseWaddleDatabaseServiceClient
     * Both teachers and students have the option to join classes by either entering a class code using the expandable button or manually searching for a course through the app's search function. When a user tries to join a course, the joinCourse method in UserViewModel.java is executed, adding the queried course to the user's list of courses. The updated list of courses is then displayed in DashboardFragment.java, where the user can click on each course to access its content, view participants, and access discussion forums.
 
-<img src="./images/interactfollow.png" alt="Interact-Follow" height="600"><br>
+<img src="./items/images/interactfollow.png" alt="Interact-Follow" height="600"><br>
 
 Feature Category: Greater Data Usage, Handling and Sophistication <br>
 1. [Data-Profile] User profile or Course material activity containing a media file (image, animation (e.g. gif), video). **(easy)**
@@ -462,7 +462,7 @@ Feature Category: Greater Data Usage, Handling and Sophistication <br>
      * profile_fragment.xml
    * When accessing your own or another user's profile, an aesthetically pleasing background is associated with the activity, enhancing the visual presentation of the information displayed. This captivating background serves as a backdrop while showcasing the comprehensive details of a particular user, encompassing their full name, email address, and their status as a student or teacher. Additionally, the profile furnishes a comprehensive list of the courses in which the user is currently enrolled. This thoughtful design element not only enhances the user experience but also adds a touch of personalisation and visual appeal to the profile-viewing process.
 
-<img src="./images/dataprofile.png" alt="Data Profile" height="600"><br>
+<img src="./items/images/dataprofile.png" alt="Data Profile" height="600"><br>
 
 Feature Category: UI Design and Testing <br>
 1. [UI-Test]. UI tests using espresso or similar. **(hard)**
@@ -474,9 +474,9 @@ Feature Category: UI Design and Testing <br>
 
 ## Team Meetings
 
-- *[Team Meeting 1](./meeting1.md)*
-- *[Team Meeting 2](./meeting2.md)*
-- *[Team Meeting 3](./meeting3.md)*
-- *[Team Meeting 4](./meeting4.md)*
-- *[Team Meeting 5](./meeting5.md)*
-- *[Team Meeting 6](./meeting6.md)*
+- *[Team Meeting 1](./items/meeting1.md)*
+- *[Team Meeting 2](./items/meeting2.md)*
+- *[Team Meeting 3](./items/meeting3.md)*
+- *[Team Meeting 4](./items/meeting4.md)*
+- *[Team Meeting 5](./items/meeting5.md)*
+- *[Team Meeting 6](./items/meeting6.md)*
