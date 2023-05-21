@@ -443,7 +443,7 @@ Feature Category: Search-related features <br>
       * SearchFragment.java
     * The Firestore Database allows users to search for other users and courses. The search functionality accommodates partially valid queries and returns the most accurate results based on the given query. For example, searching for "COMP" under the classes section will retrieve all courses that contain the substring "COMP". This search is accomplished using the fetchAllUsersForSearch method, which breaks down the user's input string into tokens and analyses it against the attributes of courses and users. It compares each attribute and returns the matching queries.
 
-<img src="./items/items/images/invalidsearch.png" alt="Search-Invalid" height="600"><br>
+<img src="./items/images/invalidsearch.png" alt="Search-Invalid" height="600"><br>
 
 Feature Category: User Interactivity <br>
 1. [Interact-Follow]. The ability to ‘follow’ a course or any specific items. **(medium)**
