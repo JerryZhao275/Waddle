@@ -1,6 +1,4 @@
-# G39 Report
-**Waddle - Educational Application**
-
+# Waddle Educational Application
 ## Table of Contents
 
 1. [Team Members and Roles](#team-members-and-roles)
