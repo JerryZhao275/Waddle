@@ -10,7 +10,6 @@
 7. [Summary of Known Errors and Bugs](#summary-of-known-errors-and-bugs)
 8. [Testing Summary](#testing-summary)
 9. [Implemented Features](#implemented-features)
-10. [Team Meetings](#team-meetings)
 
 ## Team Members and Roles
 
@@ -59,127 +58,7 @@
     * CourseAVLTest of Testing summary
     * All Implemented features excluding Search by Parsers/Tokenisers and UI-Tests
     * Team Meetings
-* Scribed Meeting 4, 5, 6
-* All presentation slides
 
-
-
-
-
-**u7348473, Karthik Reddy Vemireddy**, I contributed approximately 35% of the code. The following are my contributions:
-* All the search expressions:
-  * CourseDescExpression.java
-  * CourseExpression.java
-  * EmailExpression.java
-  * EmptyExpression.java
-  * Exp.java
-  * NameExpression.java
-* Search Tokenizer SearchBarTokenizer.java
-* Creation, Maintenance and linking of firebase and development around firebase.
-* Search Parser parseName.java
-* Tokenizer Token class Token.java
-* FirebaseWaddleDatabaseServiceClient.java Wrote the whole database code and others added additional functions.
-* CustomOnCompleteListener.java to listen to firebase async operations completion.
-* Helped in architecting most of the data object classes.
-* Added additional comments in all files.
-* Responsible for code refactoring in many code files.
-* ViewModel classes
-    * CommentRVAdapter.java, added database listener functionality for fire-sync.
-    * CommentViewModel.java, whole file
-    * CreateClassViewModel.java, 75% contribution
-    * DiscussionAdapter.java, added database listener functionality for fire-sync.
-    * DiscussionViewModel.java, whole file
-    * ListViewAdapter.java, added database listener functionality for search.
-    * SignUpViewModel.java, whole file
-    * UserViewModel.java, added additional database related listeners and operations.
-* View classes
-    * DashboardFragment.java added additional logic for MVVM architecture and database interaction.
-    * ProfileFragment.java, whole file
-    * SearchFragment.java onQueryTextSubmit and onQueryTextChange
-    * CoursePage.java Added listeners for database operation completions.
-    * CreateClass.java, half contributions
-    * DiscussionPage.java additional logic for passing to viewModels.
-    * LoginView.java, majority contribution
-    * SignupView.java, whole file
-* XML files
-    * signup.xml
-    * login.xml
-* Report - Writing contributions
-    * Grammar, tokenizer and parser.
-* I additionally assisted all the working teammates to debug several bugs throughout the development
-process. 
-* Worked on the presentation video.
-
-
-u7474428, Michael Ostapenko, I contribute 10% of the code. Here are my contributions:
-* MessagesViewModel.java Class (entire class)
-* MessagesFragment.java Class (filled in entire class)
-* fragment_messages.xml (added the list view for viewing notifications)
-* UserDTO.class: update(), getDirectMessages(), addMessage()
-* MessageFactory.java Class (entire class)
-* FirebaseWaddleDatabaseServiceClient.java: notifyObservers(), detachAll(), attach(), detach()
-* Observer and Subject Interfaces
-* Worked on and completed a password hashing algorithm which ended up being redundant due to using firebase password security
-and not included in the code
-
-I proposed and worked on an Observer design pattern for the project to react to database changes,
-i.e. course changes or discussion changes and then update the user with a notification in the
-notifications tab. Adding to that I also created a Factory Design pattern to generate a notification
-message based of constraints. While I did not suggest it, I did work with the MVVM pattern for designing android
-applications inside of the messages fragment to display those notifications properly. 
-
-For report writing, I wrote in information on the classes and methods I coded in, i.e. the Observer design pattern, my part
-of the Factory pattern I used and the notification system as a whole. 
-
-u7499989, Matthew Richards, I contribute 10% of the code. Here are my contributions:
-* DashboardTests.java
-* LoginViewTests.java
-* ConfigurationManager.java
-* WaddleDatabaseConfiguration.java
-* WaddleDatabaseServiceClient.java
-* MockWaddleDatabaseServiceClient.java
-* FirebaseWaddleDatabaseServiceClient.java (created skeleton, others fleshed it out)
-* WaddleDatabaseServiceClientFactory.java
-* LoginModel.java
-* LoginViewModel.java
-* CommonRegexUtil.java
-* StringUtils.java
-* LoginEvent.java
-* LoginPageTests.java
-* RegexTests.java 
-
-I proposed the initial architecture for the project, that is, the MVVM pattern for our pages, to decouple database and UI interactions from our business logic. I wrote the first example of these, with the LoginView, LoginViewModel, and LoginModel classes, accompanied by the LoginPageTests class, in the hopes that we could establish good practices early on. These unit tests showcased the potential of the MVVM architecture to support reproducible and isolated tests: not relying on Firebase, nor the Android emulator. To facilitate this, I designed and wrote the framework for database interaction through the project: dependency injection of the WaddleDatabaseServiceClient instances. I wrote both a mock, and Firebase implementation of this interface, which is conditionally injected based on an environment.properties file for each environment (production/in-app, unit tests, espresso tests). This allows for our unit tests to be exact and not have to worry about depending on Firebase, but rather purely testing our business rules by replacing dependency on live data with a simple map of hardcoded users. 
-
-u7124454, Ryan Yoon, I contribute 10% of the code. Here are my contributions:
-
-* CommentRVAdapter.java class (excluding set and add functions)
-* DiscussionAdapter.java class (excluding set and add functions)
-* RecyclerViewAdapter.java class (excluding listToString())
-* DashboardFragment.java class: expandable floating acion button implementation and initial recyclerView implementation inside the onClick()
-* CoursePage.java.java class
-* DiscussionPage.java class
-* DiscussionDto.java class (excluding id instances)
-* CommentDto.java class (excluding id instances)
-* fragment_dashboard.xml
-* item_discussion.xml
-* comment_item.xml
-* activity_course_page.xml
-* activity_discussion_page.xml
-* item_course.xml
-* UML diagrams for the report
-* Worked on the presentation video.
-
-
-The discussion and comment data objects were created to make it possible to submit discussion posts and make comments onto them.
-
-Expandable floating action buttons were implemented in the Dashboard fragment to be able to expand button actions of 
-joining or creating classes to add to the Dashboard Course RecyclerView. Each item was also clickable to access each 
-courses’ discussion page where users could add a discussion with a title and the content of the discussion. The 
-discussions themselves were able to be clicked to access the discussion page where comments relating to the discussion 
-could be posted. I did not implement any of the persistence that relates to the database.
-
-I contributed to making the UML for the report with assistance of my group members in helping understand how to relate and
- place everything within the diagram.
 
 ## Conflict Resolution Protocol
 1. Define the source of the conflict: The mediator will initiate communication with all team members and identify where the conflict lies.
@@ -468,13 +347,3 @@ Feature Category: UI Design and Testing <br>
      * DashboardTests.java
      * LoginViewTests.java
    * These tests open the Android emulator in the IDE and press various buttons across the UI to make assertions against the true functionality of the app, as it would appear to the user, rather than just asserting against the logic that may or may not have been bridged correctly to the real-life observer.
-
-
-## Team Meetings
-
-- *[Team Meeting 1](./items/meeting1.md)*
-- *[Team Meeting 2](./items/meeting2.md)*
-- *[Team Meeting 3](./items/meeting3.md)*
-- *[Team Meeting 4](./items/meeting4.md)*
-- *[Team Meeting 5](./items/meeting5.md)*
-- *[Team Meeting 6](./items/meeting6.md)*
